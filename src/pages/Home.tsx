@@ -1,5 +1,5 @@
 import reactLogo from '~/assets/react.svg';
-import { ConnectButton } from '~/components/shared';
+import { ConnectButton, Button } from '~/components/shared';
 
 function Home() {
   return (
@@ -14,6 +14,8 @@ function Home() {
       </div>
 
       <ConnectButton />
+
+      <Button onClick={() => console.log('test custom button')}>Test</Button>
     </div>
   );
 }
