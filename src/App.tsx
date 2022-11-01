@@ -1,13 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import reactLogo from './assets/react.svg';
+import './App.css';
+import { ConnectButton } from '~/components/shared';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   const TestClick = () => {
-    console.log('test')
-  }
+    console.log('test');
+  };
 
   return (
     <div className='App'>
@@ -19,13 +17,10 @@ function App() {
           <img src={reactLogo} className='logo react' alt='React logo' />
         </a>
       </div>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-      </div>
 
-      <button onClick={TestClick}>Test</button>
+      <ConnectButton />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
