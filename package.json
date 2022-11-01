@@ -11,7 +11,8 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier -- --write",
-    "format": "npm run prettier:fix && npm run lint:fix"
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "0.7.4",
@@ -36,6 +37,7 @@
     "prettier": "2.7.1",
     "typescript": "4.8.4",
     "vite": "3.2.2",
-    "vite-tsconfig-paths": "3.5.2"
+    "vite-tsconfig-paths": "3.5.2",
+    "husky": "8.0.1"
   }
 }
