@@ -1,25 +1,14 @@
-import reactLogo from './assets/react.svg';
-import './App.css';
-import { ConnectButton } from '~/components/shared';
+import { Route, Routes } from 'react-router-dom';
+
+import '~/App.css';
+import Home from '~/pages/Home';
 
 function App() {
-  const TestClick = () => {
-    console.log('test');
-  };
-
   return (
-    <div className='App'>
-      <div>
-        <a href='https://vitejs.dev' target='_blank' rel='noreferrer'>
-          <img src='/vite.svg' className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://reactjs.org' target='_blank' rel='noreferrer'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-
-      <ConnectButton />
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='*' element={<Home />} />
+    </Routes>
   );
 }
 

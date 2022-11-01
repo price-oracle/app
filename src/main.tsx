@@ -9,6 +9,8 @@ import { publicProvider } from 'wagmi/providers/public';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from './App';
 
 const { chains, provider } = configureChains(
@@ -31,7 +33,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </RainbowKitProvider>
     </WagmiConfig>
   </React.StrictMode>
