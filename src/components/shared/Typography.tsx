@@ -9,12 +9,7 @@ import {
   THEME_TEXT_PRIMARY,
   THEME_TEXT_SECONDARY,
 } from './theme/theme.selector';
-import {
-  FONT_SIZE_20,
-  FONT_SIZE_16,
-  FONT_SIZE_12,
-  FONT_SIZE_24,
-} from './Variables';
+import { FONT_SIZE_20, FONT_SIZE_16, FONT_SIZE_12, FONT_SIZE_24 } from './Variables';
 
 interface BaseProps {
   allowWrap?: boolean;
@@ -55,13 +50,7 @@ interface Props {
   variant?: TypographyVariant;
   color?: 'primary' | 'secondary' | 'disabled' | 'background';
 }
-export const Typography = ({
-  allowWrap,
-  children,
-  variant,
-  color,
-  ...otherProps
-}: Props) => {
+export const Typography = ({ allowWrap, children, variant, color, ...otherProps }: Props) => {
   const Component = useMemo(() => {
     switch (variant) {
       case 'x-large':

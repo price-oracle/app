@@ -19,7 +19,7 @@ export type IconName =
   | 'twitter'
   | 'user';
 
-const Icon = styled.i.attrs<{ name: IconName }>((props) => ({
+export const Icon = styled.i.attrs<{ name: IconName }>((props) => ({
   className: `picon-${props.name}`,
 }))<{
   name: IconName;
@@ -34,5 +34,3 @@ const Icon = styled.i.attrs<{ name: IconName }>((props) => ({
   padding: ${(props) => props.padding || SPACING_4()};
   transform: rotate(${(props) => props.rotate || 0}deg);
 `;
-
-export default Icon;

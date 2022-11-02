@@ -6,7 +6,7 @@ import {
   TopContent,
   TextContainer,
   Link,
-  EnterBoxButton
+  EnterBoxButton,
 } from './LandingPage.styles';
 import { Typography } from '../../components/shared';
 import { Link as RouterLink } from 'react-router-dom';
@@ -23,14 +23,14 @@ function LandingPage() {
       <MiddleContent>
         <StyledLogo />
         <TextContainer>
-          <Typography allowWrap variant="large">
+          <Typography allowWrap variant='large'>
             Reliable, secure, and permissionless price oracles for every token.
           </Typography>
         </TextContainer>
-        <RouterLink to="/app/pools">
+        <RouterLink to='/app/pools'>
           <EnterBoxButton>Enter App</EnterBoxButton>
         </RouterLink>
-        <Link href="https://twitter.com/price_oracle">
+        <Link href='https://twitter.com/price_oracle'>
           <Typography>Documentation</Typography>
         </Link>
       </MiddleContent>

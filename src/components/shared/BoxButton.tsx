@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import {
-  THEME_TEXT_PRIMARY,
-  THEME_BACKGROUND,
-  THEME_BORDER,
-} from './theme/theme.selector';
+import { THEME_TEXT_PRIMARY, THEME_BACKGROUND, THEME_BORDER } from './theme/theme.selector';
 import { FONT_SIZE_20, SPACING_16, SPACING_48 } from './Variables';
 import Button from './Button';
 
@@ -18,7 +14,7 @@ const Container = styled.div<ContainerProps>`
 interface ButtonProps {
   disabled?: boolean;
 }
-const SButton = styled(Button) <ButtonProps>`
+const SButton = styled(Button)<ButtonProps>`
   background-color: ${THEME_TEXT_PRIMARY};
   border: ${THEME_BORDER};
   color: ${THEME_BACKGROUND};
@@ -90,4 +86,3 @@ export const BoxButton = ({
     </Container>
   );
 };
-

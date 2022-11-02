@@ -9,7 +9,7 @@ import {
   SPACING_96,
   MOBILE_MAX_WIDTH,
   THEME_BORDER,
-  THEME
+  THEME,
 } from '../../../components/shared';
 
 const createAnimation = ({
@@ -101,19 +101,19 @@ const BoxSize7 = styled(Box)`
 
 export const Box1 = styled(BoxSize5)`
   animation-name: ${createAnimation({
-  rotate: '-112.65deg',
-  initialY: '-100%',
-})};
+    rotate: '-112.65deg',
+    initialY: '-100%',
+  })};
   left: -45px;
   top: 30px;
 `;
 
 export const Box2 = styled(BoxSize4)`
   animation-name: ${createAnimation({
-  rotate: '-63.31deg',
-  initialY: '-100%',
-  initialX: '-100%',
-})};
+    rotate: '-63.31deg',
+    initialY: '-100%',
+    initialX: '-100%',
+  })};
   left: 5px;
   top: 215px;
 
@@ -125,10 +125,10 @@ export const Box2 = styled(BoxSize4)`
 
 export const Box3 = styled(BoxSize2)`
   animation-name: ${createAnimation({
-  rotate: '-28.44deg',
-  initialY: '-100%',
-  initialX: '-100%',
-})};
+    rotate: '-28.44deg',
+    initialY: '-100%',
+    initialX: '-100%',
+  })};
   left: -7px;
   top: 350px;
 
@@ -139,10 +139,10 @@ export const Box3 = styled(BoxSize2)`
 
 export const Box4 = styled(BoxSize1)`
   animation-name: ${createAnimation({
-  rotate: '-26.43deg',
-  initialY: '-100%',
-  initialX: '-100%',
-})};
+    rotate: '-26.43deg',
+    initialY: '-100%',
+    initialX: '-100%',
+  })};
   left: 40px;
   top: 400px;
 
@@ -154,30 +154,30 @@ export const Box4 = styled(BoxSize1)`
 
 export const Box5 = styled(BoxSize6)`
   animation-name: ${createAnimation({
-  rotate: '-7.7deg',
-  initialY: '-100%',
-  initialX: '-100%',
-})};
+    rotate: '-7.7deg',
+    initialY: '-100%',
+    initialX: '-100%',
+  })};
   left: 9vw;
   top: -30px;
 `;
 
 export const Box6 = styled(BoxSize2)`
   animation-name: ${createAnimation({
-  rotate: '-28.44deg',
-  initialY: '-100%',
-  initialX: '-100%',
-})};
+    rotate: '-28.44deg',
+    initialY: '-100%',
+    initialX: '-100%',
+  })};
   left: 8vw;
   top: 30px;
 `;
 
 export const Box7 = styled(BoxSize3)`
   animation-name: ${createAnimation({
-  rotate: '-24.56deg',
-  initialY: '-100%',
-  initialX: '-100%',
-})};
+    rotate: '-24.56deg',
+    initialY: '-100%',
+    initialX: '-100%',
+  })};
   left: 10vw;
   top: 190px;
 
@@ -189,28 +189,28 @@ export const Box7 = styled(BoxSize3)`
 
 export const Box8 = styled(BoxSize7)`
   animation-name: ${createAnimation({
-  rotate: '-70.6deg',
-  initialY: '-100%',
-  initialX: '-25%',
-})};
+    rotate: '-70.6deg',
+    initialY: '-100%',
+    initialX: '-25%',
+  })};
   left: 25vw;
   top: -100px;
 `;
 
 export const Box9 = styled(BoxSize5)`
   animation-name: ${createAnimation({
-  rotate: '-21.25deg',
-  initialY: '-100%',
-})};
+    rotate: '-21.25deg',
+    initialY: '-100%',
+  })};
   left: 34vw;
   top: -20px;
 `;
 
 export const Box10 = styled(BoxSize4)`
   animation-name: ${createAnimation({
-  rotate: '-68.34deg',
-  initialY: '-100%',
-})};
+    rotate: '-68.34deg',
+    initialY: '-100%',
+  })};
   right: 46vw;
   top: -20px;
 
@@ -222,39 +222,39 @@ export const Box10 = styled(BoxSize4)`
 
 export const Box11 = styled(BoxSize2)`
   animation-name: ${createAnimation({
-  rotate: '-46.29deg',
-  initialY: '-100%',
-})};
+    rotate: '-46.29deg',
+    initialY: '-100%',
+  })};
   right: 40vw;
   top: 50px;
 `;
 
 export const Box12 = styled(BoxSize6)`
   animation-name: ${createAnimation({
-  rotate: '-7.7deg',
-  initialY: '-100%',
-  initialX: '25%',
-})};
+    rotate: '-7.7deg',
+    initialY: '-100%',
+    initialX: '25%',
+  })};
   right: 31vw;
   top: -50px;
 `;
 
 export const Box13 = styled(BoxSize7)`
   animation-name: ${createAnimation({
-  rotate: '-36.63deg',
-  initialY: '-100%',
-  initialX: '100%',
-})};
+    rotate: '-36.63deg',
+    initialY: '-100%',
+    initialX: '100%',
+  })};
   right: 120px;
   top: -15px;
 `;
 
 export const Box14 = styled(BoxSize2)`
   animation-name: ${createAnimation({
-  rotate: '-28.44deg',
-  initialY: '-100%',
-  initialX: '100%',
-})};
+    rotate: '-28.44deg',
+    initialY: '-100%',
+    initialX: '100%',
+  })};
   right: 15px;
   top: 150px;
 
@@ -266,19 +266,19 @@ export const Box14 = styled(BoxSize2)`
 
 export const Box15 = styled(BoxSize5)`
   animation-name: ${createAnimation({
-  rotate: '-63.31deg',
-  initialY: '-100%',
-  initialX: '100%',
-})};
+    rotate: '-63.31deg',
+    initialY: '-100%',
+    initialX: '100%',
+  })};
   right: -15px;
   top: 220px;
 `;
 
 export const Box16 = styled(BoxSize2)`
   animation-name: ${createAnimation({
-  rotate: '-78.4deg',
-  initialY: '-100%',
-})};
+    rotate: '-78.4deg',
+    initialY: '-100%',
+  })};
   right: 55px;
   top: 350px;
 
@@ -290,10 +290,10 @@ export const Box16 = styled(BoxSize2)`
 
 export const Box17 = styled(BoxSize1)`
   animation-name: ${createAnimation({
-  rotate: '-66.64deg',
-  initialY: '-100%',
-  initialX: '100%',
-})};
+    rotate: '-66.64deg',
+    initialY: '-100%',
+    initialX: '100%',
+  })};
   right: 5px;
   top: 410px;
 

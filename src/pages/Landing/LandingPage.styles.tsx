@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import {
-  Logo, 
+  Logo,
   THEME_TEXT_PRIMARY,
   THEME_BACKGROUND,
   BoxButton,
@@ -9,7 +9,7 @@ import {
   SPACING_192,
   SPACING_384,
   SPACING_64,
-  MOBILE_MAX_WIDTH
+  MOBILE_MAX_WIDTH,
 } from '../../components/shared';
 
 export const Container = styled.div<{ height: number }>`

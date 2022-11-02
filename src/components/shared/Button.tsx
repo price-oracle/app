@@ -24,7 +24,6 @@ const WithoutStyles = styled.button`
   padding: 0;
 `;
 
-
 export interface ButtonProps {
   disabled?: boolean;
   onClick?: (e?: any) => void;
@@ -37,48 +36,47 @@ export const Button: FC<ButtonProps> = ({ disabled, onClick, children, ...props 
   </StyledButton>
 );
 
-
 const WithoutColors = styled(WithoutStyles)`
-display: flex;
-box-sizing: border-box;
-color: ${THEME_TEXT_PRIMARY};
-white-space: nowrap;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-line-height: 1.25em;
+  display: flex;
+  box-sizing: border-box;
+  color: ${THEME_TEXT_PRIMARY};
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1.25em;
 `;
 
 const StyledButton = styled(WithoutColors)`
-&:disabled {
-  color: ${THEME_ACTION_DISABLED};
-  background-color: ${THEME_ACTION_DISABLED_BACKGROUND};
-  cursor: default;
-}
+  &:disabled {
+    color: ${THEME_ACTION_DISABLED};
+    background-color: ${THEME_ACTION_DISABLED_BACKGROUND};
+    cursor: default;
+  }
 
-&:enabled {
-  &:hover {
-    background-color: ${THEME_ACTION_HOVER};
+  &:enabled {
+    &:hover {
+      background-color: ${THEME_ACTION_HOVER};
+    }
+
+    &:active {
+      background-color: ${THEME_ACTION_SELECTED};
+    }
   }
-  
-  &:active {
-    background-color: ${THEME_ACTION_SELECTED};
-  }
-}
 `;
 
 export const PrimaryButton = styled(Button)`
-background-color: ${THEME_TEXT_PRIMARY};
-border: ${THEME_BORDER};
-color: ${THEME_BACKGROUND};
-padding: ${SPACING_4} ${SPACING_12};
+  background-color: ${THEME_TEXT_PRIMARY};
+  border: ${THEME_BORDER};
+  color: ${THEME_BACKGROUND};
+  padding: ${SPACING_4} ${SPACING_12};
 
-// TODO: improve design system to have hover & selected values for complementary color
+  // TODO: improve design system to have hover & selected values for complementary color
   &:enabled {
     &:hover {
       background-color: ${THEME_TEXT_SECONDARY};
     }
-    
+
     &:active {
       background-color: ${THEME_DISABLED};
     }
@@ -86,17 +84,17 @@ padding: ${SPACING_4} ${SPACING_12};
 `;
 
 export const SecondaryButton = styled(WithoutColors)`
-padding: ${SPACING_4} ${SPACING_12};
+  padding: ${SPACING_4} ${SPACING_12};
 
-&:enabled {
-  &:hover {
-    text-decoration: underline;
+  &:enabled {
+    &:hover {
+      text-decoration: underline;
+    }
   }
-}
 
-&:disabled {
-  color: ${THEME_DISABLED};
-  cursor: default;
-}
+  &:disabled {
+    color: ${THEME_DISABLED};
+    cursor: default;
+  }
 `;
 export default Button;

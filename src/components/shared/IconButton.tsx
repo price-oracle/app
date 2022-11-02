@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { MOBILE_MAX_WIDTH } from './Variables';
-import Icon, { IconName } from './Icon';
+import { Icon, IconName } from './Icon';
 import { SPACING_12 } from './Variables';
 
 interface ContainerProps {
@@ -30,10 +30,8 @@ type Props = React.HTMLAttributes<HTMLElement> &
     padding?: string;
   };
 
-const IconButton = ({ className, color, name, ...restProps }: Props) => (
+export const IconButton = ({ className, color, name, ...restProps }: Props) => (
   <Container className={className} {...restProps}>
     <Icon color={color} name={name} />
   </Container>
 );
-
-export default IconButton;
