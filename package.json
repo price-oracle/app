@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "0.7.4",
+    "@reduxjs/toolkit": "1.8.6",
     "ethers": "5.7.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "8.0.4",
     "react-router-dom": "6.4.2",
     "styled-components": "5.3.6",
     "wagmi": "0.7.9"
@@ -26,6 +28,7 @@
   "devDependencies": {
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
+    "@types/react-redux": "7.1.24",
     "@types/react-router-dom": "5.3.3",
     "@types/styled-components": "5.1.26",
     "@typescript-eslint/eslint-plugin": "5.42.0",
