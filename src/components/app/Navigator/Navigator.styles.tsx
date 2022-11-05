@@ -31,6 +31,21 @@ export const List = styled.section`
   width: 100vw;
 `;
 
+export const CollapsableList = styled(List)`
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    align-items: flex-end;
+    background-color: ${THEME_BACKGROUND};
+    border: ${THEME_BORDER};
+    flex-direction: column;
+    padding: 0;
+    position: absolute;
+    right: ${SPACING_24};
+    top: ${SPACING_24};
+    width: fit-content;
+    z-index: 1;
+  }
+`;
+
 export const Item = styled.section`
   a {
     display: block;

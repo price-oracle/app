@@ -2,6 +2,8 @@
   margin: 0 auto;
   text-align: center;
   width: 100%;
+  /* TODO use var later */
+  background-color: #121212;
 }
 
 .logo {
