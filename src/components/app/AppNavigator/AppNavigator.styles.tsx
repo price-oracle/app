@@ -28,7 +28,7 @@ export const Container = styled.header`
   display: flex;
   height: ${SPACING_128};
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     justify-content: space-between;
     height: ${SPACING_64};
   }
@@ -37,7 +37,7 @@ export const Container = styled.header`
 export const Section = styled.section`
   display: flex;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     flex-direction: column;
   }
 `;
@@ -50,7 +50,7 @@ export const ThemeButtonContainer = styled(HeaderButton)`
 export const SCustomLink = styled(CustomLink)`
   padding: 0;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     &::before {
       display: none;
     }
@@ -78,7 +78,7 @@ export const SNavigatorItemRight = styled(Item)`
     padding: ${SPACING_12};
   }
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     flex-direction: column;
     width: 100%;
   }

@@ -67,4 +67,5 @@ export const COLOR_DANGER = () => '#dc3545' as const;
 
 export const COLOR_SUCCESS = () => '#28a745' as const;
 
-export const MOBILE_MAX_WIDTH = '600px';
+export const MOBILE_MAX_WIDTH = 600;
+export const TABLET_MAX_WIDTH = 1024;

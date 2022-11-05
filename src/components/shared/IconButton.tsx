@@ -14,7 +14,7 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
   padding: ${SPACING_12};
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     width: fit-content;
 
     ${(props) => (props.flip ? `transform: rotate(180deg);` : '')}

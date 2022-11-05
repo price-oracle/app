@@ -6,7 +6,7 @@ import {
   THEME_BACKGROUND,
   BoxButton,
   SPACING_16,
-  SPACING_192,
+  SPACING_256,
   SPACING_384,
   SPACING_64,
   MOBILE_MAX_WIDTH,
@@ -34,7 +34,7 @@ export const MiddleContent = styled.div`
   transform: translateY(-50%);
   width: 100vw;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     align-self: center;
   }
 `;
@@ -51,7 +51,7 @@ export const MiddleContent = styled.div`
 //     left: calc(50% - 8px);
 //   }
 
-//   @media (max-width: ${MOBILE_MAX_WIDTH}) {
+//   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
 //     padding: 1rem 0;
 //     position: relative;
 //   }
@@ -65,7 +65,7 @@ export const DataTitle = styled.div`
   margin-bottom: 0.5rem;
   text-align: center;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     font-size: 30px;
     line-height: unset;
   }
@@ -78,19 +78,22 @@ export const DataSubtitle = styled.div`
   line-height: 20px;
   text-align: center;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     font-weight: unset;
   }
 `;
 
 export const BottomContent = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, minmax(20%, auto));
-  grid-gap: 1rem;
   margin: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
-    grid-template-columns: repeat(2, minmax(20%, auto));
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
@@ -122,9 +125,10 @@ export const Link = styled.a`
 
 export const StyledLogo = styled(Logo)`
   width: ${SPACING_384};
+  text-shadow: 2px 2px;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
-    width: ${SPACING_192};
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    width: ${SPACING_256} !important;
   }
 `;
 
@@ -139,7 +143,7 @@ export const TextContainer = styled.div`
   line-height: 2rem;
   margin: 2rem auto;
 
-  @media (max-width: ${MOBILE_MAX_WIDTH}) {
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     flex-direction: column;
 
     & > div {

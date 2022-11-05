@@ -26,6 +26,7 @@ import { Item } from '../Navigator/Navigator.styles';
 import { chain, configureChains } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+import { useWindowDimensions } from '~/hooks/windowDimensions';
 
 const useWallet = () => {
   // const status = useSelector(selectWalletStatus);
@@ -47,8 +48,8 @@ const AppNavigator = () => {
   const theme = THEME;
   // const walletConnected = useSelector(selectWalletConnected);
   // const [themeIcon, toggleTheme] = useThemeButtonProps();
-  const isDesktop = true;
-  const isMobile = !isDesktop;
+  const { isMobile } = useWindowDimensions();
+
   // useWallet();
 
   return (
@@ -64,7 +65,7 @@ const AppNavigator = () => {
       <SNavigator>
         <Item>
           <Section>
-            {isDesktop && (
+            {!isMobile && (
               <SCustomLink to='/'>
                 <SHeaderButton as={StyledLogo} />
               </SCustomLink>

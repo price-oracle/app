@@ -7,6 +7,7 @@ import {
   TextContainer,
   Link,
   EnterBoxButton,
+  BottomContent,
 } from './LandingPage.styles';
 import { Typography } from '../../components/shared';
 import { Link as RouterLink } from 'react-router-dom';
@@ -34,6 +35,11 @@ function LandingPage() {
           <Typography>Documentation</Typography>
         </Link>
       </MiddleContent>
+      <BottomContent>
+        <Typography allowWrap variant='small'>
+          Made with 🤍 by the Wonderland team
+        </Typography>
+      </BottomContent>
     </Container>
   );
 }

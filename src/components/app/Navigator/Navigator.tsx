@@ -1,15 +1,16 @@
 import { useState } from 'react';
 
 import { THEME, THEME_TEXT_PRIMARY, IconButton, FONT_SIZE_16, SPACING_8 } from '~/components/shared';
-import { useIsDesktop } from './hooks';
+import { useWindowDimensions } from '~/hooks/windowDimensions';
 import { List, Item, Nav, IStylesProps } from './Navigator.styles';
 
 interface INavigatorProps {
   handleClickCloseMenu: () => void;
   handleClickToggleMenu: () => void;
   showMenu: boolean;
+  collapseOnMobile: boolean;
 }
-export const useNavigatorProps = (): INavigatorProps => {
+export const useNavigatorProps = (collapseOnMobile: boolean): INavigatorProps => {
   const [showMenu, setShowMenu] = useState(false);
 
   const handleClickToggleMenu = () => {
@@ -20,7 +21,7 @@ export const useNavigatorProps = (): INavigatorProps => {
     setShowMenu(false);
   };
 
-  return { showMenu, handleClickToggleMenu, handleClickCloseMenu };
+  return { showMenu, handleClickToggleMenu, handleClickCloseMenu, collapseOnMobile };
 };
 
 type IProps = {
@@ -35,14 +36,15 @@ function Navigator({
   handleClickCloseMenu,
   handleClickToggleMenu,
   showMenu,
+  collapseOnMobile = true,
 }: IProps) {
   const theme = THEME;
-  const isDesktop = useIsDesktop();
+  const { isMobile } = useWindowDimensions();
 
   return (
     <Nav differenceMixBlend={differenceMixBlend}>
       <List onMouseLeave={handleClickCloseMenu} className={className}>
-        {isDesktop || (
+        {isMobile && collapseOnMobile && (
           <IconButton
             flip={showMenu}
             onClick={handleClickToggleMenu}
@@ -54,7 +56,7 @@ function Navigator({
             padding={SPACING_8()}
           />
         )}
-        {(isDesktop || showMenu) && children}
+        {(!isMobile || showMenu || !collapseOnMobile) && children}
       </List>
     </Nav>
   );
