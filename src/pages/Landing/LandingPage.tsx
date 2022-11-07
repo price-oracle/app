@@ -9,7 +9,7 @@ import {
   EnterBoxButton,
   BottomContent,
 } from './LandingPage.styles';
-import { Typography } from '../../components/shared';
+import { Typography } from '~/components/shared';
 import { Link as RouterLink } from 'react-router-dom';
 // import useInnerHeight from '../../../../hooks/useInnerHeight';
 

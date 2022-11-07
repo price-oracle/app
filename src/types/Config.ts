@@ -1,5 +1,5 @@
 import { Network } from './Blockchain';
-import { Theme, Language } from './Settings';
+import { Language, ThemeName } from './Settings';
 
 export interface Env {
   ENV: string;
@@ -9,8 +9,8 @@ export interface Env {
 export interface Constants {
   STATE_VERSION: number;
   SUPPORTED_NETWORKS: Network[];
-  DEFAULT_THEME: Theme;
-  AVAILABLE_THEMES: Theme[];
+  DEFAULT_THEME: ThemeName;
+  AVAILABLE_THEMES: ThemeName[];
   DEFAULT_LANG: Language;
   SUPPORTED_LANGS: Language[];
 }

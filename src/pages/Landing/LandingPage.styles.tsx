@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import {
   Logo,
-  THEME_TEXT_PRIMARY,
-  THEME_BACKGROUND,
   BoxButton,
   SPACING_16,
   SPACING_256,
@@ -13,7 +11,7 @@ import {
 } from '../../components/shared';
 
 export const Container = styled.div<{ height: number }>`
-  background-color: ${THEME_BACKGROUND};
+  background-color: ${(props) => props.theme.background};
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -42,8 +40,8 @@ export const MiddleContent = styled.div`
 // export const DataBoxButton = styled(BoxButton).attrs({
 //   height: '146px',
 // })`
-//   background-color: ${THEME_BACKGROUND};
-//   color: ${THEME_TEXT_PRIMARY};
+//   background-color: ${(props) => props.theme.background};
+//   color: ${(props) => props.theme.textPrimary};
 //   padding: 2rem 0;
 //   flex-direction: column;
 
@@ -100,7 +98,7 @@ export const BottomContent = styled.div`
 export const Link = styled.a`
   align-items: center;
   box-sizing: border-box;
-  color: ${THEME_TEXT_PRIMARY};
+  color: ${(props) => props.theme.textPrimary};
   display: flex;
   font-family: PlusJakartaSans;
   font-size: 16px;
@@ -113,12 +111,12 @@ export const Link = styled.a`
   width: 180px;
 
   div {
-    border-bottom: 2px solid ${THEME_BACKGROUND};
+    border-bottom: 2px solid ${(props) => props.theme.background};
   }
 
   &:hover {
     div {
-      border-bottom-color: ${THEME_TEXT_PRIMARY};
+      border-bottom-color: ${(props) => props.theme.textPrimary};
     }
   }
 `;

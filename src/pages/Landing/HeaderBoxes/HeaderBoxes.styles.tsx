@@ -9,9 +9,8 @@ import {
   SPACING_64,
   SPACING_96,
   MOBILE_MAX_WIDTH,
-  THEME_BORDER,
-  THEME,
-} from '../../../components/shared';
+} from '~/components/shared';
+import { PropTheme } from '~/components/shared';
 
 const createAnimation = ({
   rotate,
@@ -37,8 +36,8 @@ const createAnimation = ({
   `;
 };
 
-export const Container = styled.div`
-  ${THEME.type === 'light' && 'filter: invert(100%);'}
+export const Container = styled.div<PropTheme>`
+  ${(props) => props.theme.type === 'light' && 'filter: invert(100%);'}
   overflow-x: clip;
   position: absolute;
   top: 0;
@@ -50,7 +49,7 @@ export const Box = styled.div`
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   background-color: #fff;
-  border: ${THEME_BORDER};
+  border: ${(props) => props.theme.border};
   mix-blend-mode: difference;
   position: absolute;
 `;

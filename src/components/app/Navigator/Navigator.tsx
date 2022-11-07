@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import { THEME, THEME_TEXT_PRIMARY, IconButton, FONT_SIZE_16, SPACING_8 } from '~/components/shared';
+import { IconButton, FONT_SIZE_16, SPACING_8, getTheme } from '~/components/shared';
 import { useWindowDimensions } from '~/hooks/windowDimensions';
+import { useAppSelector } from '~/store';
 import { List, Item, Nav, IStylesProps, CollapsableList } from './Navigator.styles';
 
 interface INavigatorProps {
@@ -40,7 +41,8 @@ function Navigator({
   showMenu,
   collapseOnMobile = true,
 }: IProps) {
-  const theme = THEME;
+  const currentTheme = useAppSelector(({ theme }) => theme.current);
+  const theme = getTheme(currentTheme);
   const { isMobile } = useWindowDimensions();
 
   const list = collapseOnMobile ? (
@@ -50,9 +52,7 @@ function Navigator({
           flip={showMenu}
           onClick={handleClickToggleMenu}
           name='chevron-down'
-          color={THEME_TEXT_PRIMARY({
-            theme,
-          })}
+          color={theme.textPrimary}
           fontSize={FONT_SIZE_16()}
           padding={SPACING_8()}
         />

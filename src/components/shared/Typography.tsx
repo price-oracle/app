@@ -1,14 +1,8 @@
 import { MouseEventHandler, useMemo } from 'react';
-// import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import {
-  THEME,
-  THEME_BACKGROUND,
-  THEME_DISABLED,
-  THEME_TEXT_PRIMARY,
-  THEME_TEXT_SECONDARY,
-} from './theme/theme.selector';
+import { useAppSelector } from '~/store';
+import { getTheme } from './theme';
 import { FONT_SIZE_20, FONT_SIZE_16, FONT_SIZE_12, FONT_SIZE_24 } from './Variables';
 
 interface BaseProps {
@@ -66,21 +60,21 @@ export const Typography = ({ allowWrap, children, variant, color, ...otherProps 
     }
   }, [variant]);
 
-  // const theme = useSelector(selectedTheme);
-  const theme = THEME;
+  const currentTheme = useAppSelector(({ theme }) => theme.current);
+  const theme = getTheme(currentTheme);
 
   const _color = useMemo(() => {
     switch (color) {
       case 'background':
-        return THEME_BACKGROUND({ theme });
+        return theme.background;
       case 'disabled':
-        return THEME_DISABLED({ theme });
+        return theme.textDisabled;
       case 'primary':
-        return THEME_TEXT_PRIMARY({ theme });
+        return theme.textPrimary;
       case 'secondary':
-        return THEME_TEXT_SECONDARY({ theme });
+        return theme.textSecondary;
       default:
-        return THEME_TEXT_PRIMARY({ theme });
+        return theme.textPrimary;
     }
   }, [color, theme]);
 

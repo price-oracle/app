@@ -1,5 +1,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 import {
+  AppNavigatorButtonContainer,
+  AppNavigatorContainer,
   Container,
   PriceLogoNavItem,
   SCustomLink,
@@ -8,25 +10,20 @@ import {
   SNavigator,
   SNavigatorItemRight,
   StyledLogo,
-  ThemeButtonContainer,
 } from './AppNavigator.styles';
 
-import { THEME } from '../../shared';
 // import {
 //   selectWalletConnected,
 //   selectWalletStatus,
 // } from '../../../../features/wallet/state/wallet.selectors';
 // import { useThemeButtonProps } from '../../../../components/atoms/ThemeButton';
 // import Modal from '../../../../features/modal/components/molecules/Modal/Modal';
-import { useEffect } from 'react';
-import { FONT_SIZE_16, SPACING_8, Icon, ConnectButton } from '~/components/shared';
+import { ConnectButton, FONT_SIZE_16, Icon, SPACING_8, getTheme, ThemeButton } from '~/components/shared';
 
 import { Item } from '../Navigator/Navigator.styles';
 
-import { chain, configureChains } from 'wagmi';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
 import { useWindowDimensions } from '~/hooks/windowDimensions';
+import { useAppSelector } from '~/store';
 
 const useWallet = () => {
   // const status = useSelector(selectWalletStatus);
@@ -45,11 +42,11 @@ const useWallet = () => {
 };
 
 const AppNavigator = () => {
-  const theme = THEME;
+  const currentTheme = useAppSelector(({ theme }) => theme.current);
+  const theme = getTheme(currentTheme);
   // const walletConnected = useSelector(selectWalletConnected);
   // const [themeIcon, toggleTheme] = useThemeButtonProps();
   const { isMobile } = useWindowDimensions();
-
   // useWallet();
 
   return (
@@ -104,12 +101,12 @@ const AppNavigator = () => {
           </Section>
         </Item>
         <SNavigatorItemRight>
-          <ConnectButton />
-          <div>
-            {/* <ThemeButtonContainer onClick={toggleTheme}>
-            <Icon color={theme.textSecondary} name={themeIcon} />
-          </ThemeButtonContainer> */}
-          </div>
+          <AppNavigatorContainer>
+            <ConnectButton />
+          </AppNavigatorContainer>
+          <AppNavigatorButtonContainer>
+            <ThemeButton />
+          </AppNavigatorButtonContainer>
         </SNavigatorItemRight>
       </SNavigator>
     </Container>

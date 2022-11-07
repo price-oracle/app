@@ -1,10 +1,9 @@
 import Navigator from '~/components/app/Navigator';
-import { THEME, THEME_TEXT_PRIMARY, Icon, ThemeButton } from '~/components/shared';
 import { useNavigatorProps } from '~/components/app/Navigator/Navigator';
 import { Item } from '~/components/app/Navigator/Navigator.styles';
+import { Icon, ThemeButton } from '~/components/shared';
 
 const LandingNavigator = () => {
-  const theme = THEME;
   const navProps = useNavigatorProps(false);
 
   return (

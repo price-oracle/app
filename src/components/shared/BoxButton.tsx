@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { THEME_TEXT_PRIMARY, THEME_BACKGROUND, THEME_BORDER } from './theme/theme.selector';
 import { FONT_SIZE_20, SPACING_16, SPACING_48 } from './Variables';
 import Button from './Button';
+import { PropTheme } from './theme';
 
 interface ContainerProps {
   height?: string;
@@ -11,13 +11,13 @@ const Container = styled.div<ContainerProps>`
   height: ${(props) => props.height || '60px'};
 `;
 
-interface ButtonProps {
+interface ButtonProps extends PropTheme {
   disabled?: boolean;
 }
 const SButton = styled(Button)<ButtonProps>`
-  background-color: ${THEME_TEXT_PRIMARY};
-  border: ${THEME_BORDER};
-  color: ${THEME_BACKGROUND};
+  background-color: ${(props) => props.theme.textPrimary};
+  border: ${(props) => props.theme.border};
+  color: ${(props) => props.theme.background};
   font-size: ${FONT_SIZE_20};
   font-weight: 600;
   left: 50%;
@@ -31,15 +31,15 @@ const SButton = styled(Button)<ButtonProps>`
   font-weight: 600;
 
   &:hover:enabled {
-    background-color: ${THEME_TEXT_PRIMARY};
+    background-color: ${(props) => props.theme.textPrimary};
     border: unset;
-    color: ${THEME_BACKGROUND};
+    color: ${(props) => props.theme.background};
     left: calc(50% - 8px);
     top: calc(50% - 8px);
 
     &:before {
       background-color: unset;
-      border: 2px solid ${THEME_TEXT_PRIMARY};
+      border: 2px solid ${(props) => props.theme.textPrimary};
       bottom: -10px;
       box-sizing: border-box;
       content: '';
@@ -52,7 +52,7 @@ const SButton = styled(Button)<ButtonProps>`
 
     &:after {
       background-color: unset;
-      border: 2px solid ${THEME_TEXT_PRIMARY};
+      border: 2px solid ${(props) => props.theme.textPrimary};
       box-sizing: border-box;
       content: '';
       height: 100%;

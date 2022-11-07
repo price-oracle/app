@@ -1,9 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
 // import { ThunkAPI } from '@frameworks/redux';
 
-import { Theme } from '~/types/Settings';
+import { ThemeName } from '~/types/Settings';
 
-const changeTheme = createAction<{ theme: Theme }>('theme/changeTheme');
+const changeTheme = createAction<{ theme: ThemeName }>('theme/changeTheme');
 
 // const changeTheme = createAsyncThunk<{ theme: Theme }, { theme: Theme }, ThunkAPI>(
 //   'theme/changeTheme',

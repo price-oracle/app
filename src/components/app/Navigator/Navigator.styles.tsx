@@ -1,12 +1,5 @@
 import styled from 'styled-components';
-import {
-  SPACING_12,
-  SPACING_24,
-  SPACING_32,
-  THEME_BACKGROUND,
-  THEME_BORDER,
-  MOBILE_MAX_WIDTH,
-} from '~/components/shared';
+import { SPACING_12, SPACING_24, SPACING_32, MOBILE_MAX_WIDTH } from '~/components/shared';
 
 export interface IStylesProps {
   differenceMixBlend?: boolean;
@@ -34,8 +27,8 @@ export const List = styled.section`
 export const CollapsableList = styled(List)`
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     align-items: flex-end;
-    background-color: ${THEME_BACKGROUND};
-    border: ${THEME_BORDER};
+    background-color: ${(props) => props.theme.background};
+    border: ${(props) => props.theme.border};
     flex-direction: column;
     padding: 0;
     position: absolute;

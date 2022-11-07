@@ -1,3 +1,3 @@
 export type Language = 'en';
 
-export type Theme = 'system-prefs' | 'light' | 'dark';
+export type ThemeName = 'system-prefs' | 'light' | 'dark';

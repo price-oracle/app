@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import Navigator from '../Navigator';
 import {
-  THEME_BORDER,
-  THEME_TEXT_PRIMARY,
   MOBILE_MAX_WIDTH,
   SPACING_12,
   SPACING_128,
@@ -18,7 +16,7 @@ import {
 import { Item } from '../Navigator/Navigator.styles';
 
 export const StyledLogo = styled(Logo)`
-  color: ${THEME_TEXT_PRIMARY};
+  color: ${(props) => props.theme.textPrimary};
   display: block;
   width: ${SPACING_96};
   padding-bottom: ${SPACING_8};
@@ -42,7 +40,12 @@ export const Section = styled.section`
   }
 `;
 
-export const ThemeButtonContainer = styled(HeaderButton)`
+export const AppNavigatorContainer = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+export const AppNavigatorButtonContainer = styled(HeaderButton)`
   align-items: center;
   display: flex;
 `;
@@ -63,12 +66,12 @@ export const SCustomLink = styled(CustomLink)`
 
 export const SHeaderButton = styled(HeaderButton)`
   height: 100%;
-  color: ${THEME_TEXT_PRIMARY};
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 export const SNavigator = styled(Navigator)`
   justify-content: space-between;
-  border-bottom: ${THEME_BORDER};
+  border-bottom: ${(props) => props.theme.border};
 `;
 
 export const SNavigatorItemRight = styled(Item)`

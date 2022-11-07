@@ -1,9 +1,8 @@
 import { Link, LinkProps, useResolvedPath, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import { THEME_DIVIDER, THEME_TEXT_PRIMARY } from '~/components/shared';
 
 const StyledLink = styled(Link)<{ selected?: boolean }>`
-  color: ${THEME_TEXT_PRIMARY};
+  color: ${(props) => props.theme.textPrimary};
   text-decoration: none;
   position: relative;
 
@@ -11,7 +10,7 @@ const StyledLink = styled(Link)<{ selected?: boolean }>`
     props.selected &&
     `
     &:before {
-      background-color: ${THEME_DIVIDER(props)};
+      background-color: ${props.theme.divider};
       bottom: 0;
       content: '';
       height: 10px;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { THEME_TEXT_PRIMARY } from './theme/theme.selector';
 import { FONT_SIZE_18, SPACING_4 } from './Variables';
 
 export type IconName =
@@ -28,7 +27,7 @@ export const Icon = styled.i.attrs<{ name: IconName }>((props) => ({
   padding?: string;
   rotate?: number;
 }>`
-  color: ${(props) => props.color || THEME_TEXT_PRIMARY(props)};
+  color: ${(props) => props.color || props.theme.textPrimary};
   display: inline-block;
   font-size: ${(props) => props.size || FONT_SIZE_18()};
   padding: ${(props) => props.padding || SPACING_4()};

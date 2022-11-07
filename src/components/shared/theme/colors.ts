@@ -11,10 +11,15 @@ export interface Theme {
   actionSelected: string;
   background: string;
   divider: string;
+  border: string;
   textDisabled: string;
   textPrimary: string;
   textSecondary: string;
   type: 'dark' | 'light';
+}
+
+export interface PropTheme {
+  theme: Theme;
 }
 
 export const darkTheme: Theme = {
@@ -24,6 +29,7 @@ export const darkTheme: Theme = {
   textSecondary: `rgba(255, 255, 255, 0.5)`,
   textDisabled: `rgba(255, 255, 255, 0.5)`,
   divider: `rgba(255, 255, 255, 0.12)`,
+  border: `2px solid rgba(255, 255, 255, 0.12)`,
   actionActive: `#fff`,
   actionHover: `rgba(255, 255, 255, 0.08)`,
   actionSelected: `rgba(255, 255, 255, 0.16)`,
@@ -38,6 +44,7 @@ export const lightTheme: Theme = {
   textSecondary: `rgba(0, 0, 0, 0.38)`,
   textDisabled: `rgba(0, 0, 0, 0.38)`,
   divider: `rgba(0, 0, 0, 0.12)`,
+  border: `2px solid rgba(0, 0, 0, 0.12)`,
   actionActive: `rgba(0, 0, 0, 0.54)`,
   actionHover: `rgba(0, 0, 0, 0.04)`,
   actionSelected: `rgba(0, 0, 0, 0.08)`,
