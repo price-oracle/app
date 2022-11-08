@@ -16,13 +16,14 @@ import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
 import SortButton from './SortButton';
 import PoolIcon from '~/components/shared/PoolIcon';
 import Loading from '~/components/shared/Loading';
+import { getConfig } from '~/config';
 
 const PoolList = () => {
   // temporary
+  const { WETH_ADDRESS } = getConfig();
   const isLoading = false;
   const handleClickLock = () => null;
   const handleClickClaimRewards = () => null;
-
   const pool = {
     name: 'TUSD-WETH',
     apy: '11',
@@ -33,7 +34,6 @@ const PoolList = () => {
   };
   const pools = [pool, pool];
 
-  const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
   return (
     <>
       <SCard>

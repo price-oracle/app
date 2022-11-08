@@ -13,6 +13,7 @@ export interface Constants {
   AVAILABLE_THEMES: ThemeName[];
   DEFAULT_LANG: Language;
   SUPPORTED_LANGS: Language[];
+  WETH_ADDRESS: string;
 }
 
 export interface Config extends Env, Constants {}
