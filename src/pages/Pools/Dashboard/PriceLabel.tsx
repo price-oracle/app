@@ -31,7 +31,7 @@ interface Props {
 
 export const PriceLabel = ({ value }: Props) => {
   // const humanized = useHumanizeTokenValue(value);
-  const { WETH_ADDRESS } = getConfig();
+  const { WETH_ADDRESS } = getConfig().ADDRESSES;
   const humanized = {
     value: 100,
     suffix: 'M',

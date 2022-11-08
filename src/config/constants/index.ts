@@ -8,6 +8,9 @@ export const getConstants = (): Constants => {
     AVAILABLE_THEMES: ['system-prefs', 'light', 'dark'],
     DEFAULT_LANG: 'en',
     SUPPORTED_LANGS: ['en'],
-    WETH_ADDRESS: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+
+    ADDRESSES: {
+      WETH_ADDRESS: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+    },
   };
 };

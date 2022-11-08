@@ -1,4 +1,4 @@
-import { Network } from './Blockchain';
+import { Address, Network } from './Blockchain';
 import { Language, ThemeName } from './Settings';
 
 export interface Env {
@@ -13,7 +13,10 @@ export interface Constants {
   AVAILABLE_THEMES: ThemeName[];
   DEFAULT_LANG: Language;
   SUPPORTED_LANGS: Language[];
-  WETH_ADDRESS: string;
+
+  ADDRESSES: {
+    WETH_ADDRESS: Address;
+  };
 }
 
 export interface Config extends Env, Constants {}
