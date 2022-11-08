@@ -1,16 +1,17 @@
+import { Outlet } from 'react-router-dom';
 import reactLogo from '~/assets/react.svg';
 import { ConnectButton, Button } from '~/components/shared';
-
 import Header from '../components/app/AppNavigator';
 
-function Home() {
+function AppPage() {
   const height = window.innerHeight;
 
   return (
     <div className='Home'>
       <Header />
+      <Outlet />
     </div>
   );
 }
 
-export default Home;
+export default AppPage;

@@ -1,10 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
-import './assets/fonts/price-icons/style.css';
 
+import './assets/fonts/price-icons/style.css';
 import '~/App.css';
-import Home from '~/pages/Home';
+
+import AppPage from './pages/AppPage';
 import LandingPage from './pages/Landing/LandingPage';
+import Pools from './pages/Pools';
+
 import { Themable } from './containers/Themable';
 import { PropTheme } from './components/shared';
 
@@ -35,7 +38,8 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='*' element={<Home />} />
+        <Route path='*' element={<AppPage />} />
+        <Route path='app/pools' element={<Pools />} />
       </Routes>
     </Themable>
   );
