@@ -24,6 +24,7 @@ import { Item } from '../Navigator/Navigator.styles';
 
 import { useWindowDimensions } from '~/hooks/windowDimensions';
 import { useAppSelector } from '~/store';
+import { useNavigatorProps } from '../Navigator/Navigator';
 
 const useWallet = () => {
   // const status = useSelector(selectWalletStatus);
@@ -47,6 +48,7 @@ const AppNavigator = () => {
   // const walletConnected = useSelector(selectWalletConnected);
   // const [themeIcon, toggleTheme] = useThemeButtonProps();
   const { isMobile } = useWindowDimensions();
+  const navProps = useNavigatorProps(true);
   // useWallet();
 
   return (
@@ -59,7 +61,7 @@ const AppNavigator = () => {
         </PriceLogoNavItem>
       )}
 
-      <SNavigator>
+      <SNavigator {...navProps}>
         <Item>
           <Section>
             {!isMobile && (
