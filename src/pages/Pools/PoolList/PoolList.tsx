@@ -11,7 +11,7 @@ import {
 import { Typography } from '~/components/shared';
 import { PrimaryButton, SecondaryButton } from '~/components/shared';
 import SearchInput from '~/components/shared/SearchInput';
-import PriceLabel from '../Dashboard/PriceLabel';
+import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
 import SortButton from './SortButton';
 import PoolIcon from '~/components/shared/PoolIcon';
 import Loading from '~/components/shared/Loading';
@@ -21,8 +21,9 @@ const PoolList = () => {
   const isLoading = false;
   const handleClickLock = () => null;
   const handleClickClaimRewards = () => null;
+
   const pool = {
-    name: 'test name',
+    name: 'TUSD-WETH',
     apy: '11',
     address: '0x0000000000085d4780B73119b644AE5ecd22b376',
     fee: '2',
@@ -31,16 +32,19 @@ const PoolList = () => {
   };
   const pools = [pool, pool];
 
+  const WETH_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
   return (
     <>
       <SCard>
         <Title>Pools</Title>
         <SearchInput onChange={(e) => console.log(e.target.value)} />
+
         {isLoading && (
           <LoaderContainer>
             <Loading />
           </LoaderContainer>
         )}
+
         {!isLoading && (
           <Table>
             <Header>
@@ -49,7 +53,11 @@ const PoolList = () => {
               <SortButton text='APY' type='apy' /* pools={pools} onPoolsChanged={setPools} */ />
               <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
               <SortButton text='Locked' type='locked' /* pools={pools} onPoolsChanged={setPools} */ />
-              <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
+              <SortButton text='Claimable ETH rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
+              <SortButton
+                text='Claimable token rewards'
+                type='claimable' /* pools={pools} onPoolsChanged={setPools} */
+              />
               <Typography />
             </Header>
 
@@ -66,6 +74,9 @@ const PoolList = () => {
                 </PriceAmountContainer>
                 <PriceAmountContainer>
                   <PriceLabel value={p.claimable!} />
+                </PriceAmountContainer>
+                <PriceAmountContainer>
+                  <TokenLabel value={p.claimable!} address={pool.address} />
                 </PriceAmountContainer>
                 <ButtonContainer>
                   <PrimaryButton onClick={() => handleClickLock()}>Lock</PrimaryButton>
