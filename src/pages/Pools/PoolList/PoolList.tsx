@@ -7,6 +7,7 @@ import {
   Header,
   LoaderContainer,
   PriceAmountContainer,
+  Divider,
 } from './PoolList.styles';
 import { Typography } from '~/components/shared';
 import { PrimaryButton, SecondaryButton } from '~/components/shared';
@@ -53,11 +54,7 @@ const PoolList = () => {
               <SortButton text='APY' type='apy' /* pools={pools} onPoolsChanged={setPools} */ />
               <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
               <SortButton text='Locked' type='locked' /* pools={pools} onPoolsChanged={setPools} */ />
-              <SortButton text='Claimable ETH rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
-              <SortButton
-                text='Claimable token rewards'
-                type='claimable' /* pools={pools} onPoolsChanged={setPools} */
-              />
+              <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
               <Typography />
             </Header>
 
@@ -74,8 +71,7 @@ const PoolList = () => {
                 </PriceAmountContainer>
                 <PriceAmountContainer>
                   <PriceLabel value={p.claimable!} />
-                </PriceAmountContainer>
-                <PriceAmountContainer>
+                  <Divider>/</Divider>
                   <TokenLabel value={p.claimable!} address={pool.address} />
                 </PriceAmountContainer>
                 <ButtonContainer>
