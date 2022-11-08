@@ -12,6 +12,7 @@
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
+    "format:check": "npm run prettier && npm run lint",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@commitlint/cli": "17.2.0",
     "@commitlint/config-conventional": "17.2.0",
+    "@defi-wonderland/crypto-husky-checks": "1.1.1",
     "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
     "@types/react-redux": "7.1.24",

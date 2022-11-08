@@ -469,6 +469,13 @@
   resolved "https://registry.yarnpkg.com/@cush/relative/-/relative-1.0.0.tgz#8cd1769bf9bde3bb27dac356b1bc94af40f6cc16"
   integrity sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==
 
+"@defi-wonderland/crypto-husky-checks@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@defi-wonderland/crypto-husky-checks/-/crypto-husky-checks-1.1.1.tgz#f3863008e22bee89c8bd634462630369f780fe17"
+  integrity sha512-6f3Z6n+2gUnG1SAK1ATRNG1ObOKvqhhoUpC3q+tgpFOmCKRJIQwrIYiPCCvVfZWBguIZdmWfbfiL1sHxqsEUSA==
+  dependencies:
+    fs-extra "10.1.0"
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
@@ -3306,7 +3313,7 @@ for-each@^0.3.3:
   dependencies:
     is-callable "^1.1.3"
 
-fs-extra@^10.0.0:
+fs-extra@10.1.0, fs-extra@^10.0.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.1.0.tgz#02873cfbc4084dde127eaa5f9905eef2325d1abf"
   integrity sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==
