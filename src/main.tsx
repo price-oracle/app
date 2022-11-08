@@ -15,10 +15,11 @@ import { publicProvider } from 'wagmi/providers/public';
 import App from './App';
 
 import store from '~/store';
+import { getConfig } from './config';
 
 const { chains, provider } = configureChains(
   [chain.mainnet],
-  [alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMY_KEY }), publicProvider()]
+  [alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

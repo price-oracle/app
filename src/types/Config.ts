@@ -3,6 +3,7 @@ import { Language, ThemeName } from './Settings';
 
 export interface Env {
   ENV: string;
+  ALLOW_DEV_MODE: boolean;
   ALCHEMY_KEY: string | undefined;
 }
 
