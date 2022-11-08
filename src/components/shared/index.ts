@@ -16,3 +16,4 @@ export * from './TokenIcon';
 export * from './PriceIcon';
 export * from './PoolIcon';
 export * from './Loading';
+export * from './InputNumber';
