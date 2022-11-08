@@ -8,3 +8,5 @@ export type Network =
   | 'arbitrum'
   | 'optimism'
   | 'other';
+
+export type Address = string;
