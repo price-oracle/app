@@ -18,10 +18,11 @@ export interface ButtonProps {
   disabled?: boolean;
   onClick?: (e?: any) => void;
   children?: React.ReactNode;
+  className?: string;
 }
 
-export const Button: FC<ButtonProps> = ({ disabled, onClick, children, ...props }) => (
-  <StyledButton disabled={disabled} onClick={onClick} {...props}>
+export const Button: FC<ButtonProps> = ({ className, disabled, onClick, children, ...props }) => (
+  <StyledButton className={className} disabled={disabled} onClick={onClick} {...props}>
     {children}
   </StyledButton>
 );

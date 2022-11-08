@@ -1,7 +1,7 @@
-import { Theme } from './Settings';
+import { ThemeName } from './Settings';
 
 export interface ThemeState {
-  current: Theme;
+  current: ThemeName;
 }
 
 export interface RootState {

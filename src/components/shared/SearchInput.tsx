@@ -1,6 +1,5 @@
 import { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
-import { THEME_BORDER } from './theme/theme.selector';
 import { Icon } from './Icon';
 import Input from './Input';
 
@@ -18,7 +17,7 @@ const SearchIcon = styled(Icon)`
 `;
 
 const SInput = styled(Input)`
-  border: ${THEME_BORDER};
+  border: ${(props) => props.theme.border};
   padding: 5px 30px 5px;
   width: 100%;
 `;

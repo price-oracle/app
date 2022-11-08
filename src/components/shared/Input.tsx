@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { THEME_TEXT_PRIMARY } from './theme/theme.selector';
-
 const InputWithoutStyles = styled.input`
   border: none;
   background-image: none;
@@ -11,7 +9,7 @@ const InputWithoutStyles = styled.input`
 `;
 
 const Input = styled(InputWithoutStyles)`
-  color: ${THEME_TEXT_PRIMARY};
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 export default Input;

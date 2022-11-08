@@ -38,8 +38,9 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='*' element={<AppPage />} />
-        <Route path='app/pools' element={<Pools />} />
+        <Route path='*' element={<AppPage />}>
+          <Route path='app/pools' element={<Pools />} />
+        </Route>
       </Routes>
     </Themable>
   );

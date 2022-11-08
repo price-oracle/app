@@ -33,13 +33,6 @@ export const createStatus = ({ loading, error }: IStatus = {}): IStatus => ({
   error: error?.stack || error?.message || error || '',
 });
 
-export function withProperties<A, B>(component: A, properties: B): A & B {
-  Object.keys(properties).forEach((key) => {
-    (component as any)[key] = (properties as any)[key];
-  });
-  return component as A & B;
-}
-
 export const getEnumNumberValues = (e: any): number[] =>
   Object.values(e).filter((x) => typeof x === 'number') as number[];
 
