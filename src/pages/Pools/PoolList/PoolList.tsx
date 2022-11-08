@@ -16,11 +16,9 @@ import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
 import SortButton from './SortButton';
 import PoolIcon from '~/components/shared/PoolIcon';
 import Loading from '~/components/shared/Loading';
-import { getConfig } from '~/config';
 
 const PoolList = () => {
   // temporary
-  const { WETH_ADDRESS } = getConfig();
   const isLoading = false;
   const handleClickLock = () => null;
   const handleClickClaimRewards = () => null;
