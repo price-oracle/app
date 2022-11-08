@@ -7,11 +7,12 @@ import {
   Header,
   LoaderContainer,
   PriceAmountContainer,
+  Divider,
 } from './PoolList.styles';
 import { Typography } from '~/components/shared';
 import { PrimaryButton, SecondaryButton } from '~/components/shared';
 import SearchInput from '~/components/shared/SearchInput';
-import PriceLabel from '../Dashboard/PriceLabel';
+import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
 import SortButton from './SortButton';
 import PoolIcon from '~/components/shared/PoolIcon';
 import Loading from '~/components/shared/Loading';
@@ -22,7 +23,7 @@ const PoolList = () => {
   const handleClickLock = () => null;
   const handleClickClaimRewards = () => null;
   const pool = {
-    name: 'test name',
+    name: 'TUSD-WETH',
     apy: '11',
     address: '0x0000000000085d4780B73119b644AE5ecd22b376',
     fee: '2',
@@ -36,11 +37,13 @@ const PoolList = () => {
       <SCard>
         <Title>Pools</Title>
         <SearchInput onChange={(e) => console.log(e.target.value)} />
+
         {isLoading && (
           <LoaderContainer>
             <Loading />
           </LoaderContainer>
         )}
+
         {!isLoading && (
           <Table>
             <Header>
@@ -66,6 +69,8 @@ const PoolList = () => {
                 </PriceAmountContainer>
                 <PriceAmountContainer>
                   <PriceLabel value={p.claimable!} />
+                  <Divider>/</Divider>
+                  <TokenLabel value={p.claimable!} address={pool.address} />
                 </PriceAmountContainer>
                 <ButtonContainer>
                   <PrimaryButton onClick={() => handleClickLock()}>Lock</PrimaryButton>

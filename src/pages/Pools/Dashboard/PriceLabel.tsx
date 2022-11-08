@@ -3,7 +3,8 @@ import { BigNumber } from 'ethers';
 // import BigNumber from 'bignumber.js';
 import { Typography } from '~/components/shared/Typography';
 import { SPACING_8 } from '~/components/shared/Variables';
-import PriceIcon from '~/components/shared/PriceIcon';
+import TokenIcon from '~/components/shared/TokenIcon';
+import { getConfig } from '~/config';
 // import useHumanizeTokenValue from '../../hooks/useHumanizeTokenValue';
 
 const Container = styled.div`
@@ -28,7 +29,28 @@ interface Props {
   value: string | BigNumber;
 }
 
-const PriceLabel = ({ value }: Props) => {
+export const PriceLabel = ({ value }: Props) => {
+  // const humanized = useHumanizeTokenValue(value);
+  const { WETH_ADDRESS } = getConfig().ADDRESSES;
+  const humanized = {
+    value: 100,
+    suffix: 'M',
+  };
+
+  return (
+    <Container>
+      <TokenIcon
+        src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${WETH_ADDRESS}/logo.png`}
+      />
+      <ValueContainer>
+        <Value>{humanized.value}</Value>
+        <Suffix>{humanized.suffix}</Suffix>
+      </ValueContainer>
+    </Container>
+  );
+};
+
+export const TokenLabel = ({ value, address }: { value: string | BigNumber; address: string }) => {
   // const humanized = useHumanizeTokenValue(value);
 
   const humanized = {
@@ -38,7 +60,9 @@ const PriceLabel = ({ value }: Props) => {
 
   return (
     <Container>
-      <PriceIcon />
+      <TokenIcon
+        src={`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`}
+      />
       <ValueContainer>
         <Value>{humanized.value}</Value>
         <Suffix>{humanized.suffix}</Suffix>
@@ -46,5 +70,3 @@ const PriceLabel = ({ value }: Props) => {
     </Container>
   );
 };
-
-export default PriceLabel;

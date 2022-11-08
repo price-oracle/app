@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+
 import { Typography } from '~/components/shared/Typography';
-import PriceLabel from './PriceLabel';
 import Card from '~/components/shared/Card';
 import Loading from '~/components/shared/Loading';
+import { PriceLabel } from './PriceLabel';
 
 const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
@@ -51,7 +52,7 @@ export function Dashboard() {
           <Typography color='secondary'>Dashboard</Typography>
         </Title>
         <DashboardHeader>
-          <Typography color='secondary'>Total PRICE locked</Typography>
+          <Typography color='secondary'>Total ETH locked</Typography>
         </DashboardHeader>
         <DashboardHeader>
           <Typography color='secondary'>Claimable rewards</Typography>
