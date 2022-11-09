@@ -1,3 +1,16 @@
+import { useAppDispatch } from '~/hooks';
+
+import { ModalsActions } from '~/store';
+
+import { Typography } from '~/components/shared';
+import { PrimaryButton, SecondaryButton } from '~/components/shared';
+import SearchInput from '~/components/shared/SearchInput';
+import PoolIcon from '~/components/shared/PoolIcon';
+import Loading from '~/components/shared/Loading';
+
+import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
+import SortButton from './SortButton';
+
 import {
   ButtonContainer,
   SCard,
@@ -9,16 +22,11 @@ import {
   PriceAmountContainer,
   Divider,
 } from './PoolList.styles';
-import { Typography } from '~/components/shared';
-import { PrimaryButton, SecondaryButton } from '~/components/shared';
-import SearchInput from '~/components/shared/SearchInput';
-import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
-import SortButton from './SortButton';
-import PoolIcon from '~/components/shared/PoolIcon';
-import Loading from '~/components/shared/Loading';
 
 const PoolList = () => {
   // temporary
+  const dispatch = useAppDispatch();
+
   const isLoading = false;
   const handleClickLock = () => null;
   const handleClickClaimRewards = () => null;
@@ -32,10 +40,15 @@ const PoolList = () => {
   };
   const pools = [pool, pool];
 
+  const testModal = () =>
+    dispatch(ModalsActions.openModal({ modalName: 'test', modalProps: { testVar: 'Test var text' } }));
+
   return (
     <>
       <SCard>
         <Title>Pools</Title>
+        <PrimaryButton onClick={testModal}>Test modal</PrimaryButton>
+
         <SearchInput onChange={(e) => console.log(e.target.value)} />
 
         {isLoading && (

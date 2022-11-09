@@ -9,6 +9,8 @@ import LandingPage from './pages/Landing/LandingPage';
 import Pools from './pages/Pools';
 
 import { Themable } from './containers/Themable';
+import { Modals } from './containers/modals';
+
 import { PropTheme } from './components/shared';
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
@@ -36,6 +38,8 @@ function App() {
   return (
     <Themable>
       <GlobalStyle />
+      <Modals />
+
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='*' element={<AppPage />}>

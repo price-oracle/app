@@ -1,4 +1,5 @@
 import { Address } from './Blockchain';
+import { ModalName } from './Modals';
 import { ThemeName } from './Settings';
 
 export interface ThemeState {
@@ -13,7 +14,13 @@ export interface SettingsState {
   };
 }
 
+export interface ModalsState {
+  activeModal: ModalName | undefined;
+  modalProps: any | undefined;
+}
+
 export interface RootState {
   theme: ThemeState;
   settings: SettingsState;
+  modals: ModalsState;
 }

@@ -16,21 +16,25 @@ import { ThemeActions } from './theme/theme.actions';
 import settingsReducer, { settingsInitialState } from './settings/settings.reducer';
 import { SettingsActions } from './settings/settings.actions';
 
+// Modals state
+import modalsReducer, { modalsInitialState } from './modals/modals.reducer';
+import { ModalsActions } from './modals/modals.actions';
+import { ModalSelectors } from './modals/modals.selectors';
+
 export const rootReducer: Reducer<RootState> = combineReducers({
   theme: themeReducer,
   settings: settingsReducer,
+  modals: modalsReducer,
 });
 
 // Actions
-export { ThemeActions, SettingsActions };
+export { ThemeActions, SettingsActions, ModalsActions };
 
 // Selectors
-// export {
-//   themeSelectors
-// };
+export { ModalSelectors };
 
 // initialStates
-export { themeInitialState, settingsInitialState };
+export { themeInitialState, settingsInitialState, modalsInitialState };
 
 export function getStore() {
   const localStorageName = 'price';
