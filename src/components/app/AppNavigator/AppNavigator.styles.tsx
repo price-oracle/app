@@ -7,7 +7,6 @@ import {
   SPACING_128,
   SPACING_24,
   SPACING_64,
-  SPACING_8,
   SPACING_96,
   Logo,
   CustomLink,
@@ -19,7 +18,6 @@ export const StyledLogo = styled(Logo)`
   color: ${(props) => props.theme.textPrimary};
   display: block;
   width: ${SPACING_96};
-  padding-bottom: ${SPACING_8};
 `;
 
 export const Container = styled.header`
