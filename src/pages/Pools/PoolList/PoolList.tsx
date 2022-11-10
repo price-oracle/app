@@ -62,7 +62,6 @@ const PoolList = () => {
             <Header>
               <Typography />
               <SortButton text='Name' type='name' /* pools={pools} onPoolsChanged={setPools} */ />
-              <SortButton text='APY' type='apy' /* pools={pools} onPoolsChanged={setPools} */ />
               <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
               <SortButton text='Locked' type='locked' /* pools={pools} onPoolsChanged={setPools} */ />
               <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
@@ -75,7 +74,6 @@ const PoolList = () => {
                   <PoolIcon pool={p} />
                 </Typography>
                 <Typography>{p.name}</Typography>
-                <Typography>{p.apy}%</Typography>
                 <Typography>{p.fee}%</Typography>
                 <PriceAmountContainer>
                   <PriceLabel value={p.locked!} />

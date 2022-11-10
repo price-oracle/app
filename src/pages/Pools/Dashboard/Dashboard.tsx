@@ -9,7 +9,7 @@ const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
   justify-items: left;
-  max-width: 1280px;
+  max-width: 72rem;
   margin: 0 auto;
 `;
 

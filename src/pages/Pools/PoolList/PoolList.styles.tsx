@@ -6,7 +6,7 @@ import { SPACING_8, SPACING_16, SPACING_32, SPACING_192, SPACING_128, SPACING_25
 export const SCard = styled(Card)`
   margin-top: ${SPACING_32};
   overflow-x: auto;
-  max-width: 1280px;
+  max-width: 72rem;
   margin: 30px auto;
   justify-items: left;
 `;
@@ -24,7 +24,7 @@ export const Row = styled.div`
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: ${() =>
-    [SPACING_32(), SPACING_192(), SPACING_128(), SPACING_128(), SPACING_192(), SPACING_256(), SPACING_128()].join(' ')};
+    [SPACING_32(), SPACING_192(), SPACING_128(), SPACING_192(), SPACING_256(), SPACING_128()].join(' ')};
   justify-content: right;
   align-items: center;
   margin: 0 auto;
