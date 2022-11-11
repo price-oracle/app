@@ -1,6 +1,4 @@
-import { Icon } from '~/components/shared';
-import { Typography } from '~/components/shared';
-import { FONT_SIZE_12 } from '~/components/shared';
+import { Icon, Typography, FONT_SIZE_12 } from '~/components/shared';
 
 export type SortType = 'name' | 'apy' | 'locked' | 'claimable' | 'fee';
 

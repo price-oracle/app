@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { Typography } from '~/components/shared/Typography';
-import Card from '~/components/shared/Card';
-import Loading from '~/components/shared/Loading';
+import { Card, Loading, Typography } from '~/components/shared';
 import { PriceLabel } from './PriceLabel';
 
 const SCard = styled(Card)`

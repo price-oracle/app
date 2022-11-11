@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 import { Icon } from './Icon';
-import Input from './Input';
+import { Input } from './Input';
 
 const Container = styled.div`
   display: flex;
@@ -25,7 +25,8 @@ const SInput = styled(Input)`
 interface IProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
-const SearchInput = ({ onChange }: IProps) => {
+
+export const SearchInput = ({ onChange }: IProps) => {
   return (
     <Container>
       <SearchIcon name='search' />
@@ -33,5 +34,3 @@ const SearchInput = ({ onChange }: IProps) => {
     </Container>
   );
 };
-
-export default SearchInput;

@@ -2,11 +2,7 @@ import { useAppDispatch } from '~/hooks';
 
 import { ModalsActions } from '~/store';
 
-import { Typography } from '~/components/shared';
-import { PrimaryButton, SecondaryButton } from '~/components/shared';
-import SearchInput from '~/components/shared/SearchInput';
-import PoolIcon from '~/components/shared/PoolIcon';
-import Loading from '~/components/shared/Loading';
+import { SearchInput, PoolIcon, Loading, PrimaryButton, SecondaryButton, Typography } from '~/components/shared';
 
 import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
 import SortButton from './SortButton';

@@ -8,8 +8,6 @@ const InputWithoutStyles = styled.input`
   outline: unset;
 `;
 
-const Input = styled(InputWithoutStyles)`
+export const Input = styled(InputWithoutStyles)`
   color: ${(props) => props.theme.textPrimary};
 `;
-
-export default Input;

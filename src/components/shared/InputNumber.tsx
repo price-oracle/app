@@ -1,14 +1,8 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
-export function withProperties<A, B>(component: A, properties: B): A & B {
-  Object.keys(properties as any).forEach((key) => {
-    (component as any)[key] = (properties as any)[key];
-  });
-  return component as A & B;
-}
-
-import Input from './Input';
+import { Input } from './Input';
+import { withComponents } from '~/utils';
 
 interface IProps {
   initialValue?: string;
@@ -65,10 +59,10 @@ const useNumberProps = ({ initialValue, onChange, forceReset }: IProps = {}) => 
   };
 };
 
-const InputNumber = styled(Input).attrs({
+export const InputNumber = styled(Input).attrs({
   inputmode: 'decimals',
 })``;
 
-export default withProperties(InputNumber, {
+export default withComponents(InputNumber, {
   useProps: useNumberProps,
 });

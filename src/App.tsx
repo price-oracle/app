@@ -7,6 +7,7 @@ import '~/App.css';
 import AppPage from './pages/AppPage';
 import LandingPage from './pages/Landing/LandingPage';
 import Pools from './pages/Pools';
+import SeedLiquidity from './pages/SeedLiquidity';
 
 import { Themable } from './containers/Themable';
 import { Modals } from './containers/modals';
@@ -44,6 +45,7 @@ function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='*' element={<AppPage />}>
           <Route path='app/pools' element={<Pools />} />
+          <Route path='app/seed-liquidity' element={<SeedLiquidity />} />
         </Route>
       </Routes>
     </Themable>

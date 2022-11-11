@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { BigNumber } from 'ethers';
 // import BigNumber from 'bignumber.js';
-import { Typography } from '~/components/shared/Typography';
-import { SPACING_8 } from '~/components/shared/Variables';
-import TokenIcon from '~/components/shared/TokenIcon';
+
+import { TokenIcon, Typography, SPACING_8 } from '~/components/shared';
 import { getConfig } from '~/config';
 // import useHumanizeTokenValue from '../../hooks/useHumanizeTokenValue';
 

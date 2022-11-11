@@ -1,7 +1,15 @@
 import styled from 'styled-components';
-import { Card } from '~/components/shared';
-import { Typography } from '~/components/shared';
-import { SPACING_8, SPACING_16, SPACING_32, SPACING_192, SPACING_128, SPACING_256 } from '~/components/shared';
+
+import {
+  Card,
+  Typography,
+  SPACING_8,
+  SPACING_16,
+  SPACING_32,
+  SPACING_192,
+  SPACING_128,
+  SPACING_256,
+} from '~/components/shared';
 
 export const SCard = styled(Card)`
   margin-top: ${SPACING_32};

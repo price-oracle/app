@@ -8,11 +8,8 @@ import {
   LoadingContainer,
   Text,
 } from './LockModal.styles';
-import Loading from '~/components/shared/Loading';
-import PoolIcon from '~/components/shared/PoolIcon';
-import PriceIcon from '~/components/shared/PriceIcon';
 import InputNumber from '~/components/shared/InputNumber';
-import { SecondaryButton } from '~/components/shared/Button';
+import { Loading, PoolIcon, PriceIcon, SecondaryButton } from '~/components/shared';
 
 const LockModal = (/* receive all params: title, buttonText, balance & pool */) => {
   const tokenAmount = InputNumber.useProps();

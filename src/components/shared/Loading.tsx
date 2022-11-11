@@ -21,12 +21,10 @@ interface IProps {
   className?: string;
 }
 
-const Loading = ({ className }: IProps) => {
+export const Loading = ({ className }: IProps) => {
   return (
     <Container>
       <StyledIcon name='loader' className={className} />
     </Container>
   );
 };
-
-export default Loading;

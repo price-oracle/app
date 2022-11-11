@@ -1,8 +1,8 @@
-import TokenIcon from './TokenIcon';
+import { TokenIcon } from './TokenIcon';
 import styled from 'styled-components';
 import Logo from '../../assets/logo.svg';
 
-const PriceIcon = styled(TokenIcon).attrs({
+export const PriceIcon = styled(TokenIcon).attrs({
   src: Logo,
 })`
   background-color: ${(props) => props.theme.background};
@@ -10,5 +10,3 @@ const PriceIcon = styled(TokenIcon).attrs({
   border: ${(props) => props.theme.border};
   box-sizing: border-box;
 `;
-
-export default PriceIcon;
