@@ -19,6 +19,7 @@ import {
   Table,
   Title,
 } from './PoolList.styles';
+import { PoolManager } from '~/types/PoolManager';
 
 const PoolList = () => {
   const poolManagers = useAppSelector((state) => state.poolManagers.poolManagers);
@@ -26,18 +27,8 @@ const PoolList = () => {
   const dispatch = useAppDispatch();
   const isLoading = !poolManagers;
 
-  const handleClickLock = () => null;
-  const handleClickClaimRewards = () => null;
-  const pool = {
-    name: 'TUSD-WETH',
-    address: '0x0000000000085d4780B73119b644AE5ecd22b376',
-    fee: '2',
-    locked: 'test',
-    claimable: 'test',
-  };
-
-  const testModal = () =>
-    dispatch(ModalsActions.openModal({ modalName: 'test', modalProps: { testVar: 'Test var text' } }));
+  const openLockModal = (pool: PoolManager) =>
+    dispatch(ModalsActions.openModal({ modalName: 'lock', modalProps: pool }));
 
   const poolManagerList = poolManagers ? Object.values(poolManagers) : [];
 
@@ -45,7 +36,6 @@ const PoolList = () => {
     <>
       <SCard>
         <Title>Pools</Title>
-        <PrimaryButton onClick={testModal}>Test modal</PrimaryButton>
 
         <SearchInput onChange={(e) => console.log(e.target.value)} />
 
@@ -74,16 +64,19 @@ const PoolList = () => {
                 <Typography>{poolManager.token.tokenSymbol}-WETH</Typography>
                 <Typography>{Number(poolManager.fee) / 1000}%</Typography>
                 <PriceAmountContainer>
-                  <PriceLabel value={pool.locked!} />
+                  <PriceLabel value='1234' />
                 </PriceAmountContainer>
                 <PriceAmountContainer>
-                  <PriceLabel value={pool.claimable!} />
+                  <PriceLabel value='1234' />
                   <Divider>/</Divider>
-                  <TokenLabel value={pool.claimable!} address={pool.address} />
+
+                  <TokenLabel value='1234' address={poolManager.token.tokenAddress} />
                 </PriceAmountContainer>
                 <ButtonContainer>
-                  <PrimaryButton onClick={() => handleClickLock()}>Lock</PrimaryButton>
-                  <SecondaryButton onClick={() => handleClickClaimRewards()}>Claim rewards</SecondaryButton>
+                  <PrimaryButton onClick={() => openLockModal(poolManager)}>Lock</PrimaryButton>
+                  <SecondaryButton onClick={() => console.log('handleClickClaimRewards()')}>
+                    Claim rewards
+                  </SecondaryButton>
                 </ButtonContainer>
               </Row>
             ))}

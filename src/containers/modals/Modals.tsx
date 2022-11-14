@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '~/hooks';
 import { ModalsActions, ModalSelectors } from '~/store';
 
 import { TestModal } from './TestModal';
+import { LockModal } from './LockModal';
 
 const modalTimeout = 300;
 
@@ -101,6 +102,12 @@ export const Modals = () => {
       {activeModal === 'test' && (
         <CSSTransition key={'test'} timeout={modalTimeout} classNames='slideBottom'>
           <TestModal modalProps={modalProps} onClose={closeModal} />
+        </CSSTransition>
+      )}
+
+      {activeModal === 'lock' && (
+        <CSSTransition key={'lock'} timeout={modalTimeout} classNames='slideBottom'>
+          <LockModal modalProps={modalProps} onClose={closeModal} />
         </CSSTransition>
       )}
 
