@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { darkTheme, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
 import App from './App';
@@ -18,8 +19,16 @@ import store from '~/store';
 import { getConfig } from './config';
 
 const { chains, provider } = configureChains(
-  [chain.mainnet],
-  [alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }), publicProvider()]
+  [chain.mainnet, chain.localhost],
+  [
+    alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }),
+    publicProvider(),
+    jsonRpcProvider({
+      rpc: () => {
+        return { http: 'http://localhost:8545' };
+      },
+    }),
+  ]
 );
 
 const { connectors } = getDefaultWallets({

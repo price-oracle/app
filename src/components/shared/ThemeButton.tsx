@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { useAppSelector } from '~/store';
+import { useAppSelector } from '~/hooks';
 import { ThemeActions } from '~/store/index';
 import { ThemeName } from '~/types/Settings';
 import { IconButton } from './IconButton';

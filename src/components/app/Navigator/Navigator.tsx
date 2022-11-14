@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { IconButton, FONT_SIZE_16, SPACING_8, getTheme } from '~/components/shared';
 import { useWindowDimensions } from '~/hooks/windowDimensions';
-import { useAppSelector } from '~/store';
+import { useAppSelector } from '~/hooks';
 import { List, Item, Nav, IStylesProps, CollapsableList } from './Navigator.styles';
 
 interface INavigatorProps {

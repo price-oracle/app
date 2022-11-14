@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import Logo from '../../assets/logo.svg';
+import { PoolManager } from '~/types/PoolManager';
+import Logo from '~/assets/logo.svg';
 import { TokenIcon } from './TokenIcon';
 
 const PriceIcon = styled(TokenIcon).attrs({
@@ -28,8 +29,8 @@ interface Props {
   claimable: string;
 }
 
-export const PoolIcon = (props: { pool: Props }) => {
-  const src = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${props.pool.address}/logo.png`;
+export const PoolIcon = ({ pool }: { pool: PoolManager }) => {
+  const src = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${pool.token.tokenAddress}/logo.png`;
   return (
     <IconContainer>
       <PriceIcon />

@@ -17,6 +17,9 @@ export interface Constants {
 
   ADDRESSES: {
     WETH_ADDRESS: Address;
+    deployed: {
+      POOL_MANAGER_FACTORY: Address;
+    };
   };
 }
 

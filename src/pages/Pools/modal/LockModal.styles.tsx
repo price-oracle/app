@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import { InputNumber, BoxButton, SPACING_32, SPACING_16, SPACING_8 } from '~/components/shared';
+import { BoxButton, InputNumber } from '~/components/shared';
+import { SPACING_32, SPACING_16, SPACING_8 } from '~/components/shared/Variables';
 
 export const InputContainer = styled.div`
   display: flex;

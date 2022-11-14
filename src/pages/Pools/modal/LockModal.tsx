@@ -8,8 +8,7 @@ import {
   LoadingContainer,
   Text,
 } from './LockModal.styles';
-import InputNumber from '~/components/shared/InputNumber';
-import { Loading, PoolIcon, PriceIcon, SecondaryButton } from '~/components/shared';
+import { InputNumber, Loading, PoolIcon, PriceIcon, SecondaryButton } from '~/components/shared';
 
 const LockModal = (/* receive all params: title, buttonText, balance & pool */) => {
   const tokenAmount = InputNumber.useProps();
@@ -30,10 +29,21 @@ const LockModal = (/* receive all params: title, buttonText, balance & pool */) 
     },
   };
 
+  //TODO: Get this as a parameter and merge with the params const
+  const pool = {
+    address: '0x0000000000085d4780B73119b644AE5ecd22b376',
+    fee: '2%',
+    token: {
+      tokenAddress: 'test',
+      tokenSymbol: 'test',
+    },
+    lockManagerAddress: 'test',
+  };
+
   return (
     <Container>
       <Title>
-        <PoolIcon pool={params.pool} />
+        <PoolIcon pool={pool} />
         <Text>
           {params.title} in {params.pool.name}
         </Text>

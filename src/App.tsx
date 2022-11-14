@@ -1,18 +1,21 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
-import './assets/fonts/price-icons/style.css';
 import '~/App.css';
+import './assets/fonts/price-icons/style.css';
 
 import AppPage from './pages/AppPage';
 import LandingPage from './pages/Landing/LandingPage';
 import Pools from './pages/Pools';
 import SeedLiquidity from './pages/SeedLiquidity';
 
-import { Themable } from './containers/Themable';
-import { Modals } from './containers/modals';
-
 import { PropTheme } from './components/shared';
+import { Modals } from './containers/modals';
+import { Themable } from './containers/Themable';
+import { PoolManagerFactoryService, PoolManagerService } from '~/services';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { PoolManagersActions } from './store/poolManagers/poolManagers.actions';
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
   html, body {
@@ -36,6 +39,21 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
 `;
 
 function App() {
+  const dispatch = useAppDispatch();
+  // TODO Add a place for them ,in the context or someplace to have them as singleton class
+  const poolManagerFactoryService = new PoolManagerFactoryService();
+  const poolManagerService = new PoolManagerService();
+  const poolManagers = useAppSelector((state) => state.poolManagers.poolManagers);
+
+  useEffect(() => {
+    //TODO: This can loop infinitely if the request fails. We need to add a case to the reducer on failure
+    if (!poolManagers) {
+      dispatch(
+        PoolManagersActions.fetchPoolManagers({ factoryService: poolManagerFactoryService, poolManagerService })
+      );
+    }
+  }, [poolManagers]);
+
   return (
     <Themable>
       <GlobalStyle />

@@ -7,37 +7,39 @@ import { SearchInput, PoolIcon, Loading, PrimaryButton, SecondaryButton, Typogra
 import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
 import SortButton from './SortButton';
 
+import { useAppSelector } from '~/hooks';
 import {
   ButtonContainer,
-  SCard,
-  Row,
-  Table,
-  Title,
+  Divider,
   Header,
   LoaderContainer,
   PriceAmountContainer,
-  Divider,
+  Row,
+  SCard,
+  Table,
+  Title,
 } from './PoolList.styles';
 
 const PoolList = () => {
-  // temporary
-  const dispatch = useAppDispatch();
+  const poolManagers = useAppSelector((state) => state.poolManagers.poolManagers);
 
-  const isLoading = false;
+  const dispatch = useAppDispatch();
+  const isLoading = !poolManagers;
+
   const handleClickLock = () => null;
   const handleClickClaimRewards = () => null;
   const pool = {
     name: 'TUSD-WETH',
-    apy: '11',
     address: '0x0000000000085d4780B73119b644AE5ecd22b376',
     fee: '2',
     locked: 'test',
     claimable: 'test',
   };
-  const pools = [pool, pool];
 
   const testModal = () =>
     dispatch(ModalsActions.openModal({ modalName: 'test', modalProps: { testVar: 'Test var text' } }));
+
+  const poolManagerList = poolManagers ? Object.values(poolManagers) : [];
 
   return (
     <>
@@ -64,20 +66,20 @@ const PoolList = () => {
               <Typography />
             </Header>
 
-            {pools.map((p) => (
-              <Row key={p.address}>
+            {poolManagerList.map((poolManager) => (
+              <Row key={poolManager.address}>
                 <Typography>
-                  <PoolIcon pool={p} />
+                  <PoolIcon pool={poolManager} />
                 </Typography>
-                <Typography>{p.name}</Typography>
-                <Typography>{p.fee}%</Typography>
+                <Typography>{poolManager.token.tokenSymbol}-WETH</Typography>
+                <Typography>{Number(poolManager.fee) / 1000}%</Typography>
                 <PriceAmountContainer>
-                  <PriceLabel value={p.locked!} />
+                  <PriceLabel value={pool.locked!} />
                 </PriceAmountContainer>
                 <PriceAmountContainer>
-                  <PriceLabel value={p.claimable!} />
+                  <PriceLabel value={pool.claimable!} />
                   <Divider>/</Divider>
-                  <TokenLabel value={p.claimable!} address={pool.address} />
+                  <TokenLabel value={pool.claimable!} address={pool.address} />
                 </PriceAmountContainer>
                 <ButtonContainer>
                   <PrimaryButton onClick={() => handleClickLock()}>Lock</PrimaryButton>

@@ -1,5 +1,5 @@
 // Theme State
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore, combineReducers, Reducer } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import { load, clear, save } from 'redux-localstorage-simple';
@@ -16,6 +16,9 @@ import { ThemeActions } from './theme/theme.actions';
 import settingsReducer, { settingsInitialState } from './settings/settings.reducer';
 import { SettingsActions } from './settings/settings.actions';
 
+// Pool Managers state
+import poolManagersReducer from './poolManagers/poolManagers.reducer';
+
 // Modals state
 import modalsReducer, { modalsInitialState } from './modals/modals.reducer';
 import { ModalsActions } from './modals/modals.actions';
@@ -25,6 +28,7 @@ export const rootReducer: Reducer<RootState> = combineReducers({
   theme: themeReducer,
   settings: settingsReducer,
   modals: modalsReducer,
+  poolManagers: poolManagersReducer,
 });
 
 // Actions
@@ -85,10 +89,9 @@ export function getStore() {
 
 const store = getStore();
 
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
 export type Store = ReturnType<typeof getStore>;
 export type AppDispatch = Store['dispatch'];
+
 export interface ThunkAPI {
   dispatch: AppDispatch;
   state: RootState;

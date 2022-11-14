@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { getTheme } from '~/components/shared';
-import { useAppSelector } from '~/store';
+import { useAppSelector } from '~/hooks';
 
 type Props = {
   children?: React.ReactNode;

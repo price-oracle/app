@@ -1,0 +1,40 @@
+{
+  "name": "keep3r-web-fork",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [
+    "ethereum",
+    "smart",
+    "contracts",
+    "test",
+    "solidity",
+    "hardhat",
+    "keep3r",
+    "KP3R"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "DeFi Wonderland",
+    "url": "https://github.com/defi-wonderland"
+  },
+  "scripts": {
+    "start": "hardhat node",
+    "script:deploy-pools": "npx hardhat run ./scripts/deploy-pools.ts --network localhost",
+    "script:advance-time": "npx hardhat run ./scripts/advance-time.ts --network localhost",
+    "script:accrue-fees": "npx hardhat run ./scripts/accrue-fees.ts --network localhost",
+    "postinstall": "eth-sdk ."
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "4.7.3"
+  },
+  "devDependencies": {
+    "@dethcrypto/eth-sdk": "0.3.0",
+    "@dethcrypto/eth-sdk-client": "0.1.6",
+    "@ethersproject/providers": "5.4.0",
+    "@nomiclabs/hardhat-ethers": "2.0.2",
+    "dotenv": "10.0.0",
+    "eth-sdk": "0.2.10",
+    "ethers": "5.4.5",
+    "hardhat": "2.6.4"
+  }
+}

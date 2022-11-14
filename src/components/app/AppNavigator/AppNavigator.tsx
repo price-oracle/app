@@ -23,7 +23,7 @@ import { ConnectButton, FONT_SIZE_16, Icon, SPACING_8, getTheme, ThemeButton } f
 import { Item } from '../Navigator/Navigator.styles';
 
 import { useWindowDimensions } from '~/hooks/windowDimensions';
-import { useAppSelector } from '~/store';
+import { useAppSelector } from '~/hooks';
 import { useNavigatorProps } from '../Navigator/Navigator';
 
 const useWallet = () => {

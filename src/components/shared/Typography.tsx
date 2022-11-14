@@ -1,7 +1,7 @@
 import { MouseEventHandler, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { useAppSelector } from '~/store';
+import { useAppSelector } from '~/hooks';
 import { getTheme } from './theme';
 import { FONT_SIZE_20, FONT_SIZE_16, FONT_SIZE_12, FONT_SIZE_24 } from './Variables';
 

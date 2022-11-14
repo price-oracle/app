@@ -9,8 +9,8 @@ import {
   SPACING_64,
   SPACING_96,
   MOBILE_MAX_WIDTH,
+  PropTheme,
 } from '~/components/shared';
-import { PropTheme } from '~/components/shared';
 
 const createAnimation = ({
   rotate,
