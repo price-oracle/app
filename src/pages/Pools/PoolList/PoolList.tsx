@@ -2,9 +2,16 @@ import { useAppDispatch } from '~/hooks';
 
 import { ModalsActions } from '~/store';
 
-import { SearchInput, PoolIcon, Loading, PrimaryButton, SecondaryButton, Typography } from '~/components/shared';
-
-import { PriceLabel, TokenLabel } from '../Dashboard/PriceLabel';
+import {
+  SearchInput,
+  PoolIcon,
+  Loading,
+  PrimaryButton,
+  SecondaryButton,
+  Typography,
+  TokenLabel,
+  EthLabel,
+} from '~/components/shared';
 import SortButton from './SortButton';
 
 import { useAppSelector } from '~/hooks';
@@ -20,6 +27,7 @@ import {
   Title,
 } from './PoolList.styles';
 import { PoolManager } from '~/types/PoolManager';
+import { getConfig } from '~/config';
 
 const PoolList = () => {
   const poolManagers = useAppSelector((state) => state.poolManagers.poolManagers);
@@ -59,18 +67,17 @@ const PoolList = () => {
             {poolManagerList.map((poolManager) => (
               <Row key={poolManager.address}>
                 <Typography>
-                  <PoolIcon pool={poolManager} />
+                  <PoolIcon address={poolManager.token.tokenAddress} />
                 </Typography>
                 <Typography>{poolManager.token.tokenSymbol}-WETH</Typography>
                 <Typography>{Number(poolManager.fee) / 1000}%</Typography>
                 <PriceAmountContainer>
-                  <PriceLabel value='1234' />
+                  <EthLabel value='1234000000000000000000' />
                 </PriceAmountContainer>
                 <PriceAmountContainer>
-                  <PriceLabel value='1234' />
+                  <EthLabel value='1234000000000000000000' />
                   <Divider>/</Divider>
-
-                  <TokenLabel value='1234' address={poolManager.token.tokenAddress} />
+                  <TokenLabel value='1234000000000000000000' address={poolManager.token.tokenAddress} decimals={18} />
                 </PriceAmountContainer>
                 <ButtonContainer>
                   <PrimaryButton onClick={() => openLockModal(poolManager)}>Lock</PrimaryButton>

@@ -20,5 +20,6 @@ export * from './SearchInput';
 export * from './ThemeButton';
 export * from './theme';
 export * from './TokenIcon';
+export * from './TokenLabels';
 export * from './Typography';
 export * from './Variables';

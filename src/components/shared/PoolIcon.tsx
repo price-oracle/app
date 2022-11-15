@@ -19,18 +19,9 @@ const IconContainer = styled.div`
   display: inline-block;
 `;
 
-// temporary
-interface Props {
-  name: string;
-  apy: string;
-  address: string;
-  fee: string;
-  locked: string;
-  claimable: string;
-}
+export const PoolIcon = (props: { address: string }) => {
+  const src = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${props.address}/logo.png`;
 
-export const PoolIcon = ({ pool }: { pool: PoolManager }) => {
-  const src = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${pool.token.tokenAddress}/logo.png`;
   return (
     <IconContainer>
       <PriceIcon />

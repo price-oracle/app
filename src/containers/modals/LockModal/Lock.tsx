@@ -11,6 +11,7 @@ import {
   SPACING_8,
   SPACING_24,
 } from '~/components/shared';
+import { PoolManager } from '~/types/PoolManager';
 
 const InputContainer = styled.div`
   display: flex;
@@ -79,7 +80,7 @@ const Lock = ({ modalProps }: any) => {
   return (
     <Container>
       <Title>
-        <PoolIcon pool={modalProps} />
+        <PoolIcon address={modalProps.token.tokenAddress} />
         <Text>Lock in {modalProps.name}</Text>
       </Title>
 

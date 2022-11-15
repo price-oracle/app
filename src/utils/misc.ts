@@ -15,3 +15,22 @@ export function withComponents<A, B>(component: A, properties: B): A & B {
   });
   return component as A & B;
 }
+
+export function formatNumber(
+  input: string | ethers.BigNumberish,
+  decimals = 18
+): { number: string | number; suffix: string } {
+  const res = Number.parseFloat(ethers.utils.formatUnits(input, decimals));
+
+  if (res < 1000) return { number: res, suffix: '' };
+
+  const formattedNumber = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 1,
+    notation: 'compact',
+    compactDisplay: 'short',
+  }).format(res);
+
+  const suffix = formattedNumber.slice(-1);
+  const number = formattedNumber.slice(0, -1);
+  return { number, suffix };
+}

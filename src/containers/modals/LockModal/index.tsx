@@ -3,12 +3,11 @@ import styled from 'styled-components';
 
 import Lock from './Lock';
 import { SPACING_512, SPACING_32 } from '~/components/shared';
+import { PoolManager } from '~/types/PoolManager';
 
 export interface TestModalProps {
   onClose: () => void;
-  modalProps: {
-    testVar: string;
-  };
+  modalProps: PoolManager;
 }
 
 const StyledModal = styled.div`

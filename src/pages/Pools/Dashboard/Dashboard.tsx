@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import { Card, Loading, Typography } from '~/components/shared';
-import { PriceLabel } from './PriceLabel';
+import { Card, Loading, Typography, EthLabel } from '~/components/shared';
 
 const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
@@ -39,7 +38,7 @@ const PriceUSD = ({ value }: { value: number }) => {
 export function Dashboard() {
   // temporary
   const isLoading = false;
-  const totalPriceLocked = '1000';
+  const totalPriceLocked = '10000000000000000000000000';
   const totalUSDLocked = 0;
   const totalUSDClaimableRewards = 0;
 
@@ -68,7 +67,7 @@ export function Dashboard() {
         ) : (
           <>
             <PriceAmount>
-              <PriceLabel value={totalPriceLocked} />
+              <EthLabel value='1234000000000000000000' />
               <PriceUSD value={totalUSDLocked} />
             </PriceAmount>
             <PriceAmount>
