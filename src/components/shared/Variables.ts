@@ -23,6 +23,8 @@ export const SPACING_64 = () => '4rem' as const;
 
 export const SPACING_48 = () => '3rem' as const;
 
+export const SPACING_40 = () => '2.5rem' as const;
+
 export const SPACING_32 = () => '2rem' as const;
 
 export const SPACING_24 = () => '1.5rem' as const;
