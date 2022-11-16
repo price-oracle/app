@@ -15,12 +15,16 @@ export interface Constants {
   DEFAULT_LANG: Language;
   SUPPORTED_LANGS: Language[];
 
+  WETH_DECIMALS: number;
+
   ADDRESSES: {
     WETH_ADDRESS: Address;
     deployed: {
       POOL_MANAGER_FACTORY: Address;
     };
   };
+
+  CONFIRMATIONS: { [key: number]: number };
 }
 
 export interface Config extends Env, Constants {}

@@ -16,9 +16,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@price-oracle/interfaces": "0.0.0-88c04cf8",
     "@rainbow-me/rainbowkit": "0.7.4",
     "@reduxjs/toolkit": "1.8.6",
     "@uniswap/v3-sdk": "^3.9.0",
+    "bignumber.js": "9.1.0",
     "ethers": "5.7.2",
     "ethers-multicall": "^0.2.3",
     "lodash": "4.17.21",

@@ -1,4 +1,4 @@
-import { abi as IPoolManager } from '@price-protocol/interfaces/abi/IPoolManager.json';
+import { abi as IPoolManager } from '@price-oracle/interfaces/abi/IPoolManager.json';
 import { ethers } from 'ethers';
 import { useProvider } from 'wagmi';
 import { PoolManager } from '~/types/PoolManager';

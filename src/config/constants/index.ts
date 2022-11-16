@@ -1,5 +1,6 @@
 import { Constants } from '~types/Config';
 import { addresses } from './addresses';
+import { CONFIRMATIONS } from './confirmations';
 
 export const getConstants = (): Constants => {
   return {
@@ -10,6 +11,9 @@ export const getConstants = (): Constants => {
     DEFAULT_LANG: 'en',
     SUPPORTED_LANGS: ['en'],
 
+    WETH_DECIMALS: 18,
+
     ADDRESSES: addresses,
+    CONFIRMATIONS,
   };
 };

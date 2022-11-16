@@ -37,6 +37,11 @@ jobs:
         run: yarn --prefer-offline
         id: install
 
+      - name: Install fork dependencies
+        working-directory: ./fork
+        run: yarn --prefer-offline
+        id: fork-install
+
       - name: Install project dependencies
         run: yarn run build
         id: build

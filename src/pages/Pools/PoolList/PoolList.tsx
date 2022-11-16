@@ -10,7 +10,6 @@ import {
   SecondaryButton,
   Typography,
   TokenLabel,
-  EthLabel,
 } from '~/components/shared';
 import SortButton from './SortButton';
 
@@ -27,9 +26,13 @@ import {
   Title,
 } from './PoolList.styles';
 import { PoolManager } from '~/types/PoolManager';
-import { getConfig } from '~/config';
+import { useState } from 'react';
+import { getPoolName } from '~/utils/poolUtils';
+import { EthLabel } from '~/components/shared/TokenLabels';
 
 const PoolList = () => {
+  const [searchInput, setSearchInput] = useState('');
+
   const poolManagers = useAppSelector((state) => state.poolManagers.poolManagers);
 
   const dispatch = useAppDispatch();
@@ -38,14 +41,22 @@ const PoolList = () => {
   const openLockModal = (pool: PoolManager) =>
     dispatch(ModalsActions.openModal({ modalName: 'lock', modalProps: pool }));
 
-  const poolManagerList = poolManagers ? Object.values(poolManagers) : [];
+  const filterPoolManagers = (poolManagers: PoolManager[]): PoolManager[] =>
+    poolManagers.filter((poolManager) => {
+      const searchCriteria = [poolManager.address, getPoolName(poolManager), poolManager.token.tokenAddress]
+        .join('-')
+        .toLowerCase();
+      return searchCriteria.includes(searchInput.toLowerCase());
+    });
+
+  const poolManagerList = poolManagers ? filterPoolManagers(Object.values(poolManagers)) : [];
 
   return (
     <>
       <SCard>
         <Title>Pools</Title>
 
-        <SearchInput onChange={(e) => console.log(e.target.value)} />
+        <SearchInput onChange={(e) => setSearchInput(e.target.value)} />
 
         {isLoading && (
           <LoaderContainer>
@@ -69,7 +80,7 @@ const PoolList = () => {
                 <Typography>
                   <PoolIcon address={poolManager.token.tokenAddress} />
                 </Typography>
-                <Typography>{poolManager.token.tokenSymbol}-WETH</Typography>
+                <Typography>{getPoolName(poolManager)}</Typography>
                 <Typography>{Number(poolManager.fee) / 1000}%</Typography>
                 <PriceAmountContainer>
                   <EthLabel value='1234000000000000000000' />

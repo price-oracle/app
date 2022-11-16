@@ -5,7 +5,7 @@ import Lock from './Lock';
 import { SPACING_512, SPACING_32 } from '~/components/shared';
 import { PoolManager } from '~/types/PoolManager';
 
-export interface TestModalProps {
+export interface LockModalProps {
   onClose: () => void;
   modalProps: PoolManager;
 }
@@ -23,10 +23,10 @@ const StyledModal = styled.div`
   max-height: 85%;
 `;
 
-export const LockModal: FC<TestModalProps> = ({ onClose, modalProps, ...props }) => {
+export const LockModal: FC<LockModalProps> = ({ onClose, modalProps: pool, ...props }) => {
   return (
     <StyledModal>
-      <Lock modalProps={modalProps} {...props} />
+      <Lock pool={pool} {...props} />
     </StyledModal>
   );
 };

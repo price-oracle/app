@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { PoolManager } from '~/types/PoolManager';
 import { TokenIcon } from './TokenIcon';
 
 const BaseTokenIcon = styled(TokenIcon).attrs({

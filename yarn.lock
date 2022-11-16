@@ -1003,6 +1003,11 @@
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
+"@price-oracle/interfaces@0.0.0-88c04cf8":
+  version "0.0.0-88c04cf8"
+  resolved "https://registry.yarnpkg.com/@price-oracle/interfaces/-/interfaces-0.0.0-88c04cf8.tgz#7a2702c94dc1a054e733364130f7cc11217c5411"
+  integrity sha512-MO1vEBicn8Vnbs8ve6zD32iQUawBPfWSqo+pDyhP/EkmHRrDyz3xg80bHkVnXHZtyX1dleOXvbd+DrTk5YzmoA==
+
 "@rainbow-me/rainbowkit@0.7.4":
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-0.7.4.tgz#5cf25d9108ae125c3b1b2b6ddb01d785940011bd"
@@ -2012,6 +2017,11 @@ bigint-buffer@^1.1.5:
   integrity sha512-trfYco6AoZ+rKhKnxA0hgX0HAbVP/s808/EuDSe2JDzUnCp/xAsli35Orvk67UrTEcwuxZqYZDmfA2RXJgxVvA==
   dependencies:
     bindings "^1.3.0"
+
+bignumber.js@9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.0.tgz#8d340146107fe3a6cb8d40699643c302e8773b62"
+  integrity sha512-4LwHK4nfDOraBCtst+wOWIHbu1vhvAPJK8g8nROd4iuc3PSEjWif/qwbkh8jwCJz6yDBvtU4KPynETgrfh7y3A==
 
 binary-extensions@^2.0.0:
   version "2.2.0"
