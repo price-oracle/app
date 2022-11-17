@@ -2,10 +2,8 @@ import styled from 'styled-components';
 
 import { SPACING_16, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
-import Dropdown from '~/components/shared/Dropdown';
 import Balance from './Balance';
 import Deposit from './Deposit';
-import TokenList from '../SelectToken/TokenList';
 
 const Container = styled.section`
   display: grid;
@@ -37,8 +35,6 @@ const DepositAmountsSection = () => {
     onChange: (value: any) => console.log('dispatch(setPriceAmount(toFixedUnit(value)))'),
   });
 
-  const dropdownProps = Dropdown.useProps();
-
   // temporary fixed values
   const selectedToken = {
     symbol: 'TUSD',
@@ -58,14 +54,7 @@ const DepositAmountsSection = () => {
         <Deposit.Token src={selectedToken?.logoURI} />
         <Deposit.Amount {...tokenInput} />
         <Deposit.Symbol>
-          <Dropdown {...dropdownProps}>
-            <Dropdown.Button>
-              <Typography>{selectedToken?.symbol || ''}</Typography>
-            </Dropdown.Button>
-            <Dropdown.Modal>
-              <TokenList onClick={() => console.log('closeModal')} />
-            </Dropdown.Modal>
-          </Dropdown>
+          <Typography>{selectedToken?.symbol || ''}</Typography>
         </Deposit.Symbol>
       </Deposit>
 
