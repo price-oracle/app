@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { toUnit } from './format';
 
 export const isValidAddress = (address: string): boolean => {
   try {
@@ -16,11 +17,8 @@ export function withComponents<A, B>(component: A, properties: B): A & B {
   return component as A & B;
 }
 
-export function formatNumber(
-  input: string | ethers.BigNumberish,
-  decimals = 18
-): { number: string | number; suffix: string } {
-  const res = Number.parseFloat(ethers.utils.formatUnits(input, decimals));
+export function formatNumber(input: string, decimals = 18): { number: string | number; suffix: string } {
+  const res = Number.parseFloat(toUnit(input, decimals));
 
   if (res < 1000) return { number: res, suffix: '' };
 
