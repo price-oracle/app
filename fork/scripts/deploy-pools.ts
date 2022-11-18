@@ -1,20 +1,17 @@
 import hre, { ethers } from 'hardhat';
-import { BigNumber } from 'ethers';
 import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
-import { impersonate, toUnit, setBalance } from './utils';
-import { address } from './constants';
-import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
-import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolManagerFactory';
-import { IPoolManager } from '@price-oracle/interfaces/ethers-v5/IPoolManager';
 import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
-import { abi as IPriceOracleABI } from '@price-oracle/interfaces/abi/IPriceOracle.json';
-import {
-  maxLiquidityForAmounts,
-  computePoolAddress,
-  encodeSqrtRatioX96,
-} from '@uniswap/v3-sdk';
+import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
+import { IPoolManager } from '@price-oracle/interfaces/ethers-v5/IPoolManager';
 import { Token } from '@uniswap/sdk-core';
+import {
+  computePoolAddress,
+  encodeSqrtRatioX96, maxLiquidityForAmounts
+} from '@uniswap/v3-sdk';
 import jsbi from 'jsbi';
+
+import { address } from './constants';
+import { impersonate, setBalance, toWei } from './utils';
 
 /**
  * Deploy Pools Script
@@ -36,7 +33,6 @@ import jsbi from 'jsbi';
   // get needed contracts and addresses
   const { vsp, jpyc, weth, dai, kp3r, usdt, usdc, uniswapV3Factory } =
     getMainnetSdk(richWallet);
-  const feeForPriceWethPool = 3000;
 
   const poolManagerFactory = (await hre.ethers.getContractAt(
     IPoolManagerFactoryABI,
@@ -44,8 +40,8 @@ import jsbi from 'jsbi';
   ));
 
   // give the deployer a lot of WETH
-  await setBalance(richWallet.address, toUnit(100_000));
-  await weth.connect(richWallet).deposit({ value: toUnit(50_000) });
+  await setBalance(richWallet.address, toWei(100_000));
+  await weth.connect(richWallet).deposit({ value: toWei(50_000).toFixed() });
 
   const pairsToCreate = [
     {
@@ -127,7 +123,7 @@ import jsbi from 'jsbi';
 
     try {
       // give ETH and non-weth token to the deployer
-      await setBalance(pair.whale, toUnit(10));
+      await setBalance(pair.whale, toWei(10));
       const whale = await impersonate(pair.whale);
       const balance = await token.balanceOf(pair.whale);
       await token.connect(whale).transfer(richWallet.address, balance);
@@ -176,8 +172,8 @@ import jsbi from 'jsbi';
         .createPoolManager(
           token.address,
           pair.fee,
-          BigNumber.from(liquidity),
-          BigNumber.from(sqrtPriceX96)
+          liquidity,
+          sqrtPriceX96
         );
 
       let pairPoolManagerAddress =
@@ -201,6 +197,6 @@ import jsbi from 'jsbi';
 
   // Give weth balance to governance to be able to lock
   const gov = await impersonate(governance.address);
-  await weth.connect(gov).deposit({ value: toUnit(10.123123123123123123) });
+  await weth.connect(gov).deposit({ value: toWei(10.123123123123123123).toFixed() });
   const balance = await weth.balanceOf(governance.address);
 })();

@@ -1,5 +1,5 @@
 import hre, { ethers } from 'hardhat';
-import { impersonate, toUnit, advanceTimeAndBlock, setBalance } from './utils';
+import { impersonate, toUnit, advanceTimeAndBlock, setBalance, toWei } from './utils';
 import { address } from './constants';
 import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
 import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolManagerFactory';
@@ -48,7 +48,7 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
 
   const depositorAddress = process.env.DEPOSITOR_ADDRESS as string;
   const depositor = await impersonate(depositorAddress);
-  await setBalance(depositorAddress, toUnit(100_000));
+  await setBalance(depositorAddress, toWei(100_000));
   console.log(`Depositor: ${depositorAddress}\n`);
 
   for (var poolManagerAddress of poolManagerAddresses) {
@@ -73,7 +73,7 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     console.log(`Found LockManager at ${lockManagerAddress}`);
 
     // provide the user and our wallet with WETH
-    let lockAmount = toUnit(Math.random() * 10);
+    let lockAmount = toWei(Math.random() * 10).toFixed();
 
     // give the deployer a lot of WETH
     await weth.connect(depositor).deposit({ value: lockAmount });
@@ -91,7 +91,7 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     }
 
     await lockManager.connect(depositor).lock(lockAmount);
-    const wethRewards = toUnit(Math.random() * 10);
+    const wethRewards = toWei(Math.random() * 10).toFixed();
     const tokenBalance = await token.balanceOf(richWallet.address);
 
     await lockManager

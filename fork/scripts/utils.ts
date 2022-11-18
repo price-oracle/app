@@ -1,6 +1,6 @@
-import hre from 'hardhat';
 import { JsonRpcSigner } from '@ethersproject/providers';
-import { BigNumber, utils } from 'ethers';
+import BigNumber from 'bignumber.js';
+import hre from 'hardhat';
 
 export const impersonate = async (address: string): Promise<JsonRpcSigner> => {
   await hre.network.provider.request({
@@ -41,8 +41,14 @@ export const advanceBlock = async () => {
   });
 };
 
-export const toUnit = (value: number): BigNumber => {
-  return utils.parseUnits(value.toString());
+export const toUnit = (value: number): string => {
+  const ONE_UNIT = new BigNumber(10).pow(18);
+  return new BigNumber(value).div(ONE_UNIT).toString();
+};
+
+export const toWei = (amount: number): BigNumber => {
+  const ONE_UNIT = new BigNumber(10).pow(18);
+  return new BigNumber(amount).times(ONE_UNIT);
 };
 
 export const setBalance = async (
@@ -51,6 +57,6 @@ export const setBalance = async (
 ): Promise<void> => {
   await hre.network.provider.send('hardhat_setBalance', [
     address,
-    amount.toHexString(),
+    '0x'+amount.toString(16),
   ]);
 };
