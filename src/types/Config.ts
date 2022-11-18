@@ -1,4 +1,5 @@
 import { Address, Network } from './Blockchain';
+import { FeeTier } from './FeeTiers';
 import { Language, ThemeName } from './Settings';
 
 export interface Env {
@@ -25,6 +26,8 @@ export interface Constants {
   };
 
   CONFIRMATIONS: { [key: number]: number };
+
+  FEE_TIERS: { [key: string]: FeeTier };
 }
 
 export interface Config extends Env, Constants {}
