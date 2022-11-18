@@ -25,6 +25,8 @@ export interface Constants {
   };
 
   CONFIRMATIONS: { [key: number]: number };
+
+  DEFAULT_ALERT_TIMEOUT: number;
 }
 
 export interface Config extends Env, Constants {}

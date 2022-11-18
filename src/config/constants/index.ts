@@ -15,5 +15,7 @@ export const getConstants = (): Constants => {
 
     ADDRESSES: addresses,
     CONFIRMATIONS,
+
+    DEFAULT_ALERT_TIMEOUT: 3000,
   };
 };

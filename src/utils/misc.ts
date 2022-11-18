@@ -34,3 +34,5 @@ export function formatNumber(
   const number = formattedNumber.slice(0, -1);
   return { number, suffix };
 }
+
+export const getRandomId = (): string => new Date().getTime().toString(36) + Math.random().toString(36).slice(2);

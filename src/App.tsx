@@ -16,6 +16,7 @@ import { Themable } from './containers/Themable';
 import { PoolManagerFactoryService, PoolManagerService } from '~/services';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { PoolManagersActions } from './store/poolManagers/poolManagers.actions';
+import { Alerts } from './containers/Alerts';
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
   html, body {
@@ -57,6 +58,7 @@ function App() {
   return (
     <Themable>
       <GlobalStyle />
+      <Alerts />
       <Modals />
 
       <Routes>
