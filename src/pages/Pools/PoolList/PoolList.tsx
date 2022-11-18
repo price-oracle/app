@@ -1,4 +1,4 @@
-import { useAppDispatch } from '~/hooks';
+import { useAppSelector, useAppDispatch } from '~/hooks';
 
 import { ModalsActions } from '~/store';
 
@@ -13,7 +13,6 @@ import {
 } from '~/components/shared';
 import SortButton from './SortButton';
 
-import { useAppSelector } from '~/hooks';
 import {
   ButtonContainer,
   Divider,
@@ -26,6 +25,7 @@ import {
   Title,
 } from './PoolList.styles';
 import { PoolManager } from '~/types/PoolManager';
+
 import { useState } from 'react';
 import { getPoolName } from '~/utils/poolUtils';
 import { EthLabel } from '~/components/shared/TokenLabels';
@@ -33,10 +33,11 @@ import { EthLabel } from '~/components/shared/TokenLabels';
 const PoolList = () => {
   const [searchInput, setSearchInput] = useState('');
 
-  const poolManagers = useAppSelector((state) => state.poolManagers.poolManagers);
+  const lockManagers = useAppSelector((state) => state.lockManagers.elements);
+  const poolManagers = useAppSelector((state) => state.poolManagers.elements);
 
   const dispatch = useAppDispatch();
-  const isLoading = !poolManagers;
+  const isLoading = !poolManagers || !lockManagers;
 
   const openLockModal = (pool: PoolManager) =>
     dispatch(ModalsActions.openModal({ modalName: 'lock', modalProps: pool }));
@@ -80,16 +81,24 @@ const PoolList = () => {
                 <Typography>
                   <PoolIcon address={poolManager.token.tokenAddress} />
                 </Typography>
+
                 <Typography>{getPoolName(poolManager)}</Typography>
                 <Typography>{Number(poolManager.fee) / 1000}%</Typography>
+
                 <PriceAmountContainer>
-                  <EthLabel value='1234000000000000000000' />
+                  <EthLabel value={lockManagers[poolManager.address].locked} />
                 </PriceAmountContainer>
+
                 <PriceAmountContainer>
-                  <EthLabel value='1234000000000000000000' />
+                  <EthLabel value={lockManagers[poolManager.address].rewards.ethReward} />
                   <Divider>/</Divider>
-                  <TokenLabel value='1234000000000000000000' address={poolManager.token.tokenAddress} decimals={18} />
+                  <TokenLabel
+                    value={lockManagers[poolManager.address].rewards.tokenReward}
+                    address={poolManager.token.tokenAddress}
+                    decimals={18}
+                  />
                 </PriceAmountContainer>
+
                 <ButtonContainer>
                   <PrimaryButton onClick={() => openLockModal(poolManager)}>Lock</PrimaryButton>
                   <SecondaryButton onClick={() => console.log('handleClickClaimRewards()')}>

@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const ValueContainer = styled.div``;
 
-const Suffix = styled(Typography).attrs({
+export const Suffix = styled(Typography).attrs({
   variant: 'small',
   color: 'disabled',
 })`

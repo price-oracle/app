@@ -13,9 +13,9 @@ import SeedLiquidity from './pages/SeedLiquidity';
 import { PropTheme } from './components/shared';
 import { Modals } from './containers/modals';
 import { Themable } from './containers/Themable';
-import { PoolManagerFactoryService, PoolManagerService } from '~/services';
+import { LockManagerService, PoolManagerFactoryService, PoolManagerService } from '~/services';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { PoolManagersActions } from './store/poolManagers/poolManagers.actions';
+import { PoolManagersActions, LockManagersActions } from './store';
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
   html, body {
@@ -43,7 +43,8 @@ function App() {
   // TODO Add a place for them ,in the context or someplace to have them as singleton class
   const poolManagerFactoryService = new PoolManagerFactoryService();
   const poolManagerService = new PoolManagerService();
-  const poolManagers = useAppSelector((state) => state.poolManagers.poolManagers);
+  const lockManagerService = new LockManagerService();
+  const poolManagers = useAppSelector((state) => state.poolManagers.elements);
 
   useEffect(() => {
     //TODO: This can loop infinitely if the request fails. We need to add a case to the reducer on failure
@@ -51,6 +52,8 @@ function App() {
       dispatch(
         PoolManagersActions.fetchPoolManagers({ factoryService: poolManagerFactoryService, poolManagerService })
       );
+    } else {
+      dispatch(LockManagersActions.fetchLockManagers({ lockManagerService, poolManagers }));
     }
   }, [poolManagers]);
 

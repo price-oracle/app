@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { BigNumber } from 'ethers';
 
-import { Card, Loading, Typography, EthLabel } from '~/components/shared';
+import { Card, Loading, Typography, EthLabel, ValueInUSD } from '~/components/shared';
+import { useAppSelector } from '~/hooks';
+import { LockManager } from '~/types/LockManager';
 
 const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
@@ -16,31 +19,29 @@ const Title = styled.div`
 
 const DashboardHeader = styled.div``;
 
-const PriceAmount = styled.div`
+const TokenAmount = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const PriceUSDTypography = styled(Typography).attrs({
-  color: 'disabled',
-})`
-  margin-left: 5px;
-  margin-top: 10px;
-`;
-
-const PriceUSD = ({ value }: { value: number }) => {
-  const connected = true;
-
-  const priceUsd = connected ? '~ 10 $' : '(0$)';
-  return <PriceUSDTypography>{priceUsd}</PriceUSDTypography>;
-};
-
 export function Dashboard() {
-  // temporary
-  const isLoading = false;
-  const totalPriceLocked = '10000000000000000000000000';
-  const totalUSDLocked = 0;
-  const totalUSDClaimableRewards = 0;
+  const lockManagers = useAppSelector((state) => state.lockManagers.elements);
+  const isLoading = !lockManagers;
+
+  const getTotalLocked = (lockManagerList: LockManager[]) => {
+    let locked = BigNumber.from(0);
+    lockManagerList.forEach((lockManager) => {
+      locked = locked.add(lockManager.locked);
+    });
+    return locked.toString();
+  };
+
+  const totalUserLocked = lockManagers ? getTotalLocked(Object.values(lockManagers)) : '0';
+
+  const ethPrice = '1200'; // temporary
+  const totalUSDClaimableRewards = '10000000000000000000000000000'; // temporary
+
+  const totalUSDLocked = BigNumber.from(ethPrice).mul(totalUserLocked);
 
   return (
     <>
@@ -55,25 +56,27 @@ export function Dashboard() {
           <Typography color='secondary'>Claimable rewards</Typography>
         </DashboardHeader>
 
-        {isLoading ? (
+        {isLoading && (
           <>
-            <PriceAmount>
+            <TokenAmount>
               <Loading />
-            </PriceAmount>
-            <PriceAmount>
+            </TokenAmount>
+            <TokenAmount>
               <Loading />
-            </PriceAmount>
+            </TokenAmount>
           </>
-        ) : (
+        )}
+
+        {!isLoading && (
           <>
-            <PriceAmount>
-              <EthLabel value='1234000000000000000000' />
-              <PriceUSD value={totalUSDLocked} />
-            </PriceAmount>
-            <PriceAmount>
+            <TokenAmount>
+              <EthLabel value={totalUserLocked} />
+              <ValueInUSD value={totalUSDLocked} />
+            </TokenAmount>
+            <TokenAmount>
               {/* <PriceLabel value={totalPriceLocked} /> */}
-              <PriceUSD value={totalUSDClaimableRewards} />
-            </PriceAmount>
+              <ValueInUSD value={totalUSDClaimableRewards} />
+            </TokenAmount>
           </>
         )}
       </SCard>

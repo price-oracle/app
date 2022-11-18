@@ -17,7 +17,12 @@ import settingsReducer, { settingsInitialState } from './settings/settings.reduc
 import { SettingsActions } from './settings/settings.actions';
 
 // Pool Managers state
-import poolManagersReducer from './poolManagers/poolManagers.reducer';
+import poolManagersReducer, { poolManagersInitialState } from './poolManagers/poolManagers.reducer';
+import { PoolManagersActions } from './poolManagers/poolManagers.actions';
+
+// Lock Managers state
+import lockManagersReducer, { lockManagerInitialState } from './lockManager/lockManager.reducer';
+import { LockManagersActions } from './lockManager/lockManager.actions';
 
 // Modals state
 import modalsReducer, { modalsInitialState } from './modals/modals.reducer';
@@ -29,16 +34,17 @@ export const rootReducer: Reducer<RootState> = combineReducers({
   settings: settingsReducer,
   modals: modalsReducer,
   poolManagers: poolManagersReducer,
+  lockManagers: lockManagersReducer,
 });
 
 // Actions
-export { ThemeActions, SettingsActions, ModalsActions };
+export { ThemeActions, SettingsActions, ModalsActions, LockManagersActions, PoolManagersActions };
 
 // Selectors
 export { ModalSelectors };
 
 // initialStates
-export { themeInitialState, settingsInitialState, modalsInitialState };
+export { themeInitialState, settingsInitialState, modalsInitialState, lockManagerInitialState };
 
 export function getStore() {
   const localStorageName = 'price';
@@ -47,6 +53,8 @@ export function getStore() {
   const initialState = {
     theme: cloneDeep(themeInitialState),
     settings: cloneDeep(settingsInitialState),
+    poolManagers: cloneDeep(poolManagersInitialState),
+    lockManagers: cloneDeep(lockManagerInitialState),
   };
   const persistConfig = {
     namespace: localStorageName,

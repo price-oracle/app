@@ -22,4 +22,5 @@ export * from './theme';
 export * from './TokenIcon';
 export * from './TokenLabels';
 export * from './Typography';
+export * from './ValueInUSD';
 export * from './Variables';
