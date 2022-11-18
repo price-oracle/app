@@ -35,7 +35,6 @@ const openAlert = createAsyncThunk<
       dispatch(closeAlert({ alertId: alert.id }));
     }, timeout || getConfig().DEFAULT_ALERT_TIMEOUT);
   }
-  console.log(message);
   return { alert };
 });
 
