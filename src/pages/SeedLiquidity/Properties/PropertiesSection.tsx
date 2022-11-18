@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import Dropdown from '~/components/shared/Dropdown';
 import { Typography, Loading, Icon, SPACING_16, SPACING_24 } from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
+import { FeeTier } from '~/types/FeeTiers';
+import { getConfig } from '~/config';
 
 const Container = styled.section`
   display: grid;
@@ -35,13 +38,14 @@ const Suffix = styled(Typography).attrs({
 function PropertiesSection() {
   const dropdownProps = Dropdown.useProps();
 
-  // temporary fixed values
-  const feeCard = {
-    created: false,
-    hint: 'testHint',
-    feePercentage: 0.3,
-  };
-  const feeCards = [feeCard, feeCard, feeCard, feeCard];
+  const FEE_TIERS = getConfig().FEE_TIERS;
+
+  const defaultFee = FEE_TIERS['0_3%'];
+
+  const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
+
+  const feeTierList = Object.values(FEE_TIERS);
+
   const ethRateInput = {
     symbol: 'TUSD',
     logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png`,
@@ -50,6 +54,11 @@ function PropertiesSection() {
     decimals: 18,
   };
   const isLoading = false;
+
+  const setNewFee = (fee: FeeTier) => {
+    dropdownProps.setShow(false);
+    setSelectedFee(fee);
+  };
 
   return (
     <Container>
@@ -75,19 +84,13 @@ function PropertiesSection() {
 
           {!isLoading && (
             <Dropdown {...dropdownProps}>
-              <Dropdown.Button>
-                {/* {getFeePercentage(selectedFeeCardProps)} */}
-                0.3%
-              </Dropdown.Button>
+              <Dropdown.Button>{selectedFee.label}</Dropdown.Button>
               <SDropdownModal>
-                {feeCards.map((f) => (
-                  <FeeCard onClick={() => console.log('handleClickFeeBuilder(f)')} key={f.feePercentage}>
-                    <FeeCard.FeePercentage>
-                      {/* {getFeePercentage(f)} */}
-                      0.3%
-                    </FeeCard.FeePercentage>
-                    {f.created || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
-                    <FeeCard.Hint>{f.hint}</FeeCard.Hint>
+                {feeTierList.map((fee) => (
+                  <FeeCard onClick={() => setNewFee(fee)} key={fee.fee}>
+                    <FeeCard.FeePercentage>{fee.label}</FeeCard.FeePercentage>
+                    {fee.created || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
+                    <FeeCard.Hint>{fee.hint}</FeeCard.Hint>
                   </FeeCard>
                 ))}
               </SDropdownModal>
@@ -96,12 +99,7 @@ function PropertiesSection() {
         </PropertyCard.Value>
 
         <PropertyCard.Helper />
-        {!isLoading && (
-          <PropertyCard.Chip>
-            Best for most pairs
-            {/* {selectedFeeCardProps?.hint} */}
-          </PropertyCard.Chip>
-        )}
+        {!isLoading && <PropertyCard.Chip>{selectedFee.hint}</PropertyCard.Chip>}
       </PropertyCard>
     </Container>
   );

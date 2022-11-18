@@ -1,6 +1,7 @@
 import { Constants } from '~types/Config';
 import { addresses } from './addresses';
 import { CONFIRMATIONS } from './confirmations';
+import { FEE_TIERS } from './feeTiers';
 
 export const getConstants = (): Constants => {
   return {
@@ -17,5 +18,6 @@ export const getConstants = (): Constants => {
     CONFIRMATIONS,
 
     DEFAULT_ALERT_TIMEOUT: 3000,
+    FEE_TIERS,
   };
 };

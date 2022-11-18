@@ -20,10 +20,13 @@ export function withComponents<A, B>(component: A, properties: B): A & B {
 export function formatNumber(input: string, decimals = 18): { number: string | number; suffix: string } {
   const res = Number.parseFloat(toUnit(input, decimals));
 
-  if (res < 1000) return { number: res, suffix: '' };
+  if (res < 1000) {
+    const number = res.toString();
+    return { number: number.slice(0, 4), suffix: '' };
+  }
 
   const formattedNumber = new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 1,
+    maximumFractionDigits: 2,
     notation: 'compact',
     compactDisplay: 'short',
   }).format(res);

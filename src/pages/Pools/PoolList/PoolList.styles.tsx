@@ -13,10 +13,9 @@ import {
 } from '~/components/shared';
 
 export const SCard = styled(Card)`
-  margin-top: ${SPACING_32};
+  margin: ${SPACING_32} auto;
   overflow-x: auto;
   max-width: 72rem;
-  margin: 30px auto;
   justify-items: left;
 `;
 

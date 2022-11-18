@@ -3,6 +3,7 @@ import { ModalName } from './Modals';
 import { PoolManager } from './PoolManager';
 import { ThemeName } from './Settings';
 import { Alert } from './Alerts';
+import { LockManager } from './LockManager';
 
 export interface ThemeState {
   current: ThemeName;
@@ -21,7 +22,11 @@ export interface ModalsState {
   modalProps: any | undefined;
 }
 export interface PoolManagersState {
-  poolManagers: { [key: Address]: PoolManager } | undefined;
+  elements: { [key: Address]: PoolManager } | undefined;
+}
+
+export interface LockManagerState {
+  elements: { [key: Address]: LockManager } | undefined;
 }
 
 export interface AlertsState {
@@ -34,4 +39,5 @@ export interface RootState {
   settings: SettingsState;
   modals: ModalsState;
   poolManagers: PoolManagersState;
+  lockManagers: LockManagerState;
 }
