@@ -32,4 +32,11 @@ export class LockManagerService {
       return this.txService.handleTx(await lockManagerContract.lock(amount));
     }
   }
+
+  async claimRewards(lockManagerAddress: string, to: string) {
+    if (this.signer?.data) {
+      const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
+      return this.txService.handleTx(await lockManagerContract.claimRewards(to));
+    }
+  }
 }

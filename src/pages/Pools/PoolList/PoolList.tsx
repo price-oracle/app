@@ -29,8 +29,13 @@ import { PoolManager } from '~/types/PoolManager';
 import { useState } from 'react';
 import { getPoolName } from '~/utils/poolUtils';
 import { EthLabel } from '~/components/shared/TokenLabels';
+import { useAccount } from 'wagmi';
+import { LockManagerService } from '~/services';
 
 const PoolList = () => {
+  const { address } = useAccount();
+  const lockManagerService = new LockManagerService();
+
   const [searchInput, setSearchInput] = useState('');
 
   const lockManagers = useAppSelector((state) => state.lockManagers.elements);
@@ -51,6 +56,11 @@ const PoolList = () => {
     });
 
   const poolManagerList = poolManagers ? filterPoolManagers(Object.values(poolManagers)) : [];
+
+  const claimRewards = (lockManagerAddress: string) => {
+    if (!address) return;
+    lockManagerService.claimRewards(lockManagerAddress, address);
+  };
 
   return (
     <>
@@ -101,7 +111,7 @@ const PoolList = () => {
 
                 <ButtonContainer>
                   <PrimaryButton onClick={() => openLockModal(poolManager)}>Lock</PrimaryButton>
-                  <SecondaryButton onClick={() => console.log('handleClickClaimRewards()')}>
+                  <SecondaryButton onClick={() => claimRewards(poolManager.lockManagerAddress)}>
                     Claim rewards
                   </SecondaryButton>
                 </ButtonContainer>
