@@ -1,3 +1,7 @@
+// Alerts state
+import alertsReducer, { alertsInitialState } from './alerts/alerts.reducer';
+import { AlertsActions } from './alerts/alerts.actions';
+
 // Theme State
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore, combineReducers, Reducer } from '@reduxjs/toolkit';
@@ -35,10 +39,11 @@ export const rootReducer: Reducer<RootState> = combineReducers({
   modals: modalsReducer,
   poolManagers: poolManagersReducer,
   lockManagers: lockManagersReducer,
+  alerts: alertsReducer,
 });
 
 // Actions
-export { ThemeActions, SettingsActions, ModalsActions, LockManagersActions, PoolManagersActions };
+export { ThemeActions, SettingsActions, ModalsActions, LockManagersActions, PoolManagersActions, AlertsActions };
 
 // Selectors
 export { ModalSelectors };
@@ -53,6 +58,7 @@ export function getStore() {
   const initialState = {
     theme: cloneDeep(themeInitialState),
     settings: cloneDeep(settingsInitialState),
+    alerts: cloneDeep(alertsInitialState),
     poolManagers: cloneDeep(poolManagersInitialState),
     lockManagers: cloneDeep(lockManagerInitialState),
   };

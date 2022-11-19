@@ -27,6 +27,7 @@ export interface Constants {
 
   CONFIRMATIONS: { [key: number]: number };
 
+  DEFAULT_ALERT_TIMEOUT: number;
   FEE_TIERS: { [key: string]: FeeTier };
 }
 

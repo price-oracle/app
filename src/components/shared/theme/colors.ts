@@ -16,11 +16,38 @@ export interface Theme {
   textPrimary: string;
   textSecondary: string;
   type: 'dark' | 'light';
+  alerts: ThemeAlerts;
+}
+
+export interface ThemeAlerts {
+  alertBackground: string;
+  alertColor: string;
+  infoBackground: string;
+  infoColor: string;
+  successBackground: string;
+  successColor: string;
+  errorBackground: string;
+  errorColor: string;
+  warningBackground: string;
+  warningColor: string;
 }
 
 export interface PropTheme {
   theme: Theme;
 }
+
+const alerts: ThemeAlerts = {
+  alertBackground: '#191919',
+  alertColor: 'white',
+  infoBackground: '#00A3FF',
+  infoColor: 'white',
+  successBackground: '#C6E11E',
+  successColor: 'black',
+  errorBackground: '#FF005E',
+  errorColor: 'white',
+  warningBackground: '#FFA800',
+  warningColor: 'white',
+};
 
 export const darkTheme: Theme = {
   type: 'dark',
@@ -35,6 +62,7 @@ export const darkTheme: Theme = {
   actionSelected: `rgba(255, 255, 255, 0.16)`,
   actionDisabled: `rgba(255, 255, 255, 0.3)`,
   actionDisabledBackground: `rgba(255, 255, 255, 0.12)`,
+  alerts,
 };
 
 export const lightTheme: Theme = {
@@ -50,4 +78,5 @@ export const lightTheme: Theme = {
   actionSelected: `rgba(0, 0, 0, 0.08)`,
   actionDisabled: `rgba(0, 0, 0, 0.26)`,
   actionDisabledBackground: `rgba(0, 0, 0, 0.12)`,
+  alerts,
 };

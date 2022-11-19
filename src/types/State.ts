@@ -2,6 +2,7 @@ import { Address } from './Blockchain';
 import { ModalName } from './Modals';
 import { PoolManager } from './PoolManager';
 import { ThemeName } from './Settings';
+import { Alert } from './Alerts';
 import { LockManager } from './LockManager';
 
 export interface ThemeState {
@@ -28,7 +29,12 @@ export interface LockManagerState {
   elements: { [key: Address]: LockManager } | undefined;
 }
 
+export interface AlertsState {
+  alertsList: Alert[];
+}
+
 export interface RootState {
+  alerts: AlertsState;
   theme: ThemeState;
   settings: SettingsState;
   modals: ModalsState;
