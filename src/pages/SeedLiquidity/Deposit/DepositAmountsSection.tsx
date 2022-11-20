@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { SPACING_16, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
+import { ERC20Service } from '~/services';
+import { Token } from '~/types/Token';
 import Balance from './Balance';
 import Deposit from './Deposit';
 
@@ -21,7 +24,11 @@ const Title = styled(Typography).attrs({
   margin-top: ${SPACING_16};
 `;
 
-const DepositAmountsSection = () => {
+interface DepositAmountsProps {
+  selectedToken: Token;
+}
+
+const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
   const tokenInput = InputNumber.useProps({
     onChange: (value: any) => {
       // const result = toFixedUnit(value, selectedToken!.decimals);
@@ -31,20 +38,20 @@ const DepositAmountsSection = () => {
     // forceReset,
   });
 
+  const erc20Service = new ERC20Service();
+
   const priceInput = InputNumber.useProps({
     onChange: (value: any) => console.log('dispatch(setPriceAmount(toFixedUnit(value)))'),
   });
 
-  // temporary fixed values
-  const selectedToken = {
-    symbol: 'TUSD',
-    logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png`,
-    name: 'TrueUSD',
-    decimals: 18,
-  };
-  const tokenBalance = '100';
   const priceBalance = '2000';
   const eth_symbol = 'WETH';
+
+  const [tokenBalance, setTokenBalance] = useState<string | undefined>();
+
+  useEffect(() => {
+    erc20Service.fetchTokenBalance(selectedToken.address).then((balance) => setTokenBalance(balance));
+  }, [selectedToken]);
 
   return (
     <Container>
