@@ -38,7 +38,7 @@ const STokenList = styled(TokenList)`
 `;
 
 interface SelectTokenProps {
-  selectedToken: Token;
+  selectedToken: Token | undefined;
   setSelectedToken: (token: Token) => void;
 }
 

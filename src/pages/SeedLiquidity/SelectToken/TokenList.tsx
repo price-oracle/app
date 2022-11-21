@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useNetwork } from 'wagmi';
 
-import { Button, Card, Loading, TokenIcon, SearchInput, Typography, SPACING_8 } from '~/components/shared';
+import { Button, Card, Loading, SearchInput, SPACING_8, TokenIcon, Typography } from '~/components/shared';
 import { Token } from '~/types/Token';
-import { TOKEN_LIST } from '~/utils/tokenList';
+import { getTokenList } from '~/utils/tokenList';
 
 const SCard = styled(Card)`
   width: 15rem;
@@ -54,17 +55,18 @@ interface IProps {
   className?: string;
 }
 const TokenList = ({ onSelect, className }: IProps) => {
+  const { chain } = useNetwork();
   const isLoading = false;
 
   const [searchInput, setSearchInput] = useState('');
 
   const filterTokens = (tokens: Token[]): Token[] =>
-    TOKEN_LIST.filter((token) => {
+    tokens.filter((token) => {
       const searchCriteria = [token.address, token.name, token.symbol].join('-').toLowerCase();
       return searchCriteria.includes(searchInput.toLowerCase());
     });
 
-  const tokenList = filterTokens(TOKEN_LIST);
+  const tokenList = filterTokens(getTokenList(chain?.id));
 
   return (
     <SCard>

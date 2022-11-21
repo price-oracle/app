@@ -1,15 +1,19 @@
 import { useState } from 'react';
+import { useNetwork } from 'wagmi';
 
-import { Container } from './SeedLiquidity.styles';
-import SelectTokenSection from './SelectToken/SelectTokenSection';
-import PropertiesSection from './Properties/PropertiesSection';
+import { Token } from '~/types/Token';
+import { getTokenList } from '~/utils/tokenList';
 import DepositAmountsSection from './Deposit/DepositAmountsSection';
 import SubmitFormSection from './Deposit/SubmitFormSection';
-import { Token } from '~/types/Token';
-import { TOKEN_LIST } from '~/utils/tokenList';
+import PropertiesSection from './Properties/PropertiesSection';
+import { Container } from './SeedLiquidity.styles';
+import SelectTokenSection from './SelectToken/SelectTokenSection';
 
 function SeedLiquidity() {
-  const [selectedToken, setSelectedToken] = useState<Token>(TOKEN_LIST[0]);
+  const { chain } = useNetwork();
+  const defaultToken = getTokenList(chain?.id)[0];
+  const [selectedToken, setSelectedToken] = useState<Token | undefined>(defaultToken);
+
   return (
     <Container>
       <SelectTokenSection selectedToken={selectedToken} setSelectedToken={setSelectedToken} />

@@ -25,7 +25,7 @@ const Title = styled(Typography).attrs({
 `;
 
 interface DepositAmountsProps {
-  selectedToken: Token;
+  selectedToken: Token | undefined;
 }
 
 const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
@@ -47,10 +47,11 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
   const priceBalance = '2000';
   const eth_symbol = 'WETH';
 
-  const [tokenBalance, setTokenBalance] = useState<string | undefined>();
+  const [tokenBalance, setTokenBalance] = useState<string>('0');
 
   useEffect(() => {
-    erc20Service.fetchTokenBalance(selectedToken.address).then((balance) => setTokenBalance(balance));
+    selectedToken &&
+      erc20Service.fetchTokenBalance(selectedToken.address).then((balance) => setTokenBalance(balance.toString()));
   }, [selectedToken]);
 
   return (
