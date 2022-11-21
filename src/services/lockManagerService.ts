@@ -29,14 +29,14 @@ export class LockManagerService {
   async lock(lockManagerAddress: string, amount: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      return this.txService.handleTx(await lockManagerContract.lock(amount));
+      return this.txService.handleTx(lockManagerContract.lock(amount));
     }
   }
 
   async claimRewards(lockManagerAddress: string, to: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      return this.txService.handleTx(await lockManagerContract.claimRewards(to));
+      return this.txService.handleTx(lockManagerContract.claimRewards(to));
     }
   }
 }

@@ -22,11 +22,6 @@ export class ERC20Service {
 
     return await erc20Contract.callStatic.balanceOf(userAddress);
   }
-  // async fetchTokenBalance(erc20Address: string, user: string) {
-  //   const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
-
-  //   return await erc20Contract.balanceOf(user);
-  // }
 
   async fetchTokenAllowance(erc20Address: Address, approveContract: Address, user: Address) {
     const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
@@ -37,7 +32,7 @@ export class ERC20Service {
   async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: string) {
     if (this.signer?.data) {
       const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer?.data);
-      return this.txService.handleTx(await erc20Contract.approve(approveContract, amount));
+      return this.txService.handleTx(erc20Contract.approve(approveContract, amount));
     }
   }
 }

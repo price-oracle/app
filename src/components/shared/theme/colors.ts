@@ -41,7 +41,7 @@ const alerts: ThemeAlerts = {
   alertColor: 'white',
   infoBackground: '#00A3FF',
   infoColor: 'white',
-  successBackground: '#C6E11E',
+  successBackground: '#27ae60',
   successColor: 'black',
   errorBackground: '#FF005E',
   errorColor: 'white',
