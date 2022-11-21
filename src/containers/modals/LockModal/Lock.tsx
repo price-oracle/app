@@ -4,7 +4,18 @@ import { isUndefined } from 'lodash';
 import { useAccount } from 'wagmi';
 import BigNumber from 'bignumber.js';
 
-import { BoxButton, Loading, PoolIcon, SecondaryButton, SPACING_16, SPACING_24, SPACING_8 } from '~/components/shared';
+import {
+  BoxButton,
+  FONT_SIZE_12,
+  FONT_SIZE_16,
+  FONT_SIZE_24,
+  Loading,
+  PoolIcon,
+  SecondaryButton,
+  SPACING_16,
+  SPACING_24,
+  SPACING_8,
+} from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { useAppDispatch } from '~/hooks';
@@ -16,6 +27,7 @@ import { getPoolName } from '~/utils/poolUtils';
 
 const InputContainer = styled.div`
   display: flex;
+  font-size: ${FONT_SIZE_16};
 `;
 
 const Container = styled.div`
@@ -31,11 +43,12 @@ const Title = styled.h2`
   justify-content: center;
   margin-top: ${SPACING_24};
   margin-bottom: ${SPACING_24};
+  font-size: ${FONT_SIZE_24};
 `;
 
 const SBoxButton = styled(BoxButton)`
-  margin: 10px 0;
-  padding: 6px 40px;
+  margin: 1rem 0;
+  padding: 0.6rem 4rem;
   text-align: center;
   width: 100%;
 `;
@@ -53,18 +66,19 @@ const Label = styled.label`
   grid-template-columns: repeat(3, auto);
   margin-bottom: ${SPACING_16};
   width: fit-content;
+  font-size: ${FONT_SIZE_16};
 `;
 
 const Text = styled.div`
-  margin-left: 1rem;
+  margin-left: 1.6rem;
 `;
 
 const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  margin: 10px 0;
+  height: 3rem;
+  margin: 1rem 0;
 `;
 
 const Lock = ({ pool }: { pool: PoolManager }) => {

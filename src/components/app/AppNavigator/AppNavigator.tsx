@@ -92,7 +92,7 @@ const AppNavigator = () => {
             </SCustomLink>
             {/* <Modal /> */}
             <a
-              href='https://twitter.com/price_oracle'
+              href='https://docs.oracles.rip/'
               // onClick={navProps.handleClickCloseMenu}
             >
               <SHeaderButton>
