@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
+import { isUndefined } from 'lodash';
 
 import { SPACING_16, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
@@ -33,6 +34,7 @@ interface DepositAmountsProps {
 }
 
 const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
+  const bigNumberZero = new BigNumber(0);
   const { address: userAddress } = useAccount();
 
   const {
@@ -56,17 +58,26 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
 
   const eth_symbol = 'WETH';
 
-  const [tokenBalance, setTokenBalance] = useState<BigNumber>(new BigNumber(0));
-  const [wethBalance, setWethBalance] = useState<BigNumber>(new BigNumber(0));
+  const [tokenBalance, setTokenBalance] = useState<BigNumber | undefined>();
+  const [wethBalance, setWethBalance] = useState<BigNumber | undefined>();
 
   useEffect(() => {
-    selectedToken &&
-      erc20Service.fetchTokenBalance(selectedToken.address, userAddress).then((balance) => setTokenBalance(balance));
-  }, [selectedToken]);
+    if (isUndefined(tokenBalance)) {
+      selectedToken &&
+        erc20Service.fetchTokenBalance(selectedToken.address, userAddress).then((balance) => setTokenBalance(balance));
+    }
+  }, [selectedToken, tokenBalance]);
 
   useEffect(() => {
-    erc20Service.fetchTokenBalance(WETH_ADDRESS, userAddress).then((wethBalance) => setWethBalance(wethBalance));
+    if (isUndefined(wethBalance)) {
+      erc20Service.fetchTokenBalance(WETH_ADDRESS, userAddress).then((wethBalance) => setWethBalance(wethBalance));
+    }
   }, [wethBalance, userAddress]);
+
+  useEffect(() => {
+    // Reset to undefined to restart the useEffect hook
+    setTokenBalance(undefined);
+  }, [selectedToken]);
 
   return (
     <Container>
@@ -87,16 +98,16 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
       </Deposit>
 
       <Balance
-        totalAmount={tokenBalance}
+        totalAmount={tokenBalance || bigNumberZero}
         symbol={selectedToken?.symbol || ''}
-        onClick={() => tokenInput.set(toUnit(tokenBalance.toString(), selectedToken?.decimals))}
+        onClick={() => tokenBalance && tokenInput.set(toUnit(tokenBalance.toString(), selectedToken?.decimals))}
         decimals={selectedToken?.decimals}
       />
 
       <Balance
-        totalAmount={wethBalance}
+        totalAmount={wethBalance || bigNumberZero}
         symbol={eth_symbol}
-        onClick={() => wethInput.set(toUnit(wethBalance.toString(), 18))}
+        onClick={() => wethBalance && wethInput.set(toUnit(wethBalance.toString(), 18))}
       />
     </Container>
   );
