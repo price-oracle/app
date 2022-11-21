@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNetwork } from 'wagmi';
@@ -60,11 +61,18 @@ const TokenList = ({ onSelect, className }: IProps) => {
 
   const [searchInput, setSearchInput] = useState('');
 
-  const filterTokens = (tokens: Token[]): Token[] =>
-    tokens.filter((token) => {
+  const filterTokens = (tokens: Token[]): Token[] => {
+    const filteredTokens = tokens.filter((token) => {
       const searchCriteria = [token.address, token.name, token.symbol].join('-').toLowerCase();
       return searchCriteria.includes(searchInput.toLowerCase());
     });
+
+    if (filteredTokens.length === 0 && ethers.utils.isAddress(searchInput)) {
+      //TODO: Trigger search token by address get all data, save for the session and only if clicked save to localstorage for later use
+    }
+
+    return filteredTokens;
+  };
 
   const tokenList = filterTokens(getTokenList(chain?.id));
 
