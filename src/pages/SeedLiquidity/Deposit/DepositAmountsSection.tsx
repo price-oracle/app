@@ -1,10 +1,14 @@
+import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useAccount } from 'wagmi';
 
 import { SPACING_16, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
+import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
 import { Token } from '~/types/Token';
+import { toUnit } from '~/utils/format';
 import Balance from './Balance';
 import Deposit from './Deposit';
 
@@ -29,6 +33,12 @@ interface DepositAmountsProps {
 }
 
 const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
+  const { address: userAddress } = useAccount();
+
+  const {
+    ADDRESSES: { WETH_ADDRESS },
+  } = getConfig();
+
   const tokenInput = InputNumber.useProps({
     onChange: (value: any) => {
       // const result = toFixedUnit(value, selectedToken!.decimals);
@@ -40,19 +50,23 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
 
   const erc20Service = new ERC20Service();
 
-  const priceInput = InputNumber.useProps({
+  const wethInput = InputNumber.useProps({
     onChange: (value: any) => console.log('dispatch(setPriceAmount(toFixedUnit(value)))'),
   });
 
-  const priceBalance = '2000';
   const eth_symbol = 'WETH';
 
-  const [tokenBalance, setTokenBalance] = useState<string>('0');
+  const [tokenBalance, setTokenBalance] = useState<BigNumber>(new BigNumber(0));
+  const [wethBalance, setWethBalance] = useState<BigNumber>(new BigNumber(0));
 
   useEffect(() => {
     selectedToken &&
-      erc20Service.fetchTokenBalance(selectedToken.address).then((balance) => setTokenBalance(balance.toString()));
+      erc20Service.fetchTokenBalance(selectedToken.address, userAddress).then((balance) => setTokenBalance(balance));
   }, [selectedToken]);
+
+  useEffect(() => {
+    erc20Service.fetchTokenBalance(WETH_ADDRESS, userAddress).then((wethBalance) => setWethBalance(wethBalance));
+  }, [wethBalance, userAddress]);
 
   return (
     <Container>
@@ -68,18 +82,22 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
 
       <Deposit>
         <Deposit.Token isPrice />
-        <Deposit.Amount {...priceInput} />
+        <Deposit.Amount {...wethInput} />
         <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
       </Deposit>
 
       <Balance
         totalAmount={tokenBalance}
         symbol={selectedToken?.symbol || ''}
-        onClick={() => console.log('handleClickTokenBalance')}
+        onClick={() => tokenInput.set(toUnit(tokenBalance.toString(), selectedToken?.decimals))}
         decimals={selectedToken?.decimals}
       />
 
-      <Balance totalAmount={priceBalance} symbol={eth_symbol} onClick={() => console.log('handleClickPriceBalance')} />
+      <Balance
+        totalAmount={wethBalance}
+        symbol={eth_symbol}
+        onClick={() => wethInput.set(toUnit(wethBalance.toString(), 18))}
+      />
     </Container>
   );
 };
