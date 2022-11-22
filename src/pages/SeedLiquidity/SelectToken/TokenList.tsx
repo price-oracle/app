@@ -3,12 +3,25 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useNetwork } from 'wagmi';
 
-import { Button, Card, Loading, SearchInput, SPACING_8, TokenIcon, Typography } from '~/components/shared';
+import {
+  Button,
+  Card,
+  Loading,
+  SearchInput,
+  SPACING_8,
+  TokenIcon,
+  Typography,
+  MOBILE_MAX_WIDTH,
+} from '~/components/shared';
 import { Token } from '~/types/Token';
 import { getTokenList } from '~/utils/tokenList';
 
 const SCard = styled(Card)`
-  width: 15rem;
+  width: 20rem;
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    margin: 0 0 0 1.8rem;
+  }
 `;
 
 const TokenItem = styled(Button)`
