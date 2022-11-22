@@ -35,21 +35,20 @@ export class LockManagerService {
   async lock(lockManagerAddress: string, amount: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      const messages = [
-        `Failed to lock ${utils.formatEther(amount)} ETH`,
-        `Successfully locked ${utils.formatEther(amount)} ETH`,
-      ];
+      const successMessage = `Successfully locked ${utils.formatEther(amount)} ETH`;
+      const errorMessage = `Failed to lock ${utils.formatEther(amount)} ETH`;
 
-      return this.txService.handleTx(lockManagerContract.lock(amount), messages);
+      return this.txService.handleTx(lockManagerContract.lock(amount), successMessage, errorMessage);
     }
   }
 
   async claimRewards(lockManagerAddress: string, to: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      const messages = ['Failed to claim rewards', 'Rewards claimed'];
+      const successMessage = 'Rewards claimed';
+      const errorMessage = 'Failed to claim rewards';
 
-      return this.txService.handleTx(lockManagerContract.claimRewards(to), messages);
+      return this.txService.handleTx(lockManagerContract.claimRewards(to), successMessage, errorMessage);
     }
   }
 }

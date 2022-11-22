@@ -33,12 +33,10 @@ export class ERC20Service {
     if (this.signer?.data) {
       const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer?.data);
       const symbol = await this.fetchTokenSymbol(erc20Address);
-      const messages = [
-        `Failed to approve ${utils.formatEther(amount)} ${symbol}`,
-        `Succesfully approved ${utils.formatEther(amount)} ${symbol}`,
-      ];
+      const successMessage = `Succesfully approved ${utils.formatEther(amount)} ${symbol}`;
+      const errorMessage = `Failed to approve ${utils.formatEther(amount)} ${symbol}`;
 
-      return this.txService.handleTx(erc20Contract.approve(approveContract, amount), messages);
+      return this.txService.handleTx(erc20Contract.approve(approveContract, amount), successMessage, errorMessage);
     }
   }
 }
