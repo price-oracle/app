@@ -1,11 +1,11 @@
 import { ethers } from 'ethers';
 import { useProvider, useSigner, useAccount } from 'wagmi';
+import { Contract } from 'ethers-multicall';
 
 import IERC20 from '~/abis/IERC20.json';
 import { TxService } from './txService';
 import { Address } from '~/types/Blockchain';
 import { MultiCallService } from './multicallService';
-import { Contract } from 'ethers-multicall';
 import { Token } from '~/types/Token';
 
 export class ERC20Service {

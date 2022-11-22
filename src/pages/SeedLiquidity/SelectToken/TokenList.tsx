@@ -15,7 +15,7 @@ import {
 } from '~/components/shared';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { ERC20Service } from '~/services';
-import { CustomTokenActions } from '~/store/customTokens/customToken.actions';
+import { CustomTokenActions } from '~/store';
 import { Token } from '~/types/Token';
 import { getTokenList } from '~/utils/tokenList';
 
