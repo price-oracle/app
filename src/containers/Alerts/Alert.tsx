@@ -4,18 +4,18 @@ import styled from 'styled-components';
 import { AlertsActions } from '~/store';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 
-import { SPACING_12, SPACING_4, Icon, Typography } from '~/components/shared';
-import { getTheme } from '~/components/shared';
+import { SPACING_12, SPACING_4, Icon, Typography, getTheme } from '~/components/shared';
 import { AlertTypes } from '~/types/Alerts';
 
 const StyledAlert = styled.div<{ type: AlertTypes }>`
+  margin-right: 5rem;
   overflow: hidden;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 1.5rem 2.8rem;
   position: relative;
   pointer-events: all;
   z-index: 1200;
-  width: 14rem;
+  width: 30rem;
   max-width: 100%;
   max-height: 100%;
   position: relative;

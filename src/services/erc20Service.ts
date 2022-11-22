@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { ethers, utils } from 'ethers';
 import { useProvider, useSigner, useAccount } from 'wagmi';
 
 import IERC20 from '~/abis/IERC20.json';
@@ -32,7 +32,13 @@ export class ERC20Service {
   async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: string) {
     if (this.signer?.data) {
       const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer?.data);
-      return this.txService.handleTx(erc20Contract.approve(approveContract, amount));
+      const symbol = await this.fetchTokenSymbol(erc20Address);
+      const messages = [
+        `Failed to approve ${utils.formatEther(amount)} ${symbol}`,
+        `Succesfully approved ${utils.formatEther(amount)} ${symbol}`,
+      ];
+
+      return this.txService.handleTx(erc20Contract.approve(approveContract, amount), messages);
     }
   }
 }

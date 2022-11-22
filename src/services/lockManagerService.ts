@@ -1,7 +1,7 @@
 import { abi as ILockManager } from '@price-oracle/interfaces/abi/ILockManager.json';
 import { useProvider, useAccount, useSigner } from 'wagmi';
 import { Contract } from 'ethers-multicall';
-import { ethers } from 'ethers';
+import { ethers, utils } from 'ethers';
 
 import { ERC20Service } from '~/services/erc20Service';
 import { PoolManager } from '~/types/PoolManager';
@@ -35,14 +35,21 @@ export class LockManagerService {
   async lock(lockManagerAddress: string, amount: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      return this.txService.handleTx(lockManagerContract.lock(amount));
+      const messages = [
+        `Failed to lock ${utils.formatEther(amount)} ETH`,
+        `Successfully locked ${utils.formatEther(amount)} ETH`,
+      ];
+
+      return this.txService.handleTx(lockManagerContract.lock(amount), messages);
     }
   }
 
   async claimRewards(lockManagerAddress: string, to: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      return this.txService.handleTx(lockManagerContract.claimRewards(to));
+      const messages = ['Failed to claim rewards', 'Rewards claimed'];
+
+      return this.txService.handleTx(lockManagerContract.claimRewards(to), messages);
     }
   }
 }
