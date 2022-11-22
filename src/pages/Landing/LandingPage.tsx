@@ -37,7 +37,7 @@ function LandingPage() {
       </MiddleContent>
       <BottomContent>
         <Typography allowWrap variant='small'>
-          Made with 🤍 by the Wonderland team
+          Made with 🤍 by Wonderland
         </Typography>
       </BottomContent>
     </Container>

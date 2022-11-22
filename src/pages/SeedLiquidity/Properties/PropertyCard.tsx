@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 
 import help from '~/assets/help.svg';
-import { Typography, Chip, TokenIcon, FONT_SIZE_20, SPACING_32, SPACING_16 } from '~/components/shared';
+import {
+  Typography,
+  Chip,
+  TokenIcon,
+  FONT_SIZE_20,
+  SPACING_32,
+  SPACING_16,
+  MOBILE_MAX_WIDTH,
+} from '~/components/shared';
 import { withComponents } from '~/utils';
 
 const PropertyCard = styled.section`
@@ -17,6 +25,10 @@ const PropertyCard = styled.section`
   align-self: start;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled(Typography)`
