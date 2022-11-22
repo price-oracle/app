@@ -4,6 +4,7 @@ import Navigator from '../Navigator';
 import {
   MOBILE_MAX_WIDTH,
   SPACING_12,
+  FONT_SIZE_16,
   SPACING_128,
   SPACING_24,
   SPACING_64,
@@ -23,6 +24,7 @@ export const StyledLogo = styled(Logo)`
 export const Container = styled.header`
   display: flex;
   height: ${SPACING_128};
+  font-size: ${FONT_SIZE_16};
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     justify-content: space-between;

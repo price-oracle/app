@@ -10,12 +10,13 @@ import {
   SPACING_192,
   SPACING_128,
   SPACING_256,
+  SPACING_1152,
 } from '~/components/shared';
 
 export const SCard = styled(Card)`
   margin: ${SPACING_32} auto;
   overflow-x: auto;
-  max-width: 72rem;
+  max-width: ${SPACING_1152};
   justify-items: left;
 `;
 

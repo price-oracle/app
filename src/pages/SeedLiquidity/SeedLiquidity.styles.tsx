@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Card, SPACING_512, SPACING_768, SPACING_24 } from '~/components/shared';
+import { Card, SPACING_512, SPACING_832, SPACING_24 } from '~/components/shared';
 
 export const Container = styled(Card)`
   display: flex;
@@ -9,6 +9,6 @@ export const Container = styled(Card)`
   margin: 0 auto;
   width: 100%;
   padding: ${SPACING_24};
-  max-width: ${SPACING_768};
+  max-width: ${SPACING_832};
   height: ${SPACING_512};
 `;

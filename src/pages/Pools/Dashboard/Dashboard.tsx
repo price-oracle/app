@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BigNumber } from 'ethers';
 
-import { Card, Loading, Typography, EthLabel, ValueInUSD } from '~/components/shared';
+import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1152 } from '~/components/shared';
 import { useAppSelector } from '~/hooks';
 import { LockManager } from '~/types/LockManager';
 
@@ -9,7 +9,7 @@ const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
   justify-items: left;
-  max-width: 72rem;
+  max-width: ${SPACING_1152};
   margin: 0 auto;
 `;
 
@@ -44,43 +44,41 @@ export function Dashboard() {
   const totalUSDLocked = BigNumber.from(ethPrice).mul(totalUserLocked);
 
   return (
-    <>
-      <SCard>
-        <Title>
-          <Typography color='secondary'>Dashboard</Typography>
-        </Title>
-        <DashboardHeader>
-          <Typography color='secondary'>Total ETH locked</Typography>
-        </DashboardHeader>
-        <DashboardHeader>
-          <Typography color='secondary'>Claimable rewards</Typography>
-        </DashboardHeader>
+    <SCard>
+      <Title>
+        <Typography color='secondary'>Dashboard</Typography>
+      </Title>
+      <DashboardHeader>
+        <Typography color='secondary'>Total ETH locked</Typography>
+      </DashboardHeader>
+      <DashboardHeader>
+        <Typography color='secondary'>Claimable rewards</Typography>
+      </DashboardHeader>
 
-        {isLoading && (
-          <>
-            <TokenAmount>
-              <Loading />
-            </TokenAmount>
-            <TokenAmount>
-              <Loading />
-            </TokenAmount>
-          </>
-        )}
+      {isLoading && (
+        <>
+          <TokenAmount>
+            <Loading />
+          </TokenAmount>
+          <TokenAmount>
+            <Loading />
+          </TokenAmount>
+        </>
+      )}
 
-        {!isLoading && (
-          <>
-            <TokenAmount>
-              <EthLabel value={totalUserLocked} />
-              <ValueInUSD value={totalUSDLocked} />
-            </TokenAmount>
-            <TokenAmount>
-              {/* <PriceLabel value={totalPriceLocked} /> */}
-              <ValueInUSD value={totalUSDClaimableRewards} />
-            </TokenAmount>
-          </>
-        )}
-      </SCard>
-    </>
+      {!isLoading && (
+        <>
+          <TokenAmount>
+            <EthLabel value={totalUserLocked} />
+            <ValueInUSD value={totalUSDLocked} />
+          </TokenAmount>
+          <TokenAmount>
+            {/* <PriceLabel value={totalPriceLocked} /> */}
+            <ValueInUSD value={totalUSDClaimableRewards} />
+          </TokenAmount>
+        </>
+      )}
+    </SCard>
   );
 }
 
