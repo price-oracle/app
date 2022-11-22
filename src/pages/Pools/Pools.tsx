@@ -5,7 +5,7 @@ import { SPACING_24 } from '~/components/shared';
 
 export const Container = styled.div`
   background: ${(props) => props.theme.background};
-  padding-bottom: ${SPACING_24};
+  padding: 0rem 0.8rem ${SPACING_24};
 `;
 
 function Pools() {

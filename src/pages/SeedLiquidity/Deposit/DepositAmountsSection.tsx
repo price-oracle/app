@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 import { isUndefined } from 'lodash';
 
-import { SPACING_16, SPACING_8, Typography } from '~/components/shared';
+import { SPACING_16, SPACING_8, MOBILE_MAX_WIDTH, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
@@ -18,6 +18,11 @@ const Container = styled.section`
   grid-template-columns: 1fr 1fr;
   column-gap: ${SPACING_16};
   row-gap: ${SPACING_8};
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Title = styled(Typography).attrs({
@@ -87,28 +92,31 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
     <Container>
       <Title>Deposit amounts</Title>
 
-      <Deposit>
-        <Deposit.Token src={selectedToken?.logoURI} />
-        <Deposit.Amount {...tokenInput} />
-        <Deposit.Symbol>
-          <Typography>{selectedToken?.symbol || ''}</Typography>
-        </Deposit.Symbol>
-      </Deposit>
+      <div>
+        <Deposit>
+          <Deposit.Token src={selectedToken?.logoURI} />
+          <Deposit.Amount {...tokenInput} />
+          <Deposit.Symbol>
+            <Typography>{selectedToken?.symbol || ''}</Typography>
+          </Deposit.Symbol>
+        </Deposit>
+        <Balance
+          totalAmount={tokenBalance || bigNumberZero}
+          symbol={selectedToken?.symbol || ''}
+          onClick={inputMaxTokenBalance}
+          decimals={selectedToken?.decimals}
+        />
+      </div>
 
-      <Deposit>
-        <Deposit.Token isPrice />
-        <Deposit.Amount {...wethInput} />
-        <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
-      </Deposit>
+      <div>
+        <Deposit>
+          <Deposit.Token isPrice />
+          <Deposit.Amount {...wethInput} />
+          <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
+        </Deposit>
 
-      <Balance
-        totalAmount={tokenBalance || bigNumberZero}
-        symbol={selectedToken?.symbol || ''}
-        onClick={inputMaxTokenBalance}
-        decimals={selectedToken?.decimals}
-      />
-
-      <Balance totalAmount={wethBalance || bigNumberZero} symbol={eth_symbol} onClick={inputMaxWethBalance} />
+        <Balance totalAmount={wethBalance || bigNumberZero} symbol={eth_symbol} onClick={inputMaxWethBalance} />
+      </div>
     </Container>
   );
 };
