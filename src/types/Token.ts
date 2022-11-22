@@ -1,5 +1,7 @@
+import { Address } from './Blockchain';
+
 export type Token = {
-  address: string;
+  address: Address;
   name: string;
   symbol: string;
   decimals: number;

@@ -37,3 +37,7 @@ export function formatNumber(input: string, decimals = 18): { number: string | n
 }
 
 export const getRandomId = (): string => new Date().getTime().toString(36) + Math.random().toString(36).slice(2);
+
+export const formatFee = (value: number | string): number => {
+  return Number(value) / 1000;
+};

@@ -1,5 +1,5 @@
-import BigNumber from 'bignumber.js';
 import { useEffect, useState } from 'react';
+import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 import { isUndefined } from 'lodash';
@@ -79,6 +79,10 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
     setTokenBalance(undefined);
   }, [selectedToken]);
 
+  const inputMaxWethBalance = () => wethBalance && wethInput.set(toUnit(wethBalance.toString(), 18));
+  const inputMaxTokenBalance = () =>
+    tokenBalance && tokenInput.set(toUnit(tokenBalance.toString(), selectedToken?.decimals));
+
   return (
     <Container>
       <Title>Deposit amounts</Title>
@@ -100,15 +104,11 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
       <Balance
         totalAmount={tokenBalance || bigNumberZero}
         symbol={selectedToken?.symbol || ''}
-        onClick={() => tokenBalance && tokenInput.set(toUnit(tokenBalance.toString(), selectedToken?.decimals))}
+        onClick={inputMaxTokenBalance}
         decimals={selectedToken?.decimals}
       />
 
-      <Balance
-        totalAmount={wethBalance || bigNumberZero}
-        symbol={eth_symbol}
-        onClick={() => wethBalance && wethInput.set(toUnit(wethBalance.toString(), 18))}
-      />
+      <Balance totalAmount={wethBalance || bigNumberZero} symbol={eth_symbol} onClick={inputMaxWethBalance} />
     </Container>
   );
 };

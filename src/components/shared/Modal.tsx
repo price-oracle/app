@@ -1,18 +1,19 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import { SPACING_16, SPACING_40, SPACING_512, SPACING_8 } from './Variables';
 
 // import { Icon, CloseIcon } from './Icon';
 
 const ModalHeader = styled.div`
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 2.88rem;
 `;
 
 const CloseModal = styled.div`
-  padding: 0.5rem;
+  padding: ${SPACING_8};
   position: absolute;
-  right: 1rem;
-  top: 1rem;
+  right: ${SPACING_16};
+  top: ${SPACING_16};
   cursor: pointer;
   transition: opacity 200ms ease-in-out;
 
@@ -24,15 +25,15 @@ const CloseModal = styled.div`
 const StyledModal = styled.div`
   overflow: hidden;
   overflow-y: auto;
-  padding: 2.6rem;
+  padding: ${SPACING_40};
   background: red;
-  border-radius: 8px;
+  border-radius: ${SPACING_8};
   color: white;
   position: relative;
   pointer-events: all;
   z-index: 1;
-  width: 32rem;
-  height: 32rem;
+  width: ${SPACING_512};
+  height: ${SPACING_512};
   max-width: 85%;
   max-height: 85%;
 `;

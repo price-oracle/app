@@ -3,7 +3,6 @@ import alertsReducer, { alertsInitialState } from './alerts/alerts.reducer';
 import { AlertsActions } from './alerts/alerts.actions';
 
 // Theme State
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore, combineReducers, Reducer } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import { load, clear, save } from 'redux-localstorage-simple';

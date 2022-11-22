@@ -10,12 +10,10 @@ export const Container = styled.div`
 
 function Pools() {
   return (
-    <>
-      <Container>
-        <Dashboard />
-        <PoolList />
-      </Container>
-    </>
+    <Container>
+      <Dashboard />
+      <PoolList />
+    </Container>
   );
 }
 

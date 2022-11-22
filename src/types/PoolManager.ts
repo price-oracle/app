@@ -1,9 +1,15 @@
+import { Address } from './Blockchain';
+
 export interface PoolManager {
-  address: string;
+  address: Address;
   fee: string;
   token: {
     tokenAddress: string;
     tokenSymbol: string;
   };
-  lockManagerAddress: string;
+  lockManagerAddress: Address;
+  rewards: {
+    ethReward: string;
+    tokenReward: string;
+  };
 }

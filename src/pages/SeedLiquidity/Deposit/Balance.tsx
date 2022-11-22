@@ -15,9 +15,11 @@ interface IProps {
   decimals?: number;
 }
 const Balance = ({ totalAmount, symbol, onClick, decimals = 18 }: IProps) => {
+  const humanizedBalance = humanize('amount', totalAmount.toString(), decimals, 2);
+
   return (
     <SLink variant='small' onClick={() => onClick(totalAmount.toString())}>
-      Balance: {humanize('amount', totalAmount.toString(), decimals, 2)} {symbol}
+      Balance: {humanizedBalance} {symbol}
     </SLink>
   );
 };

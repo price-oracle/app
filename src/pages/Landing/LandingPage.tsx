@@ -31,7 +31,7 @@ function LandingPage() {
         <RouterLink to='/app/pools'>
           <EnterBoxButton>Enter App</EnterBoxButton>
         </RouterLink>
-        <Link href='https://twitter.com/price_oracle'>
+        <Link href='https://docs.oracles.rip/'>
           <Typography>Documentation</Typography>
         </Link>
       </MiddleContent>
