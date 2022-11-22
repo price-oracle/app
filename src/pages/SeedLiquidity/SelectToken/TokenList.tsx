@@ -1,6 +1,11 @@
+import { ethers } from 'ethers';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { useNetwork } from 'wagmi';
 
-import { Button, Card, Loading, TokenIcon, SearchInput, Typography, SPACING_8 } from '~/components/shared';
+import { Button, Card, Loading, SearchInput, SPACING_8, TokenIcon, Typography } from '~/components/shared';
+import { Token } from '~/types/Token';
+import { getTokenList } from '~/utils/tokenList';
 
 const SCard = styled(Card)`
   width: 15rem;
@@ -37,37 +42,49 @@ const Name = styled(Typography).attrs({
 const TokenListContainer = styled.section`
   max-height: 16rem;
   overflow-y: scroll;
+  overflow-x: hidden; /* Hide scrollbars */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  padding: 0.5rem;
 `;
 
 interface IProps {
-  onClick: () => void;
+  onSelect: (token: Token) => void;
   className?: string;
 }
-const TokenList = ({ onClick, className }: IProps) => {
-  // temporary fixed values
-  const tokens = [
-    {
-      symbol: 'TUSD',
-      logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png`,
-      name: 'TrueUSD',
-    },
-    {
-      symbol: 'DAI',
-      logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png`,
-      name: 'Dai',
-    },
-  ];
+const TokenList = ({ onSelect, className }: IProps) => {
+  const { chain } = useNetwork();
   const isLoading = false;
+
+  const [searchInput, setSearchInput] = useState('');
+
+  const filterTokens = (tokens: Token[]): Token[] => {
+    const filteredTokens = tokens.filter((token) => {
+      const searchCriteria = [token.address, token.name, token.symbol].join('-').toLowerCase();
+      return searchCriteria.includes(searchInput.toLowerCase());
+    });
+
+    if (filteredTokens.length === 0 && ethers.utils.isAddress(searchInput)) {
+      //TODO: Trigger search token by address get all data, save for the session and only if clicked save to localstorage for later use
+    }
+
+    return filteredTokens;
+  };
+
+  const tokenList = filterTokens(getTokenList(chain?.id));
 
   return (
     <SCard>
-      <SearchInput onChange={(e) => console.log(e.target.value)} />
+      <SearchInput onChange={(e) => setSearchInput(e.target.value)} />
 
       <TokenListContainer className={className}>
         {isLoading && <Loading />}
         {!isLoading &&
-          tokens.map((token) => (
-            <TokenItem key={token.symbol} onClick={() => console.log('handleClickSelectToken(token)')}>
+          tokenList.map((token) => (
+            <TokenItem key={token.symbol} onClick={() => onSelect(token)}>
               <Icon src={token.logoURI} />
               <Symbol>{token.symbol}</Symbol>
               <Name>{token.name}</Name>

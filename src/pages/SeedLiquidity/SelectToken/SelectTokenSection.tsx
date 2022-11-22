@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
+import { EthIcon, FONT_SIZE_24, Icon, SPACING_16, SPACING_8, TokenIcon, Typography } from '~/components/shared';
 import Dropdown from '~/components/shared/Dropdown';
-import { Icon, TokenIcon, EthIcon, Typography, FONT_SIZE_24, SPACING_16, SPACING_8 } from '~/components/shared';
+import { Token } from '~/types/Token';
 import TokenList from './TokenList';
 
 const Container = styled.section`
@@ -36,14 +37,17 @@ const STokenList = styled(TokenList)`
   max-height: 36rem;
 `;
 
-const SelectTokenSection = () => {
+interface SelectTokenProps {
+  selectedToken: Token | undefined;
+  setSelectedToken: (token: Token) => void;
+}
+
+const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProps) => {
   const dropdownProps = Dropdown.useProps();
 
-  // temporary fixed values
-  const selectedToken = {
-    symbol: 'TUSD',
-    logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png`,
-    name: 'TrueUSD',
+  const onTokenSelect = (token: Token) => {
+    dropdownProps.setShow(false);
+    setSelectedToken(token);
   };
 
   return (
@@ -61,7 +65,7 @@ const SelectTokenSection = () => {
           </Dropdown.Button>
 
           <Dropdown.Modal>
-            <STokenList onClick={() => console.log('closeModal')} />
+            <STokenList onSelect={(token: Token) => onTokenSelect(token)} />
           </Dropdown.Modal>
         </Dropdown>
 

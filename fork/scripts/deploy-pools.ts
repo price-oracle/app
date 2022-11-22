@@ -190,6 +190,10 @@ import { impersonate, setBalance, toWei } from './utils';
       console.log(
         `LOCK_MANAGER_${symbol}_WETH_${pair.fee}: '${lockManagerAddress}'`
       );
+
+      // Transfer remaining balance so that user has tokens to test
+      const remainingBalance = await token.balanceOf(richWallet.address);
+      await token.connect(richWallet).transfer(governance.address, remainingBalance);
     } catch (e: unknown) {
       console.log(`Couldn't deploy pool manager ${symbol}-WETH: ${e}`);
     }
