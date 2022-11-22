@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 
-import { EthIcon, FONT_SIZE_24, Icon, SPACING_16, SPACING_8, TokenIcon, Typography } from '~/components/shared';
+import {
+  EthIcon,
+  FONT_SIZE_24,
+  Icon,
+  SPACING_16,
+  SPACING_8,
+  TokenIcon,
+  Typography,
+  MOBILE_MAX_WIDTH,
+} from '~/components/shared';
 import Dropdown from '~/components/shared/Dropdown';
 import { Token } from '~/types/Token';
 import TokenList from './TokenList';
@@ -11,6 +20,11 @@ const Container = styled.section`
   display: flex;
   justify-content: space-between;
   font-family: ${FONT_SIZE_24};
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Price = styled(Typography)`

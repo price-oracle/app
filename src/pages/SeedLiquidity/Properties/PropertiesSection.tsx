@@ -2,7 +2,16 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import Dropdown from '~/components/shared/Dropdown';
-import { Typography, Loading, Icon, SPACING_16, SPACING_24 } from '~/components/shared';
+import {
+  Typography,
+  Loading,
+  Icon,
+  SPACING_16,
+  MOBILE_MAX_WIDTH,
+  SPACING_12,
+  SPACING_8,
+  SPACING_768,
+} from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
 import { FeeTier } from '~/types/FeeTiers';
@@ -13,19 +22,33 @@ const Container = styled.section`
   grid-area: set-starting-price;
   grid-column-gap: ${SPACING_16};
   grid-template-columns: repeat(3, 1fr);
-  max-width: 767px;
+  max-width: ${SPACING_768};
   margin: 0 auto;
   width: 100%;
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const SDropdownModal = styled(Dropdown.Modal)`
   column-gap: ${SPACING_16};
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: ${SPACING_24} 0;
+  margin: ${SPACING_12} 0;
   padding: ${SPACING_16};
   row-gap: ${SPACING_16};
   transform: translateX(-45%);
+  border: ${(props) => props.theme.border};
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    margin-left: 10.5rem;
+    row-gap: ${SPACING_8};
+    column-gap: ${SPACING_8};
+    padding: ${SPACING_8};
+  }
 `;
 
 const Suffix = styled(Typography).attrs({

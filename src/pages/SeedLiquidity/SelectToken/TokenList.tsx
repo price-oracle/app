@@ -3,7 +3,16 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useNetwork } from 'wagmi';
 
-import { Button, Card, Loading, SearchInput, SPACING_8, TokenIcon, Typography } from '~/components/shared';
+import {
+  Button,
+  Card,
+  Loading,
+  SearchInput,
+  SPACING_8,
+  TokenIcon,
+  Typography,
+  MOBILE_MAX_WIDTH,
+} from '~/components/shared';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { ERC20Service } from '~/services';
 import { CustomTokenActions } from '~/store/customTokens/customToken.actions';
@@ -12,6 +21,9 @@ import { getTokenList } from '~/utils/tokenList';
 
 const SCard = styled(Card)`
   width: 20rem;
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    margin: 0 0 0 1.8rem;
+  }
 `;
 
 const TokenItem = styled(Button)`
@@ -78,7 +90,6 @@ const TokenList = ({ onSelect, className }: IProps) => {
     });
 
     if (filteredTokens.length === 0 && ethers.utils.isAddress(searchInput)) {
-      //TODO: Trigger search token by address get all data, save for the session and only if clicked save to localstorage for later use
       erc20Service.fetchTokenData(searchInput).then((token) => setTempCustomToken(token));
     }
 
