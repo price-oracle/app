@@ -1,7 +1,15 @@
+import { useEffect, useState } from 'react';
+import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
+import { useAccount } from 'wagmi';
+import { isUndefined } from 'lodash';
 
 import { SPACING_16, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
+import { getConfig } from '~/config';
+import { ERC20Service } from '~/services';
+import { Token } from '~/types/Token';
+import { toUnit } from '~/utils/format';
 import Balance from './Balance';
 import Deposit from './Deposit';
 
@@ -21,7 +29,18 @@ const Title = styled(Typography).attrs({
   margin-top: ${SPACING_16};
 `;
 
-const DepositAmountsSection = () => {
+interface DepositAmountsProps {
+  selectedToken: Token | undefined;
+}
+
+const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
+  const bigNumberZero = new BigNumber(0);
+  const { address: userAddress } = useAccount();
+
+  const {
+    ADDRESSES: { WETH_ADDRESS },
+  } = getConfig();
+
   const tokenInput = InputNumber.useProps({
     onChange: (value: any) => {
       // const result = toFixedUnit(value, selectedToken!.decimals);
@@ -31,20 +50,38 @@ const DepositAmountsSection = () => {
     // forceReset,
   });
 
-  const priceInput = InputNumber.useProps({
+  const erc20Service = new ERC20Service();
+
+  const wethInput = InputNumber.useProps({
     onChange: (value: any) => console.log('dispatch(setPriceAmount(toFixedUnit(value)))'),
   });
 
-  // temporary fixed values
-  const selectedToken = {
-    symbol: 'TUSD',
-    logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png`,
-    name: 'TrueUSD',
-    decimals: 18,
-  };
-  const tokenBalance = '100';
-  const priceBalance = '2000';
   const eth_symbol = 'WETH';
+
+  const [tokenBalance, setTokenBalance] = useState<BigNumber | undefined>();
+  const [wethBalance, setWethBalance] = useState<BigNumber | undefined>();
+
+  useEffect(() => {
+    if (isUndefined(tokenBalance)) {
+      selectedToken &&
+        erc20Service.fetchTokenBalance(selectedToken.address, userAddress).then((balance) => setTokenBalance(balance));
+    }
+  }, [selectedToken, tokenBalance]);
+
+  useEffect(() => {
+    if (isUndefined(wethBalance)) {
+      erc20Service.fetchTokenBalance(WETH_ADDRESS, userAddress).then((wethBalance) => setWethBalance(wethBalance));
+    }
+  }, [wethBalance, userAddress]);
+
+  useEffect(() => {
+    // Reset to undefined to restart the useEffect hook
+    setTokenBalance(undefined);
+  }, [selectedToken]);
+
+  const inputMaxWethBalance = () => wethBalance && wethInput.set(toUnit(wethBalance.toString(), 18));
+  const inputMaxTokenBalance = () =>
+    tokenBalance && tokenInput.set(toUnit(tokenBalance.toString(), selectedToken?.decimals));
 
   return (
     <Container>
@@ -60,18 +97,18 @@ const DepositAmountsSection = () => {
 
       <Deposit>
         <Deposit.Token isPrice />
-        <Deposit.Amount {...priceInput} />
+        <Deposit.Amount {...wethInput} />
         <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
       </Deposit>
 
       <Balance
-        totalAmount={tokenBalance}
+        totalAmount={tokenBalance || bigNumberZero}
         symbol={selectedToken?.symbol || ''}
-        onClick={() => console.log('handleClickTokenBalance')}
+        onClick={inputMaxTokenBalance}
         decimals={selectedToken?.decimals}
       />
 
-      <Balance totalAmount={priceBalance} symbol={eth_symbol} onClick={() => console.log('handleClickPriceBalance')} />
+      <Balance totalAmount={wethBalance || bigNumberZero} symbol={eth_symbol} onClick={inputMaxWethBalance} />
     </Container>
   );
 };
