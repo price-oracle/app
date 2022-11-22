@@ -17,6 +17,7 @@ export * from './Modal';
 export * from './PoolIcon';
 export * from './PriceIcon';
 export * from './SearchInput';
+export * from './SortButton';
 export * from './ThemeButton';
 export * from './theme';
 export * from './TokenIcon';

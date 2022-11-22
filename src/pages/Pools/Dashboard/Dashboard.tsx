@@ -44,43 +44,41 @@ export function Dashboard() {
   const totalUSDLocked = BigNumber.from(ethPrice).mul(totalUserLocked);
 
   return (
-    <>
-      <SCard>
-        <Title>
-          <Typography color='secondary'>Dashboard</Typography>
-        </Title>
-        <DashboardHeader>
-          <Typography color='secondary'>Total ETH locked</Typography>
-        </DashboardHeader>
-        <DashboardHeader>
-          <Typography color='secondary'>Claimable rewards</Typography>
-        </DashboardHeader>
+    <SCard>
+      <Title>
+        <Typography color='secondary'>Dashboard</Typography>
+      </Title>
+      <DashboardHeader>
+        <Typography color='secondary'>Total ETH locked</Typography>
+      </DashboardHeader>
+      <DashboardHeader>
+        <Typography color='secondary'>Claimable rewards</Typography>
+      </DashboardHeader>
 
-        {isLoading && (
-          <>
-            <TokenAmount>
-              <Loading />
-            </TokenAmount>
-            <TokenAmount>
-              <Loading />
-            </TokenAmount>
-          </>
-        )}
+      {isLoading && (
+        <>
+          <TokenAmount>
+            <Loading />
+          </TokenAmount>
+          <TokenAmount>
+            <Loading />
+          </TokenAmount>
+        </>
+      )}
 
-        {!isLoading && (
-          <>
-            <TokenAmount>
-              <EthLabel value={totalUserLocked} />
-              <ValueInUSD value={totalUSDLocked} />
-            </TokenAmount>
-            <TokenAmount>
-              {/* <PriceLabel value={totalPriceLocked} /> */}
-              <ValueInUSD value={totalUSDClaimableRewards} />
-            </TokenAmount>
-          </>
-        )}
-      </SCard>
-    </>
+      {!isLoading && (
+        <>
+          <TokenAmount>
+            <EthLabel value={totalUserLocked} />
+            <ValueInUSD value={totalUSDLocked} />
+          </TokenAmount>
+          <TokenAmount>
+            {/* <PriceLabel value={totalPriceLocked} /> */}
+            <ValueInUSD value={totalUSDClaimableRewards} />
+          </TokenAmount>
+        </>
+      )}
+    </SCard>
   );
 }
 

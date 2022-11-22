@@ -1,48 +1,36 @@
 import { useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useAppSelector } from '~/hooks';
 
-import { useAppDispatch, useAppSelector } from '~/hooks';
-import { ModalsActions } from '~/store';
 import {
-  Loading,
-  PoolIcon,
-  PrimaryButton,
   SearchInput,
-  SecondaryButton,
-  TokenLabel,
-  SortButton,
+  PoolIcon,
+  Loading,
+  PrimaryButton,
   Typography,
+  TokenLabel,
+  EthLabel,
+  SortButton,
 } from '~/components/shared';
-import { EthLabel } from '~/components/shared/TokenLabels';
-import { PoolManager } from '~/types/PoolManager';
-import { getPoolName, formatFee } from '~/utils';
+
 import {
   ButtonContainer,
   Divider,
-  Header,
   LoaderContainer,
   PriceAmountContainer,
-  Row,
-  SCard,
   Table,
   Title,
-} from './PoolList.styles';
-import { LockManagerService } from '~/services';
+} from '~/pages/Pools/PoolList/PoolList.styles';
+import { SCard, Row, Header } from './SeededList.styles';
+
+import { getPoolName, formatFee } from '~/utils';
+import { PoolManager } from '~/types/PoolManager';
 
 const PoolList = () => {
-  const { address } = useAccount();
-  const lockManagerService = new LockManagerService();
-
   const [searchInput, setSearchInput] = useState('');
 
-  const lockManagers = useAppSelector((state) => state.lockManagers.elements);
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
 
-  const dispatch = useAppDispatch();
-  const isLoading = !poolManagers || !lockManagers;
-
-  const openLockModal = (pool: PoolManager) =>
-    dispatch(ModalsActions.openModal({ modalName: 'lock', modalProps: pool }));
+  const isLoading = !poolManagers;
 
   const filterPoolManagers = (poolManagers: PoolManager[]): PoolManager[] =>
     poolManagers.filter((poolManager) => {
@@ -54,14 +42,9 @@ const PoolList = () => {
 
   const poolManagerList = poolManagers ? filterPoolManagers(Object.values(poolManagers)) : [];
 
-  const claimRewards = (lockManagerAddress: string) => {
-    if (!address) return;
-    lockManagerService.claimRewards(lockManagerAddress, address);
-  };
-
   return (
     <SCard>
-      <Title>Pools</Title>
+      <Title>Seeded Pools</Title>
 
       <SearchInput onChange={(e) => setSearchInput(e.target.value)} />
 
@@ -77,12 +60,11 @@ const PoolList = () => {
             <Typography />
             <SortButton text='Name' type='name' /* pools={pools} onPoolsChanged={setPools} */ />
             <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
-            <SortButton text='Locked' type='locked' /* pools={pools} onPoolsChanged={setPools} */ />
+            <SortButton text='Seeded' type='seeded' /* pools={pools} onPoolsChanged={setPools} */ />
             <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
             <Typography />
           </Header>
 
-          {/* TODO: We should filter poolManagerList and only show the ones that the account has value locked */}
           {poolManagerList.map((poolManager) => (
             <Row key={poolManager.address}>
               <Typography>
@@ -93,24 +75,23 @@ const PoolList = () => {
               <Typography>{formatFee(poolManager.fee)}%</Typography>
 
               <PriceAmountContainer>
-                <EthLabel value={lockManagers[poolManager.lockManagerAddress].locked} />
+                <EthLabel value={'100000000000000000000'} />
+                <Divider>/</Divider>
+                <TokenLabel value={'100000000000000000000'} address={poolManager.token.tokenAddress} decimals={18} />
               </PriceAmountContainer>
 
               <PriceAmountContainer>
-                <EthLabel value={lockManagers[poolManager.lockManagerAddress].rewards.ethReward} />
+                <EthLabel value={poolManager.rewards.ethReward} />
                 <Divider>/</Divider>
                 <TokenLabel
-                  value={lockManagers[poolManager.lockManagerAddress].rewards.tokenReward}
+                  value={poolManager.rewards.tokenReward}
                   address={poolManager.token.tokenAddress}
                   decimals={18}
                 />
               </PriceAmountContainer>
 
               <ButtonContainer>
-                <PrimaryButton onClick={() => openLockModal(poolManager)}>Lock</PrimaryButton>
-                <SecondaryButton onClick={() => claimRewards(poolManager.lockManagerAddress)}>
-                  Claim rewards
-                </SecondaryButton>
+                <PrimaryButton onClick={() => console.log('handleButton')}>Claim reward</PrimaryButton>
               </ButtonContainer>
             </Row>
           ))}

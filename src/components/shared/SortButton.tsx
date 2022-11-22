@@ -1,8 +1,8 @@
 import { Icon, Typography, FONT_SIZE_12 } from '~/components/shared';
 
-export type SortType = 'name' | 'apy' | 'locked' | 'claimable' | 'fee';
+export type SortType = 'name' | 'apy' | 'locked' | 'claimable' | 'fee' | 'seeded';
 
-const SortButton = ({ text, type }: { text: string; type: SortType }) => {
+export const SortButton = ({ text, type }: { text: string; type: SortType }) => {
   return (
     <div /*  onClick={() => handleClickSort()} */>
       <Typography color='secondary'>{text}</Typography>
@@ -10,5 +10,3 @@ const SortButton = ({ text, type }: { text: string; type: SortType }) => {
     </div>
   );
 };
-
-export default SortButton;
