@@ -4,11 +4,14 @@ import styled from 'styled-components';
 import { useNetwork } from 'wagmi';
 
 import { Button, Card, Loading, SearchInput, SPACING_8, TokenIcon, Typography } from '~/components/shared';
+import { useAppDispatch, useAppSelector } from '~/hooks';
+import { ERC20Service } from '~/services';
+import { CustomTokenActions } from '~/store/customTokens/customToken.actions';
 import { Token } from '~/types/Token';
 import { getTokenList } from '~/utils/tokenList';
 
 const SCard = styled(Card)`
-  width: 15rem;
+  width: 20rem;
 `;
 
 const TokenItem = styled(Button)`
@@ -36,6 +39,8 @@ const Name = styled(Typography).attrs({
   variant: 'small',
   color: 'secondary',
 })`
+  text-overflow: ellipsis;
+  overflow: hidden;
   grid-area: name;
 `;
 
@@ -56,10 +61,15 @@ interface IProps {
   className?: string;
 }
 const TokenList = ({ onSelect, className }: IProps) => {
+  const customTokens = useAppSelector((state) => state.customTokens.tokens);
+  const dispatch = useAppDispatch();
+  const erc20Service = new ERC20Service();
   const { chain } = useNetwork();
   const isLoading = false;
 
   const [searchInput, setSearchInput] = useState('');
+
+  const [tempCustomToken, setTempCustomToken] = useState<Token>();
 
   const filterTokens = (tokens: Token[]): Token[] => {
     const filteredTokens = tokens.filter((token) => {
@@ -69,12 +79,25 @@ const TokenList = ({ onSelect, className }: IProps) => {
 
     if (filteredTokens.length === 0 && ethers.utils.isAddress(searchInput)) {
       //TODO: Trigger search token by address get all data, save for the session and only if clicked save to localstorage for later use
+      erc20Service.fetchTokenData(searchInput).then((token) => setTempCustomToken(token));
     }
 
     return filteredTokens;
   };
 
-  const tokenList = filterTokens(getTokenList(chain?.id));
+  const allTokens = () => {
+    const tokens = getTokenList(chain?.id).concat(customTokens);
+    if (tempCustomToken) tokens.push(tempCustomToken);
+    return tokens;
+  };
+  const tokenList = filterTokens(allTokens());
+
+  const onSelectToken = (token: Token) => {
+    if (token.address.toLowerCase() == tempCustomToken?.address.toLowerCase()) {
+      dispatch(CustomTokenActions.addCustomToken({ token: tempCustomToken }));
+    }
+    onSelect(token);
+  };
 
   return (
     <SCard>
@@ -84,7 +107,7 @@ const TokenList = ({ onSelect, className }: IProps) => {
         {isLoading && <Loading />}
         {!isLoading &&
           tokenList.map((token) => (
-            <TokenItem key={token.symbol} onClick={() => onSelect(token)}>
+            <TokenItem key={token.symbol} onClick={() => onSelectToken(token)}>
               <Icon src={token.logoURI} />
               <Symbol>{token.symbol}</Symbol>
               <Name>{token.name}</Name>

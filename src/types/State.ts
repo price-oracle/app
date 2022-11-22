@@ -4,6 +4,11 @@ import { PoolManager } from './PoolManager';
 import { ThemeName } from './Settings';
 import { Alert } from './Alerts';
 import { LockManager } from './LockManager';
+import { Token } from './Token';
+
+export interface CustomTokensState {
+  tokens: Token[];
+}
 
 export interface ThemeState {
   current: ThemeName;
@@ -40,4 +45,5 @@ export interface RootState {
   modals: ModalsState;
   poolManagers: PoolManagersState;
   lockManagers: LockManagerState;
+  customTokens: CustomTokensState;
 }
