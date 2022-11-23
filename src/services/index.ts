@@ -1,4 +1,6 @@
 export * from './erc20Service';
 export * from './lockManagerService';
+export * from './multicallService';
 export * from './poolManagerFactoryService';
 export * from './poolManagerService';
+export * from './txService';

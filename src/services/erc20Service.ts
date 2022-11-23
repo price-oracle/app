@@ -2,7 +2,7 @@ import { ethers, utils } from 'ethers';
 import { useProvider, useSigner, useAccount } from 'wagmi';
 
 import IERC20 from '~/abis/IERC20.json';
-import { TxService } from './txService';
+import { TxService } from '~/services';
 import { Address } from '~/types/Blockchain';
 
 export class ERC20Service {

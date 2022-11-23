@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAppSelector } from '~/hooks';
+import { useAccount } from 'wagmi';
 
 import {
   SearchInput,
@@ -11,7 +11,6 @@ import {
   EthLabel,
   SortButton,
 } from '~/components/shared';
-
 import {
   ButtonContainer,
   Divider,
@@ -22,11 +21,16 @@ import {
 } from '~/pages/Pools/PoolList/PoolList.styles';
 import { SCard, Row, Header } from './SeededList.styles';
 
+import { useAppSelector } from '~/hooks';
 import { getPoolName, formatFee } from '~/utils';
 import { PoolManager } from '~/types/PoolManager';
+import { PoolManagerService } from '~/services';
+import { Address } from '~/types/Blockchain';
 
 const PoolList = () => {
+  const { address } = useAccount();
   const [searchInput, setSearchInput] = useState('');
+  const poolManagerService = new PoolManagerService();
 
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
 
@@ -41,6 +45,11 @@ const PoolList = () => {
     });
 
   const poolManagerList = poolManagers ? filterPoolManagers(Object.values(poolManagers)) : [];
+
+  const claimRewards = (poolManagerAddress: Address) => {
+    if (!address) return;
+    poolManagerService.claimRewards(poolManagerAddress, address);
+  };
 
   return (
     <SCard>
@@ -91,7 +100,7 @@ const PoolList = () => {
               </PriceAmountContainer>
 
               <ButtonContainer>
-                <PrimaryButton onClick={() => console.log('handleButton')}>Claim reward</PrimaryButton>
+                <PrimaryButton onClick={() => claimRewards(poolManager.address)}>Claim reward</PrimaryButton>
               </ButtonContainer>
             </Row>
           ))}
