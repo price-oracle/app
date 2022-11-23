@@ -14,7 +14,7 @@ import {
 } from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
-import { FeeTier } from '~/types/FeeTiers';
+import { FeeTier } from '~/types';
 import { getConfig } from '~/config';
 
 const Container = styled.section`

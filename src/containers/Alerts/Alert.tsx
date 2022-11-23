@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 
 import { SPACING_12, SPACING_4, Icon, Typography } from '~/components/shared';
 import { getTheme } from '~/components/shared';
-import { AlertTypes } from '~/types/Alerts';
+import { AlertTypes } from '~/types';
 
 const StyledAlert = styled.div<{ type: AlertTypes }>`
   overflow: hidden;

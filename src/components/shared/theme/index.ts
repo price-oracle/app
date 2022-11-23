@@ -1,6 +1,6 @@
 export * from './colors';
 
-import { ThemeName } from '~/types/Settings';
+import { ThemeName } from '~/types';
 import { Theme, darkTheme, lightTheme } from './colors';
 
 export const getTheme = (theme?: ThemeName): Theme => {

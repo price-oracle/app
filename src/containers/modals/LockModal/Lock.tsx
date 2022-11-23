@@ -21,7 +21,7 @@ import { getConfig } from '~/config';
 import { useAppDispatch } from '~/hooks';
 import { ERC20Service, LockManagerService } from '~/services';
 import { ModalsActions } from '~/store';
-import { PoolManager } from '~/types/PoolManager';
+import { PoolManager } from '~/types';
 import { toUnit, toWei } from '~/utils/format';
 import { getPoolName } from '~/utils/poolUtils';
 

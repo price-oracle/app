@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 // import { ThunkAPI } from '@frameworks/redux';
 
-import { ThemeName } from '~/types/Settings';
+import { ThemeName } from '~/types';
 
 const changeTheme = createAction<{ theme: ThemeName }>('theme/changeTheme');
 

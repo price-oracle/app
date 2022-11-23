@@ -1,4 +1,4 @@
-import { FeeTier } from '~/types/FeeTiers';
+import { FeeTier } from '~/types';
 
 export const FEE_TIERS: { [key: string]: FeeTier } = {
   '1%': { hint: 'Best for exotic pairs', fee: 10000, created: false, label: '1%' },

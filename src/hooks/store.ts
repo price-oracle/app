@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AsyncThunkAction, unwrapResult } from '@reduxjs/toolkit';
 
 import { AppDispatch } from '~/store';
-import { RootState } from '~/types/State';
+import { RootState } from '~/types';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
