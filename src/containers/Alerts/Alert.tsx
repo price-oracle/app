@@ -15,9 +15,8 @@ const StyledAlert = styled.div<{ type: AlertTypes }>`
   position: relative;
   pointer-events: all;
   z-index: 1200;
-  width: 30rem;
-  max-width: 100%;
-  max-height: 100%;
+  width: 32rem;
+  max-height: 13rem;
   position: relative;
   transform: translate3d(0, 0, 0);
 
