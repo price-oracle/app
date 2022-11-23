@@ -28,6 +28,7 @@ import {
   Title,
 } from './PoolList.styles';
 import { LockManagerService } from '~/services';
+import { Address } from '~/types/Blockchain';
 
 const PoolList = () => {
   const { address } = useAccount();
@@ -54,7 +55,7 @@ const PoolList = () => {
 
   const poolManagerList = poolManagers ? filterPoolManagers(Object.values(poolManagers)) : [];
 
-  const claimRewards = (lockManagerAddress: string) => {
+  const claimRewards = (lockManagerAddress: Address) => {
     if (!address) return;
     lockManagerService.claimRewards(lockManagerAddress, address);
   };
