@@ -26,7 +26,7 @@ function SeedLiquidity() {
     <SeedPage>
       <Container>
         <SelectTokenSection selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
-        <PropertiesSection />
+        <PropertiesSection selectedToken={selectedToken} />
         <DepositAmountsSection selectedToken={selectedToken} />
         <SubmitFormSection />
       </Container>

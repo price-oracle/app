@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Dropdown from '~/components/shared/Dropdown';
@@ -15,7 +15,9 @@ import {
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
 import { FeeTier } from '~/types/FeeTiers';
+import { Token } from '~/types/Token';
 import { getConfig } from '~/config';
+import { UniswapService } from '~/services';
 
 const Container = styled.section`
   display: grid;
@@ -42,6 +44,7 @@ const SDropdownModal = styled(Dropdown.Modal)`
   row-gap: ${SPACING_16};
   transform: translateX(-45%);
   border: ${(props) => props.theme.border};
+  min-width: 38rem;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     margin-left: 10.5rem;
@@ -58,7 +61,12 @@ const Suffix = styled(Typography).attrs({
   margin-left: 2px;
 `;
 
-function PropertiesSection() {
+interface DepositAmountsProps {
+  selectedToken: Token | undefined;
+}
+
+function PropertiesSection({ selectedToken }: DepositAmountsProps) {
+  const uniswapService = new UniswapService();
   const dropdownProps = Dropdown.useProps();
 
   const FEE_TIERS = getConfig().FEE_TIERS;
@@ -66,8 +74,7 @@ function PropertiesSection() {
   const defaultFee = FEE_TIERS['0_3%'];
 
   const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
-
-  const feeTierList = Object.values(FEE_TIERS);
+  const [feeTierList, setFeeTierList] = useState<FeeTier[]>([]);
 
   const ethRateInput = {
     symbol: 'TUSD',
@@ -76,12 +83,20 @@ function PropertiesSection() {
     value: 1300,
     decimals: 18,
   };
-  const isLoading = false;
+  const isLoading = !feeTierList;
 
   const setNewFee = (fee: FeeTier) => {
     dropdownProps.setShow(false);
     setSelectedFee(fee);
   };
+
+  useEffect(() => {
+    if (selectedToken) {
+      uniswapService.fetchFeeTiers(selectedToken.address).then((feeList) => {
+        setFeeTierList(Object.values(feeList));
+      });
+    }
+  }, [selectedToken]);
 
   return (
     <Container>
@@ -95,7 +110,7 @@ function PropertiesSection() {
         <PropertyCard.Title>Rate</PropertyCard.Title>
         <PropertyCard.Value>
           1 <Suffix>ETH</Suffix> <Icon name='arrow-down' /* color={disabled} */ rotate={270} /> {ethRateInput.value}
-          <Suffix>{ethRateInput?.symbol || ''}</Suffix>
+          <Suffix>{selectedToken?.symbol || ''}</Suffix>
         </PropertyCard.Value>
       </PropertyCard>
 
