@@ -47,7 +47,10 @@ export class PoolManagerService {
   async claimRewards(poolManagerAddress: Address, to: Address) {
     if (this.signer?.data) {
       const poolManagerContract = new ethers.Contract(poolManagerAddress, IPoolManagerABI, this.signer?.data);
-      return this.txService.handleTx(await poolManagerContract.claimRewards(to));
+      const successMessage = 'Rewards claimed';
+      const errorMessage = 'Failed to claim rewards';
+
+      return this.txService.handleTx(await poolManagerContract.claimRewards(to), successMessage, errorMessage);
     }
   }
 }
