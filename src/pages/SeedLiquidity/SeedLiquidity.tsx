@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNetwork } from 'wagmi';
 import styled from 'styled-components';
 
-import { Token } from '~/types/Token';
+import { Token } from '~/types';
 import { getTokenList } from '~/utils';
 import { SPACING_24 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';

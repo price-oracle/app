@@ -1,6 +1,5 @@
 import { getConfig } from '~/config';
-import { Address } from '~/types/Blockchain';
-import { PoolManager } from '~/types/PoolManager';
+import { Address, PoolManager } from '~/types';
 
 export const getPoolName = (poolManager: PoolManager): string => poolManager.token.tokenSymbol + '-WETH';
 

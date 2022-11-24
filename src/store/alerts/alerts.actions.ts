@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { Alert, AlertTypes } from '~/types/Alerts';
+import { Alert, AlertTypes } from '~/types';
 import { ThunkAPI } from '~/store';
 import { getConfig } from '~/config';
 import { getRandomId } from '~/utils';

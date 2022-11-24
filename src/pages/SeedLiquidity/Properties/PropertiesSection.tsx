@@ -14,8 +14,7 @@ import {
 } from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
-import { FeeTier } from '~/types/FeeTiers';
-import { Token } from '~/types/Token';
+import { FeeTier, Token } from '~/types';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
 import { updateFeeTierList } from '~/utils';

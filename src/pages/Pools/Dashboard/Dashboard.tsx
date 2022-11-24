@@ -3,7 +3,7 @@ import { BigNumber } from 'ethers';
 
 import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1152 } from '~/components/shared';
 import { useAppSelector } from '~/hooks';
-import { LockManager } from '~/types/LockManager';
+import { LockManager } from '~/types';
 
 const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
