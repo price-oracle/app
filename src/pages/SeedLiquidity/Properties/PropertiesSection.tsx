@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
 
 import Dropdown from '~/components/shared/Dropdown';
 import {
@@ -11,6 +12,8 @@ import {
   SPACING_12,
   SPACING_8,
   SPACING_768,
+  InputNumber,
+  FONT_SIZE_20,
 } from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
@@ -61,12 +64,22 @@ const Suffix = styled(Typography).attrs({
   margin-left: 2px;
 `;
 
-interface DepositAmountsProps {
+const SInputNumber = styled(InputNumber)`
+  width: 100%;
+  font-size: ${FONT_SIZE_20};
+  grid-area: value;
+  line-height: 1.25;
+`;
+
+interface PropertiesSectionProps {
   selectedToken: Token | undefined;
+  startingPrice: BigNumber;
+  setStartingPrice: (newPrice: BigNumber) => void;
 }
 
-function PropertiesSection({ selectedToken }: DepositAmountsProps) {
+function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: PropertiesSectionProps) {
   const uniswapService = new UniswapService();
+
   const dropdownProps = Dropdown.useProps();
 
   const FEE_TIERS = getConfig().FEE_TIERS;
@@ -76,19 +89,17 @@ function PropertiesSection({ selectedToken }: DepositAmountsProps) {
   const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
   const [feeTierList, setFeeTierList] = useState<FeeTier[]>([]);
 
-  const ethRateInput = {
-    symbol: 'TUSD',
-    logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png`,
-    name: 'TrueUSD',
-    value: 1300,
-    decimals: 18,
-  };
   const isLoading = !feeTierList;
 
   const setNewFee = (fee: FeeTier) => {
     dropdownProps.setShow(false);
     setSelectedFee(fee);
   };
+
+  const onPriceChange = (newPrice: string) => {
+    setStartingPrice(new BigNumber(newPrice));
+  };
+  const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });
 
   useEffect(() => {
     if (selectedToken) {
@@ -103,15 +114,18 @@ function PropertiesSection({ selectedToken }: DepositAmountsProps) {
     <Container>
       <PropertyCard>
         <PropertyCard.Title>Set starting price</PropertyCard.Title>
-        <PropertyCard.Value>{ethRateInput.value}</PropertyCard.Value>
+        <PropertyCard.Value>
+          <SInputNumber {...startingPriceInput} />
+        </PropertyCard.Value>
         <PropertyCard.Helper />
       </PropertyCard>
 
       <PropertyCard>
         <PropertyCard.Title>Rate</PropertyCard.Title>
         <PropertyCard.Value>
-          1 <Suffix>ETH</Suffix> <Icon name='arrow-down' /* color={disabled} */ rotate={270} /> {ethRateInput.value}
-          <Suffix>{selectedToken?.symbol || ''}</Suffix>
+          1 <Suffix> ETH</Suffix>
+          <Icon name='arrow-down' /* color={disabled} */ rotate={270} />
+          {startingPriceInput.value} <Suffix>{selectedToken?.symbol || ''}</Suffix>
         </PropertyCard.Value>
       </PropertyCard>
 
