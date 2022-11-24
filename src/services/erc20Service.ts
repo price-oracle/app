@@ -1,13 +1,15 @@
 import { ethers } from 'ethers';
 import { useProvider, useSigner, useAccount } from 'wagmi';
+import { Contract } from 'ethers-multicall';
 
 import IERC20 from '~/abis/IERC20.json';
-import { TxService } from '~/services';
-import { Address } from '~/types';
 import { humanize } from '~/utils/format';
+import { MultiCallService, TxService } from '~/services';
+import { Token, Address } from '~/types';
 
 export class ERC20Service {
   txService = new TxService();
+  multiCallService = new MultiCallService();
   provider = useProvider();
   account = useAccount();
   signer = useSigner();
@@ -49,5 +51,24 @@ export class ERC20Service {
 
       return this.txService.handleTx(erc20Contract.approve(approveContract, amount), successMessage, errorMessage);
     }
+  }
+
+  async fetchTokenData(erc20Address: Address): Promise<Token> {
+    const erc20Contract = new Contract(erc20Address, IERC20);
+
+    const checkSummedAddress = ethers.utils.getAddress(erc20Address);
+    const symbolCall = erc20Contract.symbol();
+    const nameCall = erc20Contract.name();
+    const decimalsCall = erc20Contract.decimals();
+
+    const [symbol, name, decimals] = await this.multiCallService.multicall([symbolCall, nameCall, decimalsCall]);
+
+    return {
+      address: checkSummedAddress,
+      name: name,
+      symbol: symbol,
+      decimals: decimals,
+      logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${checkSummedAddress}/logo.png`,
+    };
   }
 }
