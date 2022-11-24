@@ -36,9 +36,10 @@ const Title = styled(Typography).attrs({
 
 interface DepositAmountsProps {
   selectedToken: Token | undefined;
+  startingPrice: BigNumber;
 }
 
-const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
+const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsProps) => {
   const bigNumberZero = new BigNumber(0);
   const { address: userAddress } = useAccount();
 
@@ -46,19 +47,38 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
     ADDRESSES: { WETH_ADDRESS },
   } = getConfig();
 
+  const onWethAmountChanged = (amount: string) => {
+    const price = new BigNumber(startingPrice);
+    const wethAmount = new BigNumber(amount);
+    const tokenAmount = wethAmount.multipliedBy(price);
+    if (tokenAmount.isNaN()) {
+      tokenInput.reset();
+    } else {
+      tokenInput.set(tokenAmount.toString());
+    }
+  };
+
+  const onTokenAmountChanged = (amount: string) => {
+    const price = new BigNumber(startingPrice);
+    const tokenAmount = new BigNumber(amount);
+    const wethAmount = tokenAmount.dividedBy(price);
+    if (wethAmount.isNaN() || price.isZero()) {
+      wethInput.reset();
+    } else {
+      wethInput.set(wethAmount.toString());
+    }
+  };
+
   const tokenInput = InputNumber.useProps({
-    onChange: (value: any) => {
-      // const result = toFixedUnit(value, selectedToken!.decimals);
-      // dispatch(setTokenAmount(result));
-      console.log(value);
-    },
-    // forceReset,
+    onChange: onTokenAmountChanged,
+    initialValue: '0',
   });
 
   const erc20Service = new ERC20Service();
 
   const wethInput = InputNumber.useProps({
-    onChange: (value: any) => console.log('dispatch(setPriceAmount(toFixedUnit(value)))'),
+    onChange: onWethAmountChanged,
+    initialValue: '0',
   });
 
   const eth_symbol = 'WETH';
@@ -84,9 +104,25 @@ const DepositAmountsSection = ({ selectedToken }: DepositAmountsProps) => {
     setTokenBalance(undefined);
   }, [selectedToken]);
 
-  const inputMaxWethBalance = () => wethBalance && wethInput.set(toUnit(wethBalance.toString(), 18));
-  const inputMaxTokenBalance = () =>
-    tokenBalance && tokenInput.set(toUnit(tokenBalance.toString(), selectedToken?.decimals));
+  useEffect(() => {
+    onTokenAmountChanged(tokenInput.value);
+  }, [startingPrice]);
+
+  const inputMaxWethBalance = () => {
+    if (wethBalance) {
+      const newValue = toUnit(wethBalance.toString(), 18);
+      wethInput.set(newValue);
+      onWethAmountChanged(newValue);
+    }
+  };
+
+  const inputMaxTokenBalance = () => {
+    if (tokenBalance) {
+      const newValue = toUnit(tokenBalance.toString(), selectedToken?.decimals);
+      tokenInput.set(newValue);
+      onTokenAmountChanged(newValue);
+    }
+  };
 
   return (
     <Container>

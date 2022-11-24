@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { Input } from './Input';
 import { withComponents } from '~/utils';
 
-interface IProps {
+export interface InputNumberProps {
   initialValue?: string;
   onChange?: (value: string) => void;
   forceReset?: boolean;
 }
-const useNumberProps = ({ initialValue, onChange, forceReset }: IProps = {}) => {
+const useNumberProps = ({ initialValue, onChange, forceReset }: InputNumberProps = {}) => {
   const pattern = useMemo(() => /^[0-9]*[.]?[0-9]*$/, []);
   const fixedInitialValue = useMemo(() => initialValue || '', [initialValue]);
   const [value, set] = useState(fixedInitialValue);
@@ -59,10 +59,12 @@ const useNumberProps = ({ initialValue, onChange, forceReset }: IProps = {}) => 
   };
 };
 
-export const InputNumber = styled(Input).attrs({
+const InputNumberComp = styled(Input).attrs({
   inputmode: 'decimals',
 })``;
 
-export default withComponents(InputNumber, {
+export const InputNumber = withComponents(InputNumberComp, {
   useProps: useNumberProps,
 });
+
+export default InputNumber;
