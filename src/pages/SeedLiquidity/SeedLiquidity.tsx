@@ -3,7 +3,7 @@ import { useNetwork } from 'wagmi';
 import styled from 'styled-components';
 
 import { Token } from '~/types';
-import { getTokenList } from '~/utils/tokenList';
+import { getTokenList } from '~/utils';
 import { SPACING_24 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';
 import SelectTokenSection from './SelectToken/SelectTokenSection';
@@ -26,7 +26,7 @@ function SeedLiquidity() {
     <SeedPage>
       <Container>
         <SelectTokenSection selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
-        <PropertiesSection />
+        <PropertiesSection selectedToken={selectedToken} />
         <DepositAmountsSection selectedToken={selectedToken} />
         <SubmitFormSection />
       </Container>

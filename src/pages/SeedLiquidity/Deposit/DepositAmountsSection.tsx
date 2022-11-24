@@ -9,7 +9,7 @@ import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
 import { Token } from '~/types';
-import { toUnit } from '~/utils/format';
+import { toUnit } from '~/utils';
 import Balance from './Balance';
 import Deposit from './Deposit';
 

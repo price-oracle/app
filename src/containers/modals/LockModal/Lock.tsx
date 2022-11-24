@@ -21,9 +21,8 @@ import { getConfig } from '~/config';
 import { useAppDispatch } from '~/hooks';
 import { ERC20Service, LockManagerService } from '~/services';
 import { ModalsActions } from '~/store';
+import { toUnit, toWei, getPoolName } from '~/utils';
 import { PoolManager } from '~/types';
-import { toUnit, toWei } from '~/utils/format';
-import { getPoolName } from '~/utils/poolUtils';
 
 const InputContainer = styled.div`
   display: flex;
