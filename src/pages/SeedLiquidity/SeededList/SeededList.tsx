@@ -23,9 +23,8 @@ import { SCard, Row, Header } from './SeededList.styles';
 
 import { useAppSelector } from '~/hooks';
 import { getPoolName, formatFee } from '~/utils';
-import { PoolManager } from '~/types/PoolManager';
+import { PoolManager, Address } from '~/types';
 import { PoolManagerService } from '~/services';
-import { Address } from '~/types/Blockchain';
 
 const PoolList = () => {
   const { address } = useAccount();

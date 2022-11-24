@@ -4,9 +4,7 @@ import { Contract } from 'ethers-multicall';
 import { ethers } from 'ethers';
 
 import { ERC20Service, TxService, MultiCallService } from '~/services';
-import { PoolManager } from '~/types/PoolManager';
-import { LockManager } from '~/types/LockManager';
-import { Address } from '~/types/Blockchain';
+import { PoolManager, LockManager, Address } from '~/types';
 import { humanize } from '~/utils/format';
 
 export class LockManagerService {

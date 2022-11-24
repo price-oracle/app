@@ -14,7 +14,7 @@ import {
   Typography,
 } from '~/components/shared';
 import { EthLabel } from '~/components/shared/TokenLabels';
-import { PoolManager } from '~/types/PoolManager';
+import { PoolManager, Address } from '~/types';
 import { getPoolName, formatFee } from '~/utils';
 import {
   ButtonContainer,
@@ -28,7 +28,6 @@ import {
   Title,
 } from './PoolList.styles';
 import { LockManagerService } from '~/services';
-import { Address } from '~/types/Blockchain';
 
 const PoolList = () => {
   const { address } = useAccount();

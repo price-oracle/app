@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Lock from './Lock';
 import { SPACING_512, SPACING_32 } from '~/components/shared';
-import { PoolManager } from '~/types/PoolManager';
+import { PoolManager } from '~/types';
 
 export interface LockModalProps {
   onClose: () => void;

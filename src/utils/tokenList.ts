@@ -1,4 +1,4 @@
-import { Token } from '~/types/Token';
+import { Token } from '~/types';
 import UniswapTokens from '~/assets/tokens.uniswap.json';
 
 export const getTokenList: (chainId: number | undefined) => Token[] = (chainId) => {

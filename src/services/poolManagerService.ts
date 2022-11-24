@@ -4,8 +4,7 @@ import { ethers } from 'ethers';
 import { useProvider, useAccount, useSigner } from 'wagmi';
 
 import { ERC20Service, TxService, MultiCallService } from '~/services';
-import { PoolManager } from '~/types/PoolManager';
-import { Address } from '~/types/Blockchain';
+import { PoolManager, Address } from '~/types';
 
 export class PoolManagerService {
   signer = useSigner();
