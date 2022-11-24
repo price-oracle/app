@@ -1,4 +1,4 @@
-import { RootState } from '~/types/State';
+import { RootState } from '~/types';
 
 const selectActiveModal = (state: RootState) => state.modals.activeModal;
 const selectActiveModalProps = (state: RootState) => state.modals.modalProps;
