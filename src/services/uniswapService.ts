@@ -4,31 +4,36 @@ import { Contract } from 'ethers-multicall';
 
 import { getConfig } from '~/config';
 import { MultiCallService } from './multicallService';
-import { Address, PoolFeesMap } from '~/types';
+import { Address, UniswapPool } from '~/types';
 
 export class UniswapService {
   provider = useProvider();
   addresses = getConfig().ADDRESSES;
   fees = getConfig().FEE_TIERS;
   multiCallService = new MultiCallService();
+  uniswapV3Factory: Contract;
 
-  async fetchUniswapPools(tokenAddress: Address): Promise<PoolFeesMap> {
-    const feeList = Object.entries(this.fees);
-    const uniswapV3Factory = new Contract(this.addresses.UNISWAP_V3_FACTORY, IUniswapV3Factory);
+  constructor() {
+    this.uniswapV3Factory = new Contract(this.addresses.UNISWAP_V3_FACTORY, IUniswapV3Factory);
+  }
 
-    const getPoolCall = (feeAmount: number) =>
-      uniswapV3Factory.getPool(tokenAddress, this.addresses.WETH_ADDRESS, feeAmount);
+  async fetchUniswapPools(tokenAddress: Address): Promise<{ [k: string]: UniswapPool }> {
+    const feeList = Object.values(this.fees);
 
-    const feeResults = await this.multiCallService.multicall(
-      feeList.map((feeValue) => getPoolCall(this.fees[feeValue[0]].fee))
+    const poolAddressList: Address[] = await this.multiCallService.multicall(
+      feeList.map((feeValue) => this.getPoolCall(tokenAddress, feeValue.fee))
     );
 
-    const poolsList: [string, string][] = [];
-    for (let i = 0; i < feeList.length; i++) {
-      poolsList.push([feeList[i][0], feeResults[i]]);
-    }
-    const poolListMap = Object.fromEntries(poolsList.map((pool) => [pool[0], pool[1]]));
+    const pools = poolAddressList.map((address) => ({
+      address,
+    }));
+
+    const poolListMap = Object.fromEntries(pools.map((pool, index) => [feeList[index].label, pool]));
 
     return poolListMap;
+  }
+
+  getPoolCall(tokenAddress: Address, feeAmount: number) {
+    return this.uniswapV3Factory.getPool(tokenAddress, this.addresses.WETH_ADDRESS, feeAmount);
   }
 }

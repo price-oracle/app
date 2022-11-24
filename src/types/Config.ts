@@ -30,7 +30,7 @@ export interface Constants {
   CONFIRMATIONS: { [key: number]: number };
 
   DEFAULT_ALERT_TIMEOUT: number;
-  FEE_TIERS: { [key: string]: FeeTier };
+  FEE_TIERS: { [key: number]: FeeTier };
 }
 
 export interface Config extends Env, Constants {}

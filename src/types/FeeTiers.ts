@@ -3,10 +3,9 @@ import { Address } from './Blockchain';
 export type FeeTier = {
   hint: string;
   fee: number;
-  created: boolean;
   label: string;
 };
 
-export interface PoolFeesMap {
-  [key: string]: Address;
+export interface UniswapPool {
+  address: Address;
 }
