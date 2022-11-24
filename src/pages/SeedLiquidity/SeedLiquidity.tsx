@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNetwork } from 'wagmi';
 import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
 
 import { Token } from '~/types/Token';
 import { getTokenList } from '~/utils/tokenList';
@@ -11,7 +12,6 @@ import PropertiesSection from './Properties/PropertiesSection';
 import DepositAmountsSection from './Deposit/DepositAmountsSection';
 import SubmitFormSection from './Deposit/SubmitFormSection';
 import PoolList from './SeededList/SeededList';
-import BigNumber from 'bignumber.js';
 
 const SeedPage = styled.div`
   background: ${(props) => props.theme.background};

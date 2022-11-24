@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
 
 import Dropdown from '~/components/shared/Dropdown';
 import {
@@ -19,7 +20,6 @@ import FeeCard from './FeeCard';
 import { FeeTier } from '~/types/FeeTiers';
 import { getConfig } from '~/config';
 import { Token } from '~/types/Token';
-import BigNumber from 'bignumber.js';
 
 const Container = styled.section`
   display: grid;
