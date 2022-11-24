@@ -38,8 +38,8 @@ export function Dashboard() {
 
   const totalUserLocked = lockManagers ? getTotalLocked(Object.values(lockManagers)) : '0';
 
-  const ethPrice = '1200'; // temporary
-  const totalUSDClaimableRewards = '10000000000000000000000000000'; // temporary
+  const ethPrice = '1200'; // TODO: temporary
+  const totalUSDClaimableRewards = '10000000000000000000000000000'; // TODO: temporary
 
   const totalUSDLocked = BigNumber.from(ethPrice).mul(totalUserLocked);
 
