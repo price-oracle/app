@@ -8,10 +8,7 @@ export const updateFeeTierList = (poolListMap: { [key: string]: Address }) => {
   const feeTiers = getConfig().FEE_TIERS;
   const poolListArray = Object.entries(poolListMap);
 
-  const newFees = feeTiers;
-  for (let i = 0; i < poolListArray.length; i++) {
-    newFees[poolListArray[i][0]].created = poolListArray[i][1] !== addresses.ZERO_ADDRESS;
-  }
+  poolListArray.map((pool) => (feeTiers[pool[0]].created = pool[1] !== addresses.ZERO_ADDRESS));
 
-  return newFees;
+  return feeTiers;
 };
