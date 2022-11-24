@@ -3,11 +3,8 @@ import { useProvider, useAccount, useSigner } from 'wagmi';
 import { Contract } from 'ethers-multicall';
 import { ethers } from 'ethers';
 
-import { ERC20Service } from '~/services/erc20Service';
-import { PoolManager } from '~/types/PoolManager';
-import { LockManager } from '~/types/LockManager';
-import { TxService } from './txService';
-import { MultiCallService } from './multicallService';
+import { ERC20Service, TxService, MultiCallService } from '~/services';
+import { PoolManager, LockManager, Address } from '~/types';
 
 export class LockManagerService {
   txService = new TxService();
@@ -32,14 +29,14 @@ export class LockManagerService {
     };
   }
 
-  async lock(lockManagerAddress: string, amount: string) {
+  async lock(lockManagerAddress: Address, amount: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
       return this.txService.handleTx(await lockManagerContract.lock(amount));
     }
   }
 
-  async claimRewards(lockManagerAddress: string, to: string) {
+  async claimRewards(lockManagerAddress: Address, to: Address) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
       return this.txService.handleTx(await lockManagerContract.claimRewards(to));

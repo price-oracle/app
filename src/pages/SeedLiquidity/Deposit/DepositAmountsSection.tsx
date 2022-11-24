@@ -8,8 +8,8 @@ import { SPACING_16, SPACING_8, MOBILE_MAX_WIDTH, Typography } from '~/component
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
-import { Token } from '~/types/Token';
-import { toUnit } from '~/utils/format';
+import { Token } from '~/types';
+import { toUnit } from '~/utils';
 import Balance from './Balance';
 import Deposit from './Deposit';
 

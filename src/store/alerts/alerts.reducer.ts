@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { AlertsState } from '~/types/State';
+import { AlertsState } from '~/types';
 
 import { AlertsActions } from './alerts.actions';
 

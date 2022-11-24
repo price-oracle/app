@@ -14,7 +14,7 @@ import {
   Typography,
 } from '~/components/shared';
 import { EthLabel } from '~/components/shared/TokenLabels';
-import { PoolManager } from '~/types/PoolManager';
+import { PoolManager, Address } from '~/types';
 import { getPoolName, formatFee } from '~/utils';
 import {
   ButtonContainer,
@@ -54,7 +54,7 @@ const PoolList = () => {
 
   const poolManagerList = poolManagers ? filterPoolManagers(Object.values(poolManagers)) : [];
 
-  const claimRewards = (lockManagerAddress: string) => {
+  const claimRewards = (lockManagerAddress: Address) => {
     if (!address) return;
     lockManagerService.claimRewards(lockManagerAddress, address);
   };

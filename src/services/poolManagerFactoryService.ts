@@ -1,5 +1,5 @@
 import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
-import { useContract, useProvider, useSigner } from 'wagmi';
+import { useContract, useProvider } from 'wagmi';
 import { getConfig } from '~/config';
 
 export class PoolManagerFactoryService {

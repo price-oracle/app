@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { LockManager } from '~/types/LockManager';
-import { PoolManager } from '~/types/PoolManager';
+import { LockManager, PoolManager } from '~/types';
 import { LockManagerService } from '~/services';
 
 import { ThunkAPI } from '~/store';

@@ -1,15 +1,18 @@
 import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
 import { Contract } from 'ethers-multicall';
-import { useProvider, useAccount } from 'wagmi';
-import { PoolManager } from '~/types/PoolManager';
-import { ERC20Service } from './erc20Service';
-import { MultiCallService } from './multicallService';
+import { ethers } from 'ethers';
+import { useProvider, useAccount, useSigner } from 'wagmi';
+
+import { ERC20Service, TxService, MultiCallService } from '~/services';
+import { PoolManager, Address } from '~/types';
 
 export class PoolManagerService {
+  signer = useSigner();
   provider = useProvider();
   account = useAccount();
   erc20Service = new ERC20Service();
   multiCallService = new MultiCallService();
+  txService = new TxService();
 
   async fetchPoolManager(poolManagerAddress: string): Promise<PoolManager> {
     const poolManagerContractMulticall = new Contract(poolManagerAddress, IPoolManagerABI);
@@ -38,5 +41,12 @@ export class PoolManagerService {
         ethReward: rewards[1].toString(),
       },
     };
+  }
+
+  async claimRewards(poolManagerAddress: Address, to: Address) {
+    if (this.signer?.data) {
+      const poolManagerContract = new ethers.Contract(poolManagerAddress, IPoolManagerABI, this.signer?.data);
+      return this.txService.handleTx(await poolManagerContract.claimRewards(to));
+    }
   }
 }
