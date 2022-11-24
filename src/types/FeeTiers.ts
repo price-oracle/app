@@ -7,6 +7,6 @@ export type FeeTier = {
   label: string;
 };
 
-export interface PoolFees {
+export interface PoolFeesMap {
   [key: string]: Address;
 }

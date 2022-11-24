@@ -4,7 +4,7 @@ import { Contract } from 'ethers-multicall';
 
 import { getConfig } from '~/config';
 import { MultiCallService } from './multicallService';
-import { Address, PoolFees } from '~/types';
+import { Address, PoolFeesMap } from '~/types';
 
 export class UniswapService {
   provider = useProvider();
@@ -12,7 +12,7 @@ export class UniswapService {
   fees = getConfig().FEE_TIERS;
   multiCallService = new MultiCallService();
 
-  async fetchUniswapPools(tokenAddress: Address): Promise<PoolFees> {
+  async fetchUniswapPools(tokenAddress: Address): Promise<PoolFeesMap> {
     const feeList = Object.entries(this.fees);
     const uniswapV3Factory = new Contract(this.addresses.UNISWAP_V3_FACTORY, IUniswapV3Factory);
 
