@@ -9,15 +9,15 @@ import { getTheme } from '~/components/shared';
 import { AlertTypes } from '~/types';
 
 const StyledAlert = styled.div<{ type: AlertTypes }>`
+  margin-right: 5rem;
   overflow: hidden;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 1.5rem 2.8rem;
   position: relative;
   pointer-events: all;
   z-index: 1200;
-  width: 14rem;
-  max-width: 100%;
-  max-height: 100%;
+  width: 32rem;
+  max-height: 13rem;
   position: relative;
   transform: translate3d(0, 0, 0);
 

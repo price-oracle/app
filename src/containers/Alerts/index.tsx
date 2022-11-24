@@ -7,7 +7,7 @@ import { Alert } from './Alert';
 
 const StyledAlerts = styled(TransitionGroup)`
   position: fixed;
-  top: 0;
+  top: 3.5rem;
   left: 0;
   width: 100%;
   height: 100%;

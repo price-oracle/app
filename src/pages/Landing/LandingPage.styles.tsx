@@ -8,7 +8,7 @@ import {
   SPACING_384,
   SPACING_64,
   MOBILE_MAX_WIDTH,
-} from '../../components/shared';
+} from '~/components/shared';
 
 export const Container = styled.div<{ height: number }>`
   background-color: ${(props) => props.theme.background};

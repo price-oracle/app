@@ -5,6 +5,7 @@ import { ethers } from 'ethers';
 
 import { ERC20Service, TxService, MultiCallService } from '~/services';
 import { PoolManager, LockManager, Address } from '~/types';
+import { humanize } from '~/utils/format';
 
 export class LockManagerService {
   txService = new TxService();
@@ -32,14 +33,20 @@ export class LockManagerService {
   async lock(lockManagerAddress: Address, amount: string) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      return this.txService.handleTx(await lockManagerContract.lock(amount));
+      const successMessage = `Successfully locked ${humanize('amount', amount, 18, 2)} ETH`;
+      const errorMessage = `Failed to lock ${humanize('amount', amount, 18, 2)} ETH`;
+
+      return this.txService.handleTx(lockManagerContract.lock(amount), successMessage, errorMessage);
     }
   }
 
   async claimRewards(lockManagerAddress: Address, to: Address) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      return this.txService.handleTx(await lockManagerContract.claimRewards(to));
+      const successMessage = 'Rewards claimed';
+      const errorMessage = 'Failed to claim rewards';
+
+      return this.txService.handleTx(lockManagerContract.claimRewards(to), successMessage, errorMessage);
     }
   }
 }

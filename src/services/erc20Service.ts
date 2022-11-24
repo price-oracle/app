@@ -3,6 +3,7 @@ import { useProvider, useSigner, useAccount } from 'wagmi';
 import { Contract } from 'ethers-multicall';
 
 import IERC20 from '~/abis/IERC20.json';
+import { humanize } from '~/utils/format';
 import { MultiCallService, TxService } from '~/services';
 import { Token, Address } from '~/types';
 
@@ -19,16 +20,17 @@ export class ERC20Service {
     return await erc20Contract.callStatic.symbol();
   }
 
+  async fetchTokenDecimals(erc20Address: Address) {
+    const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
+
+    return await erc20Contract.callStatic.decimals();
+  }
+
   async fetchTokenBalance(erc20Address: Address, userAddress: Address | undefined = this.account.address) {
     const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
 
     return await erc20Contract.callStatic.balanceOf(userAddress);
   }
-  // async fetchTokenBalance(erc20Address: string, user: string) {
-  //   const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
-
-  //   return await erc20Contract.balanceOf(user);
-  // }
 
   async fetchTokenAllowance(erc20Address: Address, approveContract: Address, user: Address) {
     const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
@@ -39,7 +41,15 @@ export class ERC20Service {
   async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: string) {
     if (this.signer?.data) {
       const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer?.data);
-      return this.txService.handleTx(await erc20Contract.approve(approveContract, amount));
+
+      // TODO: maybe do it as multicall after blockchain interactions refactor
+      const symbol = await this.fetchTokenSymbol(erc20Address);
+      const decimals = await this.fetchTokenDecimals(erc20Address);
+
+      const successMessage = `Succesfully approved ${humanize('amount', amount, decimals, 2)} ${symbol}`;
+      const errorMessage = `Failed to approve ${humanize('amount', amount, decimals, 2)} ${symbol}`;
+
+      return this.txService.handleTx(erc20Contract.approve(approveContract, amount), successMessage, errorMessage);
     }
   }
 
