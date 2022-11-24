@@ -32,6 +32,10 @@ import modalsReducer, { modalsInitialState } from './modals/modals.reducer';
 import { ModalsActions } from './modals/modals.actions';
 import { ModalSelectors } from './modals/modals.selectors';
 
+// Custom tokens state
+import customTokensReducer, { customTokensInitialState } from './customTokens/customToken.reducer';
+import { CustomTokenActions } from './customTokens/customToken.actions';
+
 export const rootReducer: Reducer<RootState> = combineReducers({
   theme: themeReducer,
   settings: settingsReducer,
@@ -39,16 +43,31 @@ export const rootReducer: Reducer<RootState> = combineReducers({
   poolManagers: poolManagersReducer,
   lockManagers: lockManagersReducer,
   alerts: alertsReducer,
+  customTokens: customTokensReducer,
 });
 
 // Actions
-export { ThemeActions, SettingsActions, ModalsActions, LockManagersActions, PoolManagersActions, AlertsActions };
+export {
+  ThemeActions,
+  SettingsActions,
+  ModalsActions,
+  LockManagersActions,
+  PoolManagersActions,
+  AlertsActions,
+  CustomTokenActions,
+};
 
 // Selectors
 export { ModalSelectors };
 
 // initialStates
-export { themeInitialState, settingsInitialState, modalsInitialState, lockManagerInitialState };
+export {
+  themeInitialState,
+  settingsInitialState,
+  modalsInitialState,
+  lockManagerInitialState,
+  customTokensInitialState,
+};
 
 export function getStore() {
   const localStorageName = 'price';
@@ -60,10 +79,11 @@ export function getStore() {
     alerts: cloneDeep(alertsInitialState),
     poolManagers: cloneDeep(poolManagersInitialState),
     lockManagers: cloneDeep(lockManagerInitialState),
+    customTokens: cloneDeep(customTokensInitialState),
   };
   const persistConfig = {
     namespace: localStorageName,
-    states: ['theme', 'settings'],
+    states: ['theme', 'settings', 'customTokens'],
   };
 
   let persistedState = load(persistConfig);

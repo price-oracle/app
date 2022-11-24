@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-import Dropdown from '~/components/shared/Dropdown';
 import {
-  Icon,
-  TokenIcon,
   EthIcon,
-  Typography,
   FONT_SIZE_24,
+  Icon,
   SPACING_16,
   SPACING_8,
+  TokenIcon,
+  Typography,
   MOBILE_MAX_WIDTH,
 } from '~/components/shared';
-import { Token } from '~/types';
+import Dropdown from '~/components/shared/Dropdown';
+import { Token } from '~/types/Token';
 import TokenList from './TokenList';
 
 const Container = styled.section`
