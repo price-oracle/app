@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNetwork } from 'wagmi';
 import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
 
 import { Token } from '~/types';
-import { getTokenList } from '~/utils/tokenList';
+import { getTokenList } from '~/utils';
 import { SPACING_24 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';
 import SelectTokenSection from './SelectToken/SelectTokenSection';
@@ -21,13 +22,18 @@ function SeedLiquidity() {
   const { chain } = useNetwork();
   const defaultToken = getTokenList(chain?.id)[0];
   const [selectedToken, setSelectedToken] = useState<Token | undefined>(defaultToken);
+  const [startingPrice, setStartingPrice] = useState<BigNumber>(new BigNumber('100'));
 
   return (
     <SeedPage>
       <Container>
         <SelectTokenSection selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
-        <PropertiesSection />
-        <DepositAmountsSection selectedToken={selectedToken} />
+        <PropertiesSection
+          selectedToken={selectedToken}
+          startingPrice={startingPrice}
+          setStartingPrice={setStartingPrice}
+        />
+        <DepositAmountsSection selectedToken={selectedToken} startingPrice={startingPrice} />
         <SubmitFormSection />
       </Container>
       <PoolList />

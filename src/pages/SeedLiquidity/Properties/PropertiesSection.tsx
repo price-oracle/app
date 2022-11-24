@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
 
 import Dropdown from '~/components/shared/Dropdown';
 import {
@@ -11,11 +12,15 @@ import {
   SPACING_12,
   SPACING_8,
   SPACING_768,
+  InputNumber,
+  FONT_SIZE_20,
 } from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
-import { FeeTier } from '~/types';
+import { FeeTier, Token } from '~/types';
 import { getConfig } from '~/config';
+import { UniswapService } from '~/services';
+import { updateFeeTierList } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -42,6 +47,7 @@ const SDropdownModal = styled(Dropdown.Modal)`
   row-gap: ${SPACING_16};
   transform: translateX(-45%);
   border: ${(props) => props.theme.border};
+  min-width: 38rem;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     margin-left: 10.5rem;
@@ -58,7 +64,22 @@ const Suffix = styled(Typography).attrs({
   margin-left: 2px;
 `;
 
-function PropertiesSection() {
+const SInputNumber = styled(InputNumber)`
+  width: 100%;
+  font-size: ${FONT_SIZE_20};
+  grid-area: value;
+  line-height: 1.25;
+`;
+
+interface PropertiesSectionProps {
+  selectedToken: Token | undefined;
+  startingPrice: BigNumber;
+  setStartingPrice: (newPrice: BigNumber) => void;
+}
+
+function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: PropertiesSectionProps) {
+  const uniswapService = new UniswapService();
+
   const dropdownProps = Dropdown.useProps();
 
   const FEE_TIERS = getConfig().FEE_TIERS;
@@ -66,36 +87,45 @@ function PropertiesSection() {
   const defaultFee = FEE_TIERS['0_3%'];
 
   const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
+  const [feeTierList, setFeeTierList] = useState<FeeTier[]>([]);
 
-  const feeTierList = Object.values(FEE_TIERS);
-
-  const ethRateInput = {
-    symbol: 'TUSD',
-    logoURI: `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0000000000085d4780B73119b644AE5ecd22b376/logo.png`,
-    name: 'TrueUSD',
-    value: 1300,
-    decimals: 18,
-  };
-  const isLoading = false;
+  const isLoading = !feeTierList;
 
   const setNewFee = (fee: FeeTier) => {
     dropdownProps.setShow(false);
     setSelectedFee(fee);
   };
 
+  const onPriceChange = (newPrice: string) => {
+    setStartingPrice(new BigNumber(newPrice));
+  };
+  const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });
+
+  useEffect(() => {
+    if (selectedToken) {
+      uniswapService.fetchUniswapPools(selectedToken.address).then((poolListMap) => {
+        const newFees = updateFeeTierList(poolListMap);
+        setFeeTierList(Object.values(newFees));
+      });
+    }
+  }, [selectedToken]);
+
   return (
     <Container>
       <PropertyCard>
         <PropertyCard.Title>Set starting price</PropertyCard.Title>
-        <PropertyCard.Value>{ethRateInput.value}</PropertyCard.Value>
+        <PropertyCard.Value>
+          <SInputNumber {...startingPriceInput} />
+        </PropertyCard.Value>
         <PropertyCard.Helper />
       </PropertyCard>
 
       <PropertyCard>
         <PropertyCard.Title>Rate</PropertyCard.Title>
         <PropertyCard.Value>
-          1 <Suffix>ETH</Suffix> <Icon name='arrow-down' /* color={disabled} */ rotate={270} /> {ethRateInput.value}
-          <Suffix>{ethRateInput?.symbol || ''}</Suffix>
+          1 <Suffix> ETH</Suffix>
+          <Icon name='arrow-down' /* color={disabled} */ rotate={270} />
+          {startingPriceInput.value} <Suffix>{selectedToken?.symbol || ''}</Suffix>
         </PropertyCard.Value>
       </PropertyCard>
 
