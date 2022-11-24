@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
+import { isUndefined } from 'lodash';
 
 import Dropdown from '~/components/shared/Dropdown';
 import {
@@ -20,7 +21,6 @@ import FeeCard from './FeeCard';
 import { FeeTier, Token, UniswapPool } from '~/types';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
-import { isPoolAlreadyCreated } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -110,8 +110,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
     }
   }, [selectedToken]);
 
-  const isPoolCreated = (label: string) =>
-    uniswapPoolsForFeeTier && isPoolAlreadyCreated(uniswapPoolsForFeeTier[label]);
+  const isPoolCreated = (label: string) => uniswapPoolsForFeeTier && !isUndefined(uniswapPoolsForFeeTier[label]);
   const selectedFeeTierExists = isPoolCreated(selectedFee.label);
 
   return (

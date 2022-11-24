@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { Address } from './Blockchain';
 
 export type FeeTier = {
@@ -8,4 +9,5 @@ export type FeeTier = {
 
 export interface UniswapPool {
   address: Address;
+  pricing: BigNumber;
 }
