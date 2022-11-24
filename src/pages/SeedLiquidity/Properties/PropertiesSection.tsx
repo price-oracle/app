@@ -18,6 +18,7 @@ import { FeeTier } from '~/types/FeeTiers';
 import { Token } from '~/types/Token';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
+import { updateFeeTierList } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -92,8 +93,9 @@ function PropertiesSection({ selectedToken }: DepositAmountsProps) {
 
   useEffect(() => {
     if (selectedToken) {
-      uniswapService.fetchFeeTiers(selectedToken.address).then((feeList) => {
-        setFeeTierList(Object.values(feeList));
+      uniswapService.fetchUniswapPools(selectedToken.address).then((poolListMap) => {
+        const newFees = updateFeeTierList(poolListMap);
+        setFeeTierList(Object.values(newFees));
       });
     }
   }, [selectedToken]);

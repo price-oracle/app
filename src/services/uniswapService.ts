@@ -12,25 +12,23 @@ export class UniswapService {
   fees = getConfig().FEE_TIERS;
   multiCallService = new MultiCallService();
 
-  async fetchFeeTiers(tokenAddress: Address) {
-    const newFees = this.fees;
+  async fetchUniswapPools(tokenAddress: Address) {
+    const feeList = Object.entries(this.fees);
     const uniswapV3Factory = new Contract(this.addresses.UNISWAP_V3_FACTORY, IUniswapV3Factory);
 
     const getPoolCall = (feeAmount: number) =>
       uniswapV3Factory.getPool(tokenAddress, this.addresses.WETH_ADDRESS, feeAmount);
 
-    const [fee10000result, fee3000result, fee500result, fee100result] = await this.multiCallService.multicall([
-      getPoolCall(10000),
-      getPoolCall(3000),
-      getPoolCall(500),
-      getPoolCall(100),
-    ]);
+    const feeResults = await this.multiCallService.multicall(
+      feeList.map((feeValue) => getPoolCall(this.fees[feeValue[0]].fee))
+    );
 
-    newFees['1%'].created = fee10000result !== this.addresses.ZERO_ADDRESS;
-    newFees['0_3%'].created = fee3000result !== this.addresses.ZERO_ADDRESS;
-    newFees['0_05%'].created = fee500result !== this.addresses.ZERO_ADDRESS;
-    newFees['0_01%'].created = fee100result !== this.addresses.ZERO_ADDRESS;
+    const poolsList: [string, string][] = [];
+    for (let i = 0; i < feeList.length; i++) {
+      poolsList.push([feeList[i][0], feeResults[i]]);
+    }
+    const poolListMap = Object.fromEntries(poolsList.map((pool) => [pool[0], pool[1]]));
 
-    return newFees;
+    return poolListMap;
   }
 }
