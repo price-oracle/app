@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
 
 import { Link, SPACING_16 } from '~/components/shared';
-import { humanize } from '~/utils/format';
+import { humanize } from '~/utils';
 
 const SLink = styled(Link)`
   height: ${SPACING_16};

@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 
 import { useAppSelector } from '~/hooks';
-import { ThemeActions } from '~/store/index';
-import { ThemeName } from '~/types/Settings';
+import { ThemeActions } from '~/store';
+import { ThemeName } from '~/types';
 import { IconButton } from './IconButton';
 import { getTheme } from './theme';
 import { FONT_SIZE_16, SPACING_8 } from './Variables';

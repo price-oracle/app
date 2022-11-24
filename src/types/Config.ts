@@ -23,6 +23,8 @@ export interface Constants {
     deployed: {
       POOL_MANAGER_FACTORY: Address;
     };
+    UNISWAP_V3_FACTORY: Address;
+    ZERO_ADDRESS: Address;
   };
 
   CONFIRMATIONS: { [key: number]: number };

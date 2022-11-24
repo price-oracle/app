@@ -3,7 +3,7 @@ import { useProvider, useSigner, useAccount } from 'wagmi';
 
 import IERC20 from '~/abis/IERC20.json';
 import { TxService } from '~/services';
-import { Address } from '~/types/Blockchain';
+import { Address } from '~/types';
 
 export class ERC20Service {
   txService = new TxService();

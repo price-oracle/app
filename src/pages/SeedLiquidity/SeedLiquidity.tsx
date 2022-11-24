@@ -3,8 +3,8 @@ import { useNetwork } from 'wagmi';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 
-import { Token } from '~/types/Token';
-import { getTokenList } from '~/utils/tokenList';
+import { Token } from '~/types';
+import { getTokenList } from '~/utils';
 import { SPACING_24 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';
 import SelectTokenSection from './SelectToken/SelectTokenSection';

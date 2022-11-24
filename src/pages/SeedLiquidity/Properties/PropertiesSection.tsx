@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 
@@ -17,9 +17,10 @@ import {
 } from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
-import { FeeTier } from '~/types/FeeTiers';
+import { FeeTier, Token } from '~/types';
 import { getConfig } from '~/config';
-import { Token } from '~/types/Token';
+import { UniswapService } from '~/services';
+import { updateFeeTierList } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -46,6 +47,7 @@ const SDropdownModal = styled(Dropdown.Modal)`
   row-gap: ${SPACING_16};
   transform: translateX(-45%);
   border: ${(props) => props.theme.border};
+  min-width: 38rem;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     margin-left: 10.5rem;
@@ -76,6 +78,8 @@ interface PropertiesSectionProps {
 }
 
 function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: PropertiesSectionProps) {
+  const uniswapService = new UniswapService();
+
   const dropdownProps = Dropdown.useProps();
 
   const FEE_TIERS = getConfig().FEE_TIERS;
@@ -83,10 +87,9 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   const defaultFee = FEE_TIERS['0_3%'];
 
   const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
+  const [feeTierList, setFeeTierList] = useState<FeeTier[]>([]);
 
-  const feeTierList = Object.values(FEE_TIERS);
-
-  const isLoading = false;
+  const isLoading = !feeTierList;
 
   const setNewFee = (fee: FeeTier) => {
     dropdownProps.setShow(false);
@@ -97,6 +100,15 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
     setStartingPrice(new BigNumber(newPrice));
   };
   const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });
+
+  useEffect(() => {
+    if (selectedToken) {
+      uniswapService.fetchUniswapPools(selectedToken.address).then((poolListMap) => {
+        const newFees = updateFeeTierList(poolListMap);
+        setFeeTierList(Object.values(newFees));
+      });
+    }
+  }, [selectedToken]);
 
   return (
     <Container>
@@ -111,7 +123,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
       <PropertyCard>
         <PropertyCard.Title>Rate</PropertyCard.Title>
         <PropertyCard.Value>
-          1 <Suffix>ETH</Suffix>
+          1 <Suffix> ETH</Suffix>
           <Icon name='arrow-down' /* color={disabled} */ rotate={270} />
           {startingPriceInput.value} <Suffix>{selectedToken?.symbol || ''}</Suffix>
         </PropertyCard.Value>

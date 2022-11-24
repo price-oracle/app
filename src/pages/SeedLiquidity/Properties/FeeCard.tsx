@@ -31,6 +31,7 @@ const Hint = styled(Typography).attrs({
 
 const UsagePercentage = styled(Chip)`
   grid-area: usage;
+  margin: 0.4rem;
 `;
 
 export default withComponents(FeeCard, {

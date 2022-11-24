@@ -13,8 +13,8 @@ import {
   Typography,
   MOBILE_MAX_WIDTH,
 } from '~/components/shared';
-import { Token } from '~/types/Token';
-import { getTokenList } from '~/utils/tokenList';
+import { Token } from '~/types';
+import { getTokenList } from '~/utils';
 
 const SCard = styled(Card)`
   width: 20rem;

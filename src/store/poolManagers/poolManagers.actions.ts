@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { PoolManagerFactoryService, PoolManagerService } from '~/services';
-import { PoolManager } from '~/types/PoolManager';
+import { PoolManager } from '~/types';
 
 import { ThunkAPI } from '~/store';
 

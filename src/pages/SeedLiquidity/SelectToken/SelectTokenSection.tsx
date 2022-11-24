@@ -11,7 +11,7 @@ import {
   SPACING_8,
   MOBILE_MAX_WIDTH,
 } from '~/components/shared';
-import { Token } from '~/types/Token';
+import { Token } from '~/types';
 import TokenList from './TokenList';
 
 const Container = styled.section`
