@@ -3,10 +3,8 @@ import { useProvider, useSigner, useAccount } from 'wagmi';
 import { Contract } from 'ethers-multicall';
 
 import IERC20 from '~/abis/IERC20.json';
-import { TxService } from './txService';
-import { Address } from '~/types/Blockchain';
-import { MultiCallService } from './multicallService';
-import { Token } from '~/types/Token';
+import { MultiCallService, TxService } from '~/services';
+import { Token, Address } from '~/types';
 
 export class ERC20Service {
   txService = new TxService();
