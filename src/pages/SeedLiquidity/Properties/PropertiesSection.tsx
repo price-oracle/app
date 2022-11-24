@@ -17,10 +17,10 @@ import {
 } from '~/components/shared';
 import PropertyCard from './PropertyCard';
 import FeeCard from './FeeCard';
-import { FeeTier, Token } from '~/types';
+import { FeeTier, Token, UniswapPool } from '~/types';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
-import { updateFeeTierList } from '~/utils';
+import { isPoolAlreadyCreated } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -83,13 +83,14 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   const dropdownProps = Dropdown.useProps();
 
   const FEE_TIERS = getConfig().FEE_TIERS;
+  const feeTierList = Object.values(FEE_TIERS);
 
-  const defaultFee = FEE_TIERS['0_3%'];
-
+  const defaultFee = FEE_TIERS[3000];
   const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
-  const [feeTierList, setFeeTierList] = useState<FeeTier[]>([]);
 
-  const isLoading = !feeTierList;
+  const [uniswapPoolsForFeeTier, setUniswapPoolsForFeeTier] = useState<{ [feeTier: string]: UniswapPool }>();
+
+  const isLoading = !uniswapPoolsForFeeTier;
 
   const setNewFee = (fee: FeeTier) => {
     dropdownProps.setShow(false);
@@ -104,18 +105,21 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   useEffect(() => {
     if (selectedToken) {
       uniswapService.fetchUniswapPools(selectedToken.address).then((poolListMap) => {
-        const newFees = updateFeeTierList(poolListMap);
-        setFeeTierList(Object.values(newFees));
+        setUniswapPoolsForFeeTier(poolListMap);
       });
     }
   }, [selectedToken]);
+
+  const isPoolCreated = (label: string) =>
+    uniswapPoolsForFeeTier && isPoolAlreadyCreated(uniswapPoolsForFeeTier[label]);
+  const selectedFeeTierExists = isPoolCreated(selectedFee.label);
 
   return (
     <Container>
       <PropertyCard>
         <PropertyCard.Title>Set starting price</PropertyCard.Title>
         <PropertyCard.Value>
-          <SInputNumber {...startingPriceInput} />
+          <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} />
         </PropertyCard.Value>
         <PropertyCard.Helper />
       </PropertyCard>
@@ -137,12 +141,12 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
 
           {!isLoading && (
             <Dropdown {...dropdownProps}>
-              <Dropdown.Button>{selectedFee.label}</Dropdown.Button>
+              <Dropdown.Button>{selectedFee?.label}</Dropdown.Button>
               <SDropdownModal>
                 {feeTierList.map((fee) => (
                   <FeeCard onClick={() => setNewFee(fee)} key={fee.fee}>
                     <FeeCard.FeePercentage>{fee.label}</FeeCard.FeePercentage>
-                    {fee.created || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
+                    {isPoolCreated(fee.label) || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
                     <FeeCard.Hint>{fee.hint}</FeeCard.Hint>
                   </FeeCard>
                 ))}
