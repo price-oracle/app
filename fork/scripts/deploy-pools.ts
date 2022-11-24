@@ -6,9 +6,14 @@ import { IPoolManager } from '@price-oracle/interfaces/ethers-v5/IPoolManager';
 import { Token } from '@uniswap/sdk-core';
 import {
   computePoolAddress,
-  encodeSqrtRatioX96, maxLiquidityForAmounts
+  encodeSqrtRatioX96,
+  maxLiquidityForAmounts
 } from '@uniswap/v3-sdk';
-import jsbi from 'jsbi';
+import JSBI from 'jsbi';
+
+import {
+  abi as POOL_ABI,
+} from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json'
 
 import { address } from './constants';
 import { impersonate, setBalance, toWei } from './utils';
@@ -51,24 +56,10 @@ import { impersonate, setBalance, toWei } from './utils';
       tokenAmount: 1000,
       whale: address.KP3R_WHALE,
     },
-    // {
-    //   token: weth,
-    //   fee: 500,
-    //   wethAmount: 100,
-    //   tokenAmount: 150,
-    //   whale: address.WETH_WHALE,
-    // },
-    // {
-    //   token: weth,
-    //   fee: feeForPriceWethPool,
-    //   wethAmount: 100,
-    //   tokenAmount: 150,
-    //   whale: address.WETH_WHALE,
-    // },
     {
       token: dai,
       fee: 500,
-      wethAmount: 1000,
+      wethAmount: 100,
       tokenAmount: 800,
       whale: address.DAI_WHALE,
     },
@@ -83,14 +74,14 @@ import { impersonate, setBalance, toWei } from './utils';
     {
       token: vsp,
       fee: 3000,
-      wethAmount: 5000,
-      tokenAmount: 3000,
+      wethAmount: 500,
+      tokenAmount: 500,
       whale: address.VSP_WHALE,
     },
     {
       token: vsp,
       fee: 500,
-      wethAmount: 5000,
+      wethAmount: 25,
       tokenAmount: 3000,
       whale: address.VSP_WHALE,
     },
@@ -112,14 +103,14 @@ import { impersonate, setBalance, toWei } from './utils';
     // },
   ];
 
+  // 5% slippage to apply for each side of the pricing
+  const slippage = JSBI.BigInt(5);
+  const total = JSBI.BigInt(100);
+
   for (let index = 0; index < pairsToCreate.length; index++) {
     let pair = pairsToCreate[index];
     let token = pair.token;
     let symbol = await token.symbol();
-
-    // TODO: Pools that are already deployed on uniswap will fail for now
-    const deployedPool = await uniswapV3Factory.getPool(token.address, weth.address, pair.fee);
-    console.log(deployedPool);
 
     try {
       // give ETH and non-weth token to the deployer
@@ -145,35 +136,44 @@ import { impersonate, setBalance, toWei } from './utils';
         .connect(richWallet)
         .approve(poolManagerAddress, ethers.constants.MaxUint256);
 
-      const poolAddress = computePoolAddress({
-        factoryAddress: uniswapV3Factory.address,
-        tokenA: new Token(0, token.address, await token.decimals()),
-        tokenB: new Token(0, weth.address, await weth.decimals()),
-        fee: pair.fee,
-      });
-
       const isWethToken0 = weth.address < token.address;
 
-      // TODO: make calculations for the sqrtPrice to make sense
-      const sqrtPriceX96 = encodeSqrtRatioX96(1, 1).toString();
+      let sqrtPriceX96: JSBI;
+      const uniswapPool = await uniswapV3Factory.getPool(weth.address, token.address, pair.fee)
+      if (uniswapPool == address.ZERO) {
+        // TODO: make calculations for the sqrtPrice to make sense
+        sqrtPriceX96 = encodeSqrtRatioX96(1, 1);
+      } else {
+        const poolInstance = (await ethers.getContractAt(
+          POOL_ABI,
+          uniswapPool
+        ));
+
+        let { sqrtPriceX96: poolSqrtPriceX96 } = await poolInstance.slot0();
+        sqrtPriceX96 = JSBI.BigInt(poolSqrtPriceX96.toString());
+      }
+
+      const pricingSlippage = JSBI.divide(JSBI.multiply(sqrtPriceX96, slippage), total);
+      const maxSqrtPriceX96 = JSBI.add(sqrtPriceX96, pricingSlippage);
+      const minSqrtPriceX96 = JSBI.subtract(sqrtPriceX96, pricingSlippage);
 
       // create the pool manager, initialize the pool and add a full range position
       const liquidity = maxLiquidityForAmounts(
-        encodeSqrtRatioX96(1, 1),
-        encodeSqrtRatioX96(100, 110),
-        encodeSqrtRatioX96(110, 100),
-        jsbi.BigInt(isWethToken0 ? pair.wethAmount : pair.tokenAmount),
-        jsbi.BigInt(isWethToken0 ? pair.tokenAmount : pair.wethAmount),
+        sqrtPriceX96,
+        minSqrtPriceX96,
+        maxSqrtPriceX96,
+        JSBI.BigInt(isWethToken0 ? pair.wethAmount : pair.tokenAmount),
+        JSBI.BigInt(isWethToken0 ? pair.tokenAmount : pair.wethAmount),
         true
       ).toString();
 
       await poolManagerFactory
-      .connect(richWallet)
+        .connect(richWallet)
         .createPoolManager(
           token.address,
           pair.fee,
           liquidity,
-          sqrtPriceX96
+          sqrtPriceX96.toString()
         );
 
       let pairPoolManagerAddress =
@@ -191,9 +191,9 @@ import { impersonate, setBalance, toWei } from './utils';
         `LOCK_MANAGER_${symbol}_WETH_${pair.fee}: '${lockManagerAddress}'`
       );
 
-      // Transfer remaining balance so that user has tokens to test
+      // Transfer 10% of remaining balance so that user has tokens to test
       const remainingBalance = await token.balanceOf(richWallet.address);
-      await token.connect(richWallet).transfer(governance.address, remainingBalance);
+      await token.connect(richWallet).transfer(governance.address, remainingBalance.div(10));
     } catch (e: unknown) {
       console.log(`Couldn't deploy pool manager ${symbol}-WETH: ${e}`);
     }
