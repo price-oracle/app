@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 
 import { getConfig } from '~/config';
 import { MultiCallService } from './multicallService';
-import { Address, UniswapPool } from '~/types';
+import { Address, PoolData, UniswapPool } from '~/types';
 
 export class UniswapService {
   provider = useProvider();
@@ -26,29 +26,40 @@ export class UniswapService {
       feeList.map((feeValue) => this.getPoolCall(tokenAddress, feeValue.fee))
     );
 
-    const pricings = await this.fetchPoolsPricing(poolAddressList);
+    const poolsData = await this.fetchPoolsData(poolAddressList);
 
     const pools: UniswapPool[] = poolAddressList.map((address) => ({
       address,
-      pricing: pricings[address],
+      ...poolsData[address],
     }));
 
-    const poolListMap = Object.fromEntries(pools.map((pool, index) => [pool.pricing && feeList[index].label, pool]));
+    const poolListMap = Object.fromEntries(pools.map((pool, index) => [pool.pricing && feeList[index].fee, pool]));
     return poolListMap;
   }
 
-  async fetchPoolsPricing(pools: Address[]): Promise<{ [address: string]: BigNumber }> {
+  async fetchPoolsData(pools: Address[]): Promise<{ [address: string]: PoolData }> {
     const filteredPools = pools.filter((address) => address !== this.addresses.ZERO_ADDRESS);
-    const slot0s = await this.multiCallService.multicall(
+    const poolsDataResponse = await this.multiCallService.multicall(
       filteredPools
         .filter((address) => address !== this.addresses.ZERO_ADDRESS)
         .map((address) => {
           const poolContract = new Contract(address, IUniswapV3Pool);
-          return poolContract.slot0();
+          return [poolContract.slot0(), poolContract.token0()];
         })
+        .flat()
     );
-    const pricings = slot0s.map((slot0) => slot0.sqrtPriceX96);
-    return Object.fromEntries(filteredPools.map((pool, index) => [pool, pricings[index]]));
+
+    const poolsData: PoolData[] = [];
+    for (let i = 0; i < poolsDataResponse.length; i = i + 2) {
+      const slot0 = poolsDataResponse[i];
+      const token0 = poolsDataResponse[i + 1];
+      poolsData.push({
+        pricing: new BigNumber(slot0.sqrtPriceX96.toString()),
+        isWethToken0: token0 === this.addresses.WETH_ADDRESS,
+      });
+    }
+
+    return Object.fromEntries(filteredPools.map((pool, index) => [pool, poolsData[index]]));
   }
 
   getPoolCall(tokenAddress: Address, feeAmount: number) {

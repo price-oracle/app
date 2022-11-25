@@ -10,4 +10,10 @@ export type FeeTier = {
 export interface UniswapPool {
   address: Address;
   pricing: BigNumber;
+  isWethToken0: boolean;
+}
+
+export interface PoolData {
+  pricing: BigNumber;
+  isWethToken0: boolean;
 }
