@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
+import { BigNumberish } from 'ethers';
 import { useAccount } from 'wagmi';
 
 import { ERC20Service, PoolManagerFactoryService } from '~/services';
+import { ethersValueToBN, toWei, unitToWei } from '~/utils';
 import { BoxButton, Loading } from '~/components/shared';
-import { ethersValueToBN, toUnit, toWei, unitToWei } from '~/utils';
 import { Address, Token } from '~/types';
 import { getConfig } from '~/config';
-import { BigNumberish } from 'ethers';
 
 const Container = styled.section`
   display: grid;
@@ -40,6 +40,9 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   const {
     ADDRESSES: { WETH_ADDRESS },
   } = getConfig();
+
+  const ethIsApproved = wethAmount?.lte(ethersValueToBN(wethAllowance));
+  const isApproved = ethIsApproved && tokenAmount?.lte(ethersValueToBN(tokenAllowance));
 
   // temporary fixed values
   const feeCardProps = {
@@ -74,7 +77,6 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
 
     if (ethIsApproved)
       if (selectedToken?.address) {
-        setIsLoading(true);
         erc20Service
           .approveTokenAmount(selectedToken?.address, poolManagerAddress, toWei(tokenAmount.toString()))
           .then(() => {
@@ -83,9 +85,6 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
           });
       }
   };
-
-  const ethIsApproved = wethAmount?.lte(ethersValueToBN(wethAllowance));
-  const isApproved = ethIsApproved && tokenAmount?.lte(ethersValueToBN(tokenAllowance));
 
   useEffect(() => {
     if (tokenAmount.gt(tokenBalance) || wethAmount.gt(wethBalance)) {
