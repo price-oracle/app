@@ -19,7 +19,7 @@ export class TxService {
         return txReceipt;
       })
       .catch((e) => {
-        this.dispatch(AlertsActions.openAlert({ message: errorMessage || 'Transaction failed', type: 'error' }));
+        return this.dispatch(AlertsActions.openAlert({ message: errorMessage || 'Transaction failed', type: 'error' }));
       });
   }
 }
