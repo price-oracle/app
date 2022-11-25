@@ -11,13 +11,18 @@ export class TxService {
   confirmations = getConfig().CONFIRMATIONS;
   chainId = this.network.chain?.id || 1;
 
-  async handleTx(tx: Promise<Contract>, successMessage?: string, errorMessage?: string) {
-    tx.then(async (txResponse) => {
-      const txReceipt = await txResponse.wait(this.confirmations[this.chainId]);
-      this.dispatch(AlertsActions.openAlert({ message: successMessage || 'Transaction success!', type: 'success' }));
-      return txReceipt;
-    }).catch((e) => {
-      this.dispatch(AlertsActions.openAlert({ message: errorMessage || 'Transaction failed', type: 'error' }));
-    });
+  async handleTx(tx: Promise<Contract>, successMessage?: string, errorMessage?: string): Promise<boolean> {
+    const txResult = tx
+      .then(async (txResponse) => {
+        await txResponse.wait(this.confirmations[this.chainId]);
+        this.dispatch(AlertsActions.openAlert({ message: successMessage || 'Transaction success!', type: 'success' }));
+        return true;
+      })
+      .catch((e) => {
+        this.dispatch(AlertsActions.openAlert({ message: errorMessage || 'Transaction failed', type: 'error' }));
+        return false;
+      });
+
+    return txResult;
   }
 }
