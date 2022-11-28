@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import { BigNumberish, ethers } from 'ethers';
 
 export type DataType = 'amount' | 'percent' | 'usd';
 
@@ -105,3 +106,14 @@ export const humanize = (
   const units = normalize(dataType, amount, tokenDecimals);
   return format(dataType, units, formatDecimals);
 };
+
+/* -------------------------------------------------------------------------- */
+/*                                  Others                                    */
+/* -------------------------------------------------------------------------- */
+
+export const weiToUnit = (amount: BigNumber) => toUnit(amount.toString());
+export const unitToWei = (amount: string) => toWei(amount);
+
+export const ethersValueToBN = (amount: BigNumberish | undefined) => toBN(toUnit(amount?.toString()));
+export const BNToEthersValue = (amount: BigNumber, decimals?: number): BigNumberish =>
+  ethers.BigNumber.from(toWei(amount.toString(), decimals));

@@ -1,6 +1,8 @@
 import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
 import { useContract, useProvider } from 'wagmi';
+
 import { getConfig } from '~/config';
+import { Address } from '~/types';
 
 export class PoolManagerFactoryService {
   provider = useProvider();
@@ -23,5 +25,9 @@ export class PoolManagerFactoryService {
     const calls = requests.map((r) => this.poolManagerFactoryContract!.callStatic.listChildren(r[0], r[1]));
 
     return (await Promise.all(calls)).flat();
+  }
+
+  async getPoolManagerAddress(tokenAddress: Address, feeAmount: number): Promise<Address> {
+    return await this.poolManagerFactoryContract?.callStatic.getPoolManagerAddress(tokenAddress, feeAmount);
   }
 }
