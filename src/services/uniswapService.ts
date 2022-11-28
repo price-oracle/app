@@ -19,7 +19,7 @@ export class UniswapService {
     this.uniswapV3Factory = new Contract(this.addresses.UNISWAP_V3_FACTORY, IUniswapV3Factory);
   }
 
-  async fetchUniswapPools(tokenAddress: Address): Promise<{ [k: string]: UniswapPool }> {
+  async fetchUniswapPools(tokenAddress: Address): Promise<{ [feeTier: number]: UniswapPool }> {
     const feeList = Object.values(this.fees);
 
     const poolAddressList: Address[] = await this.multiCallService.multicall(
@@ -37,7 +37,7 @@ export class UniswapService {
     return poolListMap;
   }
 
-  async fetchPoolsData(pools: Address[]): Promise<{ [address: string]: PoolData }> {
+  async fetchPoolsData(pools: Address[]): Promise<{ [address: Address]: PoolData }> {
     const filteredPools = pools.filter((address) => address !== this.addresses.ZERO_ADDRESS);
     const poolsDataResponse = await this.multiCallService.multicall(
       filteredPools

@@ -19,7 +19,7 @@ import Dropdown from '~/components/shared/Dropdown';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
 import { FeeTier, Token, UniswapPool } from '~/types';
-import { sqrtPriceX96ToPrice } from '~/utils/sqrtPriceX96Utils';
+import { getPriceForToken } from '~/utils';
 import FeeCard from './FeeCard';
 import PropertyCard from './PropertyCard';
 
@@ -121,7 +121,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   }, [selectedToken]);
 
   useEffect(() => {
-    const newPrice = getPriceForToken();
+    const newPrice = getPriceOfSelectedToken();
     if (newPrice) {
       startingPriceInput.set(newPrice.toString());
       onPriceChange(newPrice.toString());
@@ -131,14 +131,11 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   const isPoolCreated = (fee: number) => uniswapPoolsForFeeTier && !isUndefined(uniswapPoolsForFeeTier[fee]);
   const selectedFeeTierExists = isPoolCreated(selectedFee.fee);
 
-  const getPriceForToken = () => {
+  const getPriceOfSelectedToken = () => {
     if (uniswapPoolsForFeeTier && selectedToken) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
       if (uniPool) {
-        const priceE18 = sqrtPriceX96ToPrice(uniPool.pricing);
-        const calculatedPrice = uniPool.isWethToken0 ? priceE18 : new BigNumber('1').dividedBy(priceE18);
-        const decimals = new BigNumber(10).exponentiatedBy(selectedToken.decimals);
-        return calculatedPrice.multipliedBy(1e18).dividedBy(decimals);
+        return getPriceForToken(uniPool.pricing, selectedToken.decimals, uniPool.isWethToken0);
       }
     }
   };
