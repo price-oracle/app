@@ -1,26 +1,27 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
+import { isUndefined } from 'lodash';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import Dropdown from '~/components/shared/Dropdown';
 import {
-  Typography,
-  Loading,
+  FONT_SIZE_20,
   Icon,
-  SPACING_16,
+  InputNumber,
+  Loading,
   MOBILE_MAX_WIDTH,
   SPACING_12,
-  SPACING_8,
+  SPACING_16,
   SPACING_768,
-  InputNumber,
-  FONT_SIZE_20,
+  SPACING_8,
+  Typography,
 } from '~/components/shared';
-import PropertyCard from './PropertyCard';
-import FeeCard from './FeeCard';
-import { FeeTier, Token, UniswapPool } from '~/types';
+import Dropdown from '~/components/shared/Dropdown';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
-import { isPoolAlreadyCreated } from '~/utils';
+import { FeeTier, Token, UniswapPool } from '~/types';
+import { getPriceForToken } from '~/utils';
+import FeeCard from './FeeCard';
+import PropertyCard from './PropertyCard';
 
 const Container = styled.section`
   display: grid;
@@ -71,6 +72,13 @@ const SInputNumber = styled(InputNumber)`
   line-height: 1.25;
 `;
 
+const SPrice = styled.div`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 15rem;
+`;
+
 interface PropertiesSectionProps {
   selectedToken: Token | undefined;
   startingPrice: BigNumber;
@@ -100,19 +108,37 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   const onPriceChange = (newPrice: string) => {
     setStartingPrice(new BigNumber(newPrice));
   };
+
   const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });
 
   useEffect(() => {
     if (selectedToken) {
-      uniswapService.fetchUniswapPools(selectedToken.address).then((poolListMap) => {
-        setUniswapPoolsForFeeTier(poolListMap);
-      });
+      setUniswapPoolsForFeeTier(undefined);
+      uniswapService
+        .fetchUniswapPools(selectedToken.address)
+        .then((poolListMap) => setUniswapPoolsForFeeTier(poolListMap));
     }
   }, [selectedToken]);
 
-  const isPoolCreated = (label: string) =>
-    uniswapPoolsForFeeTier && isPoolAlreadyCreated(uniswapPoolsForFeeTier[label]);
-  const selectedFeeTierExists = isPoolCreated(selectedFee.label);
+  useEffect(() => {
+    const newPrice = getPriceOfSelectedToken();
+    if (newPrice) {
+      startingPriceInput.set(newPrice.toString());
+      onPriceChange(newPrice.toString());
+    }
+  }, [selectedFee, uniswapPoolsForFeeTier]);
+
+  const isPoolCreated = (fee: number) => uniswapPoolsForFeeTier && !isUndefined(uniswapPoolsForFeeTier[fee]);
+  const selectedFeeTierExists = isPoolCreated(selectedFee.fee);
+
+  const getPriceOfSelectedToken = () => {
+    if (uniswapPoolsForFeeTier && selectedToken) {
+      const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
+      if (uniPool) {
+        return getPriceForToken(uniPool.pricing, selectedToken.decimals, uniPool.isWethToken0);
+      }
+    }
+  };
 
   return (
     <Container>
@@ -129,7 +155,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
         <PropertyCard.Value>
           1 <Suffix> ETH</Suffix>
           <Icon name='arrow-down' /* color={disabled} */ rotate={270} />
-          {startingPriceInput.value} <Suffix>{selectedToken?.symbol || ''}</Suffix>
+          <SPrice>{startingPriceInput.value}</SPrice> <Suffix>{selectedToken?.symbol || ''}</Suffix>
         </PropertyCard.Value>
       </PropertyCard>
 
@@ -146,7 +172,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
                 {feeTierList.map((fee) => (
                   <FeeCard onClick={() => setNewFee(fee)} key={fee.fee}>
                     <FeeCard.FeePercentage>{fee.label}</FeeCard.FeePercentage>
-                    {isPoolCreated(fee.label) || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
+                    {isPoolCreated(fee.fee) || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
                     <FeeCard.Hint>{fee.hint}</FeeCard.Hint>
                   </FeeCard>
                 ))}

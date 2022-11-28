@@ -10,4 +10,5 @@ export interface PoolManager {
     ethReward: string;
     tokenReward: string;
   };
+  isWethToken0: boolean;
 }
