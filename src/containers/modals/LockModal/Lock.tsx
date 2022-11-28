@@ -137,7 +137,7 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
   return (
     <Container>
       <Title>
-        <PoolIcon address={pool.token.tokenAddress} />
+        <PoolIcon address={pool.token.address} />
         <Text>Lock in {getPoolName(pool)}</Text>
       </Title>
 

@@ -29,12 +29,12 @@ export class PoolManagerService {
       claimableCall,
     ]);
 
-    const tokenSymbol = await this.erc20Service.fetchTokenSymbol(tokenAddress);
+    const token = await this.erc20Service.fetchTokenData(tokenAddress);
 
     return {
       address: poolManagerAddress,
       fee,
-      token: { tokenAddress, tokenSymbol },
+      token,
       lockManagerAddress,
       rewards: {
         ethReward: rewards[0].toString(),
