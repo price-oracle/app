@@ -24,7 +24,7 @@ const fetchLockManagers = createAsyncThunk<
 
 const claimRewards = createAsyncThunk<
   void,
-  { lockManagerAddress: Address; lockManagerService: LockManagerService; userAddress: string },
+  { lockManagerAddress: Address; lockManagerService: LockManagerService; userAddress: Address },
   ThunkAPI
 >('lockManager/claimRewards', async ({ lockManagerAddress, lockManagerService, userAddress }) => {
   await lockManagerService.claimRewards(lockManagerAddress, userAddress);
