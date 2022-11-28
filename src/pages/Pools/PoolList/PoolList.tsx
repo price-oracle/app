@@ -46,7 +46,7 @@ const PoolList = () => {
 
   const filterPoolManagers = (poolManagers: PoolManager[]): PoolManager[] =>
     poolManagers.filter((poolManager) => {
-      const searchCriteria = [poolManager.address, getPoolName(poolManager), poolManager.token.tokenAddress]
+      const searchCriteria = [poolManager.address, getPoolName(poolManager), poolManager.token.address]
         .join('-')
         .toLowerCase();
       return searchCriteria.includes(searchInput.toLowerCase());
@@ -86,7 +86,7 @@ const PoolList = () => {
           {poolManagerList.map((poolManager) => (
             <Row key={poolManager.address}>
               <Typography>
-                <PoolIcon address={poolManager.token.tokenAddress} />
+                <PoolIcon address={poolManager.token.address} />
               </Typography>
 
               <Typography>{getPoolName(poolManager)}</Typography>
@@ -99,8 +99,8 @@ const PoolList = () => {
               <PriceAmountContainer>
                 <TokenLabel
                   value={lockManagers[poolManager.lockManagerAddress].rewards.tokenReward}
-                  address={poolManager.token.tokenAddress}
-                  decimals={18}
+                  address={poolManager.token.address}
+                  decimals={poolManager.token.decimals}
                 />
                 <Divider>/</Divider>
                 <EthLabel value={lockManagers[poolManager.lockManagerAddress].rewards.ethReward} />
