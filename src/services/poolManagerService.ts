@@ -37,8 +37,8 @@ export class PoolManagerService {
       token: { tokenAddress, tokenSymbol },
       lockManagerAddress,
       rewards: {
-        tokenReward: rewards[0].toString(),
-        ethReward: rewards[1].toString(),
+        ethReward: rewards[0].toString(),
+        tokenReward: rewards[1].toString(),
       },
     };
   }
