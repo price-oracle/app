@@ -6,7 +6,6 @@ import BigNumber from 'bignumber.js';
 
 import {
   BoxButton,
-  FONT_SIZE_12,
   FONT_SIZE_16,
   FONT_SIZE_24,
   Loading,
@@ -21,7 +20,7 @@ import { getConfig } from '~/config';
 import { useAppDispatch } from '~/hooks';
 import { ERC20Service, LockManagerService } from '~/services';
 import { ModalsActions } from '~/store';
-import { toUnit, toWei, getPoolName } from '~/utils';
+import { getPoolName, weiToUnit, unitToWei } from '~/utils';
 import { PoolManager } from '~/types';
 
 const InputContainer = styled.div`
@@ -115,15 +114,12 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
     }
   }, [wethAllowance]);
 
-  const weiToUnit = (amount: BigNumber) => toUnit(amount.toString());
-  const unitToBN = (amount: string) => toWei(amount);
-
   const setMaxWethAmount = () => wethBalance && wethAmount.set(weiToUnit(wethBalance));
   // const setMaxWethAmount = () => wethBalance && wethAmount.set(weiToUnit(toBN(unitToBN('123.127361293671823687'))));
   const approveWethAmount = () => {
     setIsLoading(true);
     erc20Service
-      .approveTokenAmount(WETH_ADDRESS, pool.lockManagerAddress, unitToBN(wethAmount.value))
+      .approveTokenAmount(WETH_ADDRESS, pool.lockManagerAddress, unitToWei(wethAmount.value))
       .then(() => updateAllowanceAmount())
       .catch(() => setIsLoading(false));
   };
@@ -131,17 +127,17 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
   const lockWethAmount = () => {
     setIsLoading(true);
     lockManagerService
-      .lock(pool.lockManagerAddress, unitToBN(wethAmount.value))
+      .lock(pool.lockManagerAddress, unitToWei(wethAmount.value))
       .then(() => dispatch(ModalsActions.closeModal()))
       .catch(() => setIsLoading(false));
   };
 
-  const isApprove = wethAllowance?.lt(unitToBN(wethAmount.value));
+  const isApprove = wethAllowance?.lt(unitToWei(wethAmount.value));
 
   return (
     <Container>
       <Title>
-        <PoolIcon address={pool.token.tokenAddress} />
+        <PoolIcon address={pool.token.address} />
         <Text>Lock in {getPoolName(pool)}</Text>
       </Title>
 

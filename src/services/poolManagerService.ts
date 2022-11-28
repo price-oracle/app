@@ -31,16 +31,16 @@ export class PoolManagerService {
       wethToken0Call,
     ]);
 
-    const tokenSymbol = await this.erc20Service.fetchTokenSymbol(tokenAddress);
+    const token = await this.erc20Service.fetchTokenData(tokenAddress);
 
     return {
       address: poolManagerAddress,
       fee,
-      token: { tokenAddress, tokenSymbol },
+      token,
       lockManagerAddress,
       rewards: {
-        tokenReward: rewards[0].toString(),
-        ethReward: rewards[1].toString(),
+        ethReward: rewards[0].toString(),
+        tokenReward: rewards[1].toString(),
       },
       isWethToken0,
     };

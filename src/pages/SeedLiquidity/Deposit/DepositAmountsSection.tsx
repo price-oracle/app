@@ -3,15 +3,17 @@ import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 import { isUndefined } from 'lodash';
+import { BigNumberish } from 'ethers';
 
 import { SPACING_16, SPACING_8, MOBILE_MAX_WIDTH, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
 import { Token } from '~/types';
-import { toUnit } from '~/utils';
+import { ethersValueToBN, toUnit } from '~/utils';
 import Balance from './Balance';
 import Deposit from './Deposit';
+import SubmitFormSection from './SubmitFormSection';
 
 const Container = styled.section`
   display: grid;
@@ -40,7 +42,6 @@ interface DepositAmountsProps {
 }
 
 const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsProps) => {
-  const bigNumberZero = new BigNumber(0);
   const { address: userAddress } = useAccount();
 
   const {
@@ -83,8 +84,8 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
 
   const eth_symbol = 'WETH';
 
-  const [tokenBalance, setTokenBalance] = useState<BigNumber | undefined>();
-  const [wethBalance, setWethBalance] = useState<BigNumber | undefined>();
+  const [tokenBalance, setTokenBalance] = useState<BigNumberish | undefined>();
+  const [wethBalance, setWethBalance] = useState<BigNumberish | undefined>();
 
   useEffect(() => {
     if (isUndefined(tokenBalance)) {
@@ -125,35 +126,44 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
   };
 
   return (
-    <Container>
-      <Title>Deposit amounts</Title>
+    <>
+      <Container>
+        <Title>Deposit amounts</Title>
 
-      <div>
-        <Deposit>
-          <Deposit.Token src={selectedToken?.logoURI} />
-          <Deposit.Amount {...tokenInput} />
-          <Deposit.Symbol>
-            <Typography>{selectedToken?.symbol || ''}</Typography>
-          </Deposit.Symbol>
-        </Deposit>
-        <Balance
-          totalAmount={tokenBalance || bigNumberZero}
-          symbol={selectedToken?.symbol || ''}
-          onClick={inputMaxTokenBalance}
-          decimals={selectedToken?.decimals}
-        />
-      </div>
+        <div>
+          <Deposit>
+            <Deposit.Token src={selectedToken?.logoURI} />
+            <Deposit.Amount {...tokenInput} />
+            <Deposit.Symbol>
+              <Typography>{selectedToken?.symbol || ''}</Typography>
+            </Deposit.Symbol>
+          </Deposit>
+          <Balance
+            totalAmount={tokenBalance || 0}
+            symbol={selectedToken?.symbol || ''}
+            onClick={inputMaxTokenBalance}
+            decimals={selectedToken?.decimals}
+          />
+        </div>
 
-      <div>
-        <Deposit>
-          <Deposit.Token isPrice />
-          <Deposit.Amount {...wethInput} />
-          <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
-        </Deposit>
+        <div>
+          <Deposit>
+            <Deposit.Token isPrice />
+            <Deposit.Amount {...wethInput} />
+            <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
+          </Deposit>
 
-        <Balance totalAmount={wethBalance || bigNumberZero} symbol={eth_symbol} onClick={inputMaxWethBalance} />
-      </div>
-    </Container>
+          <Balance totalAmount={wethBalance || '0'} symbol={eth_symbol} onClick={inputMaxWethBalance} />
+        </div>
+      </Container>
+      <SubmitFormSection
+        tokenAmount={new BigNumber(tokenInput.value)}
+        wethAmount={new BigNumber(wethInput.value)}
+        wethBalance={ethersValueToBN(wethBalance)}
+        tokenBalance={ethersValueToBN(tokenBalance)}
+        selectedToken={selectedToken}
+      />
+    </>
   );
 };
 

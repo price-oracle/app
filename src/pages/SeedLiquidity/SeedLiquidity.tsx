@@ -10,7 +10,6 @@ import { Container } from './SeedLiquidity.styles';
 import SelectTokenSection from './SelectToken/SelectTokenSection';
 import PropertiesSection from './Properties/PropertiesSection';
 import DepositAmountsSection from './Deposit/DepositAmountsSection';
-import SubmitFormSection from './Deposit/SubmitFormSection';
 import PoolList from './SeededList/SeededList';
 
 const SeedPage = styled.div`
@@ -34,7 +33,6 @@ function SeedLiquidity() {
           setStartingPrice={setStartingPrice}
         />
         <DepositAmountsSection selectedToken={selectedToken} startingPrice={startingPrice} />
-        <SubmitFormSection />
       </Container>
       <PoolList />
     </SeedPage>
