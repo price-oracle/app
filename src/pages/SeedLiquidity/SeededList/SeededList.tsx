@@ -85,23 +85,23 @@ const PoolList = () => {
               <Typography>{formatFee(poolManager.fee)}%</Typography>
 
               <PriceAmountContainer>
-                <EthLabel value={'100000000000000000000'} />
-                <Divider>/</Divider>
                 <TokenLabel
                   value={'100000000000000000000'}
                   address={poolManager.token.address}
                   decimals={poolManager.token.decimals}
                 />
+                <Divider>/</Divider>
+                <EthLabel value={'100000000000000000000'} />
               </PriceAmountContainer>
 
               <PriceAmountContainer>
-                <EthLabel value={poolManager.rewards.ethReward} />
-                <Divider>/</Divider>
                 <TokenLabel
                   value={poolManager.rewards.tokenReward}
                   address={poolManager.token.address}
                   decimals={poolManager.token.decimals}
                 />
+                <Divider>/</Divider>
+                <EthLabel value={poolManager.rewards.ethReward} />
               </PriceAmountContainer>
 
               <ButtonContainer>
