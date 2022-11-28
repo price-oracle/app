@@ -26,7 +26,7 @@ export class LockManagerService {
     return {
       address: poolManager.lockManagerAddress,
       locked: balance.toString(),
-      rewards: { tokenReward: claimable[0].toString(), ethReward: claimable[1].toString() },
+      rewards: { ethReward: claimable[0].toString(), tokenReward: claimable[1].toString() },
     };
   }
 
