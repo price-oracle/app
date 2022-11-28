@@ -21,15 +21,17 @@ import {
 } from '~/pages/Pools/PoolList/PoolList.styles';
 import { SCard, Row, Header } from './SeededList.styles';
 
-import { useAppSelector } from '~/hooks';
+import { useAppDispatch, useAppSelector } from '~/hooks';
 import { getPoolName, formatFee } from '~/utils';
 import { PoolManager, Address } from '~/types';
 import { PoolManagerService } from '~/services';
+import { PoolManagersActions } from '~/store';
 
 const PoolList = () => {
   const { address } = useAccount();
   const [searchInput, setSearchInput] = useState('');
   const poolManagerService = new PoolManagerService();
+  const dispatch = useAppDispatch();
 
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
 
@@ -47,7 +49,7 @@ const PoolList = () => {
 
   const claimRewards = (poolManagerAddress: Address) => {
     if (!address) return;
-    poolManagerService.claimRewards(poolManagerAddress, address);
+    dispatch(PoolManagersActions.claimRewards({ poolManagerAddress, poolManagerService, userAddress: address }));
   };
 
   return (

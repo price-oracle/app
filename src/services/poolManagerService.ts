@@ -49,7 +49,7 @@ export class PoolManagerService {
       const successMessage = 'Rewards claimed';
       const errorMessage = 'Failed to claim rewards';
 
-      return this.txService.handleTx(await poolManagerContract.claimRewards(to), successMessage, errorMessage);
+      return this.txService.handleTx(poolManagerContract.claimRewards(to), successMessage, errorMessage);
     }
   }
 }

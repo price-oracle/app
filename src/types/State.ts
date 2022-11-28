@@ -22,6 +22,7 @@ export interface ModalsState {
 }
 export interface PoolManagersState {
   elements: { [key: Address]: PoolManager } | undefined;
+  status: Status;
 }
 
 export interface LockManagerState {

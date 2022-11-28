@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { PoolManagerFactoryService, PoolManagerService } from '~/services';
-import { PoolManager } from '~/types';
+import { Address, PoolManager } from '~/types';
 
 import { ThunkAPI } from '~/store';
 
@@ -16,6 +16,15 @@ const fetchPoolManagers = createAsyncThunk<
   return { elements: poolManagersMap };
 });
 
+const claimRewards = createAsyncThunk<
+  void,
+  { poolManagerAddress: Address; poolManagerService: PoolManagerService; userAddress: Address },
+  ThunkAPI
+>('poolManager/claimRewards', async ({ poolManagerAddress, poolManagerService, userAddress }) => {
+  await poolManagerService.claimRewards(poolManagerAddress, userAddress);
+});
+
 export const PoolManagersActions = {
   fetchPoolManagers,
+  claimRewards,
 };
