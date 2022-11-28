@@ -44,6 +44,7 @@ const Value = styled(Typography).attrs({
   font-weight: 700;
   grid-area: value;
   line-height: 1.25;
+  max-width: 30rem;
 `;
 
 const Helper = styled(TokenIcon).attrs({
