@@ -25,6 +25,7 @@ export interface Constants {
     };
     UNISWAP_V3_FACTORY: Address;
     ZERO_ADDRESS: Address;
+    MULTICALL_ADDRESS: Address;
   };
 
   CONFIRMATIONS: { [key: number]: number };
