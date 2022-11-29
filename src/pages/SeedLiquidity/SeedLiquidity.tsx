@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 
 import { Token } from '~/types';
-import { getTokenList } from '~/utils';
+import { BNToEthersValue, getTokenList } from '~/utils';
 import { SPACING_24 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';
 import SelectTokenSection from './SelectToken/SelectTokenSection';
@@ -32,7 +32,7 @@ function SeedLiquidity() {
           startingPrice={startingPrice}
           setStartingPrice={setStartingPrice}
         />
-        <DepositAmountsSection selectedToken={selectedToken} startingPrice={startingPrice} />
+        <DepositAmountsSection selectedToken={selectedToken} startingPrice={BNToEthersValue(startingPrice)} />
       </Container>
       <PoolList />
     </SeedPage>

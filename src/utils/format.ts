@@ -115,5 +115,5 @@ export const weiToUnit = (amount: BigNumber) => toUnit(amount.toString());
 export const unitToWei = (amount: string) => toWei(amount);
 
 export const ethersValueToBN = (amount: BigNumberish | undefined) => toBN(toUnit(amount?.toString()));
-export const BNToEthersValue = (amount: BigNumber, decimals?: number): BigNumberish =>
+export const BNToEthersValue = (amount: BigNumber | string, decimals?: number): ethers.BigNumber =>
   ethers.BigNumber.from(toWei(amount.toString(), decimals));

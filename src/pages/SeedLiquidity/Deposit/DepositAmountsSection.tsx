@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
-import BigNumber from 'bignumber.js';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 import { isUndefined } from 'lodash';
-import { BigNumberish } from 'ethers';
+import { BigNumber, utils } from 'ethers';
 
 import { SPACING_16, SPACING_8, MOBILE_MAX_WIDTH, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
 import { Token } from '~/types';
-import { ethersValueToBN, toUnit } from '~/utils';
+import { BNToEthersValue } from '~/utils';
 import Balance from './Balance';
 import Deposit from './Deposit';
 import SubmitFormSection from './SubmitFormSection';
@@ -43,30 +42,35 @@ interface DepositAmountsProps {
 
 const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsProps) => {
   const { address: userAddress } = useAccount();
-
+  const zeroBigNumber = BigNumber.from('0');
+  const oneEther = utils.parseEther('1');
+  const erc20Service = new ERC20Service();
+  const eth_symbol = 'WETH';
   const {
     ADDRESSES: { WETH_ADDRESS },
   } = getConfig();
+  const [tokenBalance, setTokenBalance] = useState<BigNumber | undefined>(undefined);
+  const [wethBalance, setWethBalance] = useState<BigNumber | undefined>(undefined);
 
   const onWethAmountChanged = (amount: string) => {
-    const price = new BigNumber(startingPrice);
-    const wethAmount = new BigNumber(amount);
-    const tokenAmount = wethAmount.multipliedBy(price);
-    if (tokenAmount.isNaN()) {
+    const price = startingPrice;
+    const wethAmount = BNToEthersValue(amount);
+    const tokenAmount = wethAmount.mul(price).div(oneEther);
+    if (tokenAmount.isZero()) {
       tokenInput.reset();
     } else {
-      tokenInput.set(tokenAmount.toString());
+      tokenInput.set(utils.formatUnits(tokenAmount, selectedToken?.decimals));
     }
   };
 
   const onTokenAmountChanged = (amount: string) => {
-    const price = new BigNumber(startingPrice);
-    const tokenAmount = new BigNumber(amount);
-    const wethAmount = tokenAmount.dividedBy(price);
-    if (wethAmount.isNaN() || price.isZero()) {
+    const price = startingPrice;
+    const tokenAmount = BNToEthersValue(amount);
+    const wethAmount = oneEther.mul(tokenAmount).div(price);
+    if (wethAmount.isZero() || price.isZero()) {
       wethInput.reset();
     } else {
-      wethInput.set(wethAmount.toString());
+      wethInput.set(utils.formatEther(wethAmount));
     }
   };
 
@@ -75,17 +79,10 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
     initialValue: '0',
   });
 
-  const erc20Service = new ERC20Service();
-
   const wethInput = InputNumber.useProps({
     onChange: onWethAmountChanged,
     initialValue: '0',
   });
-
-  const eth_symbol = 'WETH';
-
-  const [tokenBalance, setTokenBalance] = useState<BigNumberish | undefined>();
-  const [wethBalance, setWethBalance] = useState<BigNumberish | undefined>();
 
   useEffect(() => {
     if (isUndefined(tokenBalance)) {
@@ -111,7 +108,7 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
 
   const inputMaxWethBalance = () => {
     if (wethBalance) {
-      const newValue = toUnit(wethBalance.toString(), 18);
+      const newValue = utils.formatEther(wethBalance);
       wethInput.set(newValue);
       onWethAmountChanged(newValue);
     }
@@ -119,7 +116,7 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
 
   const inputMaxTokenBalance = () => {
     if (tokenBalance) {
-      const newValue = toUnit(tokenBalance.toString(), selectedToken?.decimals);
+      const newValue = utils.formatUnits(tokenBalance, selectedToken?.decimals);
       tokenInput.set(newValue);
       onTokenAmountChanged(newValue);
     }
@@ -157,10 +154,10 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
         </div>
       </Container>
       <SubmitFormSection
-        tokenAmount={new BigNumber(tokenInput.value)}
-        wethAmount={new BigNumber(wethInput.value)}
-        wethBalance={ethersValueToBN(wethBalance)}
-        tokenBalance={ethersValueToBN(tokenBalance)}
+        tokenAmount={BNToEthersValue(tokenInput.value)}
+        wethAmount={BNToEthersValue(wethInput.value)}
+        wethBalance={wethBalance || zeroBigNumber}
+        tokenBalance={tokenBalance || zeroBigNumber}
         selectedToken={selectedToken}
       />
     </>
