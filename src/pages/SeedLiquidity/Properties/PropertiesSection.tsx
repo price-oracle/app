@@ -19,7 +19,7 @@ import Dropdown from '~/components/shared/Dropdown';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
 import { FeeTier, Token, UniswapPool } from '~/types';
-import { BNToEthersValue, getPriceForToken } from '~/utils';
+import { getPriceForToken } from '~/utils';
 import FeeCard from './FeeCard';
 import PropertyCard from './PropertyCard';
 
@@ -107,7 +107,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   };
 
   const onPriceChange = (newPrice: string) => {
-    setStartingPrice(BNToEthersValue(newPrice));
+    setStartingPrice(utils.parseEther(newPrice));
   };
 
   const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });

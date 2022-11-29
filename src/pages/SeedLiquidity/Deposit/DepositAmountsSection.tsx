@@ -9,7 +9,6 @@ import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
 import { Token } from '~/types';
-import { BNToEthersValue } from '~/utils';
 import Balance from './Balance';
 import Deposit from './Deposit';
 import SubmitFormSection from './SubmitFormSection';
@@ -54,7 +53,7 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
 
   const onWethAmountChanged = (amount: string) => {
     const price = startingPrice;
-    const wethAmount = BNToEthersValue(amount);
+    const wethAmount = utils.parseEther(amount || '0');
     const tokenAmount = wethAmount.mul(price).div(oneEther);
     if (tokenAmount.isZero()) {
       tokenInput.reset();
@@ -65,7 +64,7 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
 
   const onTokenAmountChanged = (amount: string) => {
     const price = startingPrice;
-    const tokenAmount = BNToEthersValue(amount);
+    const tokenAmount = utils.parseEther(amount || '0');
     const wethAmount = oneEther.mul(tokenAmount).div(price);
     if (wethAmount.isZero() || price.isZero()) {
       wethInput.reset();
@@ -154,8 +153,8 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
         </div>
       </Container>
       <SubmitFormSection
-        tokenAmount={BNToEthersValue(tokenInput.value)}
-        wethAmount={BNToEthersValue(wethInput.value)}
+        tokenAmount={utils.parseEther(tokenInput.value || '0')}
+        wethAmount={utils.parseEther(wethInput.value || '0')}
         wethBalance={wethBalance || zeroBigNumber}
         tokenBalance={tokenBalance || zeroBigNumber}
         selectedToken={selectedToken}

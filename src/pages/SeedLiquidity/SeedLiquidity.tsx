@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BigNumber } from 'ethers';
 
 import { Token } from '~/types';
-import { BNToEthersValue, getTokenList } from '~/utils';
+import { getTokenList } from '~/utils';
 import { SPACING_24 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';
 import SelectTokenSection from './SelectToken/SelectTokenSection';
