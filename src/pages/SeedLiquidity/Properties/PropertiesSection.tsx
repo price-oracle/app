@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
+import { utils } from 'ethers';
 import BigNumber from 'bignumber.js';
 import { isUndefined } from 'lodash';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -135,7 +136,8 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
     if (uniswapPoolsForFeeTier && selectedToken) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
       if (uniPool) {
-        return getPriceForToken(BNToEthersValue(uniPool.pricing), selectedToken.decimals, uniPool.isWethToken0);
+        const priceInWei = getPriceForToken(BNToEthersValue(uniPool.pricing), uniPool.isWethToken0);
+        return utils.formatUnits(priceInWei, selectedToken.decimals).toString();
       }
     }
   };
