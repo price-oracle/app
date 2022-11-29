@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNetwork } from 'wagmi';
 import styled from 'styled-components';
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'ethers';
 
 import { Token } from '~/types';
 import { BNToEthersValue, getTokenList } from '~/utils';
@@ -21,7 +21,7 @@ function SeedLiquidity() {
   const { chain } = useNetwork();
   const defaultToken = getTokenList(chain?.id)[0];
   const [selectedToken, setSelectedToken] = useState<Token | undefined>(defaultToken);
-  const [startingPrice, setStartingPrice] = useState<BigNumber>(new BigNumber('100'));
+  const [startingPrice, setStartingPrice] = useState<BigNumber>(BigNumber.from('100'));
 
   return (
     <SeedPage>
@@ -32,7 +32,7 @@ function SeedLiquidity() {
           startingPrice={startingPrice}
           setStartingPrice={setStartingPrice}
         />
-        <DepositAmountsSection selectedToken={selectedToken} startingPrice={BNToEthersValue(startingPrice)} />
+        <DepositAmountsSection selectedToken={selectedToken} startingPrice={startingPrice} />
       </Container>
       <PoolList />
     </SeedPage>

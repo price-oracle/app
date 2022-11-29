@@ -2,7 +2,6 @@ import { abi as IUniswapV3Factory } from '@uniswap/v3-core/artifacts/contracts/U
 import { abi as IUniswapV3Pool } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json';
 import { useProvider } from 'wagmi';
 import { Contract } from 'ethers-multicall';
-import BigNumber from 'bignumber.js';
 
 import { getConfig } from '~/config';
 import { MultiCallService } from './multicallService';
@@ -54,7 +53,7 @@ export class UniswapService {
       const slot0 = poolsDataResponse[i];
       const token0 = poolsDataResponse[i + 1];
       poolsData.push({
-        pricing: new BigNumber(slot0.sqrtPriceX96.toString()),
+        pricing: slot0.sqrtPriceX96,
         isWethToken0: token0 === this.addresses.WETH_ADDRESS,
       });
     }
