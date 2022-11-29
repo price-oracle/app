@@ -1,5 +1,8 @@
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'ethers';
 
 export const sqrtPriceX96ToPrice = (sqrtPriceX96: BigNumber): BigNumber => {
-  return sqrtPriceX96.dividedBy(2 ** 96).exponentiatedBy(2);
+  const two = BigNumber.from('2');
+  const numerator = sqrtPriceX96.pow(two);
+  const denominator = two.pow(192);
+  return numerator.div(denominator);
 };

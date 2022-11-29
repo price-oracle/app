@@ -19,7 +19,7 @@ import Dropdown from '~/components/shared/Dropdown';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
 import { FeeTier, Token, UniswapPool } from '~/types';
-import { getPriceForToken } from '~/utils';
+import { BNToEthersValue, getPriceForToken } from '~/utils';
 import FeeCard from './FeeCard';
 import PropertyCard from './PropertyCard';
 
@@ -135,7 +135,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
     if (uniswapPoolsForFeeTier && selectedToken) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
       if (uniPool) {
-        return getPriceForToken(uniPool.pricing, selectedToken.decimals, uniPool.isWethToken0);
+        return getPriceForToken(BNToEthersValue(uniPool.pricing), selectedToken.decimals, uniPool.isWethToken0);
       }
     }
   };
