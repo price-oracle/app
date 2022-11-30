@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 import { isUndefined } from 'lodash';
-import { BigNumber, utils } from 'ethers';
+import { BigNumber, utils, constants } from 'ethers';
 
 import { SPACING_16, SPACING_8, MOBILE_MAX_WIDTH, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
@@ -41,8 +41,8 @@ interface DepositAmountsProps {
 
 const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsProps) => {
   const { address: userAddress } = useAccount();
-  const zeroBigNumber = BigNumber.from('0');
-  const oneEther = utils.parseEther('1');
+  const zeroBigNumber = constants.Zero;
+  const oneEther = constants.WeiPerEther;
   const erc20Service = new ERC20Service();
   const eth_symbol = 'WETH';
   const {
