@@ -125,7 +125,7 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
   };
 
   const isApprove = wethAllowance?.lt(utils.parseEther(sanitizeDecimals(wethAmount.value) || '0'));
-  const isDisabled = () => wethAmount.value === '' || utils.parseEther(sanitizeDecimals(wethAmount.value)).isZero();
+  const isDisabled = wethAmount.value === '' || utils.parseEther(sanitizeDecimals(wethAmount.value)).isZero();
 
   return (
     <Container>
@@ -152,11 +152,11 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
       {!isLoading &&
         !isUndefined(wethAllowance) &&
         (isApprove ? (
-          <SBoxButton onClick={approveWethAmount} disabled={isDisabled()}>
+          <SBoxButton onClick={approveWethAmount} disabled={isDisabled}>
             Approve
           </SBoxButton>
         ) : (
-          <SBoxButton onClick={lockWethAmount} disabled={isDisabled()}>
+          <SBoxButton onClick={lockWethAmount} disabled={isDisabled}>
             Lock
           </SBoxButton>
         ))}
