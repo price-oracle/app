@@ -12,6 +12,7 @@ import { Token } from '~/types';
 import Balance from './Balance';
 import Deposit from './Deposit';
 import SubmitFormSection from './SubmitFormSection';
+import { sanitizeDecimals } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -50,17 +51,17 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
   const [wethBalance, setWethBalance] = useState<BigNumber | undefined>(undefined);
 
   const onWethAmountChanged = (amount: string) => {
-    const wethAmount = utils.parseEther(amount || '0');
+    const wethAmount = utils.parseEther(sanitizeDecimals(amount));
     const tokenAmount = wethAmount.mul(startingPrice).div(constants.WeiPerEther);
     if (tokenAmount.isZero()) {
       tokenInput.reset();
     } else {
-      tokenInput.set(utils.formatUnits(tokenAmount, selectedToken?.decimals));
+      tokenInput.set(sanitizeDecimals(utils.formatEther(tokenAmount), selectedToken?.decimals));
     }
   };
 
   const onTokenAmountChanged = (amount: string) => {
-    const tokenAmount = utils.parseEther(amount || '0');
+    const tokenAmount = utils.parseEther(sanitizeDecimals(amount, selectedToken?.decimals));
     const wethAmount = constants.WeiPerEther.mul(tokenAmount).div(startingPrice);
     if (wethAmount.isZero() || startingPrice.isZero()) {
       wethInput.reset();
@@ -149,8 +150,11 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
         </div>
       </Container>
       <SubmitFormSection
-        tokenAmount={utils.parseEther(tokenInput.value || '0')}
-        wethAmount={utils.parseEther(wethInput.value || '0')}
+        tokenAmount={utils.parseUnits(
+          sanitizeDecimals(tokenInput.value, selectedToken?.decimals),
+          selectedToken?.decimals
+        )}
+        wethAmount={utils.parseEther(sanitizeDecimals(wethInput.value))}
         wethBalance={wethBalance || constants.Zero}
         tokenBalance={tokenBalance || constants.Zero}
         selectedToken={selectedToken}
