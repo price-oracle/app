@@ -6,7 +6,9 @@ import { PoolManagersActions } from './poolManagers.actions';
 
 export const poolManagersInitialState: PoolManagersState = {
   elements: undefined,
-  status: initialStatus,
+  rewards: {
+    status: initialStatus,
+  },
 };
 
 const { fetchPoolManagers, claimRewards } = PoolManagersActions;
@@ -17,11 +19,11 @@ const poolManagersReducer = createReducer(poolManagersInitialState, (builder) =>
   });
 
   builder.addCase(claimRewards.fulfilled, (state) => {
-    state.status.loading = false;
+    state.rewards.status.loading = false;
   });
 
   builder.addCase(claimRewards.pending, (state) => {
-    state.status.loading = true;
+    state.rewards.status.loading = true;
   });
 });
 

@@ -22,12 +22,16 @@ export interface ModalsState {
 }
 export interface PoolManagersState {
   elements: { [key: Address]: PoolManager } | undefined;
-  status: Status;
+  rewards: {
+    status: Status;
+  };
 }
 
 export interface LockManagerState {
   elements: { [key: Address]: LockManager } | undefined;
-  status: Status;
+  rewards: {
+    status: Status;
+  };
 }
 
 export interface AlertsState {
