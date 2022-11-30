@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BigNumberish, BigNumber } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 import { useAccount } from 'wagmi';
 
 import { ERC20Service, PoolManagerFactoryService } from '~/services';
@@ -31,8 +31,8 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   const poolManagerFactoryService = new PoolManagerFactoryService();
   const { address } = useAccount();
   const [isInvalid, setIsInvalid] = useState(false);
-  const [wethAllowance, setWethAllowance] = useState<BigNumberish>('0');
-  const [tokenAllowance, setTokenAllowance] = useState<BigNumberish>('0');
+  const [wethAllowance, setWethAllowance] = useState<BigNumber>(constants.Zero);
+  const [tokenAllowance, setTokenAllowance] = useState<BigNumber>(constants.Zero);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [poolManagerAddress, setPoolManagerAddress] = useState<Address>('');
   const {
