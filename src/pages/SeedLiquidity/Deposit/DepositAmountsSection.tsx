@@ -41,8 +41,6 @@ interface DepositAmountsProps {
 
 const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsProps) => {
   const { address: userAddress } = useAccount();
-  const zeroBigNumber = constants.Zero;
-  const oneEther = constants.WeiPerEther;
   const erc20Service = new ERC20Service();
   const eth_symbol = 'WETH';
   const {
@@ -52,9 +50,8 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
   const [wethBalance, setWethBalance] = useState<BigNumber | undefined>(undefined);
 
   const onWethAmountChanged = (amount: string) => {
-    const price = startingPrice;
     const wethAmount = utils.parseEther(amount || '0');
-    const tokenAmount = wethAmount.mul(price).div(oneEther);
+    const tokenAmount = wethAmount.mul(startingPrice).div(constants.WeiPerEther);
     if (tokenAmount.isZero()) {
       tokenInput.reset();
     } else {
@@ -63,10 +60,9 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
   };
 
   const onTokenAmountChanged = (amount: string) => {
-    const price = startingPrice;
     const tokenAmount = utils.parseEther(amount || '0');
-    const wethAmount = oneEther.mul(tokenAmount).div(price);
-    if (wethAmount.isZero() || price.isZero()) {
+    const wethAmount = constants.WeiPerEther.mul(tokenAmount).div(startingPrice);
+    if (wethAmount.isZero() || startingPrice.isZero()) {
       wethInput.reset();
     } else {
       wethInput.set(utils.formatEther(wethAmount));
@@ -155,8 +151,8 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
       <SubmitFormSection
         tokenAmount={utils.parseEther(tokenInput.value || '0')}
         wethAmount={utils.parseEther(wethInput.value || '0')}
-        wethBalance={wethBalance || zeroBigNumber}
-        tokenBalance={tokenBalance || zeroBigNumber}
+        wethBalance={wethBalance || constants.Zero}
+        tokenBalance={tokenBalance || constants.Zero}
         selectedToken={selectedToken}
       />
     </>
