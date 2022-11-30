@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { ModalsActions } from '~/store';
+import { LockManagersActions, ModalsActions } from '~/store';
 import {
   Loading,
   PoolIcon,
@@ -56,7 +56,7 @@ const PoolList = () => {
 
   const claimRewards = (lockManagerAddress: Address) => {
     if (!address) return;
-    lockManagerService.claimRewards(lockManagerAddress, address);
+    dispatch(LockManagersActions.claimRewards({ lockManagerAddress, lockManagerService, userAddress: address }));
   };
 
   return (
