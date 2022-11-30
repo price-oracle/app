@@ -20,7 +20,7 @@ import { getConfig } from '~/config';
 import { useAppDispatch } from '~/hooks';
 import { ERC20Service, LockManagerService } from '~/services';
 import { ModalsActions } from '~/store';
-import { getPoolName } from '~/utils';
+import { getPoolName, sanitizeDecimals } from '~/utils';
 import { PoolManager } from '~/types';
 
 const InputContainer = styled.div`
@@ -111,7 +111,7 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
   const approveWethAmount = () => {
     setIsLoading(true);
     erc20Service
-      .approveTokenAmount(WETH_ADDRESS, pool.lockManagerAddress, utils.parseEther(wethAmount.value))
+      .approveTokenAmount(WETH_ADDRESS, pool.lockManagerAddress, utils.parseEther(sanitizeDecimals(wethAmount.value)))
       .then(() => updateAllowanceAmount())
       .catch(() => setIsLoading(false));
   };
@@ -119,13 +119,13 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
   const lockWethAmount = () => {
     setIsLoading(true);
     lockManagerService
-      .lock(pool.lockManagerAddress, utils.parseEther(wethAmount.value))
+      .lock(pool.lockManagerAddress, utils.parseEther(sanitizeDecimals(wethAmount.value)))
       .then(() => dispatch(ModalsActions.closeModal()))
       .catch(() => setIsLoading(false));
   };
 
-  const isApprove = wethAllowance?.lt(utils.parseEther(wethAmount.value || '0'));
-  const isDisabled = () => wethAmount.value === '' || utils.parseEther(wethAmount.value).isZero();
+  const isApprove = wethAllowance?.lt(utils.parseEther(sanitizeDecimals(wethAmount.value) || '0'));
+  const isDisabled = () => wethAmount.value === '' || utils.parseEther(sanitizeDecimals(wethAmount.value)).isZero();
 
   return (
     <Container>
