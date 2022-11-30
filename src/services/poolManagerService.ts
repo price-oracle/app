@@ -21,12 +21,14 @@ export class PoolManagerService {
     const tokenCall = poolManagerContractMulticall.token();
     const lockManagerCall = poolManagerContractMulticall.lockManager();
     const claimableCall = poolManagerContractMulticall.claimable(this.account.address);
+    const wethToken0Call = poolManagerContractMulticall.isWethToken0();
 
-    const [fee, tokenAddress, lockManagerAddress, rewards] = await this.multiCallService.multicall([
+    const [fee, tokenAddress, lockManagerAddress, rewards, isWethToken0] = await this.multiCallService.multicall([
       feeCall,
       tokenCall,
       lockManagerCall,
       claimableCall,
+      wethToken0Call,
     ]);
 
     const token = await this.erc20Service.fetchTokenData(tokenAddress);
@@ -40,6 +42,7 @@ export class PoolManagerService {
         ethReward: rewards[0].toString(),
         tokenReward: rewards[1].toString(),
       },
+      isWethToken0,
     };
   }
 
