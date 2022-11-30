@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { LockManager, PoolManager } from '~/types';
+import { Address, LockManager, PoolManager } from '~/types';
 import { LockManagerService } from '~/services';
 
 import { ThunkAPI } from '~/store';
@@ -22,6 +22,15 @@ const fetchLockManagers = createAsyncThunk<
   return { elements: lockManagersMap };
 });
 
+const claimRewards = createAsyncThunk<
+  void,
+  { lockManagerAddress: Address; lockManagerService: LockManagerService; userAddress: Address },
+  ThunkAPI
+>('lockManager/claimRewards', async ({ lockManagerAddress, lockManagerService, userAddress }) => {
+  await lockManagerService.claimRewards(lockManagerAddress, userAddress);
+});
+
 export const LockManagersActions = {
   fetchLockManagers,
+  claimRewards,
 };

@@ -1,10 +1,4 @@
-import { Address } from './Blockchain';
-import { ModalName } from './Modals';
-import { PoolManager } from './PoolManager';
-import { ThemeName } from './Settings';
-import { Alert } from './Alerts';
-import { LockManager } from './LockManager';
-import { Token } from './Token';
+import { Address, ModalName, PoolManager, ThemeName, Alert, LockManager, Token, Status } from '~/types';
 
 export interface CustomTokensState {
   tokens: Token[];
@@ -28,10 +22,16 @@ export interface ModalsState {
 }
 export interface PoolManagersState {
   elements: { [key: Address]: PoolManager } | undefined;
+  rewards: {
+    status: Status;
+  };
 }
 
 export interface LockManagerState {
   elements: { [key: Address]: LockManager } | undefined;
+  rewards: {
+    status: Status;
+  };
 }
 
 export interface AlertsState {
