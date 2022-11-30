@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BigNumberish, BigNumber } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 import { useAccount } from 'wagmi';
 
 import { ERC20Service, PoolManagerFactoryService } from '~/services';
@@ -31,8 +31,8 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   const poolManagerFactoryService = new PoolManagerFactoryService();
   const { address } = useAccount();
   const [isInvalid, setIsInvalid] = useState(false);
-  const [wethAllowance, setWethAllowance] = useState<BigNumberish>('0');
-  const [tokenAllowance, setTokenAllowance] = useState<BigNumberish>('0');
+  const [wethAllowance, setWethAllowance] = useState<BigNumber>(constants.Zero);
+  const [tokenAllowance, setTokenAllowance] = useState<BigNumber>(constants.Zero);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [poolManagerAddress, setPoolManagerAddress] = useState<Address>('');
   const {
@@ -47,7 +47,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
     created: false,
   };
 
-  const isDisabled = () => isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
+  const isDisabled = isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
 
   const updateAllowanceAmount = (poolManagerAddress: Address) => {
     if (address && selectedToken?.address) {
@@ -109,7 +109,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
           onClick={() => {
             handleApprove();
           }}
-          disabled={isDisabled()}
+          disabled={isDisabled}
         >
           {isLoading && <Loading />}
           {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
@@ -122,7 +122,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
           onClick={() => {
             console.log('handleCreatePool');
           }}
-          disabled={isDisabled()}
+          disabled={isDisabled}
         >
           {isLoading && <Loading />}
           {!isLoading && (feeCardProps?.created ? 'Add Liquidity' : 'Create Pool')}

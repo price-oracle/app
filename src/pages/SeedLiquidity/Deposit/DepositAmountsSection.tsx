@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 import { isUndefined } from 'lodash';
-import { BigNumber, utils } from 'ethers';
+import { BigNumber, utils, constants } from 'ethers';
 
 import { SPACING_16, SPACING_8, MOBILE_MAX_WIDTH, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
@@ -12,6 +12,7 @@ import { Token } from '~/types';
 import Balance from './Balance';
 import Deposit from './Deposit';
 import SubmitFormSection from './SubmitFormSection';
+import { sanitizeDecimals } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -41,8 +42,6 @@ interface DepositAmountsProps {
 
 const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsProps) => {
   const { address: userAddress } = useAccount();
-  const zeroBigNumber = BigNumber.from('0');
-  const oneEther = utils.parseEther('1');
   const erc20Service = new ERC20Service();
   const eth_symbol = 'WETH';
   const {
@@ -52,21 +51,19 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
   const [wethBalance, setWethBalance] = useState<BigNumber | undefined>(undefined);
 
   const onWethAmountChanged = (amount: string) => {
-    const price = startingPrice;
-    const wethAmount = utils.parseEther(amount || '0');
-    const tokenAmount = wethAmount.mul(price).div(oneEther);
+    const wethAmount = utils.parseEther(sanitizeDecimals(amount));
+    const tokenAmount = wethAmount.mul(startingPrice).div(constants.WeiPerEther);
     if (tokenAmount.isZero()) {
       tokenInput.reset();
     } else {
-      tokenInput.set(utils.formatUnits(tokenAmount, selectedToken?.decimals));
+      tokenInput.set(sanitizeDecimals(utils.formatEther(tokenAmount), selectedToken?.decimals));
     }
   };
 
   const onTokenAmountChanged = (amount: string) => {
-    const price = startingPrice;
-    const tokenAmount = utils.parseEther(amount || '0');
-    const wethAmount = oneEther.mul(tokenAmount).div(price);
-    if (wethAmount.isZero() || price.isZero()) {
+    const tokenAmount = utils.parseEther(sanitizeDecimals(amount, selectedToken?.decimals));
+    const wethAmount = constants.WeiPerEther.mul(tokenAmount).div(startingPrice);
+    if (wethAmount.isZero() || startingPrice.isZero()) {
       wethInput.reset();
     } else {
       wethInput.set(utils.formatEther(wethAmount));
@@ -153,10 +150,13 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
         </div>
       </Container>
       <SubmitFormSection
-        tokenAmount={utils.parseEther(tokenInput.value || '0')}
-        wethAmount={utils.parseEther(wethInput.value || '0')}
-        wethBalance={wethBalance || zeroBigNumber}
-        tokenBalance={tokenBalance || zeroBigNumber}
+        tokenAmount={utils.parseUnits(
+          sanitizeDecimals(tokenInput.value, selectedToken?.decimals),
+          selectedToken?.decimals
+        )}
+        wethAmount={utils.parseEther(sanitizeDecimals(wethInput.value))}
+        wethBalance={wethBalance || constants.Zero}
+        tokenBalance={tokenBalance || constants.Zero}
         selectedToken={selectedToken}
       />
     </>

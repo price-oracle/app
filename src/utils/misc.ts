@@ -41,3 +41,11 @@ export const getRandomId = (): string => new Date().getTime().toString(36) + Mat
 export const formatFee = (value: number | string): number => {
   return Number(value) / 1000;
 };
+
+export const sanitizeDecimals = (value: string | undefined, decimals = 18) => {
+  if (value && value.includes('.')) {
+    return value.split('.')[0] + '.' + value.split('.')[1].slice(0, decimals);
+  } else {
+    return value ? value : '0';
+  }
+};
