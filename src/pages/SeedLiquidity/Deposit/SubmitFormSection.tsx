@@ -47,7 +47,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
     created: false,
   };
 
-  const isDisabled = () => isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
+  const isDisabled = isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
 
   const updateAllowanceAmount = (poolManagerAddress: Address) => {
     if (address && selectedToken?.address) {
@@ -109,7 +109,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
           onClick={() => {
             handleApprove();
           }}
-          disabled={isDisabled()}
+          disabled={isDisabled}
         >
           {isLoading && <Loading />}
           {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
@@ -122,7 +122,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
           onClick={() => {
             console.log('handleCreatePool');
           }}
-          disabled={isDisabled()}
+          disabled={isDisabled}
         >
           {isLoading && <Loading />}
           {!isLoading && (feeCardProps?.created ? 'Add Liquidity' : 'Create Pool')}
