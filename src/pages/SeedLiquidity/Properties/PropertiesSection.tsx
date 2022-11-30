@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js';
-import { isUndefined } from 'lodash';
 import { useEffect, useState } from 'react';
+import { utils, BigNumber } from 'ethers';
+import { isUndefined } from 'lodash';
 import styled from 'styled-components';
 
 import {
@@ -67,6 +67,7 @@ const Suffix = styled(Typography).attrs({
 
 const SInputNumber = styled(InputNumber)`
   width: 100%;
+  font-family: PlusJakartaSans;
   font-size: ${FONT_SIZE_20};
   grid-area: value;
   line-height: 1.25;
@@ -106,7 +107,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   };
 
   const onPriceChange = (newPrice: string) => {
-    setStartingPrice(new BigNumber(newPrice));
+    setStartingPrice(utils.parseEther(newPrice));
   };
 
   const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });
@@ -123,8 +124,8 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   useEffect(() => {
     const newPrice = getPriceOfSelectedToken();
     if (newPrice) {
-      startingPriceInput.set(newPrice.toString());
-      onPriceChange(newPrice.toString());
+      startingPriceInput.set(newPrice);
+      onPriceChange(newPrice);
     }
   }, [selectedFee, uniswapPoolsForFeeTier]);
 
@@ -135,7 +136,8 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
     if (uniswapPoolsForFeeTier && selectedToken) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
       if (uniPool) {
-        return getPriceForToken(uniPool.pricing, selectedToken.decimals, uniPool.isWethToken0);
+        const priceInWei = getPriceForToken(uniPool.pricing, uniPool.isWethToken0);
+        return utils.formatUnits(priceInWei, selectedToken.decimals);
       }
     }
   };

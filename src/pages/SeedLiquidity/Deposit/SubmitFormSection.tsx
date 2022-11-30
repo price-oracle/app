@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import BigNumber from 'bignumber.js';
-import { BigNumberish } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 import { useAccount } from 'wagmi';
 
 import { ERC20Service, PoolManagerFactoryService } from '~/services';
-import { ethersValueToBN, toWei, unitToWei } from '~/utils';
 import { BoxButton, Loading } from '~/components/shared';
 import { Address, Token } from '~/types';
 import { getConfig } from '~/config';
@@ -33,21 +31,23 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   const poolManagerFactoryService = new PoolManagerFactoryService();
   const { address } = useAccount();
   const [isInvalid, setIsInvalid] = useState(false);
-  const [wethAllowance, setWethAllowance] = useState<BigNumberish>('0');
-  const [tokenAllowance, setTokenAllowance] = useState<BigNumberish>('0');
+  const [wethAllowance, setWethAllowance] = useState<BigNumber>(constants.Zero);
+  const [tokenAllowance, setTokenAllowance] = useState<BigNumber>(constants.Zero);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [poolManagerAddress, setPoolManagerAddress] = useState<Address>('');
   const {
     ADDRESSES: { WETH_ADDRESS },
   } = getConfig();
 
-  const ethIsApproved = wethAmount?.lte(ethersValueToBN(wethAllowance));
-  const isApproved = ethIsApproved && tokenAmount?.lte(ethersValueToBN(tokenAllowance));
+  const ethIsApproved = wethAmount.lte(wethAllowance);
+  const isApproved = ethIsApproved && tokenAmount.lte(tokenAllowance);
 
   // temporary fixed values
   const feeCardProps = {
     created: false,
   };
+
+  const isDisabled = isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
 
   const updateAllowanceAmount = (poolManagerAddress: Address) => {
     if (address && selectedToken?.address) {
@@ -70,19 +70,17 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   const handleApprove = () => {
     setIsLoading(true);
     if (!ethIsApproved)
-      erc20Service.approveTokenAmount(WETH_ADDRESS, poolManagerAddress, unitToWei(wethAmount.toString())).then(() => {
+      erc20Service.approveTokenAmount(WETH_ADDRESS, poolManagerAddress, wethAmount.toString()).then(() => {
         setIsLoading(false);
         updateAllowanceAmount(poolManagerAddress);
       });
 
     if (ethIsApproved)
       if (selectedToken?.address) {
-        erc20Service
-          .approveTokenAmount(selectedToken?.address, poolManagerAddress, toWei(tokenAmount.toString()))
-          .then(() => {
-            setIsLoading(false);
-            updateAllowanceAmount(poolManagerAddress);
-          });
+        erc20Service.approveTokenAmount(selectedToken?.address, poolManagerAddress, tokenAmount.toString()).then(() => {
+          setIsLoading(false);
+          updateAllowanceAmount(poolManagerAddress);
+        });
       }
   };
 
@@ -96,6 +94,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
 
   useEffect(() => {
     if (selectedToken?.address)
+      // TODO: CHANGE FIXED FEE TIER VALUE: 3000
       poolManagerFactoryService.getPoolManagerAddress(selectedToken?.address, 3000).then((poolManagerAddress) => {
         updateAllowanceAmount(poolManagerAddress);
         setPoolManagerAddress(poolManagerAddress);
@@ -110,7 +109,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
           onClick={() => {
             handleApprove();
           }}
-          disabled={isLoading || isInvalid || !address || tokenAmount.isEqualTo(0) || wethAmount.isEqualTo(0)}
+          disabled={isDisabled}
         >
           {isLoading && <Loading />}
           {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
@@ -123,7 +122,7 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
           onClick={() => {
             console.log('handleCreatePool');
           }}
-          disabled={isLoading || isInvalid || !address || tokenAmount.isEqualTo(0) || wethAmount.isEqualTo(0)}
+          disabled={isDisabled}
         >
           {isLoading && <Loading />}
           {!isLoading && (feeCardProps?.created ? 'Add Liquidity' : 'Create Pool')}

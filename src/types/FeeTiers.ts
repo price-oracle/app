@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'ethers';
 import { Address } from './Blockchain';
 
 export type FeeTier = {
