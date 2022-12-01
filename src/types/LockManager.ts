@@ -5,6 +5,8 @@ export interface LockManager {
   locked: string;
   rewards: {
     ethReward: string;
+    ethRewardInUsd: string;
     tokenReward: string;
+    tokenRewardInUsd: string;
   };
 }

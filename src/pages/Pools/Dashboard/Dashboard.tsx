@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BigNumber } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 
 import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1152 } from '~/components/shared';
 import { useAppSelector } from '~/hooks';
 import { LockManager } from '~/types';
+import { UniswapService } from '~/services';
+import { getEthPriceInUSDC } from '~/utils';
 
 const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
@@ -25,23 +28,40 @@ const TokenAmount = styled.div`
 `;
 
 export function Dashboard() {
+  const [totalLockedInUsd, setTotalLockedInUsd] = useState<BigNumber>(constants.Zero);
+  const [totalRewardsInUsd, setTotalRewardsInUsd] = useState<BigNumber>(constants.Zero);
+
   const lockManagers = useAppSelector((state) => state.lockManagers.elements);
-  const isLoading = !lockManagers;
+  const isLoading = !lockManagers && totalLockedInUsd.isZero;
+  const uniswapService = new UniswapService();
 
   const getTotalLocked = (lockManagerList: LockManager[]) => {
-    let locked = BigNumber.from(0);
+    let locked = constants.Zero;
     lockManagerList.forEach((lockManager) => {
       locked = locked.add(lockManager.locked);
     });
-    return locked.toString();
+    return locked;
+  };
+
+  const getTotalRewardsInUsd = (lockManagerList: LockManager[]) => {
+    let rewardsInUsd = constants.Zero;
+    lockManagerList.forEach((lockManager) => {
+      rewardsInUsd = rewardsInUsd.add(lockManager.rewards.ethRewardInUsd).add(lockManager.rewards.tokenRewardInUsd);
+    });
+    return rewardsInUsd;
   };
 
   const totalUserLocked = lockManagers ? getTotalLocked(Object.values(lockManagers)) : '0';
 
-  const ethPrice = '1200'; // TODO: temporary
-  const totalUSDClaimableRewards = '10000000000000000000000000000'; // TODO: temporary
+  useEffect(() => {
+    getEthPriceInUSDC(uniswapService).then((ethPriceInWei) => {
+      setTotalLockedInUsd(ethPriceInWei.mul(totalUserLocked).div(constants.WeiPerEther));
+    });
 
-  const totalUSDLocked = BigNumber.from(ethPrice).mul(totalUserLocked);
+    if (lockManagers) {
+      setTotalRewardsInUsd(getTotalRewardsInUsd(Object.values(lockManagers)));
+    }
+  }, [lockManagers]);
 
   return (
     <SCard>
@@ -69,12 +89,12 @@ export function Dashboard() {
       {!isLoading && (
         <>
           <TokenAmount>
-            <EthLabel value={totalUserLocked} />
-            <ValueInUSD value={totalUSDLocked} />
+            <EthLabel value={totalUserLocked.toString()} />
+            <ValueInUSD value={totalLockedInUsd.toString()} />
           </TokenAmount>
           <TokenAmount>
             {/* <PriceLabel value={totalPriceLocked} /> */}
-            <ValueInUSD value={totalUSDClaimableRewards} />
+            <ValueInUSD value={totalRewardsInUsd.toString()} />
           </TokenAmount>
         </>
       )}

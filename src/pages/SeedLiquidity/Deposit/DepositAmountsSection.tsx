@@ -132,7 +132,7 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
             </Deposit.Symbol>
           </Deposit>
           <Balance
-            totalAmount={tokenBalance || 0}
+            totalAmount={tokenBalance || '0'}
             symbol={selectedToken?.symbol || ''}
             onClick={inputMaxTokenBalance}
             decimals={selectedToken?.decimals}

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BigNumber } from 'ethers';
 
 import { TokenIcon, Typography, SPACING_8 } from '~/components/shared';
 import { getConfig } from '~/config';
@@ -23,7 +24,7 @@ export const Suffix = styled(Typography).attrs({
 const Value = styled(Typography)``;
 
 interface Props {
-  value: string;
+  value: string | BigNumber;
 }
 
 export const EthLabel = ({ value }: Props) => {
@@ -32,8 +33,16 @@ export const EthLabel = ({ value }: Props) => {
   return <TokenLabel value={value} address={WETH_ADDRESS} decimals={18} />;
 };
 
-export const TokenLabel = ({ value, address, decimals }: { value: string; address: string; decimals: number }) => {
-  const { number, suffix } = formatNumber(value, decimals);
+export const TokenLabel = ({
+  value,
+  address,
+  decimals,
+}: {
+  value: BigNumber | string;
+  address: string;
+  decimals: number;
+}) => {
+  const { number, suffix } = formatNumber(value.toString(), decimals);
 
   return (
     <Container>

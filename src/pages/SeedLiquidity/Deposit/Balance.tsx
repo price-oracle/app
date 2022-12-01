@@ -1,4 +1,4 @@
-import { BigNumberish } from 'ethers';
+import { BigNumber } from 'ethers';
 import styled from 'styled-components';
 
 import { Link, SPACING_16 } from '~/components/shared';
@@ -9,7 +9,7 @@ const SLink = styled(Link)`
 `;
 
 interface IProps {
-  totalAmount: BigNumberish;
+  totalAmount: BigNumber | string;
   symbol: string;
   onClick: (totalAmount: string) => void;
   decimals?: number;
