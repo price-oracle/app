@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
+import { BigNumber } from 'ethers';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { LockManagersActions, ModalsActions } from '~/store';
@@ -59,6 +60,14 @@ const PoolList = () => {
     dispatch(LockManagersActions.claimRewards({ lockManagerAddress, lockManagerService, userAddress: address }));
   };
 
+  const isClaimable = (poolManager: PoolManager) => {
+    if (lockManagers) {
+      const tokenRewards = BigNumber.from(lockManagers[poolManager.lockManagerAddress].rewards.tokenReward);
+      const ethRewards = BigNumber.from(lockManagers[poolManager.lockManagerAddress].rewards.ethReward);
+      return tokenRewards.gt(0) || ethRewards.gt(0);
+    }
+  };
+
   return (
     <SCard>
       <Title>Pools</Title>
@@ -108,7 +117,10 @@ const PoolList = () => {
 
               <ButtonContainer>
                 <PrimaryButton onClick={() => openLockModal(poolManager)}>Lock</PrimaryButton>
-                <SecondaryButton onClick={() => claimRewards(poolManager.lockManagerAddress)}>
+                <SecondaryButton
+                  disabled={!isClaimable(poolManager)}
+                  onClick={() => claimRewards(poolManager.lockManagerAddress)}
+                >
                   Claim rewards
                 </SecondaryButton>
               </ButtonContainer>

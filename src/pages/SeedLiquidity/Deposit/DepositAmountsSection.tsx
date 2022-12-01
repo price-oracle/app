@@ -1,18 +1,18 @@
+import { BigNumber, constants, utils } from 'ethers';
+import { isUndefined } from 'lodash';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
-import { isUndefined } from 'lodash';
-import { BigNumber, utils, constants } from 'ethers';
 
-import { SPACING_16, SPACING_8, MOBILE_MAX_WIDTH, Typography } from '~/components/shared';
+import { MOBILE_MAX_WIDTH, SPACING_16, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
-import { Token } from '~/types';
+import { FeeTier, Token, UniswapPool } from '~/types';
+import { sanitizeDecimals } from '~/utils';
 import Balance from './Balance';
 import Deposit from './Deposit';
 import SubmitFormSection from './SubmitFormSection';
-import { sanitizeDecimals } from '~/utils';
 
 const Container = styled.section`
   display: grid;
@@ -38,9 +38,16 @@ const Title = styled(Typography).attrs({
 interface DepositAmountsProps {
   selectedToken: Token | undefined;
   startingPrice: BigNumber;
+  uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
+  selectedFee: FeeTier;
 }
 
-const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsProps) => {
+const DepositAmountsSection = ({
+  selectedToken,
+  startingPrice,
+  uniswapPoolsForFeeTier,
+  selectedFee,
+}: DepositAmountsProps) => {
   const { address: userAddress } = useAccount();
   const erc20Service = new ERC20Service();
   const eth_symbol = 'WETH';
@@ -158,6 +165,9 @@ const DepositAmountsSection = ({ selectedToken, startingPrice }: DepositAmountsP
         wethBalance={wethBalance || constants.Zero}
         tokenBalance={tokenBalance || constants.Zero}
         selectedToken={selectedToken}
+        startingPrice={startingPrice}
+        uniswapPoolsForFeeTier={uniswapPoolsForFeeTier}
+        selectedFee={selectedFee}
       />
     </>
   );

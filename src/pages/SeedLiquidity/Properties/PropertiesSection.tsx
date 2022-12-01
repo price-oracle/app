@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { utils, BigNumber } from 'ethers';
+import { useEffect } from 'react';
+import { BigNumber, utils } from 'ethers';
 import { isUndefined } from 'lodash';
 import styled from 'styled-components';
 
@@ -19,7 +19,7 @@ import Dropdown from '~/components/shared/Dropdown';
 import { getConfig } from '~/config';
 import { UniswapService } from '~/services';
 import { FeeTier, Token, UniswapPool } from '~/types';
-import { getPriceForToken } from '~/utils';
+import { sqrtPriceX96ToPrice } from '~/utils';
 import FeeCard from './FeeCard';
 import PropertyCard from './PropertyCard';
 
@@ -84,20 +84,27 @@ interface PropertiesSectionProps {
   selectedToken: Token | undefined;
   startingPrice: BigNumber;
   setStartingPrice: (newPrice: BigNumber) => void;
+  uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
+  setUniswapPoolsForFeeTier: (pools: { [feeTier: string]: UniswapPool } | undefined) => void;
+  selectedFee: FeeTier;
+  setSelectedFee: (fee: FeeTier) => void;
 }
 
-function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: PropertiesSectionProps) {
+function PropertiesSection({
+  selectedToken,
+  startingPrice,
+  setStartingPrice,
+  uniswapPoolsForFeeTier,
+  setUniswapPoolsForFeeTier,
+  selectedFee,
+  setSelectedFee,
+}: PropertiesSectionProps) {
   const uniswapService = new UniswapService();
 
   const dropdownProps = Dropdown.useProps();
 
   const FEE_TIERS = getConfig().FEE_TIERS;
   const feeTierList = Object.values(FEE_TIERS);
-
-  const defaultFee = FEE_TIERS[3000];
-  const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
-
-  const [uniswapPoolsForFeeTier, setUniswapPoolsForFeeTier] = useState<{ [feeTier: string]: UniswapPool }>();
 
   const isLoading = !uniswapPoolsForFeeTier;
 
@@ -107,7 +114,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   };
 
   const onPriceChange = (newPrice: string) => {
-    setStartingPrice(utils.parseEther(newPrice));
+    setStartingPrice(utils.parseUnits(newPrice, selectedToken?.decimals));
   };
 
   const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });
@@ -115,6 +122,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
   useEffect(() => {
     if (selectedToken) {
       setUniswapPoolsForFeeTier(undefined);
+      startingPriceInput.reset();
       uniswapService
         .fetchUniswapPools(selectedToken.address)
         .then((poolListMap) => setUniswapPoolsForFeeTier(poolListMap));
@@ -136,7 +144,7 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
     if (uniswapPoolsForFeeTier && selectedToken) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
       if (uniPool) {
-        const priceInWei = getPriceForToken(uniPool.pricing, uniPool.isWethToken0);
+        const priceInWei = sqrtPriceX96ToPrice(uniPool.pricing, uniPool.isWethToken0);
         return utils.formatUnits(priceInWei, selectedToken.decimals);
       }
     }
@@ -147,7 +155,8 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
       <PropertyCard>
         <PropertyCard.Title>Set starting price</PropertyCard.Title>
         <PropertyCard.Value>
-          <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} />
+          {isLoading && <Loading />}
+          {!isLoading && <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} />}
         </PropertyCard.Value>
         <PropertyCard.Helper />
       </PropertyCard>
@@ -157,7 +166,9 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
         <PropertyCard.Value>
           1 <Suffix> ETH</Suffix>
           <Icon name='arrow-down' /* color={disabled} */ rotate={270} />
-          <SPrice>{startingPriceInput.value}</SPrice> <Suffix>{selectedToken?.symbol || ''}</Suffix>
+          {isLoading && <Loading />}
+          {!isLoading && <SPrice>{startingPriceInput.value}</SPrice>}
+          <Suffix>{selectedToken?.symbol || ''}</Suffix>
         </PropertyCard.Value>
       </PropertyCard>
 
@@ -166,7 +177,6 @@ function PropertiesSection({ selectedToken, startingPrice, setStartingPrice }: P
 
         <PropertyCard.Value>
           {isLoading && <Loading />}
-
           {!isLoading && (
             <Dropdown {...dropdownProps}>
               <Dropdown.Button>{selectedFee?.label}</Dropdown.Button>

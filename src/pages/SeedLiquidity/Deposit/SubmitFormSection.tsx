@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { BigNumber, constants } from 'ethers';
+import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 
 import { ERC20Service, PoolManagerFactoryService } from '~/services';
+import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
+
+import { isUndefined } from 'lodash';
 import { BoxButton, Loading } from '~/components/shared';
-import { Address, Token } from '~/types';
 import { getConfig } from '~/config';
+import { useAppSelector } from '~/hooks';
+import { Address, FeeTier, Token, UniswapPool } from '~/types';
 
 const Container = styled.section`
   display: grid;
@@ -24,9 +28,22 @@ interface AmountsProps {
   wethAmount: BigNumber;
   wethBalance: BigNumber;
   selectedToken: Token | undefined;
+  startingPrice: BigNumber;
+  uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
+  selectedFee: FeeTier;
 }
 
-const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance, selectedToken }: AmountsProps) => {
+const SubmitFormSection = ({
+  tokenAmount,
+  wethAmount,
+  tokenBalance,
+  wethBalance,
+  selectedToken,
+  startingPrice,
+  uniswapPoolsForFeeTier,
+  selectedFee,
+}: AmountsProps) => {
+  const poolManagers = useAppSelector((state) => state.poolManagers.elements);
   const erc20Service = new ERC20Service();
   const poolManagerFactoryService = new PoolManagerFactoryService();
   const { address } = useAccount();
@@ -42,14 +59,10 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   const ethIsApproved = wethAmount.lte(wethAllowance);
   const isApproved = ethIsApproved && tokenAmount.lte(tokenAllowance);
 
-  // temporary fixed values
-  const feeCardProps = {
-    created: false,
-  };
-
   const isDisabled = isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
 
   const updateAllowanceAmount = (poolManagerAddress: Address) => {
+    //TODO: Change to promise.all
     if (address && selectedToken?.address) {
       setIsLoading(true);
       erc20Service
@@ -85,25 +98,52 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   };
 
   useEffect(() => {
-    if (tokenAmount.gt(tokenBalance) || wethAmount.gt(wethBalance)) {
-      setIsInvalid(true);
-    } else {
-      setIsInvalid(false);
-    }
+    setIsInvalid(tokenAmount.gt(tokenBalance) || wethAmount.gt(wethBalance));
   }, [tokenAmount, wethAmount, tokenBalance, wethBalance]);
 
   useEffect(() => {
-    if (selectedToken?.address)
-      // TODO: CHANGE FIXED FEE TIER VALUE: 3000
-      poolManagerFactoryService.getPoolManagerAddress(selectedToken?.address, 3000).then((poolManagerAddress) => {
-        updateAllowanceAmount(poolManagerAddress);
-        setPoolManagerAddress(poolManagerAddress);
-      });
-  }, [selectedToken]);
+    if (selectedToken?.address) {
+      setPoolManagerAddress('');
+      poolManagerFactoryService
+        .getPoolManagerAddress(selectedToken?.address, selectedFee.fee)
+        .then((poolManagerAddress) => {
+          updateAllowanceAmount(poolManagerAddress);
+          setPoolManagerAddress(poolManagerAddress);
+        });
+    }
+  }, [selectedToken, selectedFee]);
+
+  const isPoolManagerCreated = (): boolean => {
+    if (poolManagers) {
+      return !isUndefined(poolManagers[poolManagerAddress]);
+    }
+    return false;
+  };
+
+  const createPool = () => {
+    if (uniswapPoolsForFeeTier) {
+      const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
+      if (selectedToken && uniPool) {
+        // Calculate sqrtPriceX96
+        const sqrtPriceX96 = getSqrtPriceX96ForToken(startingPrice, uniPool.isWethToken0);
+        // Calculate liquidity
+        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount, tokenAmount, uniPool.isWethToken0);
+        // Check if poolmanager is already created
+        if (isPoolManagerCreated()) {
+          // If created call the poolmanager on increaseLiquidity
+          //TODO:
+        } else {
+          // If not created call poolmanagerfactory with params
+          poolManagerFactoryService
+            .createPoolManager(selectedToken.address, selectedToken.symbol, selectedFee.fee, liquidity, sqrtPriceX96)
+            .then((res) => console.log(res));
+        }
+      }
+    }
+  };
 
   return (
     <Container>
-      {/* Approval Logic */}
       {!isApproved && (
         <SBoxButton
           onClick={() => {
@@ -118,14 +158,9 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
 
       {/* Initialize/Add-Liquidity Pool Logic */}
       {isApproved && (
-        <SBoxButton
-          onClick={() => {
-            console.log('handleCreatePool');
-          }}
-          disabled={isDisabled}
-        >
+        <SBoxButton onClick={createPool} disabled={isDisabled}>
           {isLoading && <Loading />}
-          {!isLoading && (feeCardProps?.created ? 'Add Liquidity' : 'Create Pool')}
+          {!isLoading && (isPoolManagerCreated() ? 'Add Liquidity' : 'Create Oracle')}
         </SBoxButton>
       )}
     </Container>
