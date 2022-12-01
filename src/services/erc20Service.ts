@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { useProvider, useSigner, useAccount } from 'wagmi';
 import { Contract } from 'ethers-multicall';
 
@@ -38,7 +38,7 @@ export class ERC20Service {
     return await erc20Contract.allowance(user, approveContract);
   }
 
-  async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: string) {
+  async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: BigNumber) {
     if (this.signer?.data) {
       const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer?.data);
 
@@ -46,8 +46,8 @@ export class ERC20Service {
       const symbol = await this.fetchTokenSymbol(erc20Address);
       const decimals = await this.fetchTokenDecimals(erc20Address);
 
-      const successMessage = `Succesfully approved ${humanize('amount', amount, decimals, 2)} ${symbol}`;
-      const errorMessage = `Failed to approve ${humanize('amount', amount, decimals, 2)} ${symbol}`;
+      const successMessage = `Succesfully approved ${humanize('amount', amount.toString(), decimals, 2)} ${symbol}`;
+      const errorMessage = `Failed to approve ${humanize('amount', amount.toString(), decimals, 2)} ${symbol}`;
 
       return this.txService.handleTx(erc20Contract.approve(approveContract, amount), successMessage, errorMessage);
     }

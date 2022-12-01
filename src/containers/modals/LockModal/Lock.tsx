@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { isUndefined } from 'lodash';
 import { useAccount } from 'wagmi';
-import BigNumber from 'bignumber.js';
+import { BigNumber, utils } from 'ethers';
 
 import {
   BoxButton,
@@ -20,7 +20,7 @@ import { getConfig } from '~/config';
 import { useAppDispatch } from '~/hooks';
 import { ERC20Service, LockManagerService } from '~/services';
 import { ModalsActions } from '~/store';
-import { getPoolName, weiToUnit, unitToWei } from '~/utils';
+import { getPoolName, sanitizeDecimals } from '~/utils';
 import { PoolManager } from '~/types';
 
 const InputContainer = styled.div`
@@ -71,14 +71,6 @@ const Text = styled.div`
   margin-left: 1.6rem;
 `;
 
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3rem;
-  margin: 1rem 0;
-`;
-
 const Lock = ({ pool }: { pool: PoolManager }) => {
   const dispatch = useAppDispatch();
   const { address } = useAccount();
@@ -114,12 +106,12 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
     }
   }, [wethAllowance]);
 
-  const setMaxWethAmount = () => wethBalance && wethAmount.set(weiToUnit(wethBalance));
-  // const setMaxWethAmount = () => wethBalance && wethAmount.set(weiToUnit(toBN(unitToBN('123.127361293671823687'))));
+  const setMaxWethAmount = () => wethBalance && wethAmount.set(utils.formatEther(wethBalance));
+
   const approveWethAmount = () => {
     setIsLoading(true);
     erc20Service
-      .approveTokenAmount(WETH_ADDRESS, pool.lockManagerAddress, unitToWei(wethAmount.value))
+      .approveTokenAmount(WETH_ADDRESS, pool.lockManagerAddress, utils.parseEther(sanitizeDecimals(wethAmount.value)))
       .then(() => updateAllowanceAmount())
       .catch(() => setIsLoading(false));
   };
@@ -127,12 +119,13 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
   const lockWethAmount = () => {
     setIsLoading(true);
     lockManagerService
-      .lock(pool.lockManagerAddress, unitToWei(wethAmount.value))
+      .lock(pool.lockManagerAddress, utils.parseEther(sanitizeDecimals(wethAmount.value)))
       .then(() => dispatch(ModalsActions.closeModal()))
       .catch(() => setIsLoading(false));
   };
 
-  const isApprove = wethAllowance?.lt(unitToWei(wethAmount.value));
+  const isApprove = wethAllowance?.lt(utils.parseEther(sanitizeDecimals(wethAmount.value) || '0'));
+  const isDisabled = wethAmount.value === '' || utils.parseEther(sanitizeDecimals(wethAmount.value)).isZero();
 
   return (
     <Container>
@@ -142,7 +135,7 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
       </Title>
 
       <Label>
-        Balance: <span>{wethBalance ? weiToUnit(wethBalance) : <Loading />}</span> WETH
+        Balance: <span>{wethBalance ? utils.formatEther(wethBalance) : <Loading />}</span> WETH
       </Label>
 
       <InputContainer>
@@ -159,11 +152,11 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
       {!isLoading &&
         !isUndefined(wethAllowance) &&
         (isApprove ? (
-          <SBoxButton onClick={approveWethAmount} disabled={wethAmount.value === '0' || wethAmount.value === ''}>
+          <SBoxButton onClick={approveWethAmount} disabled={isDisabled}>
             Approve
           </SBoxButton>
         ) : (
-          <SBoxButton onClick={lockWethAmount} disabled={wethAmount.value === '0' || wethAmount.value === ''}>
+          <SBoxButton onClick={lockWethAmount} disabled={isDisabled}>
             Lock
           </SBoxButton>
         ))}

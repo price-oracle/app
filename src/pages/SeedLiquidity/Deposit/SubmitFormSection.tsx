@@ -70,14 +70,14 @@ const SubmitFormSection = ({ tokenAmount, wethAmount, tokenBalance, wethBalance,
   const handleApprove = () => {
     setIsLoading(true);
     if (!ethIsApproved)
-      erc20Service.approveTokenAmount(WETH_ADDRESS, poolManagerAddress, wethAmount.toString()).then(() => {
+      erc20Service.approveTokenAmount(WETH_ADDRESS, poolManagerAddress, wethAmount).then(() => {
         setIsLoading(false);
         updateAllowanceAmount(poolManagerAddress);
       });
 
     if (ethIsApproved)
       if (selectedToken?.address) {
-        erc20Service.approveTokenAmount(selectedToken?.address, poolManagerAddress, tokenAmount.toString()).then(() => {
+        erc20Service.approveTokenAmount(selectedToken?.address, poolManagerAddress, tokenAmount).then(() => {
           setIsLoading(false);
           updateAllowanceAmount(poolManagerAddress);
         });

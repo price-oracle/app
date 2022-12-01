@@ -1,11 +1,11 @@
 import { abi as ILockManager } from '@price-oracle/interfaces/abi/ILockManager.json';
 import { useProvider, useAccount, useSigner } from 'wagmi';
 import { Contract } from 'ethers-multicall';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 
 import { ERC20Service, TxService, MultiCallService } from '~/services';
 import { PoolManager, LockManager, Address } from '~/types';
-import { humanize } from '~/utils/format';
+import { humanize } from '~/utils';
 
 export class LockManagerService {
   txService = new TxService();
@@ -30,11 +30,11 @@ export class LockManagerService {
     };
   }
 
-  async lock(lockManagerAddress: Address, amount: string) {
+  async lock(lockManagerAddress: Address, amount: BigNumber) {
     if (this.signer?.data) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
-      const successMessage = `Successfully locked ${humanize('amount', amount, 18, 2)} ETH`;
-      const errorMessage = `Failed to lock ${humanize('amount', amount, 18, 2)} ETH`;
+      const successMessage = `Successfully locked ${humanize('amount', amount.toString(), 18, 2)} ETH`;
+      const errorMessage = `Failed to lock ${humanize('amount', amount.toString(), 18, 2)} ETH`;
 
       return this.txService.handleTx(lockManagerContract.lock(amount), successMessage, errorMessage);
     }

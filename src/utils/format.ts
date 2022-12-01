@@ -111,7 +111,7 @@ export const humanize = (
 /*                                  Others                                    */
 /* -------------------------------------------------------------------------- */
 
-export const weiToUnit = (amount: BigNumber) => toUnit(amount.toString());
+export const weiToUnit = (amount: BigNumber | string) => toUnit(amount.toString());
 export const unitToWei = (amount: string) => toWei(amount);
 
 export const ethersValueToBN = (amount: BigNumberish | undefined) => toBN(toUnit(amount?.toString()));
