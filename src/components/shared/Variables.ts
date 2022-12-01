@@ -17,6 +17,8 @@ export const SPACING_384 = () => '38.4rem' as const;
 
 export const SPACING_256 = () => '25.6rem' as const;
 
+export const SPACING_224 = () => '22.4rem' as const;
+
 export const SPACING_192 = () => '19.2rem' as const;
 
 export const SPACING_156 = () => '15.6rem' as const;

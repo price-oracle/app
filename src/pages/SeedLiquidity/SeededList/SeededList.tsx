@@ -70,7 +70,7 @@ const PoolList = () => {
             <Typography />
             <SortButton text='Name' type='name' /* pools={pools} onPoolsChanged={setPools} */ />
             <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
-            <SortButton text='Seeded' type='seeded' /* pools={pools} onPoolsChanged={setPools} */ />
+            {/* <SortButton text='Seeded' type='seeded' /> */}
             <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
             <Typography />
           </Header>
@@ -84,7 +84,7 @@ const PoolList = () => {
               <Typography>{getPoolName(poolManager)}</Typography>
               <Typography>{formatFee(poolManager.fee)}%</Typography>
 
-              <PriceAmountContainer>
+              {/* <PriceAmountContainer>
                 <TokenLabel
                   value={'100000000000000000000'}
                   address={poolManager.token.address}
@@ -92,7 +92,7 @@ const PoolList = () => {
                 />
                 <Divider>/</Divider>
                 <EthLabel value={'100000000000000000000'} />
-              </PriceAmountContainer>
+              </PriceAmountContainer> */}
 
               <PriceAmountContainer>
                 <TokenLabel
