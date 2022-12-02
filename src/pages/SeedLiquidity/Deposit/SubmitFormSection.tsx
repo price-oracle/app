@@ -3,7 +3,7 @@ import { BigNumber, constants } from 'ethers';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 
-import { ERC20Service, PoolManagerFactoryService } from '~/services';
+import { ERC20Service, PoolManagerFactoryService, PoolManagerService } from '~/services';
 import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
 
 import { isUndefined } from 'lodash';
@@ -46,6 +46,7 @@ const SubmitFormSection = ({
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
   const erc20Service = new ERC20Service();
   const poolManagerFactoryService = new PoolManagerFactoryService();
+  const poolManagerService = new PoolManagerService();
   const { address } = useAccount();
   const [isInvalid, setIsInvalid] = useState(false);
   const [wethAllowance, setWethAllowance] = useState<BigNumber>(constants.Zero);
@@ -123,15 +124,19 @@ const SubmitFormSection = ({
   const createPool = () => {
     if (uniswapPoolsForFeeTier) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
-      if (selectedToken && uniPool) {
+      if (selectedToken) {
+        const isWethToken0 = uniPool ? uniPool.isWethToken0 : BigNumber.from(WETH_ADDRESS).lt(selectedToken.address);
         // Calculate sqrtPriceX96
-        const sqrtPriceX96 = getSqrtPriceX96ForToken(startingPrice, uniPool.isWethToken0);
+        const sqrtPriceX96 = getSqrtPriceX96ForToken(startingPrice, isWethToken0);
         // Calculate liquidity
-        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount, tokenAmount, uniPool.isWethToken0);
+        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount, tokenAmount, isWethToken0);
         // Check if poolmanager is already created
         if (isPoolManagerCreated()) {
           // If created call the poolmanager on increaseLiquidity
-          //TODO:
+          //TODO: On .then update pools data
+          poolManagerService
+            .increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96)
+            .then((res) => console.log(res));
         } else {
           // If not created call poolmanagerfactory with params
           poolManagerFactoryService

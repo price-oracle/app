@@ -45,7 +45,6 @@ export class PoolManagerFactoryService {
   ) {
     if (this.signer?.data) {
       const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.signer?.data);
-
       const createPoolManagerTx = factory.createPoolManager(erc20Address, fee, liquidity, sqrtPriceX96);
 
       const successMessage = `Succesfully created ${erc20Symbol} pool`;

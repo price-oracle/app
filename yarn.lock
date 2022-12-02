@@ -1003,10 +1003,10 @@
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
-"@price-oracle/interfaces@0.0.0-88c04cf8":
-  version "0.0.0-88c04cf8"
-  resolved "https://registry.yarnpkg.com/@price-oracle/interfaces/-/interfaces-0.0.0-88c04cf8.tgz#7a2702c94dc1a054e733364130f7cc11217c5411"
-  integrity sha512-MO1vEBicn8Vnbs8ve6zD32iQUawBPfWSqo+pDyhP/EkmHRrDyz3xg80bHkVnXHZtyX1dleOXvbd+DrTk5YzmoA==
+"@price-oracle/interfaces@0.0.0-fe85b336":
+  version "0.0.0-fe85b336"
+  resolved "https://registry.yarnpkg.com/@price-oracle/interfaces/-/interfaces-0.0.0-fe85b336.tgz#d28156043efe5998b5e23215706839600d4b8f35"
+  integrity sha512-e0hUs3DUUirkUPdAdsUJm6bxgyyI1MaGB/ZCWeUx+WlMULYTmEOr0oYJOEQA1o9uwnxCuTpypBTcqAALczUytQ==
 
 "@rainbow-me/rainbowkit@0.7.4":
   version "0.7.4"

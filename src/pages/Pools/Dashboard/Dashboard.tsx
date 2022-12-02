@@ -90,11 +90,11 @@ export function Dashboard() {
         <>
           <TokenAmount>
             <EthLabel value={totalUserLocked.toString()} />
-            <ValueInUSD value={totalLockedInUsd.toString()} />
+            <ValueInUSD value={totalLockedInUsd.toString()} approximate={true} />
           </TokenAmount>
           <TokenAmount>
             {/* <PriceLabel value={totalPriceLocked} /> */}
-            <ValueInUSD value={totalRewardsInUsd.toString()} />
+            <ValueInUSD value={totalRewardsInUsd.toString()} approximate={true} />
           </TokenAmount>
         </>
       )}

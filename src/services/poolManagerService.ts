@@ -1,6 +1,6 @@
 import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
 import { Contract } from 'ethers-multicall';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { useProvider, useAccount, useSigner } from 'wagmi';
 
 import { ERC20Service, TxService, MultiCallService } from '~/services';
@@ -53,6 +53,24 @@ export class PoolManagerService {
       const errorMessage = 'Failed to claim rewards';
 
       return this.txService.handleTx(poolManagerContract.claimRewards(to), successMessage, errorMessage);
+    }
+  }
+
+  async increaseFullRangePosition(poolManagerAddress: Address, liquidity: BigNumber, sqrtPriceX96: BigNumber) {
+    if (this.signer?.data && this.account.address) {
+      const poolManagerContract = new ethers.Contract(poolManagerAddress, IPoolManagerABI, this.signer?.data);
+      const successMessage = 'Sucesfully added liquidity';
+      const errorMessage = 'Failed to add liquidity';
+
+      //This is needed to call the overloaded function in the contract
+      const increaseFullRangeCall = poolManagerContract['increaseFullRangePosition(address,uint128,uint160,bool)'](
+        this.account.address,
+        liquidity,
+        sqrtPriceX96,
+        false
+      );
+
+      return this.txService.handleTx(increaseFullRangeCall, successMessage, errorMessage);
     }
   }
 }

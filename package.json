@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@price-oracle/interfaces": "0.0.0-88c04cf8",
+    "@price-oracle/interfaces": "0.0.0-fe85b336",
     "@rainbow-me/rainbowkit": "0.7.4",
     "@reduxjs/toolkit": "1.8.6",
     "@uniswap/v3-sdk": "^3.9.0",
