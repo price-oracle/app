@@ -63,12 +63,14 @@ const DepositAmountsSection = ({
     if (tokenAmount.isZero()) {
       tokenInput.reset();
     } else {
-      tokenInput.set(sanitizeDecimals(utils.formatEther(tokenAmount), selectedToken?.decimals));
+      tokenInput.set(
+        sanitizeDecimals(utils.formatUnits(tokenAmount, selectedToken?.decimals), selectedToken?.decimals)
+      );
     }
   };
 
   const onTokenAmountChanged = (amount: string) => {
-    const tokenAmount = utils.parseEther(sanitizeDecimals(amount, selectedToken?.decimals));
+    const tokenAmount = utils.parseUnits(sanitizeDecimals(amount, selectedToken?.decimals), selectedToken?.decimals);
     const wethAmount = constants.WeiPerEther.mul(tokenAmount).div(startingPrice);
     if (wethAmount.isZero() || startingPrice.isZero()) {
       wethInput.reset();

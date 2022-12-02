@@ -129,7 +129,14 @@ const SubmitFormSection = ({
         // Calculate sqrtPriceX96
         const sqrtPriceX96 = getSqrtPriceX96ForToken(startingPrice, isWethToken0);
         // Calculate liquidity
-        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount, tokenAmount, isWethToken0);
+        // TODO: Improve sqrtPriceX96 calcs
+        // we subtract 10 wei to avoid a possible error when uniswap calls transferFrom()
+        const liquidity = calculateLiquidity(
+          sqrtPriceX96,
+          wethAmount.sub(10),
+          tokenAmount.sub(10),
+          uniPool.isWethToken0
+        );
         // Check if poolmanager is already created
         if (isPoolManagerCreated()) {
           // If created call the poolmanager on increaseLiquidity
