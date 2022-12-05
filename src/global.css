@@ -83,4 +83,5 @@ button:focus-visible {
     url(./assets/fonts/PlusJakartaSans.ttf) format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
