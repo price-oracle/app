@@ -93,6 +93,8 @@ const AppNavigator = () => {
             {/* <Modal /> */}
             <a
               href='https://docs.oracles.rip/'
+              target='_blank'
+              rel='noopener noreferrer'
               // onClick={navProps.handleClickCloseMenu}
             >
               <SHeaderButton>

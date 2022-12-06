@@ -7,4 +7,8 @@ export const HeaderButton = styled(Button)`
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     width: 100%;
   }
+
+  &:focus {
+    outline: none;
+  }
 `;

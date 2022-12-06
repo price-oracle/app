@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>svg/icon-light</title>
+    <g id="icon-light" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M200,0 L0,0 L0,200 L200,200 L200,0 Z M171,29 L171,171 L29,171 L29,29 L171,29 Z" id="Rectangle" fill="#000000" fill-rule="nonzero"></path>
+        <rect id="Rectangle" fill="#000000" fill-rule="nonzero" x="115" y="55" width="30" height="30"></rect>
+    </g>
+</svg>
