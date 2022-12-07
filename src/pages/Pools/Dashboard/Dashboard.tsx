@@ -6,8 +6,6 @@ import { isUndefined } from 'lodash';
 import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1152 } from '~/components/shared';
 import { useAppSelector } from '~/hooks';
 import { LockManager } from '~/types';
-import { UniswapService } from '~/services';
-import { getEthPriceInUSDC } from '~/utils';
 
 const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
@@ -33,8 +31,8 @@ export function Dashboard() {
   const [totalRewardsInUsd, setTotalRewardsInUsd] = useState<BigNumber>(constants.Zero);
 
   const lockManagers = useAppSelector((state) => state.lockManagers.elements);
+  const { usdPerEth } = useAppSelector((state) => state.prices);
   const isLoading = !lockManagers && totalLockedInUsd.isZero;
-  const uniswapService = new UniswapService();
 
   const getTotalLocked = (lockManagerList: LockManager[]) => {
     let locked = constants.Zero;
@@ -47,27 +45,27 @@ export function Dashboard() {
   };
 
   const getTotalRewardsInUsd = (lockManagerList: LockManager[]) => {
-    let rewardsInUsd = constants.Zero;
+    let rewardsInEth = constants.Zero;
     lockManagerList.forEach((lockManager) => {
       if (lockManager.rewards) {
-        rewardsInUsd = rewardsInUsd.add(lockManager.rewards?.ethRewardInUsd).add(lockManager.rewards?.tokenRewardInUsd);
+        const tokenRewardInEth = constants.WeiPerEther.mul(lockManager.rewards.tokenReward).div(
+          lockManager.rewards.tokenPerEth
+        );
+        rewardsInEth = rewardsInEth.add(lockManager.rewards.ethReward).add(tokenRewardInEth);
       }
     });
-    return rewardsInUsd;
+    return rewardsInEth.mul(usdPerEth).div(constants.WeiPerEther);
   };
 
   const hasRewards = lockManagers && Object.values(lockManagers).every((lm) => !isUndefined(lm.rewards));
   const totalUserLocked = hasRewards ? getTotalLocked(Object.values(lockManagers)) : '0';
 
   useEffect(() => {
-    if (hasRewards) {
-      getEthPriceInUSDC(uniswapService).then((ethPriceInWei) => {
-        setTotalLockedInUsd(ethPriceInWei.mul(totalUserLocked).div(constants.WeiPerEther));
-      });
-
+    if (lockManagers && usdPerEth && hasRewards) {
+      setTotalLockedInUsd(BigNumber.from(usdPerEth).mul(totalUserLocked).div(constants.WeiPerEther));
       setTotalRewardsInUsd(getTotalRewardsInUsd(Object.values(lockManagers)));
     }
-  }, [lockManagers]);
+  }, [lockManagers, usdPerEth]);
 
   return (
     <SCard>

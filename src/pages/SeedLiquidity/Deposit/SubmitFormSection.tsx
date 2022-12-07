@@ -9,7 +9,7 @@ import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
 import { isUndefined } from 'lodash';
 import { BoxButton, Loading } from '~/components/shared';
 import { getConfig } from '~/config';
-import { useAppSelector } from '~/hooks';
+import { useAppSelector, useUpdateState } from '~/hooks';
 import { Address, FeeTier, Token, UniswapPool } from '~/types';
 
 const Container = styled.section`
@@ -43,6 +43,7 @@ const SubmitFormSection = ({
   uniswapPoolsForFeeTier,
   selectedFee,
 }: AmountsProps) => {
+  const { updatePoolState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
   const erc20Service = new ERC20Service();
   const poolManagerFactoryService = new PoolManagerFactoryService();
@@ -122,6 +123,7 @@ const SubmitFormSection = ({
   };
 
   const createPool = () => {
+    setIsLoading(true);
     if (uniswapPoolsForFeeTier) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
       if (selectedToken) {
@@ -140,15 +142,18 @@ const SubmitFormSection = ({
         // Check if poolmanager is already created
         if (isPoolManagerCreated()) {
           // If created call the poolmanager on increaseLiquidity
-          //TODO: On .then update pools data
-          poolManagerService
-            .increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96)
-            .then((res) => console.log(res));
+          poolManagerService.increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96).then(() => {
+            updatePoolState();
+            setIsLoading(false);
+          });
         } else {
           // If not created call poolmanagerfactory with params
           poolManagerFactoryService
             .createPoolManager(selectedToken.address, selectedToken.symbol, selectedFee.fee, liquidity, sqrtPriceX96)
-            .then((res) => console.log(res));
+            .then(() => {
+              updatePoolState();
+              setIsLoading(false);
+            });
         }
       }
     }

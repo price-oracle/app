@@ -20,7 +20,7 @@ const SeedPage = styled.div`
 
 function SeedLiquidity() {
   const { chain, chains } = useNetwork();
-  const defaultToken = getTokenList(chain?.id || chains[0].id)[0];
+  const defaultToken = getTokenList(chain?.id || chains[0]?.id)[0];
   const [selectedToken, setSelectedToken] = useState<Token | undefined>(defaultToken);
   const [startingPrice, setStartingPrice] = useState<BigNumber>(BigNumber.from('100'));
   const [uniswapPoolsForFeeTier, setUniswapPoolsForFeeTier] = useState<

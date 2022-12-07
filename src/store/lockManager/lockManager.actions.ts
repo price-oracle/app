@@ -11,16 +11,15 @@ const fetchLockManagers = createAsyncThunk<
   {
     lockManagerService: LockManagerService;
     poolManagers: { [key: string]: PoolManager };
-    usdPerEth: BigNumber;
   },
   ThunkAPI
->('lockManager/fetch', async ({ lockManagerService, poolManagers, usdPerEth }) => {
+>('lockManager/fetch', async ({ lockManagerService, poolManagers }) => {
   const poolManagerList = Object.values(poolManagers);
 
   //  we can change it to a 'limited multicall': 10 multicalls of 10 fetchUserLockedAmount if 100 poolManagers
   //  to reduce rpc calls
   const lockManagers = await Promise.all(
-    poolManagerList.map((poolManager) => lockManagerService.fetchUserLockedAmount(poolManager, usdPerEth))
+    poolManagerList.map((poolManager) => lockManagerService.fetchUserLockedAmount(poolManager))
   );
   const lockManagersMap = Object.fromEntries(lockManagers.map((locked) => [locked.address, locked]));
 
@@ -29,10 +28,15 @@ const fetchLockManagers = createAsyncThunk<
 
 const claimRewards = createAsyncThunk<
   void,
-  { lockManagerAddress: Address; lockManagerService: LockManagerService; userAddress: Address },
+  {
+    lockManagerAddress: Address;
+    lockManagerService: LockManagerService;
+    userAddress: Address;
+    updateState: () => void;
+  },
   ThunkAPI
->('lockManager/claimRewards', async ({ lockManagerAddress, lockManagerService, userAddress }) => {
-  await lockManagerService.claimRewards(lockManagerAddress, userAddress);
+>('lockManager/claimRewards', async ({ lockManagerAddress, lockManagerService, userAddress, updateState }) => {
+  lockManagerService.claimRewards(lockManagerAddress, userAddress).then(() => updateState());
 });
 
 export const LockManagersActions = {

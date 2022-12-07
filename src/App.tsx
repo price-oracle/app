@@ -14,11 +14,8 @@ import SeedLiquidity from './pages/SeedLiquidity';
 import { PropTheme } from './components/shared';
 import { Modals } from './containers/modals';
 import { Themable } from './containers/Themable';
-import { LockManagerService, PoolManagerFactoryService, PoolManagerService, UniswapService } from '~/services';
-import { useAppDispatch, useAppSelector } from './hooks';
-import { PoolManagersActions, LockManagersActions } from './store';
 import { Alerts } from './containers/Alerts';
-import { getEthPriceInUSDC } from './utils';
+import { useAppSelector, useUpdateState } from '~/hooks';
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
   html, body {
@@ -42,26 +39,17 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
 `;
 
 function App() {
-  const dispatch = useAppDispatch();
-  // TODO Add a place for them ,in the context or someplace to have them as singleton class
-  const poolManagerFactoryService = new PoolManagerFactoryService();
-  const poolManagerService = new PoolManagerService();
-  const lockManagerService = new LockManagerService();
-  const uniswapService = new UniswapService();
+  const { updateEthPrice, updatePoolState, updateLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
   const { address } = useAccount();
   const { chain } = useNetwork();
 
   useEffect(() => {
-    //TODO: This can loop infinitely if the request fails. We need to add a case to the reducer on failure
+    updateEthPrice();
     if (!poolManagers) {
-      dispatch(
-        PoolManagersActions.fetchPoolManagers({ factoryService: poolManagerFactoryService, poolManagerService })
-      );
+      updatePoolState();
     } else {
-      getEthPriceInUSDC(uniswapService).then((usdPerEth) =>
-        dispatch(LockManagersActions.fetchLockManagers({ lockManagerService, poolManagers, usdPerEth }))
-      );
+      updateLockState();
     }
   }, [poolManagers, address, chain]);
 

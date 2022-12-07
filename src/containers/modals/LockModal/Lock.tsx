@@ -17,7 +17,7 @@ import {
 } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
-import { useAppDispatch } from '~/hooks';
+import { useAppDispatch, useUpdateState } from '~/hooks';
 import { ERC20Service, LockManagerService } from '~/services';
 import { ModalsActions } from '~/store';
 import { getPoolName, sanitizeDecimals } from '~/utils';
@@ -72,6 +72,7 @@ const Text = styled.div`
 `;
 
 const Lock = ({ pool }: { pool: PoolManager }) => {
+  const { updateLockState } = useUpdateState();
   const dispatch = useAppDispatch();
   const { address } = useAccount();
   const [wethBalance, setWethBalance] = useState<BigNumber>();
@@ -120,7 +121,10 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
     setIsLoading(true);
     lockManagerService
       .lock(pool.lockManagerAddress, utils.parseEther(sanitizeDecimals(wethAmount.value)))
-      .then(() => dispatch(ModalsActions.closeModal()))
+      .then(() => {
+        updateLockState();
+        dispatch(ModalsActions.closeModal());
+      })
       .catch(() => setIsLoading(false));
   };
 

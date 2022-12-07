@@ -38,6 +38,11 @@ export interface AlertsState {
   alertsList: Alert[];
 }
 
+export interface PricesState {
+  usdPerEth: string;
+  status: Status;
+}
+
 export interface RootState {
   alerts: AlertsState;
   theme: ThemeState;
@@ -46,4 +51,5 @@ export interface RootState {
   poolManagers: PoolManagersState;
   lockManagers: LockManagerState;
   customTokens: CustomTokensState;
+  prices: PricesState;
 }

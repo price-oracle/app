@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { BigNumber } from 'ethers';
 
-import { useAppDispatch, useAppSelector } from '~/hooks';
+import { useAppDispatch, useAppSelector, useUpdateState } from '~/hooks';
 import { LockManagersActions, ModalsActions } from '~/store';
 import {
   Loading,
@@ -31,6 +31,7 @@ import {
 import { LockManagerService } from '~/services';
 
 const PoolList = () => {
+  const { updateLockState } = useUpdateState();
   const { address } = useAccount();
   const lockManagerService = new LockManagerService();
 
@@ -57,7 +58,14 @@ const PoolList = () => {
 
   const claimRewards = (lockManagerAddress: Address) => {
     if (!address) return;
-    dispatch(LockManagersActions.claimRewards({ lockManagerAddress, lockManagerService, userAddress: address }));
+    dispatch(
+      LockManagersActions.claimRewards({
+        lockManagerAddress,
+        lockManagerService,
+        userAddress: address,
+        updateState: updateLockState,
+      })
+    );
   };
 
   const isClaimable = (poolManager: PoolManager) => {

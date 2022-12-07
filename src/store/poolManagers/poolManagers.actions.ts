@@ -18,10 +18,15 @@ const fetchPoolManagers = createAsyncThunk<
 
 const claimRewards = createAsyncThunk<
   void,
-  { poolManagerAddress: Address; poolManagerService: PoolManagerService; userAddress: Address },
+  {
+    poolManagerAddress: Address;
+    poolManagerService: PoolManagerService;
+    userAddress: Address;
+    updateState: () => void;
+  },
   ThunkAPI
->('poolManager/claimRewards', async ({ poolManagerAddress, poolManagerService, userAddress }) => {
-  await poolManagerService.claimRewards(poolManagerAddress, userAddress);
+>('poolManager/claimRewards', async ({ poolManagerAddress, poolManagerService, userAddress, updateState }) => {
+  poolManagerService.claimRewards(poolManagerAddress, userAddress).then(() => updateState());
 });
 
 export const PoolManagersActions = {

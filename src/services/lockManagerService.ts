@@ -1,4 +1,4 @@
-import { ethers, constants, BigNumber } from 'ethers';
+import { ethers, BigNumber } from 'ethers';
 import { abi as ILockManager } from '@price-oracle/interfaces/abi/ILockManager.json';
 import { useProvider, useAccount, useSigner } from 'wagmi';
 import { Contract } from 'ethers-multicall';
@@ -18,7 +18,7 @@ export class LockManagerService {
   multiCallService = new MultiCallService();
   uniswapService = new UniswapService();
 
-  async fetchUserLockedAmount(poolManager: PoolManager, usdPerEth: BigNumber): Promise<LockManager> {
+  async fetchUserLockedAmount(poolManager: PoolManager): Promise<LockManager> {
     const lockManagerContract = new Contract(poolManager.lockManagerAddress, ILockManager);
 
     const balanceCall = this.account.address && lockManagerContract.balanceOf(this.account.address);
@@ -30,16 +30,14 @@ export class LockManagerService {
     const [underlyingUniPool, balance, claimable] = await this.multiCallService.multicall(calls);
 
     const tknPerEth = (await getTokenPrice(this.uniswapService, [underlyingUniPool]))[0];
-    const tknPerUsd = constants.WeiPerEther.mul(tknPerEth).div(usdPerEth);
 
     return {
       address: poolManager.lockManagerAddress,
       locked: balance && balance.toString(),
       rewards: claimable && {
         ethReward: claimable[0].toString(),
-        ethRewardInUsd: usdPerEth.mul(claimable[0]).div(constants.WeiPerEther).toString(),
         tokenReward: claimable[1].toString(),
-        tokenRewardInUsd: constants.WeiPerEther.mul(claimable[1]).div(tknPerUsd).toString(),
+        tokenPerEth: tknPerEth.toString(),
       },
     };
   }
