@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
 function App() {
   const { updateEthPrice, updatePoolState, updateLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
 
   useEffect(() => {
@@ -52,6 +52,10 @@ function App() {
       updateLockState();
     }
   }, [poolManagers, address, chain]);
+
+  useEffect(() => {
+    updatePoolState();
+  }, [isConnected]);
 
   return (
     <Themable>
