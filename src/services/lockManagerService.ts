@@ -1,7 +1,8 @@
+import { ethers, constants, BigNumber } from 'ethers';
 import { abi as ILockManager } from '@price-oracle/interfaces/abi/ILockManager.json';
 import { useProvider, useAccount, useSigner } from 'wagmi';
 import { Contract } from 'ethers-multicall';
-import { ethers, constants, BigNumber } from 'ethers';
+import { isUndefined } from 'lodash';
 
 import { ERC20Service, TxService, MultiCallService, UniswapService } from '~/services';
 import { PoolManager, LockManager, Address } from '~/types';
@@ -20,23 +21,21 @@ export class LockManagerService {
   async fetchUserLockedAmount(poolManager: PoolManager, usdPerEth: BigNumber): Promise<LockManager> {
     const lockManagerContract = new Contract(poolManager.lockManagerAddress, ILockManager);
 
-    const balanceCall = lockManagerContract.balanceOf(this.account.address);
-    const claimableCall = lockManagerContract.claimable(this.account.address);
+    const balanceCall = this.account.address && lockManagerContract.balanceOf(this.account.address);
+    const claimableCall = this.account.address && lockManagerContract.claimable(this.account.address);
     const uniPoolCall = lockManagerContract.pool();
 
-    const [balance, claimable, underlyingUniPool] = await this.multiCallService.multicall([
-      balanceCall,
-      claimableCall,
-      uniPoolCall,
-    ]);
+    const calls = [uniPoolCall, balanceCall, claimableCall].filter((call) => !isUndefined(call));
+
+    const [underlyingUniPool, balance, claimable] = await this.multiCallService.multicall(calls);
 
     const tknPerEth = (await getTokenPrice(this.uniswapService, [underlyingUniPool]))[0];
     const tknPerUsd = constants.WeiPerEther.mul(tknPerEth).div(usdPerEth);
 
     return {
       address: poolManager.lockManagerAddress,
-      locked: balance.toString(),
-      rewards: {
+      locked: balance && balance.toString(),
+      rewards: claimable && {
         ethReward: claimable[0].toString(),
         ethRewardInUsd: usdPerEth.mul(claimable[0]).div(constants.WeiPerEther).toString(),
         tokenReward: claimable[1].toString(),

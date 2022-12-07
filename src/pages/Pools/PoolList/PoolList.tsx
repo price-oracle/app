@@ -61,9 +61,9 @@ const PoolList = () => {
   };
 
   const isClaimable = (poolManager: PoolManager) => {
-    if (lockManagers) {
-      const tokenRewards = BigNumber.from(lockManagers[poolManager.lockManagerAddress].rewards.tokenReward);
-      const ethRewards = BigNumber.from(lockManagers[poolManager.lockManagerAddress].rewards.ethReward);
+    if (lockManagers && lockManagers[poolManager.lockManagerAddress].rewards) {
+      const tokenRewards = BigNumber.from(lockManagers[poolManager.lockManagerAddress].rewards?.tokenReward);
+      const ethRewards = BigNumber.from(lockManagers[poolManager.lockManagerAddress].rewards?.ethReward);
       return tokenRewards.gt(0) || ethRewards.gt(0);
     }
   };
@@ -107,12 +107,12 @@ const PoolList = () => {
 
               <PriceAmountContainer>
                 <TokenLabel
-                  value={lockManagers[poolManager.lockManagerAddress].rewards.tokenReward}
+                  value={lockManagers[poolManager.lockManagerAddress].rewards?.tokenReward}
                   address={poolManager.token.address}
                   decimals={poolManager.token.decimals}
                 />
                 <Divider>/</Divider>
-                <EthLabel value={lockManagers[poolManager.lockManagerAddress].rewards.ethReward} />
+                <EthLabel value={lockManagers[poolManager.lockManagerAddress].rewards?.ethReward} />
               </PriceAmountContainer>
 
               <ButtonContainer>

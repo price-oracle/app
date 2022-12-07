@@ -96,12 +96,12 @@ const PoolList = () => {
 
               <PriceAmountContainer>
                 <TokenLabel
-                  value={poolManager.rewards.tokenReward}
+                  value={poolManager.rewards?.tokenReward}
                   address={poolManager.token.address}
                   decimals={poolManager.token.decimals}
                 />
                 <Divider>/</Divider>
-                <EthLabel value={poolManager.rewards.ethReward} />
+                <EthLabel value={poolManager.rewards?.ethReward} />
               </PriceAmountContainer>
 
               <ButtonContainer>

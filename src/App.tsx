@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import { useAccount, useNetwork } from 'wagmi';
 
 import '~/App.css';
 import './assets/fonts/price-icons/style.css';
@@ -48,6 +49,8 @@ function App() {
   const lockManagerService = new LockManagerService();
   const uniswapService = new UniswapService();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
+  const { address } = useAccount();
+  const { chain } = useNetwork();
 
   useEffect(() => {
     //TODO: This can loop infinitely if the request fails. We need to add a case to the reducer on failure
@@ -60,14 +63,13 @@ function App() {
         dispatch(LockManagersActions.fetchLockManagers({ lockManagerService, poolManagers, usdPerEth }))
       );
     }
-  }, [poolManagers]);
+  }, [poolManagers, address, chain]);
 
   return (
     <Themable>
       <GlobalStyle />
       <Alerts />
       <Modals />
-
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='*' element={<AppPage />}>

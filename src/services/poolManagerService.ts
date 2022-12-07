@@ -2,6 +2,7 @@ import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManage
 import { Contract } from 'ethers-multicall';
 import { BigNumber, ethers } from 'ethers';
 import { useProvider, useAccount, useSigner } from 'wagmi';
+import { isUndefined } from 'lodash';
 
 import { ERC20Service, TxService, MultiCallService } from '~/services';
 import { PoolManager, Address } from '~/types';
@@ -16,21 +17,17 @@ export class PoolManagerService {
 
   async fetchPoolManager(poolManagerAddress: string): Promise<PoolManager> {
     const poolManagerContractMulticall = new Contract(poolManagerAddress, IPoolManagerABI);
-
     const feeCall = poolManagerContractMulticall.fee();
     const tokenCall = poolManagerContractMulticall.token();
     const lockManagerCall = poolManagerContractMulticall.lockManager();
-    const claimableCall = poolManagerContractMulticall.claimable(this.account.address);
+    const claimableCall = this.account.address && poolManagerContractMulticall.claimable(this.account.address);
     const wethToken0Call = poolManagerContractMulticall.isWethToken0();
 
-    const [fee, tokenAddress, lockManagerAddress, rewards, isWethToken0] = await this.multiCallService.multicall([
-      feeCall,
-      tokenCall,
-      lockManagerCall,
-      claimableCall,
-      wethToken0Call,
-    ]);
+    const calls = [feeCall, tokenCall, lockManagerCall, wethToken0Call, claimableCall].filter(
+      (call) => !isUndefined(call)
+    );
 
+    const [fee, tokenAddress, lockManagerAddress, isWethToken0, rewards] = await this.multiCallService.multicall(calls);
     const token = await this.erc20Service.fetchTokenData(tokenAddress);
 
     return {
@@ -38,7 +35,7 @@ export class PoolManagerService {
       fee,
       token,
       lockManagerAddress,
-      rewards: {
+      rewards: rewards && {
         ethReward: rewards[0].toString(),
         tokenReward: rewards[1].toString(),
       },

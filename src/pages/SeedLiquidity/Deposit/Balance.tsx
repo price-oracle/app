@@ -9,15 +9,16 @@ const SLink = styled(Link)`
 `;
 
 interface IProps {
-  totalAmount: BigNumber | string;
+  totalAmount: BigNumber | string | undefined;
   symbol: string;
   onClick: (totalAmount: string) => void;
   decimals?: number;
 }
 const Balance = ({ totalAmount, symbol, onClick, decimals = 18 }: IProps) => {
-  const humanizedBalance = humanize('amount', totalAmount.toString(), decimals, 2);
+  const humanizedBalance = totalAmount ? humanize('amount', totalAmount.toString(), decimals, 2) : '-';
+
   return (
-    <SLink variant='small' onClick={() => onClick(totalAmount?.toString())}>
+    <SLink variant='small' onClick={() => totalAmount && onClick(totalAmount?.toString())}>
       Balance: {humanizedBalance} {symbol}
     </SLink>
   );

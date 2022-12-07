@@ -90,14 +90,14 @@ const DepositAmountsSection = ({
   });
 
   useEffect(() => {
-    if (isUndefined(tokenBalance)) {
+    if (isUndefined(tokenBalance) && userAddress) {
       selectedToken &&
         erc20Service.fetchTokenBalance(selectedToken.address, userAddress).then((balance) => setTokenBalance(balance));
     }
   }, [selectedToken, tokenBalance]);
 
   useEffect(() => {
-    if (isUndefined(wethBalance)) {
+    if (isUndefined(wethBalance) && userAddress) {
       erc20Service.fetchTokenBalance(WETH_ADDRESS, userAddress).then((wethBalance) => setWethBalance(wethBalance));
     }
   }, [wethBalance, userAddress]);
@@ -141,7 +141,7 @@ const DepositAmountsSection = ({
             </Deposit.Symbol>
           </Deposit>
           <Balance
-            totalAmount={tokenBalance || '0'}
+            totalAmount={tokenBalance}
             symbol={selectedToken?.symbol || ''}
             onClick={inputMaxTokenBalance}
             decimals={selectedToken?.decimals}
@@ -155,7 +155,7 @@ const DepositAmountsSection = ({
             <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
           </Deposit>
 
-          <Balance totalAmount={wethBalance || '0'} symbol={eth_symbol} onClick={inputMaxWethBalance} />
+          <Balance totalAmount={wethBalance} symbol={eth_symbol} onClick={inputMaxWethBalance} />
         </div>
       </Container>
       <SubmitFormSection

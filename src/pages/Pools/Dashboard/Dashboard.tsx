@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BigNumber, constants } from 'ethers';
+import { isUndefined } from 'lodash';
 
 import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1152 } from '~/components/shared';
 import { useAppSelector } from '~/hooks';
@@ -38,7 +39,9 @@ export function Dashboard() {
   const getTotalLocked = (lockManagerList: LockManager[]) => {
     let locked = constants.Zero;
     lockManagerList.forEach((lockManager) => {
-      locked = locked.add(lockManager.locked);
+      if (lockManager.locked) {
+        locked = locked.add(lockManager.locked);
+      }
     });
     return locked;
   };
@@ -46,19 +49,22 @@ export function Dashboard() {
   const getTotalRewardsInUsd = (lockManagerList: LockManager[]) => {
     let rewardsInUsd = constants.Zero;
     lockManagerList.forEach((lockManager) => {
-      rewardsInUsd = rewardsInUsd.add(lockManager.rewards.ethRewardInUsd).add(lockManager.rewards.tokenRewardInUsd);
+      if (lockManager.rewards) {
+        rewardsInUsd = rewardsInUsd.add(lockManager.rewards?.ethRewardInUsd).add(lockManager.rewards?.tokenRewardInUsd);
+      }
     });
     return rewardsInUsd;
   };
 
-  const totalUserLocked = lockManagers ? getTotalLocked(Object.values(lockManagers)) : '0';
+  const hasRewards = lockManagers && Object.values(lockManagers).every((lm) => !isUndefined(lm.rewards));
+  const totalUserLocked = hasRewards ? getTotalLocked(Object.values(lockManagers)) : '0';
 
   useEffect(() => {
-    getEthPriceInUSDC(uniswapService).then((ethPriceInWei) => {
-      setTotalLockedInUsd(ethPriceInWei.mul(totalUserLocked).div(constants.WeiPerEther));
-    });
+    if (hasRewards) {
+      getEthPriceInUSDC(uniswapService).then((ethPriceInWei) => {
+        setTotalLockedInUsd(ethPriceInWei.mul(totalUserLocked).div(constants.WeiPerEther));
+      });
 
-    if (lockManagers) {
       setTotalRewardsInUsd(getTotalRewardsInUsd(Object.values(lockManagers)));
     }
   }, [lockManagers]);

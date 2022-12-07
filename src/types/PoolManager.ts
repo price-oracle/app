@@ -6,9 +6,11 @@ export interface PoolManager {
   fee: string;
   token: Token;
   lockManagerAddress: Address;
-  rewards: {
-    ethReward: string;
-    tokenReward: string;
-  };
+  rewards:
+    | {
+        ethReward: string;
+        tokenReward: string;
+      }
+    | undefined;
   isWethToken0: boolean;
 }

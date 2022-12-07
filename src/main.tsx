@@ -22,15 +22,16 @@ import store from '~/store';
 import { getConfig } from './config';
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.localhost],
+  [chain.localhost, chain.mainnet],
   [
-    alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }),
-    publicProvider(),
     jsonRpcProvider({
-      rpc: () => {
+      rpc: (chain) => {
+        if (chain.id !== 1337) return null;
         return { http: 'http://localhost:8545' };
       },
     }),
+    alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }),
+    publicProvider(),
   ]
 );
 

@@ -24,7 +24,7 @@ export const Suffix = styled(Typography).attrs({
 const Value = styled(Typography)``;
 
 interface Props {
-  value: string | BigNumber;
+  value: string | BigNumber | undefined;
 }
 
 export const EthLabel = ({ value }: Props) => {
@@ -38,11 +38,15 @@ export const TokenLabel = ({
   address,
   decimals,
 }: {
-  value: BigNumber | string;
+  value: BigNumber | string | undefined;
   address: string;
   decimals: number;
 }) => {
-  const { number, suffix } = formatNumber(value.toString(), decimals);
+  let number: string | number = '-';
+  let suffix = '';
+  if (value) {
+    ({ number, suffix } = formatNumber(value.toString(), decimals));
+  }
 
   return (
     <Container>
