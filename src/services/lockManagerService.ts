@@ -6,7 +6,7 @@ import { ethers, constants, BigNumber } from 'ethers';
 import { ERC20Service, TxService, MultiCallService, UniswapService } from '~/services';
 import { PoolManager, LockManager, Address } from '~/types';
 import { humanize } from '~/utils/format';
-import { getEthPriceInUSDC, getTokenPrice } from '~/utils';
+import { getTokenPrice } from '~/utils';
 
 export class LockManagerService {
   txService = new TxService();
@@ -17,7 +17,7 @@ export class LockManagerService {
   multiCallService = new MultiCallService();
   uniswapService = new UniswapService();
 
-  async fetchUserLockedAmount(poolManager: PoolManager): Promise<LockManager> {
+  async fetchUserLockedAmount(poolManager: PoolManager, usdPerEth: BigNumber): Promise<LockManager> {
     const lockManagerContract = new Contract(poolManager.lockManagerAddress, ILockManager);
 
     const balanceCall = lockManagerContract.balanceOf(this.account.address);
@@ -30,12 +30,6 @@ export class LockManagerService {
       uniPoolCall,
     ]);
 
-    /* 
-        I would let 2 rpc-request instead of one 
-        because we are going to build a better 
-        and independent eth price feed soon
-    */
-    const usdPerEth = await getEthPriceInUSDC(this.uniswapService);
     const tknPerEth = (await getTokenPrice(this.uniswapService, [underlyingUniPool]))[0];
     const tknPerUsd = constants.WeiPerEther.mul(tknPerEth).div(usdPerEth);
 

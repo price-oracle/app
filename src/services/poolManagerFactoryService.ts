@@ -4,7 +4,7 @@ import { useContract, useProvider, useSigner } from 'wagmi';
 
 import { getConfig } from '~/config';
 import { Address } from '~/types';
-import { TxService } from './txService';
+import { TxService } from '~/services';
 
 export class PoolManagerFactoryService {
   provider = useProvider();

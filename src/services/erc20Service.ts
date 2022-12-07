@@ -41,13 +41,14 @@ export class ERC20Service {
   async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: BigNumber) {
     if (this.signer?.data) {
       const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer?.data);
+      const tokenData = await this.fetchTokenData(erc20Address);
 
-      // TODO: maybe do it as multicall after blockchain interactions refactor
-      const symbol = await this.fetchTokenSymbol(erc20Address);
-      const decimals = await this.fetchTokenDecimals(erc20Address);
-
-      const successMessage = `Succesfully approved ${humanize('amount', amount.toString(), decimals, 2)} ${symbol}`;
-      const errorMessage = `Failed to approve ${humanize('amount', amount.toString(), decimals, 2)} ${symbol}`;
+      const successMessage = `Succesfully approved ${humanize('amount', amount.toString(), tokenData.decimals, 2)} ${
+        tokenData.symbol
+      }`;
+      const errorMessage = `Failed to approve ${humanize('amount', amount.toString(), tokenData.decimals, 2)} ${
+        tokenData.symbol
+      }`;
 
       return this.txService.handleTx(erc20Contract.approve(approveContract, amount), successMessage, errorMessage);
     }

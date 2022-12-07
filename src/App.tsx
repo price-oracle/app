@@ -13,10 +13,11 @@ import SeedLiquidity from './pages/SeedLiquidity';
 import { PropTheme } from './components/shared';
 import { Modals } from './containers/modals';
 import { Themable } from './containers/Themable';
-import { LockManagerService, PoolManagerFactoryService, PoolManagerService } from '~/services';
+import { LockManagerService, PoolManagerFactoryService, PoolManagerService, UniswapService } from '~/services';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { PoolManagersActions, LockManagersActions } from './store';
 import { Alerts } from './containers/Alerts';
+import { getEthPriceInUSDC } from './utils';
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
   html, body {
@@ -45,6 +46,7 @@ function App() {
   const poolManagerFactoryService = new PoolManagerFactoryService();
   const poolManagerService = new PoolManagerService();
   const lockManagerService = new LockManagerService();
+  const uniswapService = new UniswapService();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
 
   useEffect(() => {
@@ -54,7 +56,9 @@ function App() {
         PoolManagersActions.fetchPoolManagers({ factoryService: poolManagerFactoryService, poolManagerService })
       );
     } else {
-      dispatch(LockManagersActions.fetchLockManagers({ lockManagerService, poolManagers }));
+      getEthPriceInUSDC(uniswapService).then((usdPerEth) =>
+        dispatch(LockManagersActions.fetchLockManagers({ lockManagerService, poolManagers, usdPerEth }))
+      );
     }
   }, [poolManagers]);
 
