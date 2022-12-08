@@ -15,7 +15,6 @@ const ValueContainer = styled.div``;
 
 export const Suffix = styled(Typography).attrs({
   variant: 'small',
-  color: 'disabled',
 })`
   margin-left: 2px;
   margin-top: -8px;

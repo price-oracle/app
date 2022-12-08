@@ -48,13 +48,15 @@ const SDropdownModal = styled(Dropdown.Modal)`
   row-gap: ${SPACING_16};
   transform: translateX(-45%);
   border: ${(props) => props.theme.borderPrimary};
-  min-width: 38rem;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
-    margin-left: 10.5rem;
-    row-gap: ${SPACING_8};
-    column-gap: ${SPACING_8};
-    padding: ${SPACING_8};
+    display: flex;
+    flex-direction: column;
+    margin-left: 26vw;
+    gap: 1rem;
+    padding: 1.2rem;
+    width: 35rem;
+    align-items: center;
   }
 `;
 
@@ -78,6 +80,15 @@ const SPrice = styled.div`
   overflow: hidden;
   white-space: nowrap;
   max-width: 15rem;
+`;
+
+const NotCreatedContainer = styled.div`
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    position: relative;
+    top: -4.1rem;
+    right: -11.3rem;
+    height: 0;
+  }
 `;
 
 interface PropertiesSectionProps {
@@ -184,7 +195,9 @@ function PropertiesSection({
                 {feeTierList.map((fee) => (
                   <FeeCard onClick={() => setNewFee(fee)} key={fee.fee}>
                     <FeeCard.FeePercentage>{fee.label}</FeeCard.FeePercentage>
-                    {isPoolCreated(fee.fee) || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
+                    <NotCreatedContainer>
+                      {isPoolCreated(fee.fee) || <FeeCard.UsagePercentage>not created</FeeCard.UsagePercentage>}
+                    </NotCreatedContainer>
                     <FeeCard.Hint>{fee.hint}</FeeCard.Hint>
                   </FeeCard>
                 ))}

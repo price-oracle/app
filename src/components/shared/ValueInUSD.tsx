@@ -11,13 +11,25 @@ const TokenUSDypography = styled(Typography).attrs({
   margin-top: 10px;
 `;
 
-export const ValueInUSD = ({ value, approximate }: { value: string | BigNumber; approximate?: boolean }) => {
+export const Value = styled(Typography)``;
+
+export const ValueInUSD = ({
+  value,
+  approximate,
+  color,
+}: {
+  value: string | BigNumber;
+  approximate?: boolean;
+  color?: 'primary' | 'secondary' | 'disabled' | 'background' | undefined;
+}) => {
   const { number, suffix } = formatNumber(value.toString());
 
   return (
     <TokenUSDypography>
-      {approximate && '~'} $ {number}
-      <Suffix>{suffix}</Suffix>
+      <Value color={color}>
+        {approximate && '~'} $ {number}
+      </Value>
+      <Suffix color={color}>{suffix}</Suffix>
     </TokenUSDypography>
   );
 };
