@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
+import { BigNumber } from 'ethers';
 
 import {
   SearchInput,
@@ -20,7 +21,6 @@ import {
   Title,
 } from '~/pages/Pools/PoolList/PoolList.styles';
 import { SCard, Row, Header } from './SeededList.styles';
-
 import { useAppDispatch, useAppSelector, useUpdateState } from '~/hooks';
 import { getPoolName, formatFee } from '~/utils';
 import { PoolManager, Address } from '~/types';
@@ -58,6 +58,13 @@ const PoolList = () => {
         updateState: updatePoolState,
       })
     );
+  };
+
+  const hasRewardsOnPool = (pool: PoolManager): boolean => {
+    if (pool && pool.rewards) {
+      return !BigNumber.from(pool.rewards.ethReward).isZero() || !BigNumber.from(pool.rewards.tokenReward).isZero();
+    }
+    return false;
   };
 
   return (
@@ -113,7 +120,12 @@ const PoolList = () => {
               </PriceAmountContainer>
 
               <ButtonContainer>
-                <PrimaryButton onClick={() => claimRewards(poolManager.address)}>Claim reward</PrimaryButton>
+                <PrimaryButton
+                  disabled={!hasRewardsOnPool(poolManager)}
+                  onClick={() => claimRewards(poolManager.address)}
+                >
+                  Claim reward
+                </PrimaryButton>
               </ButtonContainer>
             </Row>
           ))}
