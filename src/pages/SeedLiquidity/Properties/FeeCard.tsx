@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import Card from '~/components/shared/Card';
-import { Chip, Typography, MOBILE_MAX_WIDTH, SPACING_16 } from '~/components/shared';
+import { Chip, Typography, MOBILE_MAX_WIDTH, SPACING_16, SPACING_180 } from '~/components/shared';
 import { withComponents } from '~/utils';
 
 const FeeCard = styled(Card.Clickable)`
@@ -9,7 +9,7 @@ const FeeCard = styled(Card.Clickable)`
   grid-template-areas:
     'fee usage'
     'hint hint';
-  width: auto;
+  width: ${SPACING_180};
   justify-content: space-between;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {

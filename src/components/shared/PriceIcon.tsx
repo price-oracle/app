@@ -7,6 +7,6 @@ export const PriceIcon = styled(TokenIcon).attrs({
 })`
   background-color: ${(props) => props.theme.background};
   background-size: 10px;
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   box-sizing: border-box;
 `;

@@ -5,7 +5,7 @@ import { BigNumber } from 'ethers';
 
 import { FeeTier, Token, UniswapPool } from '~/types';
 import { getTokenList } from '~/utils';
-import { SPACING_24 } from '~/components/shared';
+import { SPACING_24, SPACING_32 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';
 import SelectTokenSection from './SelectToken/SelectTokenSection';
 import PropertiesSection from './Properties/PropertiesSection';
@@ -16,6 +16,10 @@ import { getConfig } from '~/config';
 const SeedPage = styled.div`
   background: ${(props) => props.theme.background};
   padding: 0rem 0.8rem ${SPACING_24};
+`;
+
+const SeedPageSection = styled.div`
+  padding-bottom: ${SPACING_32};
 `;
 
 function SeedLiquidity() {
@@ -35,16 +39,20 @@ function SeedLiquidity() {
   return (
     <SeedPage>
       <Container>
-        <SelectTokenSection selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
-        <PropertiesSection
-          selectedToken={selectedToken}
-          startingPrice={startingPrice}
-          setStartingPrice={setStartingPrice}
-          uniswapPoolsForFeeTier={uniswapPoolsForFeeTier}
-          setUniswapPoolsForFeeTier={setUniswapPoolsForFeeTier}
-          selectedFee={selectedFee}
-          setSelectedFee={setSelectedFee}
-        />
+        <SeedPageSection>
+          <SelectTokenSection selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
+        </SeedPageSection>
+        <SeedPageSection>
+          <PropertiesSection
+            selectedToken={selectedToken}
+            startingPrice={startingPrice}
+            setStartingPrice={setStartingPrice}
+            uniswapPoolsForFeeTier={uniswapPoolsForFeeTier}
+            setUniswapPoolsForFeeTier={setUniswapPoolsForFeeTier}
+            selectedFee={selectedFee}
+            setSelectedFee={setSelectedFee}
+          />
+        </SeedPageSection>
         <DepositAmountsSection
           selectedToken={selectedToken}
           startingPrice={startingPrice}

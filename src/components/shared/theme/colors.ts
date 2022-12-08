@@ -12,6 +12,7 @@ export interface Theme {
   background: string;
   divider: string;
   border: string;
+  borderPrimary: string;
   textDisabled: string;
   textPrimary: string;
   textSecondary: string;
@@ -52,12 +53,13 @@ const alerts: ThemeAlerts = {
 export const darkTheme: Theme = {
   type: 'dark',
   background: '#121212',
-  textPrimary: `#fff`,
+  textPrimary: `rgba(255,255,255, 0.87)`,
   textSecondary: `rgba(255, 255, 255, 0.5)`,
   textDisabled: `rgba(255, 255, 255, 0.5)`,
   divider: `rgba(255, 255, 255, 0.12)`,
   border: `2px solid rgba(255, 255, 255, 0.12)`,
-  actionActive: `#fff`,
+  borderPrimary: `1px solid rgba(255,255,255, 0.87)`,
+  actionActive: `rgba(255,255,255, 0.87)`,
   actionHover: `rgba(255, 255, 255, 0.08)`,
   actionSelected: `rgba(255, 255, 255, 0.16)`,
   actionDisabled: `rgba(255, 255, 255, 0.3)`,
@@ -73,6 +75,7 @@ export const lightTheme: Theme = {
   textDisabled: `rgba(0, 0, 0, 0.38)`,
   divider: `rgba(0, 0, 0, 0.12)`,
   border: `2px solid rgba(0, 0, 0, 0.12)`,
+  borderPrimary: `1px solid rgba(0, 0, 0, 0.87)`,
   actionActive: `rgba(0, 0, 0, 0.54)`,
   actionHover: `rgba(0, 0, 0, 0.04)`,
   actionSelected: `rgba(0, 0, 0, 0.08)`,

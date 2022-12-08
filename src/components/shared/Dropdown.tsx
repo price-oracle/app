@@ -5,7 +5,7 @@ import Button from './Button';
 import { Icon } from './Icon';
 import { withComponents } from '~/utils';
 import { FONT_SIZE_12, SPACING_8, SPACING_16 } from './Variables';
-// import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import { useOnClickOutside } from '~/hooks';
 
 export interface IDropdownContext {
   show: boolean;
@@ -83,7 +83,7 @@ const DropdownModal = ({ children, className }: IDropdownModal) => {
 
 const Dropdown = ({ children, className, show, setShow }: IDropdown) => {
   const ref = useRef<any>();
-  // useOnClickOutside(ref, () => setShow(false));
+  useOnClickOutside(ref, () => setShow(false));
 
   return (
     <Container className={className} ref={ref}>

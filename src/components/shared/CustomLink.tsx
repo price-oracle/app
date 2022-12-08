@@ -10,14 +10,14 @@ const StyledLink = styled(Link)<{ selected?: boolean }>`
     props.selected &&
     `
     &:before {
-      background-color: ${props.theme.divider};
+      background-color: ${props.theme.textPrimary};
       bottom: -1rem;
       content: '';
       height: 2rem;
       left: 48%;
       position: absolute;
       transform: translateX(50%);
-      width: 0.2rem;
+      width: 0.1rem;
     }
   `}
 `;

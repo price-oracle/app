@@ -47,7 +47,7 @@ const SDropdownModal = styled(Dropdown.Modal)`
   padding: ${SPACING_16};
   row-gap: ${SPACING_16};
   transform: translateX(-45%);
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   min-width: 38rem;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {

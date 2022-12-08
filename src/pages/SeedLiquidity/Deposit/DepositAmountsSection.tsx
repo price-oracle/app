@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 
-import { MOBILE_MAX_WIDTH, SPACING_16, SPACING_8, Typography } from '~/components/shared';
+import { MOBILE_MAX_WIDTH, SPACING_4, SPACING_16, SPACING_32, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { ERC20Service } from '~/services';
@@ -19,6 +19,7 @@ const Container = styled.section`
   grid-template-columns: 1fr 1fr;
   column-gap: ${SPACING_16};
   row-gap: ${SPACING_8};
+  padding-bottom: ${SPACING_32};
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     display: flex;
@@ -33,6 +34,15 @@ const Title = styled(Typography).attrs({
   margin-bottom: ${SPACING_16};
   text-align: start;
   margin-top: ${SPACING_16};
+`;
+
+const BalanceContainer = styled(Typography).attrs({
+  variant: 'small',
+  color: 'primary',
+})`
+  display: table;
+  text-align: start;
+  margin-top: ${SPACING_8};
 `;
 
 interface DepositAmountsProps {
@@ -140,12 +150,14 @@ const DepositAmountsSection = ({
               <Typography>{selectedToken?.symbol || ''}</Typography>
             </Deposit.Symbol>
           </Deposit>
-          <Balance
-            totalAmount={tokenBalance}
-            symbol={selectedToken?.symbol || ''}
-            onClick={inputMaxTokenBalance}
-            decimals={selectedToken?.decimals}
-          />
+          <BalanceContainer>
+            <Balance
+              totalAmount={tokenBalance}
+              symbol={selectedToken?.symbol || ''}
+              onClick={inputMaxTokenBalance}
+              decimals={selectedToken?.decimals}
+            />
+          </BalanceContainer>
         </div>
 
         <div>
@@ -154,8 +166,9 @@ const DepositAmountsSection = ({
             <Deposit.Amount {...wethInput} />
             <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
           </Deposit>
-
-          <Balance totalAmount={wethBalance} symbol={eth_symbol} onClick={inputMaxWethBalance} />
+          <BalanceContainer>
+            <Balance totalAmount={wethBalance} symbol={eth_symbol} onClick={inputMaxWethBalance} />
+          </BalanceContainer>
         </div>
       </Container>
       <SubmitFormSection

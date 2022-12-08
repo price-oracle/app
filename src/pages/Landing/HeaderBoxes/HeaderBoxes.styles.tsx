@@ -49,7 +49,7 @@ export const Box = styled.div`
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   background-color: #fff;
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   mix-blend-mode: difference;
   position: absolute;
 `;

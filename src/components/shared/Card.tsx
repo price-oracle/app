@@ -6,7 +6,7 @@ import { withComponents } from '~/utils';
 
 const baseStyles = css`
   background-color: ${(props) => props.theme.background};
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   display: grid;
   grid-row-gap: ${SPACING_16};
   padding: ${SPACING_24};

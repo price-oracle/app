@@ -73,7 +73,7 @@ export const SHeaderButton = styled(HeaderButton)`
 
 export const SNavigator = styled(Navigator)`
   justify-content: space-between;
-  border-bottom: ${(props) => props.theme.border};
+  border-bottom: ${(props) => props.theme.borderPrimary};
 `;
 
 export const SNavigatorItemRight = styled(Item)`

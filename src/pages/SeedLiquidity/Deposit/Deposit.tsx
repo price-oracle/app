@@ -16,7 +16,7 @@ import { withComponents } from '~/utils';
 
 const Container = styled.section`
   align-items: center;
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   display: grid;
   grid-template-areas: 'token amount symbol';
   padding: ${SPACING_24} ${SPACING_16};

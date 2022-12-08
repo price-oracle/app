@@ -16,7 +16,7 @@ interface ButtonProps extends PropTheme {
 }
 const SButton = styled(Button)<ButtonProps>`
   background-color: ${(props) => props.theme.textPrimary};
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   color: ${(props) => props.theme.background};
   font-size: ${FONT_SIZE_20};
   font-weight: 600;

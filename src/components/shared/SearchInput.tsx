@@ -19,7 +19,7 @@ const SearchIcon = styled(Icon)`
 `;
 
 const SInput = styled(Input)`
-  border-bottom: ${(props) => props.theme.border};
+  border-bottom: ${(props) => props.theme.borderPrimary};
   padding: 1rem 3.8rem 1rem;
   width: 100%;
   font-size: ${FONT_SIZE_16};

@@ -13,7 +13,8 @@ import {
 import { withComponents } from '~/utils';
 
 const PropertyCard = styled.section`
-  border-bottom: ${(props) => props.theme.border};
+  border-bottom: ${(props) => props.theme.borderPrimary};
+  border-top: ${(props) => props.theme.borderPrimary};
   padding: ${SPACING_16} 0;
   display: grid;
 

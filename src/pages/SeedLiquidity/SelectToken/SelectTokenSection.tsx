@@ -51,6 +51,10 @@ const STokenList = styled(TokenList)`
   max-height: 36rem;
 `;
 
+const PaddedTypography = styled(Typography)`
+  padding: 0.1rem 0;
+`;
+
 interface SelectTokenProps {
   selectedToken: Token | undefined;
   setSelectedToken: (token: Token) => void;
@@ -75,7 +79,7 @@ const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProp
         <Dropdown {...dropdownProps}>
           <Dropdown.Button>
             <STokenIcon src={selectedToken?.logoURI || ''} size={FONT_SIZE_24()} />
-            <Typography variant='x-large'>{selectedToken?.symbol}</Typography>
+            <PaddedTypography variant='x-large'>{selectedToken?.symbol}</PaddedTypography>
           </Dropdown.Button>
 
           <Dropdown.Modal>

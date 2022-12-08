@@ -6,7 +6,7 @@ import { MOBILE_MAX_WIDTH } from './Variables';
 
 const ButtonContainer = styled.div`
   mix-blend-mode: difference;
-  border: 2px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.87);
 
   div {
     border: none !important;

@@ -52,7 +52,7 @@ const SBoxButton = styled(BoxButton)`
 `;
 
 const SInputNumber = styled(InputNumber)`
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   padding: ${SPACING_8};
   width: 100%;
 `;

@@ -28,7 +28,7 @@ export const CollapsableList = styled(List)`
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     align-items: flex-end;
     background-color: ${(props) => props.theme.background};
-    border: ${(props) => props.theme.border};
+    border: ${(props) => props.theme.borderPrimary};
     flex-direction: column;
     padding: 0;
     position: absolute;

@@ -21,7 +21,7 @@ export const SCard = styled(Card)`
 `;
 
 export const Title = styled(Typography).attrs({
-  color: 'secondary',
+  color: 'primary',
 })``;
 
 export const Table = styled.div`

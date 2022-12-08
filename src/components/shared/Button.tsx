@@ -58,7 +58,7 @@ const StyledButton = styled(WithoutColors)`
 
 export const PrimaryButton = styled(Button)`
   background-color: ${(props) => props.theme.textPrimary};
-  border: ${(props) => props.theme.border};
+  border: ${(props) => props.theme.borderPrimary};
   color: ${(props) => props.theme.background};
   padding: ${SPACING_4} ${SPACING_12};
 

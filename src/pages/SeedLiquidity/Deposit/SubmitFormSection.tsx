@@ -7,7 +7,7 @@ import { ERC20Service, PoolManagerFactoryService, PoolManagerService } from '~/s
 import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
 
 import { isUndefined } from 'lodash';
-import { BoxButton, Loading } from '~/components/shared';
+import { BoxButton, Loading, SPACING_32 } from '~/components/shared';
 import { getConfig } from '~/config';
 import { useAppSelector, useUpdateState } from '~/hooks';
 import { Address, FeeTier, Token, UniswapPool } from '~/types';
@@ -16,10 +16,11 @@ const Container = styled.section`
   display: grid;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: ${SPACING_32};
 `;
 
 const SBoxButton = styled(BoxButton)`
-  width: 25rem;
+  width: 35rem;
 `;
 
 interface AmountsProps {
