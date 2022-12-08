@@ -76,6 +76,7 @@ export const PrimaryButton = styled(Button)`
 
 export const SecondaryButton = styled(WithoutColors)`
   padding: ${SPACING_4} ${SPACING_12};
+  border: ${(props) => props.theme.border};
 
   &:enabled {
     &:hover {

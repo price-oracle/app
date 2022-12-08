@@ -32,7 +32,7 @@ const StyledAlerts = styled(TransitionGroup)`
   }
   .slideBottom-exit-active {
     opacity: 0;
-    transform: translate3d(0, 100vh, 0);
+    transform: translate3d(0, -100vh, 0);
     transition: all 300ms cubic-bezier(1, 0.5, 0.8, 1);
   }
 `;

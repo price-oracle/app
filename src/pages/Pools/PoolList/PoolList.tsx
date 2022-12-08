@@ -129,7 +129,7 @@ const PoolList = () => {
                   disabled={!isClaimable(poolManager)}
                   onClick={() => claimRewards(poolManager.lockManagerAddress)}
                 >
-                  Claim rewards
+                  Claim
                 </SecondaryButton>
               </ButtonContainer>
             </Row>

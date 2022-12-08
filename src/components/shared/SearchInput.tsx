@@ -2,6 +2,7 @@ import { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 import { Icon } from './Icon';
 import { Input } from './Input';
+import { FONT_SIZE_16 } from './Variables';
 
 const Container = styled.div`
   display: flex;
@@ -14,12 +15,14 @@ const SearchIcon = styled(Icon)`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  margin-right: 4rem;
 `;
 
 const SInput = styled(Input)`
-  border: ${(props) => props.theme.border};
-  padding: 5px 30px 5px;
+  border-bottom: ${(props) => props.theme.border};
+  padding: 1rem 3.8rem 1rem;
   width: 100%;
+  font-size: ${FONT_SIZE_16};
 `;
 
 interface IProps {

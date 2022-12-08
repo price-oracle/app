@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BigNumber, constants } from 'ethers';
 import { isUndefined } from 'lodash';
 
-import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1152 } from '~/components/shared';
+import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1050 } from '~/components/shared';
 import { useAppSelector } from '~/hooks';
 import { LockManager } from '~/types';
 
@@ -11,7 +11,7 @@ const SCard = styled(Card)`
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
   justify-items: left;
-  max-width: ${SPACING_1152};
+  max-width: ${SPACING_1050};
   margin: 0 auto;
 `;
 

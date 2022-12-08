@@ -5,6 +5,8 @@
 /*----------  SPACING  ----------*/
 export const SPACING_1152 = () => '115.2rem' as const;
 
+export const SPACING_1050 = () => '105rem' as const;
+
 export const SPACING_832 = () => '83.2rem' as const;
 
 export const SPACING_768 = () => '76.8rem' as const;

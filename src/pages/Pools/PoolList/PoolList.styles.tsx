@@ -8,15 +8,15 @@ import {
   SPACING_32,
   SPACING_40,
   SPACING_192,
-  SPACING_128,
+  SPACING_156,
   SPACING_256,
-  SPACING_1152,
+  SPACING_1050,
 } from '~/components/shared';
 
 export const SCard = styled(Card)`
   margin: ${SPACING_32} auto;
   overflow-x: auto;
-  max-width: ${SPACING_1152};
+  max-width: ${SPACING_1050};
   justify-items: left;
 `;
 
@@ -33,7 +33,7 @@ export const Row = styled.div`
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: ${() =>
-    [SPACING_40(), SPACING_192(), SPACING_128(), SPACING_192(), SPACING_256(), SPACING_128()].join(' ')};
+    [SPACING_40(), SPACING_192(), SPACING_156(), SPACING_192(), SPACING_256(), SPACING_156()].join(' ')};
   justify-content: right;
   align-items: center;
   margin: 0 auto;
@@ -45,8 +45,13 @@ export const Header = styled(Row)`
 `;
 
 export const ButtonContainer = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: end;
+
+  & button {
+    margin-left: 1.2rem;
+  }
 `;
 
 export const LoaderContainer = styled.div`
