@@ -15,7 +15,7 @@ interface ButtonProps extends PropTheme {
   disabled?: boolean;
 }
 const SButton = styled(Button)<ButtonProps>`
-  background-color: ${(props) => props.theme.textPrimary};
+  background-color: ${(props) => props.theme.buttonBackground};
   border: ${(props) => props.theme.borderPrimary};
   color: ${(props) => props.theme.background};
   font-size: ${FONT_SIZE_20};
@@ -31,7 +31,7 @@ const SButton = styled(Button)<ButtonProps>`
   font-weight: 600;
 
   &:hover:enabled {
-    background-color: ${(props) => props.theme.textPrimary};
+    background-color: ${(props) => props.theme.buttonBackground};
     border: unset;
     color: ${(props) => props.theme.background};
     left: calc(50% - 8px);

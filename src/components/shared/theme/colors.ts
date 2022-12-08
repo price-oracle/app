@@ -10,6 +10,7 @@ export interface Theme {
   actionHover: string;
   actionSelected: string;
   background: string;
+  buttonBackground: string;
   divider: string;
   border: string;
   borderPrimary: string;
@@ -53,6 +54,7 @@ const alerts: ThemeAlerts = {
 export const darkTheme: Theme = {
   type: 'dark',
   background: '#121212',
+  buttonBackground: '#fff',
   textPrimary: `rgba(255,255,255, 0.87)`,
   textSecondary: `rgba(255, 255, 255, 0.5)`,
   textDisabled: `rgba(255, 255, 255, 0.5)`,
@@ -70,6 +72,7 @@ export const darkTheme: Theme = {
 export const lightTheme: Theme = {
   type: 'light',
   background: '#fff',
+  buttonBackground: '#121212',
   textPrimary: `rgba(0, 0, 0, 0.87)`,
   textSecondary: `rgba(0, 0, 0, 0.38)`,
   textDisabled: `rgba(0, 0, 0, 0.38)`,

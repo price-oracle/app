@@ -11,7 +11,7 @@ const StyledLink = styled(Link)<{ selected?: boolean }>`
     `
     &:before {
       background-color: ${props.theme.textPrimary};
-      bottom: -1rem;
+      bottom: -1.1rem;
       content: '';
       height: 2rem;
       left: 48%;
