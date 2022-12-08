@@ -27,7 +27,7 @@ const { chains, provider } = configureChains(
     jsonRpcProvider({
       rpc: (chain) => {
         if (chain.id !== 1337) return null;
-        return { http: 'http://localhost:8545' };
+        return { http: getConfig().CUSTOM_RPC };
       },
     }),
     alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }),
