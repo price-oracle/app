@@ -4,9 +4,10 @@ import {
   Logo,
   BoxButton,
   SPACING_16,
+  SPACING_32,
+  SPACING_64,
   SPACING_256,
   SPACING_384,
-  SPACING_64,
   MOBILE_MAX_WIDTH,
 } from '~/components/shared';
 
@@ -124,6 +125,7 @@ export const Link = styled.a`
 export const StyledLogo = styled(Logo)`
   width: ${SPACING_384};
   text-shadow: 2px 2px;
+  padding-bottom: ${SPACING_16};
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     width: ${SPACING_256} !important;
@@ -140,6 +142,7 @@ export const TextContainer = styled.div`
   max-width: 50rem;
   line-height: 2rem;
   margin: 2rem auto;
+  padding-bottom: ${SPACING_32};
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     flex-direction: column;

@@ -18,7 +18,7 @@ import {
 // } from '../../../../features/wallet/state/wallet.selectors';
 // import { useThemeButtonProps } from '../../../../components/atoms/ThemeButton';
 // import Modal from '../../../../features/modal/components/molecules/Modal/Modal';
-import { ConnectButton, FONT_SIZE_16, Icon, SPACING_8, getTheme, ThemeButton } from '~/components/shared';
+import { ConnectButton, FONT_SIZE_12, Icon, SPACING_8, getTheme, ThemeButton } from '~/components/shared';
 
 import { Item } from '../Navigator/Navigator.styles';
 
@@ -99,7 +99,7 @@ const AppNavigator = () => {
             >
               <SHeaderButton>
                 <div>Documentation</div>
-                <Icon name='arrow-up-right' size={FONT_SIZE_16()} padding={SPACING_8()} color={theme.textSecondary} />
+                <Icon name='arrow-up-right' size={FONT_SIZE_12()} padding={SPACING_8()} color={theme.textPrimary} />
               </SHeaderButton>
             </a>
           </Section>
