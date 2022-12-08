@@ -11,4 +11,11 @@ export const HeaderButton = styled(Button)`
   &:focus {
     outline: none;
   }
+
+  &:enabled {
+    &:hover {
+      background-color: transparent;
+      opacity: 50%;
+    }
+  }
 `;

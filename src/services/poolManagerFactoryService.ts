@@ -47,8 +47,8 @@ export class PoolManagerFactoryService {
       const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.signer?.data);
       const createPoolManagerTx = factory.createPoolManager(erc20Address, fee, liquidity, sqrtPriceX96);
 
-      const successMessage = `Succesfully created ${erc20Symbol} pool`;
-      const errorMessage = `Failed to create ${erc20Symbol} pool`;
+      const successMessage = `Succesfully created ${erc20Symbol} oracle`;
+      const errorMessage = `Failed to create ${erc20Symbol} oracle`;
 
       return this.txService.handleTx(createPoolManagerTx, successMessage, errorMessage);
     }

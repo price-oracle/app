@@ -11,13 +11,13 @@ const StyledLink = styled(Link)<{ selected?: boolean }>`
     `
     &:before {
       background-color: ${props.theme.divider};
-      bottom: 0;
+      bottom: -1rem;
       content: '';
-      height: 10px;
+      height: 2rem;
       left: 48%;
       position: absolute;
       transform: translateX(50%);
-      width: 2px;
+      width: 0.2rem;
     }
   `}
 `;

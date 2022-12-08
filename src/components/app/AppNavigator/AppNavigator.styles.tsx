@@ -34,6 +34,7 @@ export const Container = styled.header`
 
 export const Section = styled.section`
   display: flex;
+  padding-left: 2.4rem;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     flex-direction: column;
@@ -52,6 +53,7 @@ export const AppNavigatorButtonContainer = styled(HeaderButton)`
 
 export const SCustomLink = styled(CustomLink)`
   padding: 0;
+  margin-right: 2rem;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     &::before {
