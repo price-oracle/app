@@ -1,20 +1,22 @@
 import { abi as IUniswapV3Factory } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Factory.sol/UniswapV3Factory.json';
 import { abi as IUniswapV3Pool } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json';
-import { useProvider } from 'wagmi';
+import { Provider } from '@wagmi/core';
 import { Contract } from 'ethers-multicall';
 
 import { getConfig } from '~/config';
-import { MultiCallService } from './multicallService';
 import { Address, PoolData, UniswapPool } from '~/types';
+import { MultiCallService } from './multicallService';
 
 export class UniswapService {
-  provider = useProvider();
+  provider: Provider;
   addresses = getConfig().ADDRESSES;
   fees = getConfig().FEE_TIERS;
-  multiCallService = new MultiCallService();
+  multiCallService: MultiCallService;
   uniswapV3Factory: Contract;
 
-  constructor() {
+  constructor(multiCallService: MultiCallService, provider: Provider) {
+    this.provider = provider;
+    this.multiCallService = multiCallService;
     this.uniswapV3Factory = new Contract(this.addresses.UNISWAP_V3_FACTORY, IUniswapV3Factory);
   }
 

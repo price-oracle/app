@@ -1,5 +1,5 @@
-import { ethers } from 'ethers';
 import { useState } from 'react';
+import { ethers } from 'ethers';
 import styled from 'styled-components';
 import { useNetwork } from 'wagmi';
 
@@ -7,14 +7,13 @@ import {
   Button,
   Card,
   Loading,
+  MOBILE_MAX_WIDTH,
   SearchInput,
   SPACING_8,
   TokenIcon,
   Typography,
-  MOBILE_MAX_WIDTH,
 } from '~/components/shared';
-import { useAppDispatch, useAppSelector } from '~/hooks';
-import { ERC20Service } from '~/services';
+import { useAppDispatch, useAppSelector, useContracts } from '~/hooks';
 import { CustomTokenActions } from '~/store';
 import { Token } from '~/types/Token';
 import { getTokenList } from '~/utils/tokenList';
@@ -75,7 +74,7 @@ interface IProps {
 const TokenList = ({ onSelect, className }: IProps) => {
   const customTokens = useAppSelector((state) => state.customTokens.tokens);
   const dispatch = useAppDispatch();
-  const erc20Service = new ERC20Service();
+  const { erc20Service } = useContracts();
   const { chain } = useNetwork();
   const isLoading = false;
 

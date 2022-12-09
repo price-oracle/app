@@ -1,18 +1,14 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { PoolManagerFactoryService, PoolManagerService, LockManagerService, UniswapService } from '~/services';
 import { LockManagersActions, PoolManagersActions } from '~/store';
 import { PricesActions } from '~/store/prices/prices.actions';
 import { useAppDispatch, useAppSelector } from './store';
+import useContracts from './useContracts';
 
 export const useUpdateState = () => {
   const [time, setTime] = useState(Date.now());
   const dispatch = useAppDispatch();
-  // TODO Add a place for them ,in the context or someplace to have them as singleton class
-  const poolManagerFactoryService = new PoolManagerFactoryService();
-  const poolManagerService = new PoolManagerService();
-  const lockManagerService = new LockManagerService();
-  const uniswapService = new UniswapService();
+  const { poolManagerFactoryService, poolManagerService, lockManagerService, uniswapService } = useContracts();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
 
   const updateLockState = useCallback(() => {
@@ -23,15 +19,15 @@ export const useUpdateState = () => {
           poolManagers,
         })
       );
-  }, [poolManagers]);
+  }, [poolManagers, lockManagerService]);
 
   const updatePoolState = useCallback(() => {
     dispatch(PoolManagersActions.fetchPoolManagers({ factoryService: poolManagerFactoryService, poolManagerService }));
-  }, []);
+  }, [poolManagerService, poolManagerFactoryService]);
 
   const updateEthPrice = useCallback(() => {
     dispatch(PricesActions.getEthPrice({ uniswapService }));
-  }, []);
+  }, [uniswapService]);
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -1,25 +1,27 @@
 import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
-import { BigNumber, ethers } from 'ethers';
-import { useContract, useProvider, useSigner } from 'wagmi';
+import { Provider } from '@wagmi/core';
+import { BigNumber, ethers, Signer } from 'ethers';
 
 import { getConfig } from '~/config';
-import { Address } from '~/types';
 import { TxService } from '~/services';
+import { Address } from '~/types';
 
 export class PoolManagerFactoryService {
-  provider = useProvider();
-  signer = useSigner();
+  provider: Provider;
+  signer: Signer | undefined;
   factoryAddress = getConfig().ADDRESSES.deployed.POOL_MANAGER_FACTORY;
-  txService = new TxService();
+  txService: TxService;
 
-  poolManagerFactoryContract = useContract({
-    address: this.factoryAddress,
-    abi: IPoolManagerFactoryABI,
-    signerOrProvider: this.provider,
-  });
+  constructor(txService: TxService, provider: Provider, signer: Signer | undefined) {
+    this.provider = provider;
+    this.txService = txService;
+    this.signer = signer;
+  }
 
   async fetchPoolManagerAddresses(): Promise<string[]> {
-    const pmCount = await this.poolManagerFactoryContract?.callStatic.childrenCount();
+    const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.provider);
+
+    const pmCount = await factory.callStatic.childrenCount();
 
     const requests: [number, number][] = [];
 
@@ -27,13 +29,14 @@ export class PoolManagerFactoryService {
       requests.push([i, Math.min(pmCount, i + 10)]);
     }
 
-    const calls = requests.map((r) => this.poolManagerFactoryContract!.callStatic.listChildren(r[0], r[1]));
+    const calls = requests.map((r) => factory.callStatic.listChildren(r[0], r[1]));
 
     return (await Promise.all(calls)).flat();
   }
 
   async getPoolManagerAddress(tokenAddress: Address, feeAmount: number): Promise<Address> {
-    return await this.poolManagerFactoryContract?.callStatic.getPoolManagerAddress(tokenAddress, feeAmount);
+    const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.provider);
+    return await factory.callStatic.getPoolManagerAddress(tokenAddress, feeAmount);
   }
 
   async createPoolManager(
@@ -43,8 +46,8 @@ export class PoolManagerFactoryService {
     liquidity: BigNumber,
     sqrtPriceX96: BigNumber
   ) {
-    if (this.signer?.data) {
-      const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.signer?.data);
+    if (this.signer) {
+      const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.signer);
       const createPoolManagerTx = factory.createPoolManager(erc20Address, fee, liquidity, sqrtPriceX96);
 
       const successMessage = `Succesfully created ${erc20Symbol} oracle`;

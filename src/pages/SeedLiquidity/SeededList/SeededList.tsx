@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { useAccount } from 'wagmi';
 import { BigNumber } from 'ethers';
+import { useAccount } from 'wagmi';
 
 import {
-  SearchInput,
-  PoolIcon,
-  Loading,
-  PrimaryButton,
-  Typography,
-  TokenLabel,
   EthLabel,
+  Loading,
+  PoolIcon,
+  PrimaryButton,
+  SearchInput,
   SortButton,
+  TokenLabel,
+  Typography,
 } from '~/components/shared';
+import { useAppDispatch, useAppSelector, useContracts, useUpdateState } from '~/hooks';
 import {
   ButtonContainer,
   Divider,
@@ -20,18 +21,16 @@ import {
   Table,
   Title,
 } from '~/pages/Pools/PoolList/PoolList.styles';
-import { SCard, Row, Header } from './SeededList.styles';
-import { useAppDispatch, useAppSelector, useUpdateState } from '~/hooks';
-import { getPoolName, formatFee } from '~/utils';
-import { PoolManager, Address } from '~/types';
-import { PoolManagerService } from '~/services';
 import { PoolManagersActions } from '~/store';
+import { Address, PoolManager } from '~/types';
+import { formatFee, getPoolName } from '~/utils';
+import { Header, Row, SCard } from './SeededList.styles';
 
 const PoolList = () => {
   const { updatePoolState } = useUpdateState();
   const { address } = useAccount();
   const [searchInput, setSearchInput] = useState('');
-  const poolManagerService = new PoolManagerService();
+  const { poolManagerService } = useContracts();
   const dispatch = useAppDispatch();
 
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
@@ -67,7 +66,11 @@ const PoolList = () => {
     return false;
   };
 
-  return (
+  const userSeededPools = poolManagerList.filter(
+    (pm) => pm.userSeedBalance && !BigNumber.from(pm.userSeedBalance).isZero()
+  );
+
+  return userSeededPools.length > 0 ? (
     <SCard>
       <Title weight='bold'>Seeded Pools</Title>
 
@@ -90,7 +93,7 @@ const PoolList = () => {
             <Typography />
           </Header>
 
-          {poolManagerList.map((poolManager) => (
+          {userSeededPools.map((poolManager) => (
             <Row key={poolManager.address}>
               <Typography>
                 <PoolIcon address={poolManager.token.address} />
@@ -132,6 +135,8 @@ const PoolList = () => {
         </Table>
       )}
     </SCard>
+  ) : (
+    <></>
   );
 };
 

@@ -1,28 +1,46 @@
-import { ethers, BigNumber } from 'ethers';
 import { abi as ILockManager } from '@price-oracle/interfaces/abi/ILockManager.json';
-import { useProvider, useAccount, useSigner } from 'wagmi';
+import { Provider } from '@wagmi/core';
+import { BigNumber, ethers, Signer } from 'ethers';
 import { Contract } from 'ethers-multicall';
 import { isUndefined } from 'lodash';
 
-import { ERC20Service, TxService, MultiCallService, UniswapService } from '~/services';
-import { PoolManager, LockManager, Address } from '~/types';
-import { humanize } from '~/utils/format';
+import { ERC20Service, MultiCallService, TxService, UniswapService } from '~/services';
+import { Address, LockManager, PoolManager } from '~/types';
 import { getTokenPrice } from '~/utils';
+import { humanize } from '~/utils/format';
 
 export class LockManagerService {
-  txService = new TxService();
-  provider = useProvider();
-  account = useAccount();
-  signer = useSigner();
-  erc20Service = new ERC20Service();
-  multiCallService = new MultiCallService();
-  uniswapService = new UniswapService();
+  address: Address | undefined;
+  provider: Provider;
+  signer: Signer | undefined;
+  txService: TxService;
+  erc20Service: ERC20Service;
+  multiCallService: MultiCallService;
+  uniswapService: UniswapService;
+
+  constructor(
+    address: Address | undefined,
+    provider: Provider,
+    signer: Signer | undefined,
+    txService: TxService,
+    erc20Service: ERC20Service,
+    multiCallService: MultiCallService,
+    uniswapService: UniswapService
+  ) {
+    this.txService = txService;
+    this.erc20Service = erc20Service;
+    this.multiCallService = multiCallService;
+    this.uniswapService = uniswapService;
+    this.address = address;
+    this.signer = signer;
+    this.provider = provider;
+  }
 
   async fetchUserLockedAmount(poolManager: PoolManager): Promise<LockManager> {
     const lockManagerContract = new Contract(poolManager.lockManagerAddress, ILockManager);
 
-    const balanceCall = this.account.address && lockManagerContract.balanceOf(this.account.address);
-    const claimableCall = this.account.address && lockManagerContract.claimable(this.account.address);
+    const balanceCall = this.address && lockManagerContract.balanceOf(this.address);
+    const claimableCall = this.address && lockManagerContract.claimable(this.address);
     const uniPoolCall = lockManagerContract.pool();
 
     const calls = [uniPoolCall, balanceCall, claimableCall].filter((call) => !isUndefined(call));
@@ -43,8 +61,8 @@ export class LockManagerService {
   }
 
   async lock(lockManagerAddress: Address, amount: BigNumber) {
-    if (this.signer?.data) {
-      const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
+    if (this.signer) {
+      const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer);
       const successMessage = `Successfully locked ${humanize('amount', amount.toString(), 18, 2)} ETH`;
       const errorMessage = `Failed to lock ${humanize('amount', amount.toString(), 18, 2)} ETH`;
 
@@ -53,8 +71,8 @@ export class LockManagerService {
   }
 
   async claimRewards(lockManagerAddress: Address, to: Address) {
-    if (this.signer?.data) {
-      const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer?.data);
+    if (this.signer) {
+      const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer);
       const successMessage = 'Rewards claimed';
       const errorMessage = 'Failed to claim rewards';
 

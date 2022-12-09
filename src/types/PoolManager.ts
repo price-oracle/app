@@ -12,5 +12,7 @@ export interface PoolManager {
         tokenReward: string;
       }
     | undefined;
+  poolLiquidity: string;
+  userSeedBalance: string | undefined;
   isWethToken0: boolean;
 }

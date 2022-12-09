@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react';
 import { BigNumber, constants } from 'ethers';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
-
-import { ERC20Service, PoolManagerFactoryService, PoolManagerService } from '~/services';
-import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
-
 import { isUndefined } from 'lodash';
+
+import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
 import { BoxButton, Loading, SPACING_32 } from '~/components/shared';
 import { getConfig } from '~/config';
-import { useAppSelector, useUpdateState } from '~/hooks';
+import { useAppSelector, useContracts, useUpdateState } from '~/hooks';
 import { Address, FeeTier, Token, UniswapPool } from '~/types';
 
 const Container = styled.section`
@@ -46,9 +44,8 @@ const SubmitFormSection = ({
 }: AmountsProps) => {
   const { updatePoolState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
-  const erc20Service = new ERC20Service();
-  const poolManagerFactoryService = new PoolManagerFactoryService();
-  const poolManagerService = new PoolManagerService();
+  const { poolManagerFactoryService, poolManagerService, erc20Service } = useContracts();
+
   const { address } = useAccount();
   const [isInvalid, setIsInvalid] = useState(false);
   const [wethAllowance, setWethAllowance] = useState<BigNumber>(constants.Zero);

@@ -1,4 +1,3 @@
-import { useNetwork } from 'wagmi';
 import { Contract } from 'ethers';
 
 import { getConfig } from '~/config';
@@ -6,10 +5,13 @@ import { AlertsActions } from '~/store';
 import { useAppDispatch } from '~/hooks';
 
 export class TxService {
-  network = useNetwork();
   dispatch = useAppDispatch();
   confirmations = getConfig().CONFIRMATIONS;
-  chainId = this.network.chain?.id || 1;
+  chainId: number;
+
+  constructor(chainId: number) {
+    this.chainId = chainId;
+  }
 
   async handleTx(tx: Promise<Contract>, successMessage?: string, errorMessage?: string) {
     return tx

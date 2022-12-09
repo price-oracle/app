@@ -22,6 +22,7 @@ import { FeeTier, Token, UniswapPool } from '~/types';
 import { sqrtPriceX96ToPrice } from '~/utils';
 import FeeCard from './FeeCard';
 import PropertyCard from './PropertyCard';
+import { useContracts } from '~/hooks';
 
 const Container = styled.section`
   display: grid;
@@ -110,7 +111,7 @@ function PropertiesSection({
   selectedFee,
   setSelectedFee,
 }: PropertiesSectionProps) {
-  const uniswapService = new UniswapService();
+  const { uniswapService } = useContracts();
 
   const dropdownProps = Dropdown.useProps();
 

@@ -1,18 +1,32 @@
-import { BigNumber, ethers } from 'ethers';
-import { useProvider, useSigner, useAccount } from 'wagmi';
+import { Provider } from '@wagmi/core';
+import { BigNumber, ethers, Signer } from 'ethers';
 import { Contract } from 'ethers-multicall';
 
 import IERC20 from '~/abis/IERC20.json';
-import { humanize } from '~/utils/format';
 import { MultiCallService, TxService } from '~/services';
-import { Token, Address } from '~/types';
+import { Address, Token } from '~/types';
+import { humanize } from '~/utils/format';
 
 export class ERC20Service {
-  txService = new TxService();
-  multiCallService = new MultiCallService();
-  provider = useProvider();
-  account = useAccount();
-  signer = useSigner();
+  signer: Signer | undefined;
+  address: Address | undefined;
+  multiCallService: MultiCallService;
+  txService: TxService;
+  provider: Provider;
+
+  constructor(
+    address: Address | undefined,
+    signer: Signer | undefined,
+    txService: TxService,
+    multiCallService: MultiCallService,
+    provider: Provider
+  ) {
+    this.address = address;
+    this.signer = signer;
+    this.txService = txService;
+    this.multiCallService = multiCallService;
+    this.provider = provider;
+  }
 
   async fetchTokenSymbol(erc20Address: Address) {
     const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
@@ -26,7 +40,7 @@ export class ERC20Service {
     return await erc20Contract.callStatic.decimals();
   }
 
-  async fetchTokenBalance(erc20Address: Address, userAddress: Address | undefined = this.account.address) {
+  async fetchTokenBalance(erc20Address: Address, userAddress: Address | undefined = this.address) {
     const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
 
     return await erc20Contract.callStatic.balanceOf(userAddress);
@@ -39,8 +53,8 @@ export class ERC20Service {
   }
 
   async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: BigNumber) {
-    if (this.signer?.data) {
-      const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer?.data);
+    if (this.signer) {
+      const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.signer);
       const tokenData = await this.fetchTokenData(erc20Address);
 
       const successMessage = `Succesfully approved ${humanize('amount', amount.toString(), tokenData.decimals, 2)} ${

@@ -1,13 +1,13 @@
+import { useEffect, useState } from 'react';
 import { BigNumber, constants, utils } from 'ethers';
 import { isUndefined } from 'lodash';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 
-import { MOBILE_MAX_WIDTH, SPACING_4, SPACING_16, SPACING_32, SPACING_8, Typography } from '~/components/shared';
+import { MOBILE_MAX_WIDTH, SPACING_16, SPACING_32, SPACING_8, Typography } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
-import { ERC20Service } from '~/services';
+import { useContracts } from '~/hooks';
 import { FeeTier, Token, UniswapPool } from '~/types';
 import { sanitizeDecimals } from '~/utils';
 import Balance from './Balance';
@@ -59,7 +59,7 @@ const DepositAmountsSection = ({
   selectedFee,
 }: DepositAmountsProps) => {
   const { address: userAddress } = useAccount();
-  const erc20Service = new ERC20Service();
+  const { erc20Service } = useContracts();
   const eth_symbol = 'WETH';
   const {
     ADDRESSES: { WETH_ADDRESS },

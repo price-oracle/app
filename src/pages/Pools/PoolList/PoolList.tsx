@@ -1,22 +1,22 @@
 import { useState } from 'react';
-import { useAccount } from 'wagmi';
 import { BigNumber } from 'ethers';
+import { useAccount } from 'wagmi';
 
-import { useAppDispatch, useAppSelector, useUpdateState } from '~/hooks';
-import { LockManagersActions, ModalsActions } from '~/store';
 import {
   Loading,
   PoolIcon,
   PrimaryButton,
   SearchInput,
   SecondaryButton,
-  TokenLabel,
   SortButton,
+  TokenLabel,
   Typography,
 } from '~/components/shared';
 import { EthLabel } from '~/components/shared/TokenLabels';
-import { PoolManager, Address } from '~/types';
-import { getPoolName, formatFee } from '~/utils';
+import { useAppDispatch, useAppSelector, useContracts, useUpdateState } from '~/hooks';
+import { LockManagersActions, ModalsActions } from '~/store';
+import { Address, PoolManager } from '~/types';
+import { formatFee, getPoolName } from '~/utils';
 import {
   ButtonContainer,
   Divider,
@@ -28,12 +28,11 @@ import {
   Table,
   Title,
 } from './PoolList.styles';
-import { LockManagerService } from '~/services';
 
 const PoolList = () => {
   const { updateLockState } = useUpdateState();
   const { address } = useAccount();
-  const lockManagerService = new LockManagerService();
+  const { lockManagerService } = useContracts();
 
   const [searchInput, setSearchInput] = useState('');
 

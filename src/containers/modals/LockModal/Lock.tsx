@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { isUndefined } from 'lodash';
-import { useAccount } from 'wagmi';
 import { BigNumber, utils } from 'ethers';
+import { isUndefined } from 'lodash';
+import styled from 'styled-components';
+import { useAccount } from 'wagmi';
 
 import {
   BoxButton,
@@ -18,11 +18,10 @@ import {
 } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
-import { useAppDispatch, useUpdateState } from '~/hooks';
-import { ERC20Service, LockManagerService } from '~/services';
+import { useAppDispatch, useUpdateState, useContracts } from '~/hooks';
 import { ModalsActions } from '~/store';
-import { getPoolName, sanitizeDecimals } from '~/utils';
 import { PoolManager } from '~/types';
+import { getPoolName, sanitizeDecimals } from '~/utils';
 
 const InputContainer = styled.div`
   display: flex;
@@ -83,8 +82,7 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
   const {
     ADDRESSES: { WETH_ADDRESS },
   } = getConfig();
-  const erc20Service = new ERC20Service();
-  const lockManagerService = new LockManagerService();
+  const { lockManagerService, erc20Service } = useContracts();
 
   const updateAllowanceAmount = () => {
     if (address) {
