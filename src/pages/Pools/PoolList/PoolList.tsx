@@ -78,7 +78,7 @@ const PoolList = () => {
 
   return (
     <SCard>
-      <Title>Pools</Title>
+      <Title weight='bold'>Pools</Title>
 
       <SearchInput onChange={(e) => setSearchInput(e.target.value)} />
 

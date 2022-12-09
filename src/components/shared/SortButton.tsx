@@ -7,7 +7,9 @@ export const SortButton = ({ text, type }: { text: string; type: SortType }) => 
   // <Icon name='chevron-down' size={FONT_SIZE_12()} /* rotate={orderAsc ? 180 : 0} color={themeTextSecondary} */ />
   return (
     <div /*  onClick={() => handleClickSort()} */>
-      <Typography color='primary'>{text}</Typography>
+      <Typography color='primary' weight='semibold'>
+        {text}
+      </Typography>
     </div>
   );
 };

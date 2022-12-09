@@ -8,14 +8,15 @@ import { FONT_SIZE_20, FONT_SIZE_16, FONT_SIZE_12, FONT_SIZE_24 } from './Variab
 interface BaseProps {
   allowWrap?: boolean;
   color?: string;
+  weight?: string;
 }
+
 const BaseComponent = styled.div<BaseProps>`
   color: ${(props) => props.color};
   display: inline-block;
-  font-family: PlusJakartaSans;
-  font-weight: 600;
   line-height: 1.25em;
   white-space: ${({ allowWrap }) => (allowWrap ? 'normal' : 'nowrap')};
+  font-family: ${(props) => props.weight};
 `;
 
 const XLarge = styled(BaseComponent)`
@@ -43,8 +44,9 @@ interface Props {
   onClick?: MouseEventHandler<HTMLDivElement>;
   variant?: TypographyVariant;
   color?: 'primary' | 'secondary' | 'disabled' | 'background';
+  weight?: 'regular' | 'semibold' | 'bold';
 }
-export const Typography = ({ allowWrap, children, variant, color, ...otherProps }: Props) => {
+export const Typography = ({ allowWrap, children, variant, color, weight, ...otherProps }: Props) => {
   const Component = useMemo(() => {
     switch (variant) {
       case 'x-large':
@@ -59,6 +61,19 @@ export const Typography = ({ allowWrap, children, variant, color, ...otherProps 
         return Medium;
     }
   }, [variant]);
+
+  const _weight = useMemo(() => {
+    switch (weight) {
+      case 'regular':
+        return 'PlusJakartaSans';
+      case 'semibold':
+        return 'PlusJakartaSansSemiBold';
+      case 'bold':
+        return 'PlusJakartaSansBold';
+      default:
+        return 'PlusJakartaSans';
+    }
+  }, [weight]);
 
   const currentTheme = useAppSelector(({ theme }) => theme.current);
   const theme = getTheme(currentTheme);
@@ -79,7 +94,7 @@ export const Typography = ({ allowWrap, children, variant, color, ...otherProps 
   }, [color, theme]);
 
   return (
-    <Component allowWrap={allowWrap} color={_color} {...otherProps}>
+    <Component allowWrap={allowWrap} color={_color} weight={_weight} {...otherProps}>
       {children}
     </Component>
   );

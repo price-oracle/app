@@ -81,3 +81,19 @@ button:focus-visible {
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'PlusJakartaSansSemiBold';
+  src: local('PlusJakartaSans'), url(./assets/fonts/PlusJakartaSans.ttf) format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlusJakartaSansBold';
+  src: local('PlusJakartaSans'), url(./assets/fonts/PlusJakartaSans.ttf) format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}

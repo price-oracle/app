@@ -140,7 +140,7 @@ const DepositAmountsSection = ({
   return (
     <>
       <Container>
-        <Title>Deposit amounts</Title>
+        <Title weight='semibold'>Deposit amounts</Title>
 
         <div>
           <Deposit>

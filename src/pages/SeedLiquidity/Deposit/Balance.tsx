@@ -18,7 +18,7 @@ const Balance = ({ totalAmount, symbol, onClick, decimals = 18 }: IProps) => {
   const humanizedBalance = totalAmount ? humanize('amount', totalAmount.toString(), decimals, 2) : '-';
 
   return (
-    <SLink variant='small' onClick={() => totalAmount && onClick(totalAmount?.toString())}>
+    <SLink variant='small' weight='semibold' onClick={() => totalAmount && onClick(totalAmount?.toString())}>
       Balance: {humanizedBalance} {symbol}
     </SLink>
   );

@@ -120,7 +120,7 @@ const TokenList = ({ onSelect, className }: IProps) => {
           tokenList.map((token) => (
             <TokenItem key={token.symbol} onClick={() => onSelectToken(token)}>
               <Icon src={token.logoURI} />
-              <Symbol>{token.symbol}</Symbol>
+              <Symbol weight='semibold'>{token.symbol}</Symbol>
               <Name>{token.name}</Name>
             </TokenItem>
           ))}

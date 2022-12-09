@@ -70,7 +70,7 @@ const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProp
 
   return (
     <Container>
-      <Typography variant='x-large'>
+      <Typography variant='x-large' weight='semibold'>
         {'Select Token '}
         <Icon name='arrow-down' rotate={270} />
       </Typography>
@@ -79,7 +79,9 @@ const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProp
         <Dropdown {...dropdownProps}>
           <Dropdown.Button>
             <STokenIcon src={selectedToken?.logoURI || ''} size={FONT_SIZE_24()} />
-            <PaddedTypography variant='x-large'>{selectedToken?.symbol}</PaddedTypography>
+            <PaddedTypography variant='x-large' weight='semibold'>
+              {selectedToken?.symbol}
+            </PaddedTypography>
           </Dropdown.Button>
 
           <Dropdown.Modal>
@@ -89,7 +91,7 @@ const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProp
 
         <Divider variant='x-large'>{'/'}</Divider>
 
-        <Price variant='x-large'>
+        <Price variant='x-large' weight='semibold'>
           <EthIcon /> WETH
         </Price>
       </RightSide>

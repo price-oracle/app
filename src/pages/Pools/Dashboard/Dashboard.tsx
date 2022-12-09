@@ -70,13 +70,19 @@ export function Dashboard() {
   return (
     <SCard>
       <Title>
-        <Typography color='primary'>Dashboard</Typography>
+        <Typography color='primary' weight='bold'>
+          Dashboard
+        </Typography>
       </Title>
       <DashboardHeader>
-        <Typography color='primary'>Total ETH locked</Typography>
+        <Typography color='primary' weight='semibold'>
+          Total ETH locked
+        </Typography>
       </DashboardHeader>
       <DashboardHeader>
-        <Typography color='primary'>Claimable rewards</Typography>
+        <Typography color='primary' weight='semibold'>
+          Claimable rewards
+        </Typography>
       </DashboardHeader>
 
       {isLoading && (

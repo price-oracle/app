@@ -69,6 +69,7 @@ export const SCustomLink = styled(CustomLink)`
 export const SHeaderButton = styled(HeaderButton)`
   height: 100%;
   color: ${(props) => props.theme.textPrimary};
+  font-family: 'PlusJakartaSansSemiBold';
 `;
 
 export const SNavigator = styled(Navigator)`

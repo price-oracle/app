@@ -14,6 +14,7 @@ import {
   SPACING_16,
   SPACING_24,
   SPACING_8,
+  Typography,
 } from '~/components/shared';
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
@@ -67,7 +68,7 @@ const Label = styled.label`
   font-size: ${FONT_SIZE_16};
 `;
 
-const Text = styled.div`
+const Text = styled(Typography)`
   margin-left: 1.6rem;
 `;
 
@@ -135,11 +136,15 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
     <Container>
       <Title>
         <PoolIcon address={pool.token.address} />
-        <Text>Lock in {getPoolName(pool)}</Text>
+        <Text variant='x-large' weight='bold'>
+          Lock in {getPoolName(pool)}
+        </Text>
       </Title>
 
       <Label>
-        Balance: <span>{wethBalance ? utils.formatEther(wethBalance) : <Loading />}</span> WETH
+        <Typography weight='semibold'>
+          Balance: <span>{wethBalance ? utils.formatEther(wethBalance) : <Loading />}</span> WETH
+        </Typography>
       </Label>
 
       <InputContainer>
