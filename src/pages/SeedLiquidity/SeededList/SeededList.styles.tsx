@@ -1,15 +1,6 @@
 import styled from 'styled-components';
 
-import {
-  Card,
-  SPACING_16,
-  SPACING_32,
-  SPACING_40,
-  SPACING_128,
-  SPACING_156,
-  SPACING_224,
-  SPACING_768,
-} from '~/components/shared';
+import { Card, SPACING_16, SPACING_32, SPACING_40, SPACING_128, SPACING_156, SPACING_768 } from '~/components/shared';
 
 export const SCard = styled(Card)`
   margin: ${SPACING_32} auto;
@@ -31,4 +22,13 @@ export const Row = styled.div`
 
 export const Header = styled(Row)`
   margin: ${SPACING_16} auto;
+`;
+
+export const SeededContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  & :nth-child(2) {
+    margin-left: 0.5rem;
+  }
 `;

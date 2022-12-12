@@ -24,7 +24,9 @@ import {
 import { PoolManagersActions } from '~/store';
 import { Address, PoolManager } from '~/types';
 import { formatFee, getPoolName, humanize } from '~/utils';
-import { Header, Row, SCard } from './SeededList.styles';
+import { Header, Row, SCard, SeededContainer } from './SeededList.styles';
+import { Tooltip } from '~/containers/Tooltips';
+import PropertyCard from '../Properties/PropertyCard';
 
 const PoolList = () => {
   const { updatePoolState } = useUpdateState();
@@ -100,7 +102,12 @@ const PoolList = () => {
             <Typography />
             <SortButton text='Name' type='name' /* pools={pools} onPoolsChanged={setPools} */ />
             <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
-            <SortButton text='Seeded' type='seeded' />
+            <SeededContainer>
+              <SortButton text='Seeded' type='seeded' />
+              <Tooltip content="Percentage of pool's seeded liquidity. Ownership gives you governance rights over future oracle changes.">
+                <PropertyCard.Helper />
+              </Tooltip>
+            </SeededContainer>
             <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
             <Typography />
           </Header>

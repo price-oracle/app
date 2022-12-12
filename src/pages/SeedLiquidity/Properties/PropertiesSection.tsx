@@ -12,17 +12,16 @@ import {
   SPACING_12,
   SPACING_16,
   SPACING_768,
-  SPACING_8,
   Typography,
 } from '~/components/shared';
 import Dropdown from '~/components/shared/Dropdown';
 import { getConfig } from '~/config';
-import { UniswapService } from '~/services';
 import { FeeTier, Token, UniswapPool } from '~/types';
 import { sqrtPriceX96ToPrice } from '~/utils';
 import FeeCard from './FeeCard';
 import PropertyCard from './PropertyCard';
 import { useContracts } from '~/hooks';
+import { Tooltip } from '~/containers/Tooltips';
 
 const Container = styled.section`
   display: grid;
@@ -170,7 +169,9 @@ function PropertiesSection({
           {isLoading && <Loading />}
           {!isLoading && <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} />}
         </PropertyCard.Value>
-        <PropertyCard.Helper />
+        <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
+          <PropertyCard.Helper />
+        </Tooltip>
       </PropertyCard>
 
       <PropertyCard>
@@ -206,8 +207,9 @@ function PropertiesSection({
             </Dropdown>
           )}
         </PropertyCard.Value>
-
-        <PropertyCard.Helper />
+        <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
+          <PropertyCard.Helper />
+        </Tooltip>
         {!isLoading && <PropertyCard.Chip>{selectedFee.hint}</PropertyCard.Chip>}
       </PropertyCard>
     </Container>
