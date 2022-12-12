@@ -3,9 +3,7 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
 import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
 import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
 import { IPoolManager } from '@price-oracle/interfaces/ethers-v5/IPoolManager';
-import { Token } from '@uniswap/sdk-core';
 import {
-  computePoolAddress,
   encodeSqrtRatioX96,
   maxLiquidityForAmounts
 } from '@uniswap/v3-sdk';
@@ -16,7 +14,8 @@ import {
 } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json'
 
 import { address } from './constants';
-import { impersonate, setBalance, toWei } from './utils';
+import { sendUnsignedTx, toWei } from './utils';
+import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolManagerFactory';
 
 /**
  * Deploy Pools Script
@@ -34,19 +33,17 @@ import { impersonate, setBalance, toWei } from './utils';
  */
 (async () => {
   const [governance, richWallet] = await hre.ethers.getSigners();
-
+  
   // get needed contracts and addresses
   const { vsp, jpyc, weth, dai, kp3r, usdt, usdc, uniswapV3Factory } =
-    getMainnetSdk(richWallet);
-
+  getMainnetSdk(richWallet);
+  
   const poolManagerFactory = (await hre.ethers.getContractAt(
     IPoolManagerFactoryABI,
     address.deployed.POOL_MANAGER_FACTORY
-  ));
+  )) as unknown as IPoolManagerFactory;
 
-  // give the deployer a lot of WETH
-  await setBalance(richWallet.address, toWei(100_000));
-  await weth.connect(richWallet).deposit({ value: toWei(50_000).toFixed() });
+  await weth.connect(richWallet).deposit({ value: toWei(2_000).toFixed() });
 
   const pairsToCreate = [
     {
@@ -113,18 +110,20 @@ import { impersonate, setBalance, toWei } from './utils';
     let symbol = await token.symbol();
 
     try {
-      // give ETH and non-weth token to the deployer
-      await setBalance(pair.whale, toWei(10));
-      const whale = await impersonate(pair.whale);
+      // give a lot of non-weth token to the deployer
       const balance = await token.balanceOf(pair.whale);
-      await token.connect(whale).transfer(richWallet.address, balance);
+      sendUnsignedTx({
+        from: pair.whale,
+        to: token.address,
+        data: (await token.populateTransaction.transfer(richWallet.address, balance)).data
+      });
 
       // calculate the pool manager address for transfer approvals
       const poolManagerAddress = await poolManagerFactory.getPoolManagerAddress(
         token.address,
         pair.fee
       );
-
+      
       // allow the pool manager to transfer WETH and non-weth token to the pool
       // some tokens forbid changing the approval if it's > 0
       await token.connect(richWallet).approve(poolManagerAddress, 0);
@@ -135,7 +134,6 @@ import { impersonate, setBalance, toWei } from './utils';
       await weth
         .connect(richWallet)
         .approve(poolManagerAddress, ethers.constants.MaxUint256);
-
       const isWethToken0 = weth.address < token.address;
 
       let sqrtPriceX96: JSBI;
@@ -200,7 +198,5 @@ import { impersonate, setBalance, toWei } from './utils';
   }
 
   // Give weth balance to governance to be able to lock
-  const gov = await impersonate(governance.address);
-  await weth.connect(gov).deposit({ value: toWei(10.123123123123123123).toFixed() });
-  const balance = await weth.balanceOf(governance.address);
+  await weth.connect(richWallet).transfer(governance.address, toWei(10.123123123123123123).toString());
 })();

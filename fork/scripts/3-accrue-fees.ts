@@ -1,11 +1,11 @@
 import hre, { ethers } from 'hardhat';
-import { impersonate, toUnit, advanceTimeAndBlock, setBalance, toWei } from './utils';
+import { advanceTimeAndBlock, toWei, sendUnsignedTx } from './utils';
 import { address } from './constants';
 import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
 import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolManagerFactory';
 import { IPoolManager } from '@price-oracle/interfaces/ethers-v5/IPoolManager';
-import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
 import { ILockManager } from '@price-oracle/interfaces/ethers-v5/ILockManager';
+import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
 import { abi as ILockManagerABI } from '@price-oracle/interfaces/abi/ILockManager.json';
 import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
 
@@ -26,14 +26,10 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
  *    5. Prints claimable amount for every lock manager
  */
 (async () => {
-  const [governance, richWallet] = await hre.ethers.getSigners();
-
-  const { weth } =
-    getMainnetSdk(richWallet);
+  const [, richWallet] = await hre.ethers.getSigners();
 
   // get needed contracts and addresses
-  const { ierc20 } =
-    getMainnetSdk(richWallet);
+  const { weth, ierc20 } = getMainnetSdk(richWallet);
 
   const poolManagerFactory = (await hre.ethers.getContractAt(
     IPoolManagerFactoryABI,
@@ -47,15 +43,13 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
   );
 
   const depositorAddress = process.env.DEPOSITOR_ADDRESS as string;
-  const depositor = await impersonate(depositorAddress);
-  await setBalance(depositorAddress, toWei(100_000));
-  console.log(`Depositor: ${depositorAddress}\n`);
+  console.log(`Depositor: ${depositorAddress}`);
 
   for (var poolManagerAddress of poolManagerAddresses) {
     const poolManager = (await hre.ethers.getContractAt(
       IPoolManagerABI,
       poolManagerAddress
-    ));
+    )) as unknown as IPoolManager;
 
     const tokenAddress = await poolManager.token();
     const token = ierc20.attach(tokenAddress);
@@ -69,28 +63,32 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     const lockManager = (await hre.ethers.getContractAt(
       ILockManagerABI,
       lockManagerAddress
-    ));
+    )) as unknown as ILockManager;
     console.log(`Found LockManager at ${lockManagerAddress}`);
 
     // provide the user and our wallet with WETH
     let lockAmount = toWei(Math.random() * 10).toFixed();
 
-    // give the deployer a lot of WETH
-    await weth.connect(depositor).deposit({ value: lockAmount });
-    console.log(`Minted ${lockAmount} WETH for ${depositorAddress}`);
-
     // user locks WETH to generate rewards
-    for (const approver of [depositor, richWallet]) {
-      await weth
-        .connect(approver)
-        .approve(lockManagerAddress, ethers.constants.MaxUint256);
+    for (const approverAddress of [depositorAddress, richWallet.address]) {
+      await sendUnsignedTx({
+        from: approverAddress,
+        to: weth.address,
+        data: (await weth.populateTransaction.approve(lockManagerAddress, ethers.constants.MaxUint256)).data
+      });
 
-      await token
-        .connect(approver)
-        .approve(lockManagerAddress, ethers.constants.MaxUint256);
+      await sendUnsignedTx({
+        from: approverAddress,
+        to: token.address,
+        data: (await token.populateTransaction.approve(lockManagerAddress, ethers.constants.MaxUint256)).data
+      });
     }
 
-    await lockManager.connect(depositor).lock(lockAmount);
+    await sendUnsignedTx({
+      from: depositorAddress,
+      to: lockManager.address,
+      data: (await lockManager.populateTransaction.lock(lockAmount)).data
+    });
     const wethRewards = toWei(Math.random() * 10).toFixed();
     const tokenBalance = await token.balanceOf(richWallet.address);
 
@@ -104,9 +102,11 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     );
 
     // Reset approval
-    await weth
-      .connect(depositor)
-      .approve(lockManagerAddress, 0);
+    await sendUnsignedTx({
+      from: depositorAddress,
+      to: weth.address,
+      data: (await weth.populateTransaction.approve(lockManagerAddress, 0)).data
+    });
 
     advanceTimeAndBlock(864000); // 10 days
     console.groupEnd();
