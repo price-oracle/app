@@ -21,7 +21,8 @@ export const SCard = styled(Card)`
 export const Row = styled.div`
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: ${() => [SPACING_40(), SPACING_156(), SPACING_156(), SPACING_224(), SPACING_128()].join(' ')};
+  grid-template-columns: ${() =>
+    [SPACING_40(), SPACING_128(), SPACING_128(), SPACING_128(), SPACING_156(), SPACING_128()].join(' ')};
   justify-content: right;
   align-items: center;
   margin: 0 auto;

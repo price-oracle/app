@@ -23,7 +23,7 @@ import {
 } from '~/pages/Pools/PoolList/PoolList.styles';
 import { PoolManagersActions } from '~/store';
 import { Address, PoolManager } from '~/types';
-import { formatFee, getPoolName } from '~/utils';
+import { formatFee, getPoolName, humanize } from '~/utils';
 import { Header, Row, SCard } from './SeededList.styles';
 
 const PoolList = () => {
@@ -70,6 +70,18 @@ const PoolList = () => {
     (pm) => pm.userSeedBalance && !BigNumber.from(pm.userSeedBalance).isZero()
   );
 
+  const getSeededPercentage = (poolManager: PoolManager) => {
+    if (poolManager.userSeedBalance) {
+      const seededPercentage = BigNumber.from(poolManager.userSeedBalance)
+        .mul(10000)
+        .div(poolManager.poolLiquidity)
+        .toString();
+      return humanize('percent', seededPercentage, 0, 2);
+    } else {
+      return '-';
+    }
+  };
+
   return userSeededPools.length > 0 ? (
     <SCard>
       <Title weight='bold'>Seeded Pools</Title>
@@ -88,7 +100,7 @@ const PoolList = () => {
             <Typography />
             <SortButton text='Name' type='name' /* pools={pools} onPoolsChanged={setPools} */ />
             <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
-            {/* <SortButton text='Seeded' type='seeded' /> */}
+            <SortButton text='Seeded' type='seeded' />
             <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
             <Typography />
           </Header>
@@ -101,6 +113,7 @@ const PoolList = () => {
 
               <Typography>{getPoolName(poolManager)}</Typography>
               <Typography>{formatFee(poolManager.fee)}%</Typography>
+              <Typography>{getSeededPercentage(poolManager)}</Typography>
 
               {/* <PriceAmountContainer>
                 <TokenLabel

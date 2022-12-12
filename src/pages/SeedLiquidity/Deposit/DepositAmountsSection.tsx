@@ -100,17 +100,17 @@ const DepositAmountsSection = ({
   });
 
   useEffect(() => {
-    if (isUndefined(tokenBalance) && userAddress) {
+    if (userAddress) {
       selectedToken &&
         erc20Service.fetchTokenBalance(selectedToken.address, userAddress).then((balance) => setTokenBalance(balance));
     }
-  }, [selectedToken, tokenBalance]);
+  }, [selectedToken, tokenBalance?.toString(), userAddress]);
 
   useEffect(() => {
-    if (isUndefined(wethBalance) && userAddress) {
+    if (userAddress) {
       erc20Service.fetchTokenBalance(WETH_ADDRESS, userAddress).then((wethBalance) => setWethBalance(wethBalance));
     }
-  }, [wethBalance, userAddress]);
+  }, [wethBalance?.toString(), userAddress]);
 
   useEffect(() => {
     // Reset to undefined to restart the useEffect hook
