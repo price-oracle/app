@@ -1,6 +1,6 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import './global.css';
-// import './polyfills';
+import './polyfills';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
