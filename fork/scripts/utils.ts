@@ -1,3 +1,4 @@
+import { JsonRpcSigner } from '@ethersproject/providers';
 import BigNumber from 'bignumber.js';
 import hre from 'hardhat';
 
@@ -51,7 +52,16 @@ export const toWei = (amount: number): BigNumber => {
   return new BigNumber(amount).times(ONE_UNIT);
 };
 
+export const impersonate = async (address: string): Promise<JsonRpcSigner> => {
+  await hre.network.provider.request({
+    method: 'hardhat_impersonateAccount',
+    params: [address],
+  });
+  return hre.ethers.provider.getSigner(address);
+};
+
 export const sendUnsignedTx = async ({ from, to, value, data }: UnsignedTx): Promise<any> => {
+  if(hre.network.name === 'localhost') await impersonate(from);
   return await hre.network.provider.send(
     'eth_sendTransaction',
     [{

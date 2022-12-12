@@ -7,6 +7,7 @@ export interface Env {
   ALLOW_DEV_MODE: boolean;
   CUSTOM_RPC: string;
   ALCHEMY_KEY: string | undefined;
+  CUSTOM_LOCAL_RPC: string;
 }
 
 export interface Constants {

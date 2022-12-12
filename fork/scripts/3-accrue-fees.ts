@@ -26,10 +26,11 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
  *    5. Prints claimable amount for every lock manager
  */
 (async () => {
-  const [, richWallet] = await hre.ethers.getSigners();
+  const [signer] = await hre.ethers.getSigners();
+  const [, richWallet, depositor] = address.ADDRESSES as string[];
 
   // get needed contracts and addresses
-  const { weth, ierc20 } = getMainnetSdk(richWallet);
+  const { weth, ierc20 } = getMainnetSdk(signer);
 
   const poolManagerFactory = (await hre.ethers.getContractAt(
     IPoolManagerFactoryABI,
@@ -42,8 +43,7 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     poolManagerCount
   );
 
-  const depositorAddress = process.env.DEPOSITOR_ADDRESS as string;
-  console.log(`Depositor: ${depositorAddress}`);
+  console.log(`Depositor: ${depositor}`);
 
   for (var poolManagerAddress of poolManagerAddresses) {
     const poolManager = (await hre.ethers.getContractAt(
@@ -70,7 +70,7 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     let lockAmount = toWei(Math.random() * 10).toFixed();
 
     // user locks WETH to generate rewards
-    for (const approverAddress of [depositorAddress, richWallet.address]) {
+    for (const approverAddress of [depositor, richWallet]) {
       await sendUnsignedTx({
         from: approverAddress,
         to: weth.address,
@@ -85,25 +85,27 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     }
 
     await sendUnsignedTx({
-      from: depositorAddress,
+      from: depositor,
       to: lockManager.address,
       data: (await lockManager.populateTransaction.lock(lockAmount)).data
     });
     const wethRewards = toWei(Math.random() * 10).toFixed();
-    const tokenBalance = await token.balanceOf(richWallet.address);
+    const tokenBalance = await token.balanceOf(richWallet);
 
-    await lockManager
-      .connect(richWallet)
-      .addRewards(wethRewards, tokenBalance.div(10));
+    await sendUnsignedTx({
+      from: richWallet,
+      to: lockManager.address,
+      data: (await lockManager.populateTransaction.addRewards(wethRewards, tokenBalance.div(10))).data
+    });
 
-    const claimableRewards = await lockManager.claimable(depositorAddress);
+    const claimableRewards = await lockManager.claimable(depositor);
     console.log(
       `Locked ${lockAmount} WETH, claimable rewards: ${claimableRewards}`
     );
 
     // Reset approval
     await sendUnsignedTx({
-      from: depositorAddress,
+      from: depositor,
       to: weth.address,
       data: (await weth.populateTransaction.approve(lockManagerAddress, 0)).data
     });

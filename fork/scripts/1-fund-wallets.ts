@@ -1,7 +1,8 @@
 import hre from 'hardhat';
-import { toWei, sendUnsignedTx } from './utils';
-import { address } from './constants';
 import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
+
+import { address } from './constants';
+import { sendUnsignedTx, toWei } from './utils';
 
 /**
  * Accrue Fees Script
@@ -20,22 +21,22 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
  *    5. Prints claimable amount for every lock manager
  */
 (async () => {
-  const [governance, richWallet] = await hre.ethers.getSigners();
-  const { weth } = getMainnetSdk(governance);
-  const depositorAddress = process.env.DEPOSITOR_ADDRESS as string;
+  const [signer] = await hre.ethers.getSigners();
+  const [governance, richWallet, depositor] = address.ADDRESSES as string[];
+  const { weth } = getMainnetSdk(signer);
 
-  console.log(`Depositor: ${depositorAddress}`);
-  console.log(`Governance: ${governance.address}`);
-  console.log(`Rich wallet: ${richWallet.address}`);
+  console.log(`Depositor: ${depositor}`);
+  console.log(`Governance: ${governance}`);
+  console.log(`Rich wallet: ${richWallet}`);
 
-  for (const addressToFund of [governance.address, richWallet.address, depositorAddress]) {
+  for (const addressToFund of [governance, richWallet, depositor]) {
     // give the address a lot of ETH
     await sendUnsignedTx({
       from: address.ETH_WHALE,
       to: addressToFund,
       value: toWei(100_000)
     });
-  
+
     // convert some of that ETH to WETH
     await sendUnsignedTx({
       from: addressToFund,

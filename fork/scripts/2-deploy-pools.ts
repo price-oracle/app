@@ -32,18 +32,23 @@ import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolMan
  *    3. For every defined uni v3 pool, create a pool manager with WETH and the other token
  */
 (async () => {
-  const [governance, richWallet] = await hre.ethers.getSigners();
-  
+  const [signer] = await hre.ethers.getSigners();
+  const [governance, richWallet, depositor] = address.ADDRESSES as string[];
+
   // get needed contracts and addresses
   const { vsp, jpyc, weth, dai, kp3r, usdt, usdc, uniswapV3Factory } =
-  getMainnetSdk(richWallet);
-  
+    getMainnetSdk(signer);
+
   const poolManagerFactory = (await hre.ethers.getContractAt(
     IPoolManagerFactoryABI,
     address.deployed.POOL_MANAGER_FACTORY
   )) as unknown as IPoolManagerFactory;
 
-  await weth.connect(richWallet).deposit({ value: toWei(2_000).toFixed() });
+  await sendUnsignedTx({
+    from: richWallet,
+    to: weth.address,
+    data: (await weth.populateTransaction.deposit({ value: toWei(2_000).toFixed() })).data
+  });
 
   const pairsToCreate = [
     {
@@ -112,10 +117,10 @@ import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolMan
     try {
       // give a lot of non-weth token to the deployer
       const balance = await token.balanceOf(pair.whale);
-      sendUnsignedTx({
+      await sendUnsignedTx({
         from: pair.whale,
         to: token.address,
-        data: (await token.populateTransaction.transfer(richWallet.address, balance)).data
+        data: (await token.populateTransaction.transfer(richWallet, balance)).data
       });
 
       // calculate the pool manager address for transfer approvals
@@ -126,14 +131,30 @@ import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolMan
       
       // allow the pool manager to transfer WETH and non-weth token to the pool
       // some tokens forbid changing the approval if it's > 0
-      await token.connect(richWallet).approve(poolManagerAddress, 0);
-      await weth.connect(richWallet).approve(poolManagerAddress, 0);
-      await token
-        .connect(richWallet)
-        .approve(poolManagerAddress, ethers.constants.MaxUint256);
-      await weth
-        .connect(richWallet)
-        .approve(poolManagerAddress, ethers.constants.MaxUint256);
+      await sendUnsignedTx({
+        from: richWallet,
+        to: token.address,
+        data: (await token.populateTransaction.approve(poolManagerAddress, 0)).data
+    });
+    
+      await sendUnsignedTx({
+        from: richWallet,
+        to: weth.address,
+        data: (await weth.populateTransaction.approve(poolManagerAddress, 0)).data
+      });
+
+      await sendUnsignedTx({
+        from: richWallet,
+        to: token.address,
+        data: (await token.populateTransaction.approve(poolManagerAddress, ethers.constants.MaxUint256)).data
+      });
+
+      await sendUnsignedTx({
+        from: richWallet,
+        to: weth.address,
+        data: (await weth.populateTransaction.approve(poolManagerAddress, ethers.constants.MaxUint256)).data
+      });
+
       const isWethToken0 = weth.address < token.address;
 
       let sqrtPriceX96: JSBI;
@@ -165,14 +186,16 @@ import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolMan
         true
       ).toString();
 
-      await poolManagerFactory
-        .connect(richWallet)
-        .createPoolManager(
+      await sendUnsignedTx({
+        from: richWallet,
+        to: poolManagerFactory.address,
+        data: (await poolManagerFactory.populateTransaction.createPoolManager(
           token.address,
           pair.fee,
           liquidity,
           sqrtPriceX96.toString()
-        );
+        )).data
+      });
 
       let pairPoolManagerAddress =
         await poolManagerFactory.getPoolManagerAddress(token.address, pair.fee);
@@ -190,13 +213,23 @@ import { IPoolManagerFactory } from '@price-oracle/interfaces/ethers-v5/IPoolMan
       );
 
       // Transfer 10% of remaining balance so that user has tokens to test
-      const remainingBalance = await token.balanceOf(richWallet.address);
-      await token.connect(richWallet).transfer(governance.address, remainingBalance.div(10));
+      const remainingBalance = await token.balanceOf(richWallet);
+      await sendUnsignedTx({
+        from: richWallet,
+        to: token.address,
+        data: (await token.populateTransaction.transfer(governance, remainingBalance.div(10))).data
+      });
+
+
     } catch (e: unknown) {
       console.log(`Couldn't deploy pool manager ${symbol}-WETH: ${e}`);
     }
   }
 
   // Give weth balance to governance to be able to lock
-  await weth.connect(richWallet).transfer(governance.address, toWei(10.123123123123123123).toString());
+  await sendUnsignedTx({
+    from: richWallet,
+    to: weth.address,
+    data: (await weth.populateTransaction.transfer(governance, toWei(10.123123123123123123).toString())).data
+  });
 })();
