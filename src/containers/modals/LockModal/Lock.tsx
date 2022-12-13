@@ -21,7 +21,7 @@ import { getConfig } from '~/config';
 import { useAppDispatch, useUpdateState, useContracts } from '~/hooks';
 import { ModalsActions } from '~/store';
 import { PoolManager } from '~/types';
-import { getPoolName, sanitizeDecimals } from '~/utils';
+import { getPoolName, humanize, sanitizeDecimals } from '~/utils';
 
 const InputContainer = styled.div`
   display: flex;
@@ -69,6 +69,13 @@ const Label = styled.label`
 
 const Text = styled(Typography)`
   margin-left: 1.6rem;
+`;
+
+const BalanceContainer = styled(Typography)`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: auto 0;
 `;
 
 const Lock = ({ pool }: { pool: PoolManager }) => {
@@ -140,9 +147,10 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
       </Title>
 
       <Label>
-        <Typography weight='semibold'>
-          Balance: <span>{wethBalance ? utils.formatEther(wethBalance) : <Loading />}</span> WETH
-        </Typography>
+        <BalanceContainer weight='semibold'>
+          {'Balance: '}
+          {wethBalance ? humanize('amount', wethBalance.toString(), 18, 2) : <Loading />} {'  WETH'}
+        </BalanceContainer>
       </Label>
 
       <InputContainer>
