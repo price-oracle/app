@@ -3,7 +3,7 @@ import { FONT_SIZE_20 } from './Variables';
 
 export const TokenIcon = styled.div<{ src: string; size?: string }>`
   background-color: #f2f4f7;
-  background-image: url(${(props) => props.src}), url(/img/default-token.svg);
+  background-image: url(${(props) => props.src});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

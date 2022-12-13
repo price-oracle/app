@@ -55,6 +55,13 @@ const PaddedTypography = styled(Typography)`
   padding: 0.1rem 0;
 `;
 
+const SDropdownModal = styled(Dropdown.Modal)`
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    margin-top: 0;
+    margin-left: 2.5rem;
+  }
+`;
+
 interface SelectTokenProps {
   selectedToken: Token | undefined;
   setSelectedToken: (token: Token) => void;
@@ -84,9 +91,11 @@ const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProp
             </PaddedTypography>
           </Dropdown.Button>
 
-          <Dropdown.Modal>
-            <STokenList onSelect={(token: Token) => onTokenSelect(token)} />
-          </Dropdown.Modal>
+          <SDropdownModal>
+            <Dropdown.Modal>
+              <STokenList onSelect={(token: Token) => onTokenSelect(token)} />
+            </Dropdown.Modal>
+          </SDropdownModal>
         </Dropdown>
 
         <Divider variant='x-large'>{'/'}</Divider>

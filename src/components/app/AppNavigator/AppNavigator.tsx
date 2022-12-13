@@ -108,7 +108,7 @@ const AppNavigator = () => {
           <AppNavigatorContainer>
             <ConnectButton />
           </AppNavigatorContainer>
-          <AppNavigatorButtonContainer>
+          <AppNavigatorButtonContainer aria-label='change theme'>
             <ThemeButton />
           </AppNavigatorButtonContainer>
         </SNavigatorItemRight>

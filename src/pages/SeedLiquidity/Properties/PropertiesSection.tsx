@@ -167,7 +167,9 @@ function PropertiesSection({
         <PropertyCard.Title>Set starting price</PropertyCard.Title>
         <PropertyCard.Value>
           {isLoading && <Loading />}
-          {!isLoading && <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} />}
+          {!isLoading && (
+            <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} aria-label='starting price' />
+          )}
         </PropertyCard.Value>
         <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
           <PropertyCard.Helper />

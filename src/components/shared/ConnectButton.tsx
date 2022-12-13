@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import { MOBILE_MAX_WIDTH } from './Variables';
 
 const ButtonContainer = styled.div`
-  mix-blend-mode: difference;
-  border: 1px solid rgba(255, 255, 255, 0.87);
+  border: ${(props) => props.theme.borderPrimary};
+  color: ${(props) => props.theme.textPrimary};
 
   div {
     border: none !important;
+    color: ${(props) => props.theme.textPrimary};
   }
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {

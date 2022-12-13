@@ -33,7 +33,7 @@ export const SearchInput = ({ onChange }: IProps) => {
   return (
     <Container>
       <SearchIcon name='search' />
-      <SInput onChange={onChange} />
+      <SInput onChange={onChange} aria-label='Search' />
     </Container>
   );
 };
