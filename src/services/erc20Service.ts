@@ -40,16 +40,23 @@ export class ERC20Service {
     return await erc20Contract.callStatic.decimals();
   }
 
-  async fetchTokenBalance(erc20Address: Address, userAddress: Address | undefined = this.address) {
-    const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
-
-    return await erc20Contract.callStatic.balanceOf(userAddress);
+  async fetchTokenBalance(
+    erc20Addresses: Address[],
+    userAddress: Address | undefined = this.address
+  ): Promise<BigNumber[]> {
+    const balanceCalls = erc20Addresses.map((erc20Address) => {
+      const erc20Contract = new Contract(erc20Address, IERC20);
+      return erc20Contract.balanceOf(userAddress);
+    });
+    return this.multiCallService.multicall(balanceCalls);
   }
 
-  async fetchTokenAllowance(erc20Address: Address, approveContract: Address, user: Address) {
-    const erc20Contract = new ethers.Contract(erc20Address, IERC20, this.provider);
-
-    return await erc20Contract.allowance(user, approveContract);
+  async fetchTokenAllowance(erc20Addresses: Address[], approveContract: Address, user: Address): Promise<BigNumber[]> {
+    const allowanceCalls = erc20Addresses.map((erc20Address) => {
+      const erc20Contract = new Contract(erc20Address, IERC20);
+      return erc20Contract.allowance(user, approveContract);
+    });
+    return this.multiCallService.multicall(allowanceCalls);
   }
 
   async approveTokenAmount(erc20Address: Address, approveContract: Address, amount: BigNumber) {

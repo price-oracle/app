@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BigNumber, constants } from 'ethers';
 import styled from 'styled-components';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { isUndefined } from 'lodash';
 
 import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
@@ -47,6 +47,7 @@ const SubmitFormSection = ({
   const { poolManagerFactoryService, poolManagerService, erc20Service } = useContracts();
 
   const { address } = useAccount();
+  const { chain } = useNetwork();
   const [isInvalid, setIsInvalid] = useState(false);
   const [wethAllowance, setWethAllowance] = useState<BigNumber>(constants.Zero);
   const [tokenAllowance, setTokenAllowance] = useState<BigNumber>(constants.Zero);
@@ -62,18 +63,14 @@ const SubmitFormSection = ({
   const isDisabled = isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
 
   const updateAllowanceAmount = (poolManagerAddress: Address) => {
-    //TODO: Change to promise.all
     if (address && selectedToken?.address) {
       setIsLoading(true);
       erc20Service
-        .fetchTokenAllowance(WETH_ADDRESS, poolManagerAddress, address)
-        .then((allowance) => setWethAllowance(allowance))
-        .finally(() => {
-          setIsLoading(false);
-        });
-      erc20Service
-        .fetchTokenAllowance(selectedToken.address, poolManagerAddress, address)
-        .then((allowance) => setTokenAllowance(allowance))
+        .fetchTokenAllowance([WETH_ADDRESS, selectedToken.address], poolManagerAddress, address)
+        .then(([wethAllowance, tokenAllowance]) => {
+          setWethAllowance(wethAllowance);
+          setTokenAllowance(tokenAllowance);
+        })
         .finally(() => {
           setIsLoading(false);
         });
@@ -107,11 +104,16 @@ const SubmitFormSection = ({
       poolManagerFactoryService
         .getPoolManagerAddress(selectedToken?.address, selectedFee.fee)
         .then((poolManagerAddress) => {
-          updateAllowanceAmount(poolManagerAddress);
           setPoolManagerAddress(poolManagerAddress);
         });
     }
   }, [selectedToken, selectedFee]);
+
+  useEffect(() => {
+    if (poolManagerAddress) {
+      updateAllowanceAmount(poolManagerAddress);
+    }
+  }, [poolManagerAddress, address, chain]);
 
   const isPoolManagerCreated = (): boolean => {
     if (poolManagers) {

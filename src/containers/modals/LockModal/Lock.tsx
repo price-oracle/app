@@ -95,15 +95,15 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
     if (address) {
       setIsLoading(true);
       erc20Service
-        .fetchTokenAllowance(WETH_ADDRESS, pool.lockManagerAddress, address)
-        .then((allowance) => setWethAllowance(allowance))
+        .fetchTokenAllowance([WETH_ADDRESS], pool.lockManagerAddress, address)
+        .then(([wethAllowance]) => setWethAllowance(wethAllowance))
         .finally(() => setIsLoading(false));
     }
   };
 
   useEffect(() => {
     if (!wethBalance && address) {
-      erc20Service.fetchTokenBalance(WETH_ADDRESS, address).then((wethBalance) => setWethBalance(wethBalance));
+      erc20Service.fetchTokenBalance([WETH_ADDRESS], address).then(([wethBalance]) => setWethBalance(wethBalance));
     }
   }, [wethBalance]);
 
