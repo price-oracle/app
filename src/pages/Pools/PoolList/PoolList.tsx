@@ -123,7 +123,9 @@ const PoolList = () => {
               </PriceAmountContainer>
 
               <ButtonContainer>
-                <PrimaryButton onClick={() => openLockModal(poolManager)}>Lock</PrimaryButton>
+                <PrimaryButton disabled={!address} onClick={() => openLockModal(poolManager)}>
+                  Lock
+                </PrimaryButton>
                 <SecondaryButton
                   disabled={!isClaimable(poolManager)}
                   onClick={() => claimRewards(poolManager.lockManagerAddress)}
