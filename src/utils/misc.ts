@@ -21,7 +21,7 @@ export function formatNumber(input: string, decimals = 18): { number: string | n
   const res = Number.parseFloat(toUnit(input, decimals));
 
   if (res < 1000) {
-    const number = res.toString();
+    const number = res.toFixed(decimals);
     return { number: number.slice(0, 4), suffix: '' };
   }
 

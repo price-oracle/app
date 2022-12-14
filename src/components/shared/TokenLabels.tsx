@@ -45,6 +45,10 @@ export const TokenLabel = ({
   let suffix = '';
   if (value) {
     ({ number, suffix } = formatNumber(value.toString(), decimals));
+
+    if (!BigNumber.from(value).isZero() && number == 0) {
+      number = '< 0.01';
+    }
   }
 
   return (

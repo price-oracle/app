@@ -22,6 +22,7 @@
     "script:1-fund-wallets": "npx hardhat run ./scripts/1-fund-wallets.ts --network localhost",
     "script:2-deploy-pools": "npx hardhat run ./scripts/2-deploy-pools.ts --network localhost",
     "script:3-accrue-fees": "npx hardhat run ./scripts/3-accrue-fees.ts --network localhost",
+    "script:4-seeder-rewards": "npx hardhat run ./scripts/4-seeder-rewards.ts --network localhost",
     "script:advance-time": "npx hardhat run ./scripts/advance-time.ts --network localhost",
     "postinstall": "eth-sdk ."
   },

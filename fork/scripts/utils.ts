@@ -52,6 +52,40 @@ export const toWei = (amount: number): BigNumber => {
   return new BigNumber(amount).times(ONE_UNIT);
 };
 
+export const getBlockTimestamp = async (): Promise<number> => {
+  const blockNumber = await hre.ethers.provider.getBlockNumber();
+  const timestamp = (await hre.ethers.provider.getBlock(blockNumber)).timestamp;
+  return timestamp;
+};
+
+export const makeSwap = async (
+  tokenIn: string,
+  tokenOut: string,
+  fee: number,
+  amountIn: string,
+  wallet: Address,
+  uniswapV3Router: any
+): Promise<void> => {
+  const timestamp = await getBlockTimestamp();
+
+  const swapParams = {
+    tokenIn: tokenIn,
+    tokenOut: tokenOut,
+    fee: fee,
+    recipient: wallet,
+    deadline: timestamp + 3600,
+    amountIn: amountIn,
+    amountOutMinimum: 0,
+    sqrtPriceLimitX96: 0,
+  };
+
+  await sendUnsignedTx({
+    from: wallet,
+    to: uniswapV3Router.address,
+    data: (await uniswapV3Router.populateTransaction.exactInputSingle(swapParams)).data
+  });
+};
+
 export const impersonate = async (address: string): Promise<JsonRpcSigner> => {
   await hre.network.provider.request({
     method: 'hardhat_impersonateAccount',
@@ -61,7 +95,7 @@ export const impersonate = async (address: string): Promise<JsonRpcSigner> => {
 };
 
 export const sendUnsignedTx = async ({ from, to, value, data }: UnsignedTx): Promise<any> => {
-  if(hre.network.name === 'localhost') await impersonate(from);
+  if (hre.network.name === 'localhost') await impersonate(from);
   return await hre.network.provider.send(
     'eth_sendTransaction',
     [{
