@@ -75,7 +75,7 @@ const BalanceContainer = styled(Typography)`
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin: auto 0;
+  align-items: center;
 `;
 
 const Lock = ({ pool }: { pool: PoolManager }) => {

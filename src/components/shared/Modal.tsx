@@ -1,6 +1,10 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { SPACING_16, SPACING_40, SPACING_512, SPACING_8 } from './Variables';
+
+import { useAppSelector } from '~/hooks';
+import { Icon } from './Icon';
+import { getTheme } from './theme';
+import { SPACING_16, SPACING_32, SPACING_40, SPACING_512, SPACING_8 } from './Variables';
 
 // import { Icon, CloseIcon } from './Icon';
 
@@ -10,10 +14,10 @@ const ModalHeader = styled.div`
 `;
 
 const CloseModal = styled.div`
-  padding: ${SPACING_8};
+  padding: 0.1rem;
   position: absolute;
-  right: ${SPACING_16};
-  top: ${SPACING_16};
+  right: 0.1rem;
+  top: 0rem;
   cursor: pointer;
   transition: opacity 200ms ease-in-out;
 
@@ -25,17 +29,15 @@ const CloseModal = styled.div`
 const StyledModal = styled.div`
   overflow: hidden;
   overflow-y: auto;
-  padding: ${SPACING_40};
-  background: red;
-  border-radius: ${SPACING_8};
+  margin: ${SPACING_32};
   color: white;
   position: relative;
   pointer-events: all;
   z-index: 1;
   width: ${SPACING_512};
-  height: ${SPACING_512};
   max-width: 85%;
   max-height: 85%;
+  border: ${(props) => props.theme.borderPrimary};
 `;
 
 export interface ModalProps {
@@ -47,9 +49,15 @@ export interface ModalProps {
 
 export const Modal: FC<ModalProps> = ({ className, header, onClose, children, ...props }) => {
   let closeButton;
+  const currentTheme = useAppSelector(({ theme }) => theme.current);
+  const theme = getTheme(currentTheme);
 
   if (onClose) {
-    closeButton = <CloseModal onClick={onClose}>x{/* <Icon Component={CloseIcon} /> */}</CloseModal>;
+    closeButton = (
+      <CloseModal onClick={onClose}>
+        <Icon name='close' size={SPACING_16()} padding={SPACING_8()} color={theme.textSecondary} />
+      </CloseModal>
+    );
   }
   return (
     <StyledModal className={className} {...props}>
