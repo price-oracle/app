@@ -13,14 +13,14 @@ const Container = styled.div`
 
 const ValueContainer = styled.div``;
 
-export const Suffix = styled(Typography).attrs({
+export const Suffix = styled((props) => <Typography {...props} />).attrs({
   variant: 'small',
 })`
   margin-left: 2px;
   margin-top: -8px;
 `;
 
-const Value = styled(Typography)``;
+const Value = styled((props) => <Typography {...props} />)``;
 
 interface Props {
   value: string | BigNumber | undefined;
