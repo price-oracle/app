@@ -80,17 +80,25 @@ const SubmitFormSection = ({
   const handleApprove = () => {
     setIsLoading(true);
     if (!ethIsApproved)
-      erc20Service.approveTokenAmount(WETH_ADDRESS, poolManagerAddress, wethAmount).then(() => {
-        setIsLoading(false);
-        updateAllowanceAmount(poolManagerAddress);
-      });
+      erc20Service
+        .approveTokenAmount(WETH_ADDRESS, poolManagerAddress, wethAmount)
+        .then(() => {
+          updateAllowanceAmount(poolManagerAddress);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
 
     if (ethIsApproved)
       if (selectedToken?.address) {
-        erc20Service.approveTokenAmount(selectedToken?.address, poolManagerAddress, tokenAmount).then(() => {
-          setIsLoading(false);
-          updateAllowanceAmount(poolManagerAddress);
-        });
+        erc20Service
+          .approveTokenAmount(selectedToken?.address, poolManagerAddress, tokenAmount)
+          .then(() => {
+            updateAllowanceAmount(poolManagerAddress);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
       }
   };
 
@@ -142,16 +150,22 @@ const SubmitFormSection = ({
         // Check if poolmanager is already created
         if (isPoolManagerCreated()) {
           // If created call the poolmanager on increaseLiquidity
-          poolManagerService.increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96).then(() => {
-            updatePoolState();
-            setIsLoading(false);
-          });
+          poolManagerService
+            .increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96)
+            .then(() => {
+              updatePoolState();
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
         } else {
           // If not created call poolmanagerfactory with params
           poolManagerFactoryService
             .createPoolManager(selectedToken.address, selectedToken.symbol, selectedFee.fee, liquidity, sqrtPriceX96)
             .then(() => {
               updatePoolState();
+            })
+            .finally(() => {
               setIsLoading(false);
             });
         }
