@@ -92,6 +92,7 @@ export function getStore() {
   const persistConfig = {
     namespace: localStorageName,
     states: ['theme', 'settings', 'customTokens'],
+    disableWarnings: true,
   };
 
   let persistedState = load(persistConfig);
