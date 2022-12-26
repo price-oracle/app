@@ -1,9 +1,11 @@
 import SeedLiquidity from '~/pages/SeedLiquidity';
-import { render, screen } from '~/tests';
+import { render } from '~/tests';
 
 describe('Seed Liquidity Page', () => {
   it('Should render Liquidity Page', () => {
-    render(<SeedLiquidity />);
-    expect(screen.getByText(/create oracle/i)).toBeInTheDocument();
+    const { asFragment, getByText } = render(<SeedLiquidity />);
+
+    expect(getByText(/create oracle/i)).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

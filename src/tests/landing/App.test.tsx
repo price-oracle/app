@@ -1,16 +1,11 @@
 import App from '~/App';
-import { Input } from '~/components/shared/Input';
-import { render, screen } from '~/tests';
+import { render } from '~/tests';
 
 describe('Landing Page', () => {
   it('Should render Landing Page', () => {
-    render(<App />);
-    expect(screen.getByText(/price/i)).toBeInTheDocument();
-  });
-});
+    const { asFragment, getByText } = render(<App />);
 
-describe('Simple working test', () => {
-  it('should render an isolated component', () => {
-    render(<Input />);
+    expect(getByText(/price oracle/i)).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

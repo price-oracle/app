@@ -15,7 +15,8 @@
     "format:check": "npm run prettier && npm run lint",
     "prepare": "husky install",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:update": "vitest run -u"
   },
   "dependencies": {
     "@floating-ui/react": "0.14.0",

@@ -1,0 +1,171 @@
+// Vitest Snapshot v1
+
+exports[`Landing Page > Should render Landing Page 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-ciEjBl lPtde"
+  />
+  <div
+    class="sc-dxtBLK bxIXPa"
+  />
+  <div
+    class="sc-dkBdza hHjFxj"
+    height="768"
+  >
+    <div
+      class="sc-WKhSL"
+    >
+      <div
+        class="sc-jfvxQR jUiKSs"
+      >
+        <nav
+          class="sc-iAEawV daWfTe"
+        >
+          <section
+            class="sc-eeMvmM cCFwcY"
+          >
+            <section
+              class="sc-jOiSOi kwjIJT"
+            >
+              <a
+                href="https://twitter.com/price_oracle"
+              >
+                <i
+                  class="sc-hBxehG eNrQxx picon-twitter"
+                  color="#fff"
+                  name="twitter"
+                />
+              </a>
+            </section>
+            <section
+              class="sc-jOiSOi kwjIJT"
+            >
+              <div
+                class="sc-dIfARi jvLnPf"
+                font-size="1.6rem"
+              >
+                <i
+                  class="sc-hBxehG eNrQxx picon-sun"
+                  color="#fff"
+                  name="sun"
+                />
+              </div>
+            </section>
+          </section>
+        </nav>
+        <div
+          class="sc-eJDSGI sc-gGvHcT sc-fXqpFg jloGpa fJAhyC epGsQA"
+        />
+        <div
+          class="sc-eJDSGI sc-laZRCg sc-dwnOUR jloGpa jdtnjk jwknhO"
+        />
+        <div
+          class="sc-eJDSGI sc-hiDMwi sc-UpCWa jloGpa bNWCxn kYSJPP"
+        />
+        <div
+          class="sc-eJDSGI sc-oZIhv sc-jIILKH jloGpa hrnXpr kIiHQJ"
+        />
+        <div
+          class="sc-eJDSGI sc-ckEbSK sc-ZqFbI jloGpa cyLHxw jomVUQ"
+        />
+        <div
+          class="sc-eJDSGI sc-hiDMwi sc-jNJNQp jloGpa bNWCxn btaikg"
+        />
+        <div
+          class="sc-eJDSGI sc-ehvNnt sc-hlLBRy jloGpa kmaeOG kdygXD"
+        />
+        <div
+          class="sc-eJDSGI sc-fbYMXx sc-eKJbhj jloGpa hasijH jbBMVI"
+        />
+        <div
+          class="sc-eJDSGI sc-gGvHcT sc-bTTELM jloGpa fJAhyC ekJrVu"
+        />
+        <div
+          class="sc-eJDSGI sc-laZRCg sc-kImNAt jloGpa jdtnjk iIsMtn"
+        />
+        <div
+          class="sc-eJDSGI sc-hiDMwi sc-hOzowv jloGpa bNWCxn ejermd"
+        />
+        <div
+          class="sc-eJDSGI sc-ckEbSK sc-dsHJmm jloGpa cyLHxw jVJebm"
+        />
+        <div
+          class="sc-eJDSGI sc-fbYMXx sc-cZFQFd jloGpa hasijH hGkkpH"
+        />
+        <div
+          class="sc-eJDSGI sc-hiDMwi sc-jTjUTQ jloGpa bNWCxn kOQJlY"
+        />
+        <div
+          class="sc-eJDSGI sc-gGvHcT sc-jRwbcX jloGpa fJAhyC JHKKd"
+        />
+        <div
+          class="sc-eJDSGI sc-hiDMwi sc-fvEvSO jloGpa bNWCxn qGgoN"
+        />
+        <div
+          class="sc-eJDSGI sc-oZIhv sc-fcCDlF jloGpa hrnXpr iwmLXO"
+        />
+      </div>
+    </div>
+    <div
+      class="sc-ikHGee dfaSoG"
+    >
+      <img
+        alt="Price logo"
+        class="sc-iveFHk sc-kZLDfD hpkodg VcIqm"
+        src="/src/assets/logo-big-light.svg"
+      />
+      <div
+        class="sc-dWRHGJ idVQTU"
+      >
+        <div
+          class="sc-iBYQkv sc-pyfCe fBJkCi hMiFgy"
+          color="rgba(255,255,255, 0.87)"
+        >
+          Reliable, secure, and permissionless price oracles for every token.
+        </div>
+      </div>
+      <a
+        href="/app/pools"
+      >
+        <div
+          class="sc-jSUZER dotgdq"
+        >
+          <button
+            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-xWrgk ckQtQY"
+          >
+            Enter App
+          </button>
+        </div>
+      </a>
+      <a
+        class="sc-hAQmFe lgFyFn"
+        href="https://docs.oracles.rip/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div
+          class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC"
+          color="rgba(255,255,255, 0.87)"
+        >
+          Documentation
+        </div>
+        <i
+          class="sc-hBxehG eApZoW picon-arrow-up-right"
+          color="rgba(255,255,255, 0.87)"
+          name="arrow-up-right"
+        />
+      </a>
+    </div>
+    <div
+      class="sc-eGJbfJ bEEQP"
+    >
+      <div
+        class="sc-iBYQkv sc-kDvujY fBJkCi faMXpT"
+        color="rgba(255,255,255, 0.87)"
+      >
+        Made with 🤍 by Wonderland
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

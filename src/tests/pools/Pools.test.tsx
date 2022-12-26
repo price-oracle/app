@@ -1,9 +1,11 @@
 import Pools from '~/pages/Pools';
-import { render, screen } from '~/tests';
+import { render } from '~/tests';
 
 describe('Pool Page', () => {
   it('Should render Pools Page', () => {
-    render(<Pools />);
-    expect(screen.getByText(/dashboard/i)).toBeInTheDocument();
+    const { asFragment, getByText } = render(<Pools />);
+
+    expect(getByText(/dashboard/i)).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
