@@ -30,7 +30,7 @@ import {
 } from './PoolList.styles';
 
 const PoolList = () => {
-  const { updateLockState } = useUpdateState();
+  const { updatePoolAndLockState } = useUpdateState();
   const { address } = useAccount();
   const { lockManagerService } = useContracts();
 
@@ -62,7 +62,7 @@ const PoolList = () => {
         lockManagerAddress,
         lockManagerService,
         userAddress: address,
-        updateState: updateLockState,
+        updateState: updatePoolAndLockState,
       })
     );
   };
@@ -91,14 +91,13 @@ const PoolList = () => {
         <Table>
           <Header>
             <Typography />
-            <SortButton text='Name' type='name' /* pools={pools} onPoolsChanged={setPools} */ />
-            <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
-            <SortButton text='Locked' type='locked' /* pools={pools} onPoolsChanged={setPools} */ />
-            <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
+            <SortButton text='Name' />
+            <SortButton text='Fee' />
+            <SortButton text='Locked' />
+            <SortButton text='Claimable rewards' />
             <Typography />
           </Header>
 
-          {/* TODO: We should filter poolManagerList and only show the ones that the account has value locked */}
           {poolManagerList.map((poolManager) => (
             <Row key={poolManager.address}>
               <Typography>

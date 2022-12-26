@@ -7,6 +7,9 @@ tdly.setup({ automaticVerifications: false });
 dotenv.config({ path: './.env' });
 
 const config: HardhatUserConfig = {
+  solidity: {
+    version: "0.8.13"
+  },
   networks: {
     hardhat: {
       allowUnlimitedContractSize: true,

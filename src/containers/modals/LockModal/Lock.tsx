@@ -79,7 +79,7 @@ const BalanceContainer = styled(Typography)`
 `;
 
 const Lock = ({ pool }: { pool: PoolManager }) => {
-  const { updateLockState } = useUpdateState();
+  const { updatePoolAndLockState } = useUpdateState();
   const dispatch = useAppDispatch();
   const { address } = useAccount();
   const [wethBalance, setWethBalance] = useState<BigNumber>();
@@ -128,7 +128,7 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
     lockManagerService
       .lock(pool.lockManagerAddress, utils.parseEther(sanitizeDecimals(wethAmount.value)))
       .then(() => {
-        updateLockState();
+        updatePoolAndLockState();
         dispatch(ModalsActions.closeModal());
       })
       .catch(() => setIsLoading(false));

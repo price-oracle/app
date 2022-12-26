@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useAppSelector } from '~/hooks';
 import { Icon } from './Icon';
 import { getTheme } from './theme';
-import { SPACING_16, SPACING_32, SPACING_40, SPACING_512, SPACING_8 } from './Variables';
+import { SPACING_16, SPACING_32, SPACING_512, SPACING_8 } from './Variables';
 
 // import { Icon, CloseIcon } from './Icon';
 

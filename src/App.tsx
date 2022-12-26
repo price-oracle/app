@@ -39,19 +39,25 @@ const GlobalStyle = createGlobalStyle<PropTheme>`
 `;
 
 function App() {
-  const { updateEthPrice, updatePoolState, updateLockState } = useUpdateState();
-  const poolManagers = useAppSelector((state) => state.poolManagers.elements);
+  const { updateEthPrice, updatePoolAndLockState } = useUpdateState();
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
 
   useEffect(() => {
-    updateEthPrice();
-    updatePoolState();
-  }, [address, chain, isConnected]);
+    updatePoolAndLockState();
+  }, [address, chain, isConnected, updatePoolAndLockState]);
 
   useEffect(() => {
-    updateLockState();
-  }, [poolManagers]);
+    if (address) {
+      updateEthPrice();
+      const interval = setInterval(() => {
+        updateEthPrice();
+      }, 60000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [address, updateEthPrice]);
 
   return (
     <Themable>

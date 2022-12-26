@@ -62,12 +62,11 @@ const MessageAlert = styled(Typography).attrs({
 export interface AlertProps {
   id: string;
   className?: string;
-  onClose?: () => void;
   type: AlertTypes;
   message: string;
 }
 
-export const Alert: FC<AlertProps> = ({ className, onClose, message, id, type, ...props }) => {
+export const Alert: FC<AlertProps> = ({ className, message, id, type, ...props }) => {
   const dispatch = useAppDispatch();
   const closeAlert = () => dispatch(AlertsActions.closeAlert({ alertId: id }));
   const currentTheme = useAppSelector(({ theme }) => theme.current);

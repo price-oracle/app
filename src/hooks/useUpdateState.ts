@@ -1,47 +1,29 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
+import { useAccount } from 'wagmi';
 
-import { LockManagersActions, PoolManagersActions } from '~/store';
-import { PricesActions } from '~/store/prices/prices.actions';
-import { useAppDispatch, useAppSelector } from './store';
+import { PoolManagersActions, useAppDispatch, PricesActions } from '~/store';
 import useContracts from './useContracts';
 
 export const useUpdateState = () => {
-  const [time, setTime] = useState(Date.now());
   const dispatch = useAppDispatch();
-  const { poolManagerFactoryService, poolManagerService, lockManagerService, uniswapService } = useContracts();
-  const poolManagers = useAppSelector((state) => state.poolManagers.elements);
+  const { poolManagerFactoryService, uniswapService } = useContracts();
+  const { address: userAddress } = useAccount();
 
-  const updateLockState = useCallback(() => {
-    if (poolManagers)
-      dispatch(
-        LockManagersActions.fetchLockManagers({
-          lockManagerService,
-          poolManagers,
-        })
-      );
-  }, [poolManagers, lockManagerService]);
-
-  const updatePoolState = useCallback(() => {
-    dispatch(PoolManagersActions.fetchPoolManagers({ factoryService: poolManagerFactoryService, poolManagerService }));
-  }, [poolManagerService, poolManagerFactoryService]);
+  const updatePoolAndLockState = useCallback(() => {
+    dispatch(
+      PoolManagersActions.fetchPoolAndLockManagers({
+        factoryService: poolManagerFactoryService,
+        userAddress: userAddress,
+      })
+    );
+  }, [poolManagerFactoryService, userAddress]);
 
   const updateEthPrice = useCallback(() => {
     dispatch(PricesActions.getEthPrice({ uniswapService }));
   }, [uniswapService]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(Date.now());
-      updateEthPrice();
-    }, 60000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
   return {
-    updateLockState,
-    updatePoolState,
+    updatePoolAndLockState,
     updateEthPrice,
   };
 };

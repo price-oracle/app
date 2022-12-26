@@ -2,7 +2,7 @@ import { Address } from './Blockchain';
 
 export interface LockManager {
   address: Address;
-  locked: string;
+  locked: string | undefined;
   rewards:
     | {
         ethReward: string;

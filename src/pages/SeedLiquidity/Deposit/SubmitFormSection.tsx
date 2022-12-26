@@ -42,7 +42,7 @@ const SubmitFormSection = ({
   uniswapPoolsForFeeTier,
   selectedFee,
 }: AmountsProps) => {
-  const { updatePoolState } = useUpdateState();
+  const { updatePoolAndLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
   const { poolManagerFactoryService, poolManagerService, erc20Service } = useContracts();
 
@@ -153,7 +153,7 @@ const SubmitFormSection = ({
           poolManagerService
             .increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96)
             .then(() => {
-              updatePoolState();
+              updatePoolAndLockState();
             })
             .finally(() => {
               setIsLoading(false);
@@ -163,7 +163,7 @@ const SubmitFormSection = ({
           poolManagerFactoryService
             .createPoolManager(selectedToken.address, selectedToken.symbol, selectedFee.fee, liquidity, sqrtPriceX96)
             .then(() => {
-              updatePoolState();
+              updatePoolAndLockState();
             })
             .finally(() => {
               setIsLoading(false);

@@ -24,6 +24,7 @@
     "script:3-accrue-fees": "npx hardhat run ./scripts/3-accrue-fees.ts --network localhost",
     "script:4-seeder-rewards": "npx hardhat run ./scripts/4-seeder-rewards.ts --network localhost",
     "script:advance-time": "npx hardhat run ./scripts/advance-time.ts --network localhost",
+    "compile": "hardhat compile",
     "postinstall": "eth-sdk ."
   },
   "dependencies": {

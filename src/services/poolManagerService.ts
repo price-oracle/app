@@ -27,45 +27,6 @@ export class PoolManagerService {
     this.erc20Service = erc20Service;
   }
 
-  async fetchPoolManager(poolManagerAddress: string): Promise<PoolManager> {
-    const poolManagerContractMulticall = new Contract(poolManagerAddress, IPoolManagerABI);
-    const feeCall = poolManagerContractMulticall.fee();
-    const tokenCall = poolManagerContractMulticall.token();
-    const lockManagerCall = poolManagerContractMulticall.lockManager();
-    const claimableCall = this.address && poolManagerContractMulticall.claimable(this.address);
-    const poolLiquidityCall = poolManagerContractMulticall.poolLiquidity();
-    const userSeedBalanceCall = this.address && poolManagerContractMulticall.seederBalance(this.address);
-    const wethToken0Call = poolManagerContractMulticall.isWethToken0();
-
-    const calls = [
-      feeCall,
-      tokenCall,
-      lockManagerCall,
-      wethToken0Call,
-      poolLiquidityCall,
-      claimableCall,
-      userSeedBalanceCall,
-    ].filter((call) => !isUndefined(call));
-
-    const [fee, tokenAddress, lockManagerAddress, isWethToken0, poolLiquidity, rewards, userSeedBalance] =
-      await this.multiCallService.multicall(calls);
-    const token = await this.erc20Service.fetchTokenData(tokenAddress);
-
-    return {
-      address: poolManagerAddress,
-      fee,
-      token,
-      lockManagerAddress,
-      rewards: rewards && {
-        ethReward: rewards[0].toString(),
-        tokenReward: rewards[1].toString(),
-      },
-      userSeedBalance: userSeedBalance && userSeedBalance.toString(),
-      poolLiquidity: poolLiquidity.toString(),
-      isWethToken0,
-    };
-  }
-
   async claimRewards(poolManagerAddress: Address, to: Address) {
     if (this.signer) {
       const poolManagerContract = new ethers.Contract(poolManagerAddress, IPoolManagerABI, this.signer);

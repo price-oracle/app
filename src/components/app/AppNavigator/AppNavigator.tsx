@@ -26,22 +26,6 @@ import { useWindowDimensions } from '~/hooks/windowDimensions';
 import { useAppSelector } from '~/hooks';
 import { useNavigatorProps } from '../Navigator/Navigator';
 
-const useWallet = () => {
-  // const status = useSelector(selectWalletStatus);
-  // const connected = useSelector(selectWalletConnected);
-  // const queryClient = useQueryClient();
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (status.starting && !connected) {
-  //     queryClient.invalidateQueries(getPoolManagersKey({ connected }));
-  //     queryClient.invalidateQueries(getPriceKey());
-  //   }
-  // }, [connected, status, queryClient]);
-  // useEffect(() => {
-  //   dispatch(initWallet());
-  // }, [dispatch]);
-};
-
 const AppNavigator = () => {
   const currentTheme = useAppSelector(({ theme }) => theme.current);
   const theme = getTheme(currentTheme);

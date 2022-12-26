@@ -36,30 +36,6 @@ export class LockManagerService {
     this.provider = provider;
   }
 
-  async fetchUserLockedAmount(poolManager: PoolManager): Promise<LockManager> {
-    const lockManagerContract = new Contract(poolManager.lockManagerAddress, ILockManager);
-
-    const balanceCall = this.address && lockManagerContract.balanceOf(this.address);
-    const claimableCall = this.address && lockManagerContract.claimable(this.address);
-    const uniPoolCall = lockManagerContract.pool();
-
-    const calls = [uniPoolCall, balanceCall, claimableCall].filter((call) => !isUndefined(call));
-
-    const [underlyingUniPool, balance, claimable] = await this.multiCallService.multicall(calls);
-
-    const tknPerEth = (await getTokenPrice(this.uniswapService, [underlyingUniPool]))[0];
-
-    return {
-      address: poolManager.lockManagerAddress,
-      locked: balance && balance.toString(),
-      rewards: claimable && {
-        ethReward: claimable[0].toString(),
-        tokenReward: claimable[1].toString(),
-        tokenPerEth: tknPerEth.toString(),
-      },
-    };
-  }
-
   async lock(lockManagerAddress: Address, amount: BigNumber) {
     if (this.signer) {
       const lockManagerContract = new ethers.Contract(lockManagerAddress, ILockManager, this.signer);

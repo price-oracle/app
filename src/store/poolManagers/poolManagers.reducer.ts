@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { initialStatus, PoolManagersState } from '~/types';
+import { initialStatus, PoolManager, PoolManagersState, PoolAndLockManager } from '~/types';
+import { poolAndLockManagerToPoolManager } from '~/utils';
 
 import { PoolManagersActions } from './poolManagers.actions';
 
@@ -11,11 +12,15 @@ export const poolManagersInitialState: PoolManagersState = {
   },
 };
 
-const { fetchPoolManagers, claimRewards } = PoolManagersActions;
+const { claimRewards, fetchPoolAndLockManagers } = PoolManagersActions;
 
 const poolManagersReducer = createReducer(poolManagersInitialState, (builder) => {
-  builder.addCase(fetchPoolManagers.fulfilled, (state, { payload: { elements } }) => {
-    state.elements = elements;
+  builder.addCase(fetchPoolAndLockManagers.fulfilled, (state, { payload: { poolAndLockManagers } }) => {
+    state.elements = Object.fromEntries(
+      poolAndLockManagers
+        .map((poolAndLock: PoolAndLockManager) => poolAndLockManagerToPoolManager(poolAndLock))
+        .map((pool: PoolManager) => [pool.address, pool])
+    );
   });
 
   builder.addCase(claimRewards.fulfilled, (state) => {

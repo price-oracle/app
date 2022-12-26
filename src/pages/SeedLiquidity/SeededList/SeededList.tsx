@@ -29,7 +29,7 @@ import { Tooltip } from '~/containers/Tooltips';
 import PropertyCard from '../Properties/PropertyCard';
 
 const PoolList = () => {
-  const { updatePoolState } = useUpdateState();
+  const { updatePoolAndLockState } = useUpdateState();
   const { address } = useAccount();
   const [searchInput, setSearchInput] = useState('');
   const { poolManagerService } = useContracts();
@@ -56,7 +56,7 @@ const PoolList = () => {
         poolManagerAddress,
         poolManagerService,
         userAddress: address,
-        updateState: updatePoolState,
+        updateState: updatePoolAndLockState,
       })
     );
   };
@@ -100,15 +100,15 @@ const PoolList = () => {
         <Table>
           <Header>
             <Typography />
-            <SortButton text='Name' type='name' /* pools={pools} onPoolsChanged={setPools} */ />
-            <SortButton text='Fee' type='fee' /* pools={pools} onPoolsChanged={setPools} */ />
+            <SortButton text='Name' />
+            <SortButton text='Fee' />
             <SeededContainer>
-              <SortButton text='Seeded' type='seeded' />
+              <SortButton text='Seeded' />
               <Tooltip content="Percentage of pool's seeded liquidity. Ownership gives you governance rights over future oracle changes.">
                 <PropertyCard.Helper />
               </Tooltip>
             </SeededContainer>
-            <SortButton text='Claimable rewards' type='claimable' /* pools={pools} onPoolsChanged={setPools} */ />
+            <SortButton text='Claimable rewards' />
             <Typography />
           </Header>
 
@@ -121,16 +121,6 @@ const PoolList = () => {
               <Typography>{getPoolName(poolManager)}</Typography>
               <Typography>{formatFee(poolManager.fee)}%</Typography>
               <Typography>{getSeededPercentage(poolManager)}</Typography>
-
-              {/* <PriceAmountContainer>
-                <TokenLabel
-                  value={'100000000000000000000'}
-                  address={poolManager.token.address}
-                  decimals={poolManager.token.decimals}
-                />
-                <Divider>/</Divider>
-                <EthLabel value={'100000000000000000000'} />
-              </PriceAmountContainer> */}
 
               <PriceAmountContainer>
                 <TokenLabel

@@ -39,6 +39,7 @@ import { PricesActions } from './prices/prices.actions';
 // Custom tokens state
 import customTokensReducer, { customTokensInitialState } from './customTokens/customToken.reducer';
 import { CustomTokenActions } from './customTokens/customToken.actions';
+import { useAppDispatch } from '~/hooks';
 
 export const rootReducer: Reducer<RootState> = combineReducers({
   theme: themeReducer,
@@ -75,6 +76,8 @@ export {
   customTokensInitialState,
   pricesInitialState,
 };
+
+export { useAppDispatch };
 
 export function getStore() {
   const localStorageName = 'price';
