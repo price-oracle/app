@@ -24,7 +24,7 @@ interface IProps {
 export const Loading = ({ className }: IProps) => {
   return (
     <Container>
-      <StyledIcon name='loader' className={className} />
+      <StyledIcon name='loader' data-testid='loader-icon' className={className} />
     </Container>
   );
 };

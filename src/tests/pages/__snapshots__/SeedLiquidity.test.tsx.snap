@@ -95,6 +95,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               >
                 <i
                   class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+                  data-testid="loader-icon"
                   name="loader"
                 />
               </div>
@@ -140,6 +141,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               >
                 <i
                   class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+                  data-testid="loader-icon"
                   name="loader"
                 />
               </div>
@@ -169,6 +171,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               >
                 <i
                   class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+                  data-testid="loader-icon"
                   name="loader"
                 />
               </div>

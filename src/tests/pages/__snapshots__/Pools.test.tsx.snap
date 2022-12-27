@@ -47,6 +47,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         >
           <i
             class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+            data-testid="loader-icon"
             name="loader"
           />
         </div>
@@ -59,6 +60,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         >
           <i
             class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+            data-testid="loader-icon"
             name="loader"
           />
         </div>
@@ -94,6 +96,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         >
           <i
             class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+            data-testid="loader-icon"
             name="loader"
           />
         </div>
