@@ -156,6 +156,7 @@ const SubmitFormSection = ({
               updatePoolAndLockState();
             })
             .finally(() => {
+              updateAllowanceAmount(poolManagerAddress);
               setIsLoading(false);
             });
         } else {
@@ -166,6 +167,7 @@ const SubmitFormSection = ({
               updatePoolAndLockState();
             })
             .finally(() => {
+              updateAllowanceAmount(poolManagerAddress);
               setIsLoading(false);
             });
         }
