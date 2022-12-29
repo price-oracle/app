@@ -1,10 +1,8 @@
 import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
 import { BigNumber, ethers, Signer } from 'ethers';
-import { Contract } from 'ethers-multicall';
-import { isUndefined } from 'lodash';
 
 import { ERC20Service, MultiCallService, TxService } from '~/services';
-import { Address, PoolManager } from '~/types';
+import { Address } from '~/types';
 
 export class PoolManagerService {
   signer: Signer | undefined;

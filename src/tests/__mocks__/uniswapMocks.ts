@@ -1,5 +1,7 @@
 import { BigNumber } from 'ethers';
+
 import { Address } from '~/types';
+import { feeTier } from './miscMocks';
 
 export function getUniswapDataFromPool(poolAddress: Address) {
   /* 
@@ -15,6 +17,8 @@ export function getUniswapDataFromPool(poolAddress: Address) {
       return { price: '1094.873103', sqrtPriceX96: BigNumber.from('2394405438331503957160036782') };
     case '0xcbcdf9626bc03e24f779434178a73a0b4bad62ed': // WBTC/ETH 0.3%
       return { price: '0.05374720293', sqrtPriceX96: BigNumber.from('34174459123406111203248843457405272') };
+    default: // WBTC/ETH 0.3%
+      return { price: '1094.873103', sqrtPriceX96: BigNumber.from('2394405438331503957160036782') };
   }
 }
 
@@ -41,3 +45,11 @@ export const tokensData = {
     decimals: 18,
   },
 };
+
+export const uniswapPool = {
+  address: tokensData.pools['DAI/ETH'],
+  pricing: getUniswapDataFromPool('test').sqrtPriceX96,
+  isWethToken0: false,
+};
+
+export const uniswapPoolForFeeTierMock = { [feeTier.fee]: uniswapPool };

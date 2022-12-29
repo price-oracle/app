@@ -1,6 +1,5 @@
 import {
   Container,
-  Box,
   Box1,
   Box2,
   Box3,

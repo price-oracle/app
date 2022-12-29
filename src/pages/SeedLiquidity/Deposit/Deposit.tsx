@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import {
-  PriceIcon,
   TokenIcon,
   EthIcon,
   Typography,
@@ -30,12 +29,6 @@ const Deposit = ({ children }: ComponentProps) => {
 };
 
 const STokenIcon = styled(TokenIcon).attrs({
-  size: FONT_SIZE_24(),
-})`
-  grid-area: token;
-`;
-
-const SPriceIcon = styled(PriceIcon).attrs({
   size: FONT_SIZE_24(),
 })`
   grid-area: token;

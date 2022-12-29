@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { BigNumber, constants, utils } from 'ethers';
-import { isUndefined } from 'lodash';
 import styled from 'styled-components';
 import { useAccount } from 'wagmi';
 

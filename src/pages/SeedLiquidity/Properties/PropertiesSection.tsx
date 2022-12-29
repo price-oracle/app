@@ -163,7 +163,7 @@ function PropertiesSection({
 
   return (
     <Container>
-      <PropertyCard>
+      <PropertyCard data-testid='starting-price'>
         <PropertyCard.Title>Set starting price</PropertyCard.Title>
         <PropertyCard.Value>
           {isLoading && <Loading />}
@@ -176,7 +176,7 @@ function PropertiesSection({
         </Tooltip>
       </PropertyCard>
 
-      <PropertyCard>
+      <PropertyCard data-testid='token-rate'>
         <PropertyCard.Title>Rate</PropertyCard.Title>
         <PropertyCard.Value>
           1 <Suffix> ETH</Suffix>
@@ -187,7 +187,7 @@ function PropertiesSection({
         </PropertyCard.Value>
       </PropertyCard>
 
-      <PropertyCard>
+      <PropertyCard data-testid='feeTier-selected'>
         <PropertyCard.Title>Fee Tier</PropertyCard.Title>
 
         <PropertyCard.Value>

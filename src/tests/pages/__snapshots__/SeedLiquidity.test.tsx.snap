@@ -3,14 +3,14 @@
 exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
 <DocumentFragment>
   <div
-    class="sc-bhNKFk fgJOGp"
+    class="sc-uhnfH hifHWa"
   >
     <div
       class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-iAEawV hhOCqg kpnGeu"
       color="rgba(255,255,255, 0.87)"
     >
       <div
-        class="sc-eGJbfJ ezYIbM"
+        class="sc-bhNKFk zKtLQ"
       >
         <section
           class="sc-AHaJN dyeDDS"
@@ -72,13 +72,14 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         </section>
       </div>
       <div
-        class="sc-eGJbfJ ezYIbM"
+        class="sc-bhNKFk zKtLQ"
       >
         <section
           class="sc-UpCWa kfATWB"
         >
           <section
             class="sc-laZRCg caUgxH"
+            data-testid="starting-price"
           >
             <div
               class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-gGvHcT jkfofa"
@@ -113,6 +114,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
           </section>
           <section
             class="sc-laZRCg caUgxH"
+            data-testid="token-rate"
           >
             <div
               class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-gGvHcT jkfofa"
@@ -155,6 +157,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
           </section>
           <section
             class="sc-laZRCg caUgxH"
+            data-testid="feeTier-selected"
           >
             <div
               class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-gGvHcT jkfofa"
@@ -190,10 +193,10 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         </section>
       </div>
       <section
-        class="sc-fcCDlF kMPBMn"
+        class="sc-fvEvSO lavOsA"
       >
         <div
-          class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-GKYbw ftUeV"
+          class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-fcCDlF hPuHhB"
           color="rgba(255,255,255, 0.87)"
         >
           Deposit amounts
@@ -208,11 +211,11 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             />
             <input
               aria-label="token amount"
-              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-cZFQFd fvoNMM jgGokt fVTyuF"
+              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-dsHJmm fvoNMM jgGokt cwxXMo"
               value="0"
             />
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-jTjUTQ eCXsLv"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-cZFQFd kvkQoz"
               color="rgba(255,255,255, 0.87)"
             >
               <div
@@ -224,7 +227,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             </div>
           </section>
           <div
-            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-gsGlKL cnITcN"
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-GKYbw fwhoHZ"
             color="rgba(255,255,255, 0.87)"
           >
             <div
@@ -245,18 +248,18 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             />
             <input
               aria-label="weth amount"
-              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-cZFQFd fvoNMM jgGokt fVTyuF"
+              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-dsHJmm fvoNMM jgGokt cwxXMo"
               value="0"
             />
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-jTjUTQ eCXsLv"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-cZFQFd kvkQoz"
               color="rgba(255,255,255, 0.87)"
             >
               WETH
             </div>
           </section>
           <div
-            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-gsGlKL cnITcN"
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-GKYbw fwhoHZ"
             color="rgba(255,255,255, 0.87)"
           >
             <div
@@ -269,13 +272,13 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         </div>
       </section>
       <section
-        class="sc-jRwbcX cOeKGl"
+        class="sc-jTjUTQ ijrtdn"
       >
         <div
           class="sc-jSUZER dotgdq"
         >
           <button
-            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-gKPRtg hQQRME sc-fvEvSO cLDOmS"
+            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-gKPRtg hQQRME sc-jRwbcX cMmzdj"
             disabled=""
           >
             Create Oracle

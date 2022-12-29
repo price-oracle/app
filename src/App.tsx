@@ -11,7 +11,7 @@ import LandingPage from './pages/Landing/LandingPage';
 import Pools from './pages/Pools';
 import SeedLiquidity from './pages/SeedLiquidity';
 
-import { useAppSelector, useUpdateState } from '~/hooks';
+import { useUpdateState } from '~/hooks';
 import { PropTheme } from './components/shared';
 import { Alerts } from './containers/Alerts';
 import { Modals } from './containers/modals';

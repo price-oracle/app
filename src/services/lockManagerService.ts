@@ -1,12 +1,9 @@
 import { abi as ILockManager } from '@price-oracle/interfaces/abi/ILockManager.json';
 import { Provider } from '@wagmi/core';
 import { BigNumber, ethers, Signer } from 'ethers';
-import { Contract } from 'ethers-multicall';
-import { isUndefined } from 'lodash';
 
 import { ERC20Service, MultiCallService, TxService, UniswapService } from '~/services';
-import { Address, LockManager, PoolManager } from '~/types';
-import { getTokenPrice } from '~/utils';
+import { Address } from '~/types';
 import { humanize } from '~/utils/format';
 
 export class LockManagerService {

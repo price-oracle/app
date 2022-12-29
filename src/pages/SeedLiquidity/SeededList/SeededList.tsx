@@ -84,69 +84,71 @@ const PoolList = () => {
     }
   };
 
-  return userSeededPools.length > 0 ? (
-    <SCard>
-      <Title weight='bold'>Seeded Pools</Title>
+  return (
+    <>
+      {userSeededPools.length > 0 && (
+        <SCard>
+          <Title weight='bold'>Seeded Pools</Title>
 
-      <SearchInput onChange={(e) => setSearchInput(e.target.value)} />
+          <SearchInput onChange={(e) => setSearchInput(e.target.value)} />
 
-      {isLoading && (
-        <LoaderContainer>
-          <Loading />
-        </LoaderContainer>
+          {isLoading && (
+            <LoaderContainer>
+              <Loading />
+            </LoaderContainer>
+          )}
+
+          {!isLoading && (
+            <Table>
+              <Header>
+                <Typography />
+                <SortButton text='Name' />
+                <SortButton text='Fee' />
+                <SeededContainer>
+                  <SortButton text='Seeded' />
+                  <Tooltip content="Percentage of pool's seeded liquidity. Ownership gives you governance rights over future oracle changes.">
+                    <PropertyCard.Helper />
+                  </Tooltip>
+                </SeededContainer>
+                <SortButton text='Claimable rewards' />
+                <Typography />
+              </Header>
+
+              {userSeededPools.map((poolManager) => (
+                <Row key={poolManager.address}>
+                  <Typography>
+                    <PoolIcon address={poolManager.token.address} />
+                  </Typography>
+
+                  <Typography>{getPoolName(poolManager)}</Typography>
+                  <Typography>{formatFee(poolManager.fee)}%</Typography>
+                  <Typography>{getSeededPercentage(poolManager)}</Typography>
+
+                  <PriceAmountContainer>
+                    <TokenLabel
+                      value={poolManager.rewards?.tokenReward}
+                      address={poolManager.token.address}
+                      decimals={poolManager.token.decimals}
+                    />
+                    <Divider>/</Divider>
+                    <EthLabel value={poolManager.rewards?.ethReward} />
+                  </PriceAmountContainer>
+
+                  <ButtonContainer>
+                    <PrimaryButton
+                      disabled={!hasRewardsOnPool(poolManager)}
+                      onClick={() => claimRewards(poolManager.address)}
+                    >
+                      Claim reward
+                    </PrimaryButton>
+                  </ButtonContainer>
+                </Row>
+              ))}
+            </Table>
+          )}
+        </SCard>
       )}
-
-      {!isLoading && (
-        <Table>
-          <Header>
-            <Typography />
-            <SortButton text='Name' />
-            <SortButton text='Fee' />
-            <SeededContainer>
-              <SortButton text='Seeded' />
-              <Tooltip content="Percentage of pool's seeded liquidity. Ownership gives you governance rights over future oracle changes.">
-                <PropertyCard.Helper />
-              </Tooltip>
-            </SeededContainer>
-            <SortButton text='Claimable rewards' />
-            <Typography />
-          </Header>
-
-          {userSeededPools.map((poolManager) => (
-            <Row key={poolManager.address}>
-              <Typography>
-                <PoolIcon address={poolManager.token.address} />
-              </Typography>
-
-              <Typography>{getPoolName(poolManager)}</Typography>
-              <Typography>{formatFee(poolManager.fee)}%</Typography>
-              <Typography>{getSeededPercentage(poolManager)}</Typography>
-
-              <PriceAmountContainer>
-                <TokenLabel
-                  value={poolManager.rewards?.tokenReward}
-                  address={poolManager.token.address}
-                  decimals={poolManager.token.decimals}
-                />
-                <Divider>/</Divider>
-                <EthLabel value={poolManager.rewards?.ethReward} />
-              </PriceAmountContainer>
-
-              <ButtonContainer>
-                <PrimaryButton
-                  disabled={!hasRewardsOnPool(poolManager)}
-                  onClick={() => claimRewards(poolManager.address)}
-                >
-                  Claim reward
-                </PrimaryButton>
-              </ButtonContainer>
-            </Row>
-          ))}
-        </Table>
-      )}
-    </SCard>
-  ) : (
-    <></>
+    </>
   );
 };
 
