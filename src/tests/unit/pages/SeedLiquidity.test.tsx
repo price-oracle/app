@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import { constants } from 'ethers';
 
 import { render, screen, within } from '~/tests';
-import { feeTier, token, uniswapPoolForFeeTierMock } from '~/tests/__mocks__';
+import { feeTier, token, uniswapPoolForFeeTierMock } from '~/tests/unit/__mocks__';
 
 import SeedLiquidity from '~/pages/SeedLiquidity';
 import PropertiesSection from '~/pages/SeedLiquidity/Properties/PropertiesSection';
