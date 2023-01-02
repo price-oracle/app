@@ -18,16 +18,24 @@ export const ValueInUSD = ({
   approximate,
   color,
 }: {
-  value: string | BigNumber;
+  value: string | BigNumber | undefined;
   approximate?: boolean;
   color?: 'primary' | 'secondary' | 'disabled' | 'background' | undefined;
 }) => {
-  const { number, suffix } = formatNumber(value.toString());
+  let number: string | number = '-';
+  let suffix = '';
+  if (value) {
+    ({ number, suffix } = formatNumber(value.toString()));
+
+    if (!BigNumber.from(value).isZero() && number == 0) {
+      number = '< 0.01';
+    }
+  }
 
   return (
     <TokenUSDypography>
       <Value color={color}>
-        {approximate && '~'} $ {number}
+        {approximate && value && '~'} $ {number}
       </Value>
       <Suffix color={color}>{suffix}</Suffix>
     </TokenUSDypography>

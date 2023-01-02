@@ -7,12 +7,11 @@ import {
   PoolIcon,
   PrimaryButton,
   SearchInput,
-  SecondaryButton,
   SortButton,
   TokenLabel,
   Typography,
+  EthLabel,
 } from '~/components/shared';
-import { EthLabel } from '~/components/shared/TokenLabels';
 import { useAppDispatch, useAppSelector, useContracts, useUpdateState } from '~/hooks';
 import { LockManagersActions, ModalsActions } from '~/store';
 import { Address, PoolManager } from '~/types';
@@ -125,12 +124,12 @@ const PoolList = () => {
                 <PrimaryButton disabled={!address} onClick={() => openLockModal(poolManager)}>
                   Lock
                 </PrimaryButton>
-                <SecondaryButton
+                <PrimaryButton
                   disabled={!isClaimable(poolManager)}
                   onClick={() => claimRewards(poolManager.lockManagerAddress)}
                 >
                   Claim
-                </SecondaryButton>
+                </PrimaryButton>
               </ButtonContainer>
             </Row>
           ))}

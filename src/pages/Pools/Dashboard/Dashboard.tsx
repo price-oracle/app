@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BigNumber, constants } from 'ethers';
 import { isUndefined } from 'lodash';
+import { useAccount } from 'wagmi';
 
 import { Card, Loading, Typography, EthLabel, ValueInUSD, SPACING_1050 } from '~/components/shared';
 import { useAppSelector } from '~/hooks';
@@ -27,9 +28,9 @@ const TokenAmount = styled.div`
 `;
 
 export function Dashboard() {
+  const { address } = useAccount();
   const [totalLockedInUsd, setTotalLockedInUsd] = useState<BigNumber>(constants.Zero);
   const [totalRewardsInUsd, setTotalRewardsInUsd] = useState<BigNumber>(constants.Zero);
-
   const lockManagers = useAppSelector((state) => state.lockManagers.elements);
   const { usdPerEth } = useAppSelector((state) => state.prices);
   const isLoading = !lockManagers && totalLockedInUsd.isZero;
@@ -99,12 +100,12 @@ export function Dashboard() {
       {!isLoading && (
         <>
           <TokenAmount>
-            <EthLabel value={totalUserLocked.toString()} />
-            <ValueInUSD color='disabled' value={totalLockedInUsd.toString()} approximate={true} />
+            <EthLabel value={address && totalUserLocked.toString()} />
+            <ValueInUSD color='disabled' value={address && totalLockedInUsd.toString()} approximate={true} />
           </TokenAmount>
           <TokenAmount>
             {/* <PriceLabel value={totalPriceLocked} /> */}
-            <ValueInUSD color='primary' value={totalRewardsInUsd.toString()} approximate={true} />
+            <ValueInUSD color='primary' value={address && totalRewardsInUsd.toString()} approximate={true} />
           </TokenAmount>
         </>
       )}
