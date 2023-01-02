@@ -12,6 +12,7 @@ import {
   Logo,
   CustomLink,
   HeaderButton,
+  Typography,
 } from '~/components/shared';
 import { Item } from '../Navigator/Navigator.styles';
 
@@ -92,4 +93,26 @@ export const SNavigatorItemRight = styled(Item)`
 
 export const PriceLogoNavItem = styled(Item)`
   padding: ${SPACING_12};
+`;
+
+export const ScamAlert = styled(Typography)`
+  background-color: ${(props) => props.theme.buttonBackground};
+  color: ${(props) => props.theme.background};
+  padding: 0.4rem 0;
+  width: 100%;
+  font-size: 1.4rem;
+
+  & * {
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    display: none;
+  }
+`;
+
+export const NavContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
