@@ -1,7 +1,7 @@
 import Navigator from '~/components/app/Navigator';
 import { useNavigatorProps } from '~/components/app/Navigator/Navigator';
 import { Item } from '~/components/app/Navigator/Navigator.styles';
-import { Icon, ThemeButton } from '~/components/shared';
+import { ExternalLink, Icon, ThemeButton } from '~/components/shared';
 
 const LandingNavigator = () => {
   const navProps = useNavigatorProps(false);
@@ -20,9 +20,9 @@ const LandingNavigator = () => {
               </LinkWithoutDecoration>
             </ListItem>*/}
       <Item>
-        <a href='https://twitter.com/price_oracle'>
+        <ExternalLink href='https://twitter.com/price_oracle'>
           <Icon name='twitter' color='#fff' />
-        </a>
+        </ExternalLink>
       </Item>
       <Item>
         <ThemeButton color='#fff' />

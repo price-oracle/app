@@ -38,24 +38,6 @@ export const MiddleContent = styled.div`
   }
 `;
 
-// export const DataBoxButton = styled(BoxButton).attrs({
-//   height: '146px',
-// })`
-//   background-color: ${(props) => props.theme.background};
-//   color: ${(props) => props.theme.textPrimary};
-//   padding: 2rem 0;
-//   flex-direction: column;
-
-//   &:hover {
-//     left: calc(50% - 8px);
-//   }
-
-//   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
-//     padding: 1rem 0;
-//     position: relative;
-//   }
-// `;
-
 export const DataTitle = styled.div`
   font-family: PlusJakartaSans;
   font-size: 40px;
@@ -96,7 +78,7 @@ export const BottomContent = styled.div`
   }
 `;
 
-export const Link = styled.a`
+export const DocsContainer = styled.div`
   align-items: center;
   box-sizing: border-box;
   color: ${(props) => props.theme.textPrimary};

@@ -1,4 +1,3 @@
-// import { useDispatch, useSelector } from 'react-redux';
 import {
   AppNavigatorButtonContainer,
   AppNavigatorContainer,
@@ -11,29 +10,16 @@ import {
   SNavigatorItemRight,
   StyledLogo,
 } from './AppNavigator.styles';
-
-// import {
-//   selectWalletConnected,
-//   selectWalletStatus,
-// } from '../../../../features/wallet/state/wallet.selectors';
-// import { useThemeButtonProps } from '../../../../components/atoms/ThemeButton';
-// import Modal from '../../../../features/modal/components/molecules/Modal/Modal';
-import { ConnectButton, FONT_SIZE_12, Icon, SPACING_8, getTheme, ThemeButton } from '~/components/shared';
-
+import { ConnectButton, FONT_SIZE_12, Icon, SPACING_8, getTheme, ThemeButton, ExternalLink } from '~/components/shared';
+import { useWindowDimensions, useAppSelector } from '~/hooks';
 import { Item } from '../Navigator/Navigator.styles';
-
-import { useWindowDimensions } from '~/hooks/windowDimensions';
-import { useAppSelector } from '~/hooks';
 import { useNavigatorProps } from '../Navigator/Navigator';
 
 const AppNavigator = () => {
   const currentTheme = useAppSelector(({ theme }) => theme.current);
   const theme = getTheme(currentTheme);
-  // const walletConnected = useSelector(selectWalletConnected);
-  // const [themeIcon, toggleTheme] = useThemeButtonProps();
   const { isMobile } = useWindowDimensions();
   const navProps = useNavigatorProps(true);
-  // useWallet();
 
   return (
     <Container>
@@ -53,41 +39,21 @@ const AppNavigator = () => {
                 <SHeaderButton as={StyledLogo} />
               </SCustomLink>
             )}
-            {/* <SCustomLink to="/app" onClick={navProps.handleClickCloseMenu}>
-              <SHeaderButton>Swap</SHeaderButton>
-            </SCustomLink> */}
-            {/* <SCustomLink
-              to="/app/analytics"
-              onClick={navProps.handleClickCloseMenu}
-            >
-              <SHeaderButton>Analytics</SHeaderButton>
-            </SCustomLink> */}
-            <SCustomLink
-              to='/app/pools'
-              // onClick={navProps.handleClickCloseMenu}
-            >
+            <SCustomLink to='/app/pools'>
               <SHeaderButton>Pools</SHeaderButton>
             </SCustomLink>
-            <SCustomLink
-              to='/app/seed-liquidity'
-              // onClick={navProps.handleClickCloseMenu}
-            >
+            <SCustomLink to='/app/seed-liquidity'>
               <SHeaderButton>Seed Liquidity</SHeaderButton>
             </SCustomLink>
-            {/* <Modal /> */}
-            <a
-              href='https://docs.oracles.rip/'
-              target='_blank'
-              rel='noopener noreferrer'
-              // onClick={navProps.handleClickCloseMenu}
-            >
+            <ExternalLink href='https://docs.oracles.rip/'>
               <SHeaderButton>
-                <div>Documentation</div>
+                Documentation
                 <Icon name='arrow-up-right' size={FONT_SIZE_12()} padding={SPACING_8()} color={theme.textPrimary} />
               </SHeaderButton>
-            </a>
+            </ExternalLink>
           </Section>
         </Item>
+
         <SNavigatorItemRight>
           <AppNavigatorContainer>
             <ConnectButton />

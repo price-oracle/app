@@ -13,6 +13,7 @@ interface ContainerProps {
 
 const Container = styled.div<ContainerProps>`
   padding: ${SPACING_12};
+  cursor: pointer;
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     width: fit-content;
