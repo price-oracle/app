@@ -55,6 +55,7 @@ const Helper = styled(TokenIcon).attrs({
   ${(props) => props.theme.type === 'dark' && 'filter: invert(100%);'}
   grid-area: helper;
   justify-self: end;
+  cursor: pointer;
 `;
 
 const SChip = styled(Chip)`

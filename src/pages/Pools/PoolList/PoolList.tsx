@@ -27,6 +27,7 @@ import {
   Table,
   Title,
 } from './PoolList.styles';
+import { Tooltip } from '~/containers/Tooltips';
 
 const PoolList = () => {
   const { updatePoolAndLockState } = useUpdateState();
@@ -72,6 +73,17 @@ const PoolList = () => {
       const ethRewards = BigNumber.from(lockManagers[poolManager.lockManagerAddress].rewards?.ethReward);
       return tokenRewards.gt(0) || ethRewards.gt(0);
     }
+  };
+
+  const lockMessage = () => {
+    if (!address) return 'Wallet must be connected';
+    return '';
+  };
+
+  const claimMesage = (isDisabled: boolean) => {
+    if (!address) return 'Wallet must be connected';
+    if (isDisabled) return 'Nothing to claim';
+    return '';
   };
 
   return (
@@ -121,15 +133,20 @@ const PoolList = () => {
               </PriceAmountContainer>
 
               <ButtonContainer>
-                <PrimaryButton disabled={!address} onClick={() => openLockModal(poolManager)}>
-                  Lock
-                </PrimaryButton>
-                <PrimaryButton
-                  disabled={!isClaimable(poolManager)}
-                  onClick={() => claimRewards(poolManager.lockManagerAddress)}
-                >
-                  Claim
-                </PrimaryButton>
+                <Tooltip content={lockMessage()}>
+                  <PrimaryButton disabled={!address} onClick={() => openLockModal(poolManager)}>
+                    Lock
+                  </PrimaryButton>
+                </Tooltip>
+
+                <Tooltip content={claimMesage(!isClaimable(poolManager))}>
+                  <PrimaryButton
+                    disabled={!isClaimable(poolManager)}
+                    onClick={() => claimRewards(poolManager.lockManagerAddress)}
+                  >
+                    Claim
+                  </PrimaryButton>
+                </Tooltip>
               </ButtonContainer>
             </Row>
           ))}

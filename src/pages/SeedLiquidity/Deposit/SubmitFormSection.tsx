@@ -9,6 +9,7 @@ import { BoxButton, Loading, SPACING_32 } from '~/components/shared';
 import { getConfig } from '~/config';
 import { useAppSelector, useContracts, useUpdateState } from '~/hooks';
 import { Address, FeeTier, Token, UniswapPool } from '~/types';
+import { Tooltip } from '~/containers/Tooltips';
 
 const Container = styled.section`
   display: grid;
@@ -175,27 +176,35 @@ const SubmitFormSection = ({
     }
   };
 
+  const createOracleMessage = () => {
+    if (!address) return 'Wallet must be connected';
+    if (isDisabled) return 'Insufficient balance';
+    return '';
+  };
+
   return (
     <Container>
-      {!isApproved && (
-        <SBoxButton
-          onClick={() => {
-            handleApprove();
-          }}
-          disabled={isDisabled}
-        >
-          {isLoading && <Loading />}
-          {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
-        </SBoxButton>
-      )}
+      <Tooltip content={createOracleMessage()}>
+        {!isApproved && (
+          <SBoxButton
+            onClick={() => {
+              handleApprove();
+            }}
+            disabled={isDisabled}
+          >
+            {isLoading && <Loading />}
+            {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
+          </SBoxButton>
+        )}
 
-      {/* Initialize/Add-Liquidity Pool Logic */}
-      {isApproved && (
-        <SBoxButton onClick={createPool} disabled={isDisabled}>
-          {isLoading && <Loading />}
-          {!isLoading && (isPoolManagerCreated() ? 'Add Liquidity' : 'Create Oracle')}
-        </SBoxButton>
-      )}
+        {/* Initialize/Add-Liquidity Pool Logic */}
+        {isApproved && (
+          <SBoxButton onClick={createPool} disabled={isDisabled}>
+            {isLoading && <Loading />}
+            {!isLoading && (isPoolManagerCreated() ? 'Add Liquidity' : 'Create Oracle')}
+          </SBoxButton>
+        )}
+      </Tooltip>
     </Container>
   );
 };
