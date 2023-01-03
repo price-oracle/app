@@ -8,9 +8,17 @@ const ButtonContainer = styled.div`
   border: ${(props) => props.theme.borderPrimary};
   color: ${(props) => props.theme.textPrimary};
 
-  div {
+  &:hover {
+    opacity: 80% !important;
+  }
+
+  & div {
     border: none !important;
     color: ${(props) => props.theme.textPrimary};
+  }
+
+  & button {
+    color: ${(props) => props.theme.textPrimary} !important;
   }
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {

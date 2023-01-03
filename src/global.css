@@ -89,3 +89,21 @@ button {
   font-weight: 800;
   font-style: normal;
 }
+
+/* custom changes for rainbowKit */
+.iekbcc0 {
+  border-radius: 0px !important;
+  transform: none !important;
+}
+
+.iekbcc0.ju367v4i {
+  display: none;
+}
+
+.iekbcc0.ju367v8a {
+  background-color: #121212;
+}
+
+[aria-label='Close'] {
+  border: none !important;
+}
