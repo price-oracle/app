@@ -123,13 +123,13 @@ const PoolList = () => {
               </PriceAmountContainer>
 
               <PriceAmountContainer>
+                <EthLabel value={lockManagers[poolManager.lockManagerAddress].rewards?.ethReward} />
+                <Divider>/</Divider>
                 <TokenLabel
                   value={lockManagers[poolManager.lockManagerAddress].rewards?.tokenReward}
                   address={poolManager.token.address}
                   decimals={poolManager.token.decimals}
                 />
-                <Divider>/</Divider>
-                <EthLabel value={lockManagers[poolManager.lockManagerAddress].rewards?.ethReward} />
               </PriceAmountContainer>
 
               <ButtonContainer>

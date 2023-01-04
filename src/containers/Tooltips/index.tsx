@@ -21,6 +21,10 @@ const SContainer = styled.div`
   margin-left: auto;
 `;
 
+const ChildContainer = styled.div`
+  display: flex;
+`;
+
 const STooltip = styled.div`
   background: ${(props) => props.theme.buttonBackground};
   color: ${(props) => props.theme.background};
@@ -55,9 +59,9 @@ export function Tooltip({ content, children }: { content: string; children: any 
 
   return (
     <SContainer>
-      <div ref={reference} {...getReferenceProps()}>
+      <ChildContainer ref={reference} {...getReferenceProps()}>
         {children}
-      </div>
+      </ChildContainer>
 
       {content && (
         <FloatingPortal>

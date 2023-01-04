@@ -43,6 +43,8 @@ export const SPACING_40 = () => '4rem' as const;
 
 export const SPACING_32 = () => '3.2rem' as const;
 
+export const SPACING_28 = () => '2.8rem' as const;
+
 export const SPACING_24 = () => '2.4rem' as const;
 
 export const SPACING_16 = () => '1.6rem' as const;

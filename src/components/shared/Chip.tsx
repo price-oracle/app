@@ -6,8 +6,8 @@ import { Typography } from './Typography';
 export const Chip = styled(Typography).attrs({
   variant: 'small',
 })`
-  background-color: ${(props) => props.theme.textPrimary};
-  color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.textPrimary};
   height: fit-content;
   padding: ${SPACING_4};
   text-align: center;

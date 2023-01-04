@@ -13,18 +13,11 @@ import {
   Typography,
 } from '~/components/shared';
 import { useAppDispatch, useAppSelector, useContracts, useUpdateState } from '~/hooks';
-import {
-  ButtonContainer,
-  Divider,
-  LoaderContainer,
-  PriceAmountContainer,
-  Table,
-  Title,
-} from '~/pages/Pools/PoolList/PoolList.styles';
+import { Divider, LoaderContainer, PriceAmountContainer, Table, Title } from '~/pages/Pools/PoolList/PoolList.styles';
 import { PoolManagersActions } from '~/store';
 import { Address, PoolManager } from '~/types';
 import { formatFee, getPoolName, humanize } from '~/utils';
-import { Header, Row, SCard, SeededContainer } from './SeededList.styles';
+import { Header, Row, SCard, SeededContainer, ButtonContainer } from './SeededList.styles';
 import { Tooltip } from '~/containers/Tooltips';
 import PropertyCard from '../Properties/PropertyCard';
 
@@ -84,6 +77,12 @@ const PoolList = () => {
     }
   };
 
+  const claimMesage = (isDisabled: boolean) => {
+    if (!address) return 'Wallet must be connected';
+    if (isDisabled) return 'Nothing to claim';
+    return '';
+  };
+
   return (
     <>
       {userSeededPools.length > 0 && (
@@ -125,22 +124,24 @@ const PoolList = () => {
                   <Typography>{getSeededPercentage(poolManager)}</Typography>
 
                   <PriceAmountContainer>
+                    <EthLabel value={poolManager.rewards?.ethReward} />
+                    <Divider>/</Divider>
                     <TokenLabel
                       value={poolManager.rewards?.tokenReward}
                       address={poolManager.token.address}
                       decimals={poolManager.token.decimals}
                     />
-                    <Divider>/</Divider>
-                    <EthLabel value={poolManager.rewards?.ethReward} />
                   </PriceAmountContainer>
 
                   <ButtonContainer>
-                    <PrimaryButton
-                      disabled={!hasRewardsOnPool(poolManager)}
-                      onClick={() => claimRewards(poolManager.address)}
-                    >
-                      Claim reward
-                    </PrimaryButton>
+                    <Tooltip content={claimMesage(!hasRewardsOnPool(poolManager))}>
+                      <PrimaryButton
+                        disabled={!hasRewardsOnPool(poolManager)}
+                        onClick={() => claimRewards(poolManager.address)}
+                      >
+                        Claim reward
+                      </PrimaryButton>
+                    </Tooltip>
                   </ButtonContainer>
                 </Row>
               ))}

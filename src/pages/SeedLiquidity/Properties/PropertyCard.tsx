@@ -9,6 +9,8 @@ import {
   SPACING_32,
   SPACING_16,
   MOBILE_MAX_WIDTH,
+  SPACING_28,
+  Icon,
 } from '~/components/shared';
 import { withComponents } from '~/utils';
 
@@ -46,6 +48,7 @@ const Value = styled(Typography).attrs({
   grid-area: value;
   line-height: 1.25;
   max-width: 30rem;
+  height: ${SPACING_28};
 `;
 
 const Helper = styled(TokenIcon).attrs({
@@ -56,6 +59,13 @@ const Helper = styled(TokenIcon).attrs({
   grid-area: helper;
   justify-self: end;
   cursor: pointer;
+`;
+
+export const LockIcon = styled(Icon).attrs({
+  name: 'lock',
+})`
+  padding: 0;
+  margin-left: 0.8rem;
 `;
 
 const SChip = styled(Chip)`

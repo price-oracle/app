@@ -11,6 +11,7 @@ import {
   MOBILE_MAX_WIDTH,
   SPACING_12,
   SPACING_16,
+  SPACING_28,
   SPACING_768,
   Typography,
 } from '~/components/shared';
@@ -19,7 +20,7 @@ import { getConfig } from '~/config';
 import { FeeTier, Token, UniswapPool } from '~/types';
 import { sqrtPriceX96ToPrice } from '~/utils';
 import FeeCard from './FeeCard';
-import PropertyCard from './PropertyCard';
+import PropertyCard, { LockIcon } from './PropertyCard';
 import { useContracts } from '~/hooks';
 import { Tooltip } from '~/containers/Tooltips';
 
@@ -73,6 +74,11 @@ const SInputNumber = styled(InputNumber)`
   font-size: ${FONT_SIZE_20};
   grid-area: value;
   line-height: 1.25;
+  height: ${SPACING_28};
+
+  &:disabled {
+    color: ${(props) => props.theme.textDisabled};
+  }
 `;
 
 const SPrice = styled.div`
@@ -83,6 +89,10 @@ const SPrice = styled.div`
 `;
 
 const NotCreatedContainer = styled.div`
+  & div {
+    background-color: ${(props) => props.theme.textPrimary};
+    color: ${(props) => props.theme.background};
+  }
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     position: relative;
     top: -4.1rem;
@@ -164,16 +174,18 @@ function PropertiesSection({
   return (
     <Container>
       <PropertyCard data-testid='starting-price'>
-        <PropertyCard.Title>Set starting price</PropertyCard.Title>
+        <PropertyCard.Title>Starting price</PropertyCard.Title>
+        <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
+          <PropertyCard.Helper />
+        </Tooltip>
+
         <PropertyCard.Value>
           {isLoading && <Loading />}
           {!isLoading && (
             <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} aria-label='starting price' />
           )}
         </PropertyCard.Value>
-        <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
-          <PropertyCard.Helper />
-        </Tooltip>
+        {selectedFeeTierExists && <LockIcon />}
       </PropertyCard>
 
       <PropertyCard data-testid='token-rate'>

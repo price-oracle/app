@@ -142,6 +142,17 @@ const DepositAmountsSection = ({
 
         <div>
           <Deposit>
+            <Deposit.Token isPrice />
+            <Deposit.Amount {...wethInput} aria-label='weth amount' />
+            <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
+          </Deposit>
+          <BalanceContainer>
+            <Balance totalAmount={wethBalance} symbol={eth_symbol} onClick={inputMaxWethBalance} />
+          </BalanceContainer>
+        </div>
+
+        <div>
+          <Deposit>
             <Deposit.Token src={selectedToken?.logoURI} />
             <Deposit.Amount {...tokenInput} aria-label='token amount' />
             <Deposit.Symbol>
@@ -155,17 +166,6 @@ const DepositAmountsSection = ({
               onClick={inputMaxTokenBalance}
               decimals={selectedToken?.decimals}
             />
-          </BalanceContainer>
-        </div>
-
-        <div>
-          <Deposit>
-            <Deposit.Token isPrice />
-            <Deposit.Amount {...wethInput} aria-label='weth amount' />
-            <Deposit.Symbol>{eth_symbol}</Deposit.Symbol>
-          </Deposit>
-          <BalanceContainer>
-            <Balance totalAmount={wethBalance} symbol={eth_symbol} onClick={inputMaxWethBalance} />
           </BalanceContainer>
         </div>
       </Container>
