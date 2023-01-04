@@ -57,7 +57,9 @@ const CloseAlert = styled.div`
 
 const MessageAlert = styled(Typography).attrs({
   variant: 'medium',
-})``;
+})`
+  color: inherit;
+`;
 
 export interface AlertProps {
   id: string;
@@ -75,7 +77,7 @@ export const Alert: FC<AlertProps> = ({ className, message, id, type, ...props }
 
   const closeButton = (
     <CloseAlert onClick={closeAlert}>
-      <Icon name='close' size={SPACING_12()} padding={SPACING_4()} color={theme.textSecondary} />
+      <Icon name='close' size={SPACING_12()} padding={SPACING_4()} color={'inherit'} />
     </CloseAlert>
   );
 
