@@ -3,14 +3,14 @@
 exports[`Pool Page > Should render Pools Page 1`] = `
 <DocumentFragment>
   <div
-    class="sc-iOeugr caIFBI"
+    class="sc-ehvNnt cKzixw"
   >
     <div
-      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-iAEawV hhOCqg dINGjr"
+      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-cUEOzv hhOCqg hhKkbK"
       color="rgba(255,255,255, 0.87)"
     >
       <div
-        class="sc-eeMvmM jcHRro"
+        class="sc-jOiSOi kKqVgi"
       >
         <div
           class="sc-iBYQkv sc-jrcTuL hNdzWR epIsAC"
@@ -20,7 +20,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         </div>
       </div>
       <div
-        class="sc-cUEOzv"
+        class="sc-dPWrhe"
       >
         <div
           class="sc-iBYQkv sc-jrcTuL cWFtuj epIsAC"
@@ -30,7 +30,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         </div>
       </div>
       <div
-        class="sc-cUEOzv"
+        class="sc-dPWrhe"
       >
         <div
           class="sc-iBYQkv sc-jrcTuL cWFtuj epIsAC"
@@ -40,7 +40,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         </div>
       </div>
       <div
-        class="sc-jOiSOi iuJImF"
+        class="sc-bCfvAP ShKCg"
       >
         <div
           class="sc-fLcnxK"
@@ -53,7 +53,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         </div>
       </div>
       <div
-        class="sc-jOiSOi iuJImF"
+        class="sc-bCfvAP ShKCg"
       >
         <div
           class="sc-fLcnxK"
@@ -67,29 +67,29 @@ exports[`Pool Page > Should render Pools Page 1`] = `
       </div>
     </div>
     <div
-      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-dPWrhe hhOCqg bkVTXd"
+      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-cOxWqc hhOCqg drcGsI"
       color="rgba(255,255,255, 0.87)"
     >
       <div
-        class="sc-iBYQkv sc-jrcTuL hNdzWR epIsAC sc-bCfvAP"
+        class="sc-iBYQkv sc-jrcTuL hNdzWR epIsAC sc-AHaJN"
         color="rgba(255,255,255, 0.87)"
       >
         Pools
       </div>
       <div
-        class="sc-ilhmMj fASgVG"
+        class="sc-hhOBVt hvTQJO"
       >
         <i
-          class="sc-hBxehG sc-jIRcFI ccFtCM fJYkmv picon-search"
+          class="sc-hBxehG sc-gYbzsP ccFtCM fuCfJr picon-search"
           name="search"
         />
         <input
           aria-label="Search"
-          class="sc-hHTYSt sc-dmctIk sc-hhOBVt fvoNMM jgGokt kaBZVh"
+          class="sc-hHTYSt sc-dmctIk sc-cCjUiG fvoNMM jgGokt fhnoNX"
         />
       </div>
       <div
-        class="sc-jfTVlA dGXjYf"
+        class="sc-lbVpMG fBCmoe"
       >
         <div
           class="sc-fLcnxK"

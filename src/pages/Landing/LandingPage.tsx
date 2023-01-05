@@ -31,7 +31,7 @@ function LandingPage() {
             Reliable, secure, and permissionless price oracles for every token.
           </Typography>
         </TextContainer>
-        <RouterLink to='/app/pools'>
+        <RouterLink to='/app/pools' data-testid='enter-app'>
           <EnterBoxButton>Enter App</EnterBoxButton>
         </RouterLink>
         <DocsContainer>

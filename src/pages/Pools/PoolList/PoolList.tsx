@@ -99,7 +99,7 @@ const PoolList = () => {
       )}
 
       {!isLoading && (
-        <Table>
+        <Table data-testid='pool-list'>
           <Header>
             <Typography />
             <SortButton text='Name' />

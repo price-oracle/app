@@ -3,45 +3,54 @@
 exports[`Landing Page > Should render Landing Page 1`] = `
 <DocumentFragment>
   <div
-    class="sc-gukea fFeXVk"
+    class="sc-ehkVkK bqNNBF"
   />
   <div
-    class="sc-Dmqmp dzOLNq"
+    class="sc-bTtZEv bMqaOI"
   />
   <div
-    class="sc-dkBdza hHjFxj"
+    class="sc-bhNKFk fVJBoT"
     height="768"
   >
     <div
-      class="sc-WKhSL"
+      class="sc-eGJbfJ"
     >
       <div
-        class="sc-jfvxQR jUiKSs"
+        class="sc-ehvNnt gdyDwK"
       >
         <nav
-          class="sc-iAEawV daWfTe"
+          class="sc-cUEOzv iMOXCL"
         >
           <section
-            class="sc-eeMvmM cCFwcY"
+            class="sc-jOiSOi hqHWtC"
           >
             <section
-              class="sc-jOiSOi kwjIJT"
+              class="sc-bCfvAP bQUSXC"
             >
               <a
+                class="sc-lllmON"
                 href="https://twitter.com/price_oracle"
+                rel="noopener noreferrer"
+                target="_blank"
               >
-                <i
-                  class="sc-hBxehG eNrQxx picon-twitter"
-                  color="#fff"
-                  name="twitter"
-                />
+                <div
+                  class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+                  color="rgba(255,255,255, 0.87)"
+                >
+                   
+                  <i
+                    class="sc-hBxehG eNrQxx picon-twitter"
+                    color="#fff"
+                    name="twitter"
+                  />
+                </div>
               </a>
             </section>
             <section
-              class="sc-jOiSOi kwjIJT"
+              class="sc-bCfvAP bQUSXC"
             >
               <div
-                class="sc-dIfARi jvLnPf"
+                class="sc-dIfARi fqNnZh"
                 font-size="1.6rem"
               >
                 <i
@@ -54,68 +63,68 @@ exports[`Landing Page > Should render Landing Page 1`] = `
           </section>
         </nav>
         <div
-          class="sc-eJDSGI sc-gGvHcT sc-fXqpFg jloGpa fJAhyC epGsQA"
+          class="sc-laZRCg sc-fXqpFg sc-ZqFbI kdseYZ iEvbfh dHrdMs"
         />
         <div
-          class="sc-eJDSGI sc-laZRCg sc-dwnOUR jloGpa jdtnjk jwknhO"
+          class="sc-laZRCg sc-GhhNo sc-jNJNQp kdseYZ kWLELL bVsNaG"
         />
         <div
-          class="sc-eJDSGI sc-hiDMwi sc-UpCWa jloGpa bNWCxn kYSJPP"
+          class="sc-laZRCg sc-ckEbSK sc-hlLBRy kdseYZ hDDQrK iWReHi"
         />
         <div
-          class="sc-eJDSGI sc-oZIhv sc-jIILKH jloGpa hrnXpr kIiHQJ"
+          class="sc-laZRCg sc-gGvHcT sc-eKJbhj kdseYZ bGEcwo ktKtsI"
         />
         <div
-          class="sc-eJDSGI sc-ckEbSK sc-ZqFbI jloGpa cyLHxw jomVUQ"
+          class="sc-laZRCg sc-dwnOUR sc-bTTELM kdseYZ cywgfS lhuqKc"
         />
         <div
-          class="sc-eJDSGI sc-hiDMwi sc-jNJNQp jloGpa bNWCxn btaikg"
+          class="sc-laZRCg sc-ckEbSK sc-kImNAt kdseYZ hDDQrK iCGgIZ"
         />
         <div
-          class="sc-eJDSGI sc-ehvNnt sc-hlLBRy jloGpa kmaeOG kdygXD"
+          class="sc-laZRCg sc-fbYMXx sc-hOzowv kdseYZ daqgVt bdiXWZ"
         />
         <div
-          class="sc-eJDSGI sc-fbYMXx sc-eKJbhj jloGpa hasijH jbBMVI"
+          class="sc-laZRCg sc-UpCWa sc-dsHJmm kdseYZ liuvrX dUjruF"
         />
         <div
-          class="sc-eJDSGI sc-gGvHcT sc-bTTELM jloGpa fJAhyC ekJrVu"
+          class="sc-laZRCg sc-fXqpFg sc-cZFQFd kdseYZ iEvbfh dOmbik"
         />
         <div
-          class="sc-eJDSGI sc-laZRCg sc-kImNAt jloGpa jdtnjk iIsMtn"
+          class="sc-laZRCg sc-GhhNo sc-jTjUTQ kdseYZ kWLELL hooOVn"
         />
         <div
-          class="sc-eJDSGI sc-hiDMwi sc-hOzowv jloGpa bNWCxn ejermd"
+          class="sc-laZRCg sc-ckEbSK sc-jRwbcX kdseYZ hDDQrK isGuhA"
         />
         <div
-          class="sc-eJDSGI sc-ckEbSK sc-dsHJmm jloGpa cyLHxw jVJebm"
+          class="sc-laZRCg sc-dwnOUR sc-fvEvSO kdseYZ cywgfS kqxAzw"
         />
         <div
-          class="sc-eJDSGI sc-fbYMXx sc-cZFQFd jloGpa hasijH hGkkpH"
+          class="sc-laZRCg sc-UpCWa sc-fcCDlF kdseYZ liuvrX jasSjv"
         />
         <div
-          class="sc-eJDSGI sc-hiDMwi sc-jTjUTQ jloGpa bNWCxn kOQJlY"
+          class="sc-laZRCg sc-ckEbSK sc-GKYbw kdseYZ hDDQrK dTcroY"
         />
         <div
-          class="sc-eJDSGI sc-gGvHcT sc-jRwbcX jloGpa fJAhyC JHKKd"
+          class="sc-laZRCg sc-fXqpFg sc-gsGlKL kdseYZ iEvbfh cglzSD"
         />
         <div
-          class="sc-eJDSGI sc-hiDMwi sc-fvEvSO jloGpa bNWCxn qGgoN"
+          class="sc-laZRCg sc-ckEbSK sc-bWOGAC kdseYZ hDDQrK JoHXB"
         />
         <div
-          class="sc-eJDSGI sc-oZIhv sc-fcCDlF jloGpa hrnXpr iwmLXO"
+          class="sc-laZRCg sc-gGvHcT sc-eGugkK kdseYZ bGEcwo jPPZye"
         />
       </div>
     </div>
     <div
-      class="sc-ikHGee dfaSoG"
+      class="sc-hAQmFe bNiBOZ"
     >
       <img
         alt="Price logo"
-        class="sc-iveFHk sc-kZLDfD hpkodg VcIqm"
+        class="sc-iveFHk sc-bQmOxr hpkodg jFSHgK"
         src="/src/assets/logo-big-light.svg"
       />
       <div
-        class="sc-dWRHGJ idVQTU"
+        class="sc-EJAja gkkOMB"
       >
         <div
           class="sc-iBYQkv sc-pyfCe fBJkCi hMiFgy"
@@ -125,45 +134,63 @@ exports[`Landing Page > Should render Landing Page 1`] = `
         </div>
       </div>
       <a
+        data-testid="enter-app"
         href="/app/pools"
       >
         <div
           class="sc-jSUZER dotgdq"
         >
           <button
-            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-xWrgk ckQtQY"
+            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-fWQKxP sfyBC"
           >
             Enter App
           </button>
         </div>
       </a>
-      <a
-        class="sc-hAQmFe lgFyFn"
-        href="https://docs.oracles.rip/"
-        rel="noopener noreferrer"
-        target="_blank"
+      <div
+        class="sc-jGNhvO iJqOoL"
       >
-        <div
-          class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC"
-          color="rgba(255,255,255, 0.87)"
+        <a
+          class="sc-lllmON"
+          href="https://docs.oracles.rip/"
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          Documentation
-        </div>
-        <i
-          class="sc-hBxehG eApZoW picon-arrow-up-right"
-          color="rgba(255,255,255, 0.87)"
-          name="arrow-up-right"
-        />
-      </a>
+          <div
+            class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+            color="rgba(255,255,255, 0.87)"
+          >
+            Documentation 
+            <i
+              class="sc-hBxehG eApZoW picon-arrow-up-right"
+              color="rgba(255,255,255, 0.87)"
+              name="arrow-up-right"
+            />
+          </div>
+        </a>
+      </div>
     </div>
     <div
-      class="sc-eGJbfJ bEEQP"
+      class="sc-dWRHGJ jtgHGd"
     >
       <div
         class="sc-iBYQkv sc-kDvujY fBJkCi faMXpT"
         color="rgba(255,255,255, 0.87)"
       >
-        Made with 🤍 by Wonderland
+        Made with 🤍 by 
+        <a
+          class="sc-lllmON"
+          href="https://defi.sucks/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-iJnaPW"
+            color="rgba(255,255,255, 0.87)"
+          >
+            Wonderland 
+          </div>
+        </a>
       </div>
     </div>
   </div>

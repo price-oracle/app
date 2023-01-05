@@ -3,17 +3,17 @@
 exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
 <DocumentFragment>
   <div
-    class="sc-uhnfH hifHWa"
+    class="sc-xWrgk eWVbZW"
   >
     <div
-      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-iAEawV hhOCqg kpnGeu"
+      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-cUEOzv hhOCqg coitij"
       color="rgba(255,255,255, 0.87)"
     >
       <div
-        class="sc-bhNKFk zKtLQ"
+        class="sc-dWRHGJ kWLBGi"
       >
         <section
-          class="sc-AHaJN dyeDDS"
+          class="sc-hTBuwn gtBEoM"
         >
           <div
             class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB"
@@ -27,7 +27,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             />
           </div>
           <div
-            class="sc-hTBuwn eGtblu"
+            class="sc-gScZFl iKDxRj"
           >
             <section
               class="sc-fnGiBr cQqyKK"
@@ -36,11 +36,11 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
                 class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx"
               >
                 <div
-                  class="sc-bjfHbI sc-gScZFl jWtslV jTDfqc"
+                  class="sc-bjfHbI sc-iOeugr jWtslV huDETY"
                   src="https://assets.coingecko.com/coins/images/13469/thumb/1inch-token.png?1608803028"
                 />
                 <div
-                  class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-iOeugr hOpnyE"
+                  class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-eJDSGI jIACl"
                   color="rgba(255,255,255, 0.87)"
                 >
                   1INCH
@@ -53,13 +53,13 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               </button>
             </section>
             <div
-              class="sc-iBYQkv sc-ftTHYK blHKRc iZMgjB sc-jfTVlA iMwnMd"
+              class="sc-iBYQkv sc-ftTHYK blHKRc iZMgjB sc-lbVpMG kegqDg"
               color="rgba(255,255,255, 0.87)"
             >
               /
             </div>
             <div
-              class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-khsqcC dewCjc"
+              class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-jfTVlA eDLA-DW"
               color="rgba(255,255,255, 0.87)"
             >
               <div
@@ -72,23 +72,35 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         </section>
       </div>
       <div
-        class="sc-bhNKFk zKtLQ"
+        class="sc-dWRHGJ kWLBGi"
       >
         <section
-          class="sc-UpCWa kfATWB"
+          class="sc-hlLBRy cupkKQ"
         >
           <section
-            class="sc-laZRCg caUgxH"
+            class="sc-ckEbSK jvAOVV"
             data-testid="starting-price"
           >
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-gGvHcT jkfofa"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fbYMXx bUmhyT"
               color="rgba(255,255,255, 0.87)"
             >
-              Set starting price
+              Starting price
             </div>
             <div
-              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-ckEbSK cWCNZo"
+              class="sc-jIILKH HlqRn"
+            >
+              <div
+                class="sc-ZqFbI fOkuVg"
+              >
+                <div
+                  class="sc-bjfHbI sc-fXqpFg hpEtXq vSisJ"
+                  src="/src/assets/help.svg"
+                />
+              </div>
+            </div>
+            <div
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-GhhNo bNXkwo"
               color="rgba(255,255,255, 0.87)"
             >
               <div
@@ -101,34 +113,24 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
                 />
               </div>
             </div>
-            <div
-              class="sc-fXqpFg ePPlIW"
-            >
-              <div>
-                <div
-                  class="sc-bjfHbI sc-fbYMXx hpEtXq fCICjR"
-                  src="/src/assets/help.svg"
-                />
-              </div>
-            </div>
           </section>
           <section
-            class="sc-laZRCg caUgxH"
+            class="sc-ckEbSK jvAOVV"
             data-testid="token-rate"
           >
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-gGvHcT jkfofa"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fbYMXx bUmhyT"
               color="rgba(255,255,255, 0.87)"
             >
               Rate
             </div>
             <div
-              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-ckEbSK cWCNZo"
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-GhhNo bNXkwo"
               color="rgba(255,255,255, 0.87)"
             >
               1 
               <div
-                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-ZqFbI fxiIBX"
+                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-bTTELM iNZVJH"
                 color="rgba(255, 255, 255, 0.5)"
               >
                  ETH
@@ -148,7 +150,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
                 />
               </div>
               <div
-                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-ZqFbI fxiIBX"
+                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-bTTELM iNZVJH"
                 color="rgba(255, 255, 255, 0.5)"
               >
                 1INCH
@@ -156,17 +158,17 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             </div>
           </section>
           <section
-            class="sc-laZRCg caUgxH"
+            class="sc-ckEbSK jvAOVV"
             data-testid="feeTier-selected"
           >
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-gGvHcT jkfofa"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fbYMXx bUmhyT"
               color="rgba(255,255,255, 0.87)"
             >
               Fee Tier
             </div>
             <div
-              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-ckEbSK cWCNZo"
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-GhhNo bNXkwo"
               color="rgba(255,255,255, 0.87)"
             >
               <div
@@ -180,11 +182,13 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               </div>
             </div>
             <div
-              class="sc-fXqpFg ePPlIW"
+              class="sc-jIILKH HlqRn"
             >
-              <div>
+              <div
+                class="sc-ZqFbI fOkuVg"
+              >
                 <div
-                  class="sc-bjfHbI sc-fbYMXx hpEtXq fCICjR"
+                  class="sc-bjfHbI sc-fXqpFg hpEtXq vSisJ"
                   src="/src/assets/help.svg"
                 />
               </div>
@@ -193,29 +197,61 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         </section>
       </div>
       <section
-        class="sc-fvEvSO lavOsA"
+        class="sc-bWOGAC hmfUkA"
       >
         <div
-          class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-fcCDlF hPuHhB"
+          class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-eGugkK dUXcNJ"
           color="rgba(255,255,255, 0.87)"
         >
           Deposit amounts
         </div>
         <div>
           <section
-            class="sc-kImNAt ibSGcC"
+            class="sc-jTjUTQ fptopO"
           >
             <div
-              class="sc-bjfHbI sc-hOzowv jWtslV bKHuvp"
+              class="sc-bjfHbI kfgBnd"
+              src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+            />
+            <input
+              aria-label="weth amount"
+              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-fvEvSO fvoNMM jgGokt eICyMK"
+              value="0"
+            />
+            <div
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fcCDlF kfnjJj"
+              color="rgba(255,255,255, 0.87)"
+            >
+              WETH
+            </div>
+          </section>
+          <div
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-csDkEv csRpWB"
+            color="rgba(255,255,255, 0.87)"
+          >
+            <div
+              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-cZFQFd myFBD hvlzNE"
+              color="rgba(255,255,255, 0.87)"
+            >
+              Balance: - WETH
+            </div>
+          </div>
+        </div>
+        <div>
+          <section
+            class="sc-jTjUTQ fptopO"
+          >
+            <div
+              class="sc-bjfHbI sc-jRwbcX jWtslV dQNGgE"
               src="https://assets.coingecko.com/coins/images/13469/thumb/1inch-token.png?1608803028"
             />
             <input
               aria-label="token amount"
-              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-dsHJmm fvoNMM jgGokt cwxXMo"
+              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-fvEvSO fvoNMM jgGokt eICyMK"
               value="0"
             />
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-cZFQFd kvkQoz"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fcCDlF kfnjJj"
               color="rgba(255,255,255, 0.87)"
             >
               <div
@@ -227,62 +263,38 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             </div>
           </section>
           <div
-            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-GKYbw fwhoHZ"
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-csDkEv csRpWB"
             color="rgba(255,255,255, 0.87)"
           >
             <div
-              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-bTTELM myFBD caRVFu"
+              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-cZFQFd myFBD hvlzNE"
               color="rgba(255,255,255, 0.87)"
             >
               Balance: - 1INCH
             </div>
           </div>
         </div>
-        <div>
-          <section
-            class="sc-kImNAt ibSGcC"
-          >
-            <div
-              class="sc-bjfHbI kfgBnd"
-              src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
-            />
-            <input
-              aria-label="weth amount"
-              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-dsHJmm fvoNMM jgGokt cwxXMo"
-              value="0"
-            />
-            <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-cZFQFd kvkQoz"
-              color="rgba(255,255,255, 0.87)"
-            >
-              WETH
-            </div>
-          </section>
-          <div
-            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-GKYbw fwhoHZ"
-            color="rgba(255,255,255, 0.87)"
-          >
-            <div
-              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-bTTELM myFBD caRVFu"
-              color="rgba(255,255,255, 0.87)"
-            >
-              Balance: - WETH
-            </div>
-          </div>
-        </div>
       </section>
       <section
-        class="sc-jTjUTQ ijrtdn"
+        class="sc-GKYbw iuZhAL"
       >
         <div
-          class="sc-jSUZER dotgdq"
+          class="sc-jIILKH HlqRn"
         >
-          <button
-            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-gKPRtg hQQRME sc-jRwbcX cMmzdj"
-            disabled=""
+          <div
+            class="sc-ZqFbI fOkuVg"
           >
-            Create Oracle
-          </button>
+            <div
+              class="sc-jSUZER dotgdq"
+            >
+              <button
+                class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-gKPRtg hQQRME sc-gsGlKL hRcfMZ"
+                disabled=""
+              >
+                Create Oracle
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </div>

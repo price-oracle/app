@@ -53,14 +53,14 @@ const AppNavigator = () => {
           <Item>
             <Section>
               {!isMobile && (
-                <SCustomLink to='/'>
+                <SCustomLink to='/' data-testid='to-landing-page'>
                   <SHeaderButton as={StyledLogo} />
                 </SCustomLink>
               )}
-              <SCustomLink to='/app/pools'>
+              <SCustomLink to='/app/pools' data-testid='to-pools-page'>
                 <SHeaderButton>Pools</SHeaderButton>
               </SCustomLink>
-              <SCustomLink to='/app/seed-liquidity'>
+              <SCustomLink to='/app/seed-liquidity' data-testid='to-seedliquidity-page'>
                 <SHeaderButton>Seed Liquidity</SHeaderButton>
               </SCustomLink>
               <ExternalLink href='https://docs.oracles.rip/'>
