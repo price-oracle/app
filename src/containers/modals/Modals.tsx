@@ -6,6 +6,7 @@ import { ModalsActions, ModalSelectors } from '~/store';
 
 import { TestModal } from './TestModal';
 import { LockModal } from './LockModal';
+import { getConfig } from '~/config';
 
 const modalTimeout = 300;
 
@@ -19,7 +20,7 @@ const StyledModals = styled(TransitionGroup)`
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  z-index: 1000;
+  z-index: ${getConfig().ZINDEX.modal};
 
   .slideBottom-enter {
     opacity: 0;
@@ -57,7 +58,7 @@ const StyledBackdrop = styled.div`
   width: 100%;
   pointer-events: all;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 0;
+  z-index: ${getConfig().ZINDEX.background};
 
   @media (min-width: 960px) {
     backdrop-filter: blur(11px);

@@ -176,7 +176,7 @@ function PropertiesSection({
       <PropertyCard data-testid='starting-price'>
         <PropertyCard.Title>Starting price</PropertyCard.Title>
         <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
-          <PropertyCard.Helper />
+          <PropertyCard.Helper name='help' />
         </Tooltip>
 
         <PropertyCard.Value>
@@ -222,7 +222,7 @@ function PropertiesSection({
           )}
         </PropertyCard.Value>
         <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
-          <PropertyCard.Helper />
+          <PropertyCard.Helper name='help' />
         </Tooltip>
         {!isLoading && <PropertyCard.Chip>{selectedFee.hint}</PropertyCard.Chip>}
       </PropertyCard>

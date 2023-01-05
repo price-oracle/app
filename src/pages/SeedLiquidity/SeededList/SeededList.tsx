@@ -106,7 +106,7 @@ const PoolList = () => {
                 <SeededContainer>
                   <SortButton text='Seeded' />
                   <Tooltip content="Percentage of pool's seeded liquidity. Ownership gives you governance rights over future oracle changes.">
-                    <PropertyCard.Helper />
+                    <PropertyCard.Helper name='help' />
                   </Tooltip>
                 </SeededContainer>
                 <SortButton text='Claimable rewards' />

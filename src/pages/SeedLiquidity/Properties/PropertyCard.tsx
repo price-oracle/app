@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import help from '~/assets/help.svg';
 import {
   Typography,
   Chip,
@@ -51,14 +50,11 @@ const Value = styled(Typography).attrs({
   height: ${SPACING_28};
 `;
 
-const Helper = styled(TokenIcon).attrs({
-  // temporary icon
-  src: help,
-})`
-  ${(props) => props.theme.type === 'dark' && 'filter: invert(100%);'}
+const Helper = styled(Icon)`
   grid-area: helper;
   justify-self: end;
   cursor: pointer;
+  padding: 0;
 `;
 
 export const LockIcon = styled(Icon).attrs({

@@ -1,6 +1,6 @@
 import { Address, Network } from './Blockchain';
 import { FeeTier } from './FeeTiers';
-import { Language, ThemeName } from './Settings';
+import { Language, ThemeName, ZIndex } from './Settings';
 
 export interface Env {
   ENV: string;
@@ -33,6 +33,7 @@ export interface Constants {
   CONFIRMATIONS: { [key: number]: number };
 
   DEFAULT_ALERT_TIMEOUT: number;
+  ZINDEX: ZIndex;
   FEE_TIERS: { [key: number]: FeeTier };
 }
 

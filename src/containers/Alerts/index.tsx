@@ -4,6 +4,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { useAppSelector } from '~/hooks';
 import { Alert } from './Alert';
+import { getConfig } from '~/config';
 
 const StyledAlerts = styled(TransitionGroup)`
   position: fixed;
@@ -16,7 +17,7 @@ const StyledAlerts = styled(TransitionGroup)`
   align-items: flex-end;
   justify-content: flex-start;
   pointer-events: none;
-  z-index: 1200;
+  z-index: ${getConfig().ZINDEX.alert};
   gap: 1rem;
   padding: 2rem;
 
