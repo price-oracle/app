@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, RefObject } from 'react';
 import styled from 'styled-components';
 import { Icon } from './Icon';
 import { Input } from './Input';
@@ -26,14 +26,15 @@ const SInput = styled(Input)`
 `;
 
 interface IProps {
+  inputRef?: RefObject<HTMLInputElement>;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-export const SearchInput = ({ onChange }: IProps) => {
+export const SearchInput = ({ onChange, inputRef }: IProps) => {
   return (
     <Container>
       <SearchIcon name='search' />
-      <SInput onChange={onChange} aria-label='Search' />
+      <SInput onChange={onChange} aria-label='Search' ref={inputRef} />
     </Container>
   );
 };

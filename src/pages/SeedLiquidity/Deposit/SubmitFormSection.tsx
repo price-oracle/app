@@ -178,7 +178,7 @@ const SubmitFormSection = ({
 
   const createOracleMessage = () => {
     if (!address) return 'Wallet must be connected';
-    if (isDisabled) return 'Insufficient balance';
+    if (wethAmount.gte(wethBalance) || tokenAmount.gte(tokenBalance)) return 'Insufficient balance';
     return '';
   };
 

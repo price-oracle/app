@@ -57,9 +57,7 @@ const Helper = styled(Icon)`
   padding: 0;
 `;
 
-export const LockIcon = styled(Icon).attrs({
-  name: 'lock',
-})`
+export const LockIcon = styled(Icon)`
   padding: 0;
   margin-left: 0.8rem;
 `;

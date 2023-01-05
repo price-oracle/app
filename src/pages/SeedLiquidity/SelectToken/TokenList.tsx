@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { ethers } from 'ethers';
 import styled from 'styled-components';
 import { useNetwork } from 'wagmi';
@@ -77,6 +77,7 @@ const TokenList = ({ onSelect, className }: IProps) => {
   const { erc20Service } = useContracts();
   const { chain } = useNetwork();
   const isLoading = false;
+  const ref = useRef<HTMLInputElement>(null);
 
   const [searchInput, setSearchInput] = useState('');
 
@@ -109,9 +110,13 @@ const TokenList = ({ onSelect, className }: IProps) => {
     onSelect(token);
   };
 
+  useLayoutEffect(() => {
+    ref.current?.focus();
+  });
+
   return (
     <SCard>
-      <SearchInput onChange={(e) => setSearchInput(e.target.value)} />
+      <SearchInput onChange={(e) => setSearchInput(e.target.value)} inputRef={ref} />
 
       <TokenListContainer className={className}>
         {isLoading && <Loading />}

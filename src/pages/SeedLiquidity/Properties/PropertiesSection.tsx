@@ -185,7 +185,7 @@ function PropertiesSection({
             <SInputNumber {...startingPriceInput} disabled={selectedFeeTierExists} aria-label='starting price' />
           )}
         </PropertyCard.Value>
-        {selectedFeeTierExists && <LockIcon />}
+        {selectedFeeTierExists && <LockIcon name='lock' />}
       </PropertyCard>
 
       <PropertyCard data-testid='token-rate'>

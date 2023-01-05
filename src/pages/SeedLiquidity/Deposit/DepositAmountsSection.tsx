@@ -90,12 +90,12 @@ const DepositAmountsSection = ({
 
   const tokenInput = InputNumber.useProps({
     onChange: onTokenAmountChanged,
-    initialValue: '0',
+    initialValue: '',
   });
 
   const wethInput = InputNumber.useProps({
     onChange: onWethAmountChanged,
-    initialValue: '0',
+    initialValue: '',
   });
 
   useEffect(() => {

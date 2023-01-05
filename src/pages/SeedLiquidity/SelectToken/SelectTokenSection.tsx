@@ -11,6 +11,7 @@ import {
   MOBILE_MAX_WIDTH,
 } from '~/components/shared';
 import Dropdown from '~/components/shared/Dropdown';
+import { AlertsActions, useAppDispatch } from '~/store';
 import { Token } from '~/types/Token';
 import TokenList from './TokenList';
 
@@ -69,10 +70,15 @@ interface SelectTokenProps {
 
 const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProps) => {
   const dropdownProps = Dropdown.useProps();
+  const dispatch = useAppDispatch();
 
   const onTokenSelect = (token: Token) => {
-    dropdownProps.setShow(false);
-    setSelectedToken(token);
+    if (token.symbol === 'WETH') {
+      dispatch(AlertsActions.openAlert({ message: 'Invalid Token', type: 'error' }));
+    } else {
+      setSelectedToken(token);
+      dropdownProps.setShow(false);
+    }
   };
 
   return (

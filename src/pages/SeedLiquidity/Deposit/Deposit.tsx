@@ -43,7 +43,9 @@ const Token = ({ className, isPrice, src }: TokenProps) => {
   return isPrice ? <EthIcon /> : <STokenIcon className={className} src={src || ''} />;
 };
 
-const Amount = styled(InputNumber)`
+const Amount = styled(InputNumber).attrs({
+  placeholder: '0',
+})`
   font-size: ${FONT_SIZE_20};
   line-height: 1.25em;
   grid-area: amount;
