@@ -61,14 +61,14 @@ jobs:
 
       - name: Deploy to S3
         uses: reggionick/s3-deploy@v3
-          with:
-            folder: dist
-            bucket: ${{ github.ref_name == 'main' && secrets.S3_BUCKET_NAME_PROD || secrets.S3_BUCKET_NAME_DEV }}
-            bucket-region: ${{ github.ref_name == 'main' && secrets.S3_BUCKET_REGION_PROD || secrets.S3_BUCKET_REGION_DEV }}
-            dist-id: ${{ github.ref_name == 'main' && secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD || secrets.CLOUDFRONT_DISTRIBUTION_ID_DEV }}
-            invalidation: / *
-            delete-removed: true
-            private: true
-          env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          folder: dist
+          bucket: ${{ github.ref_name == 'main' && secrets.S3_BUCKET_NAME_PROD || secrets.S3_BUCKET_NAME_DEV }}
+          bucket-region: ${{ github.ref_name == 'main' && secrets.S3_BUCKET_REGION_PROD || secrets.S3_BUCKET_REGION_DEV }}
+          dist-id: ${{ github.ref_name == 'main' && secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD || secrets.CLOUDFRONT_DISTRIBUTION_ID_DEV }}
+          invalidation: / *
+          delete-removed: true
+          private: true
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
