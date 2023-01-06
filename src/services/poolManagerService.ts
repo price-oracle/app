@@ -42,11 +42,10 @@ export class PoolManagerService {
       const errorMessage = 'Failed to add liquidity';
 
       //This is needed to call the overloaded function in the contract
-      const increaseFullRangeCall = poolManagerContract['increaseFullRangePosition(address,uint128,uint160,bool)'](
+      const increaseFullRangeCall = poolManagerContract['increaseFullRangePosition(address,uint128,uint160)'](
         this.address,
         liquidity,
-        sqrtPriceX96,
-        false
+        sqrtPriceX96
       );
 
       return this.txService.handleTx(increaseFullRangeCall, successMessage, errorMessage);
