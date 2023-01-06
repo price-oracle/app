@@ -15,6 +15,7 @@ import {
   Typography,
 } from '~/components/shared';
 import { Item } from '../Navigator/Navigator.styles';
+import { getConfig } from '~/config';
 
 export const StyledLogo = styled(Logo)`
   color: ${(props) => props.theme.textPrimary};
@@ -101,6 +102,7 @@ export const ScamAlert = styled(Typography)`
   padding: 0.4rem 0;
   width: 100%;
   font-size: 1.4rem;
+  z-index: ${getConfig().ZINDEX.tooltip};
 
   & * {
     font-size: 1.4rem;

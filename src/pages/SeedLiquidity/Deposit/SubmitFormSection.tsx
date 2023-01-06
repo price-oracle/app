@@ -5,7 +5,7 @@ import { useAccount, useNetwork } from 'wagmi';
 import { isUndefined } from 'lodash';
 
 import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
-import { BoxButton, Loading, SPACING_32 } from '~/components/shared';
+import { BoxButton, Loading, SPACING_12, Typography } from '~/components/shared';
 import { getConfig } from '~/config';
 import { useAppSelector, useContracts, useUpdateState } from '~/hooks';
 import { Address, FeeTier, Token, UniswapPool } from '~/types';
@@ -15,7 +15,13 @@ const Container = styled.section`
   display: grid;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: ${SPACING_32};
+`;
+
+const MinAmount = styled(Typography).attrs({
+  variant: 'small',
+  color: 'disabled',
+})`
+  padding-bottom: ${SPACING_12};
 `;
 
 const SBoxButton = styled(BoxButton)`
@@ -178,34 +184,44 @@ const SubmitFormSection = ({
 
   const createOracleMessage = () => {
     if (!address) return 'Wallet must be connected';
-    if (wethAmount.gte(wethBalance) || tokenAmount.gte(tokenBalance)) return 'Insufficient balance';
+    if (wethAmount.gt(wethBalance) || tokenAmount.gt(tokenBalance)) return 'Insufficient balance';
+    if (wethAmount.isZero()) return 'Insufficient amount';
+    if (!isPoolManagerCreated() && insufficentWeth()) return 'Insufficient WETH amount';
     return '';
   };
 
-  return (
-    <Container>
-      <Tooltip content={createOracleMessage()}>
-        {!isApproved && (
-          <SBoxButton
-            onClick={() => {
-              handleApprove();
-            }}
-            disabled={isDisabled}
-          >
-            {isLoading && <Loading />}
-            {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
-          </SBoxButton>
-        )}
+  const insufficentWeth = () => {
+    // TODO: fetch min WETH amount from contract
+    return wethAmount.lt(constants.WeiPerEther.mul(25));
+  };
 
-        {/* Initialize/Add-Liquidity Pool Logic */}
-        {isApproved && (
-          <SBoxButton onClick={createPool} disabled={isDisabled}>
-            {isLoading && <Loading />}
-            {!isLoading && (isPoolManagerCreated() ? 'Add Liquidity' : 'Create Oracle')}
-          </SBoxButton>
-        )}
-      </Tooltip>
-    </Container>
+  return (
+    <>
+      <Container>
+        <Tooltip content={createOracleMessage()}>
+          {!isApproved && (
+            <SBoxButton
+              onClick={() => {
+                handleApprove();
+              }}
+              disabled={isDisabled || (!isPoolManagerCreated() && insufficentWeth())}
+            >
+              {isLoading && <Loading />}
+              {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
+            </SBoxButton>
+          )}
+
+          {/* Initialize/Add-Liquidity Pool Logic */}
+          {isApproved && (
+            <SBoxButton onClick={createPool} disabled={isDisabled || (!isPoolManagerCreated() && insufficentWeth())}>
+              {isLoading && <Loading />}
+              {!isLoading && (isPoolManagerCreated() ? 'Add Liquidity' : 'Create Oracle')}
+            </SBoxButton>
+          )}
+        </Tooltip>
+      </Container>
+      <MinAmount>Minimum WETH amount to create a new oracle: 25 WETH</MinAmount>
+    </>
   );
 };
 
