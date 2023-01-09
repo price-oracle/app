@@ -59,6 +59,11 @@ jobs:
       - name: Build project dependencies
         run: yarn run build
         id: build
+        env:
+          VITE_ALLOW_DEV_MODE: ${{ env.VITE_ALLOW_DEV_MODE }}
+          CUSTOM_LOCAL_RPC: ${{ env.CUSTOM_LOCAL_RPC }}
+          VITE_ALCHEMY_KEY: ${{ env.VITE_ALCHEMY_KEY }}
+          VITE_CUSTOM_RPC: ${{ env.VITE_CUSTOM_RPC }}
 
       - name: Deploy to S3
         uses: reggionick/s3-deploy@v3
