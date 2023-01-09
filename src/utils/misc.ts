@@ -17,16 +17,22 @@ export function withComponents<A, B>(component: A, properties: B): A & B {
   return component as A & B;
 }
 
-export function formatNumber(input: string, decimals = 18): { number: string | number; suffix: string } {
-  const res = Number.parseFloat(toUnit(input, decimals));
+export function formatNumber(
+  input: string,
+  decimals = 18,
+  formatDecimal = 2
+): { number: string | number; suffix: string; formatDecimal?: number | undefined } {
+  let res: number = Number.parseFloat(input);
+
+  if (decimals !== 0) res = Number.parseFloat(toUnit(input, decimals));
 
   if (res < 1000) {
-    const number = res.toFixed(decimals);
-    return { number: number.slice(0, 4), suffix: '' };
+    const number = res.toFixed(formatDecimal);
+    return { number: number, suffix: '' };
   }
 
   const formattedNumber = new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 2,
+    maximumFractionDigits: formatDecimal,
     notation: 'compact',
     compactDisplay: 'short',
   }).format(res);

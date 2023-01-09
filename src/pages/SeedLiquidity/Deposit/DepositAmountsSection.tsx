@@ -103,7 +103,7 @@ const DepositAmountsSection = ({
     tokenInput.set('');
   };
 
-  useEffect(() => {
+  const updateBalance = () => {
     if (userAddress) {
       selectedToken &&
         erc20Service
@@ -113,6 +113,10 @@ const DepositAmountsSection = ({
             setTokenBalance(tokenBalance);
           });
     }
+  };
+
+  useEffect(() => {
+    updateBalance();
   }, [selectedToken, tokenBalance?.toString(), wethBalance?.toString(), userAddress]);
 
   useEffect(() => {
@@ -186,6 +190,7 @@ const DepositAmountsSection = ({
         uniswapPoolsForFeeTier={uniswapPoolsForFeeTier}
         selectedFee={selectedFee}
         resetInputValues={resetInputValues}
+        updateBalances={updateBalance}
       />
     </>
   );

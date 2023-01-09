@@ -38,6 +38,7 @@ interface AmountsProps {
   uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
   selectedFee: FeeTier;
   resetInputValues: () => void;
+  updateBalances: () => void;
 }
 
 const SubmitFormSection = ({
@@ -50,6 +51,7 @@ const SubmitFormSection = ({
   uniswapPoolsForFeeTier,
   selectedFee,
   resetInputValues,
+  updateBalances,
 }: AmountsProps) => {
   const { updatePoolAndLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
@@ -150,12 +152,7 @@ const SubmitFormSection = ({
         // Calculate liquidity
         // TODO: Improve sqrtPriceX96 calcs
         // we subtract 10 wei to avoid a possible error when uniswap calls transferFrom()
-        const liquidity = calculateLiquidity(
-          sqrtPriceX96,
-          wethAmount.sub(10),
-          tokenAmount.sub(10),
-          uniPool.isWethToken0
-        );
+        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount.sub(10), tokenAmount.sub(10), isWethToken0);
         // Check if poolmanager is already created
         if (isPoolManagerCreated()) {
           // If created call the poolmanager on increaseLiquidity
@@ -167,6 +164,7 @@ const SubmitFormSection = ({
             })
             .finally(() => {
               updateAllowanceAmount(poolManagerAddress);
+              updateBalances();
               setIsLoading(false);
             });
         } else {
@@ -179,6 +177,7 @@ const SubmitFormSection = ({
             })
             .finally(() => {
               updateAllowanceAmount(poolManagerAddress);
+              updateBalances();
               setIsLoading(false);
             });
         }

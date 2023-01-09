@@ -58,6 +58,7 @@ const CloseAlert = styled.div`
 
 const MessageAlert = styled(Typography).attrs({
   variant: 'medium',
+  allowWrap: true,
 })`
   color: inherit;
 `;
