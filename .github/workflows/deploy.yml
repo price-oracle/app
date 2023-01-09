@@ -10,6 +10,7 @@ jobs:
   build:
     name: Build, Test and Deploy
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'main' && 'Prod' || 'Dev' }}
 
     steps:
       - uses: actions/checkout@v3
