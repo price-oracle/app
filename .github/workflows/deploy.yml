@@ -8,9 +8,10 @@ on:
 
 jobs:
   build:
-    name: Build, Test and Deploy
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'Prod' || 'Dev' }}
+    environment:
+      name: ${{ github.ref_name == 'main' && 'Prod' || 'Dev' }}
+      url: ${{ github.ref_name == 'main' && 'https://oracles.rip' || 'https://dev.oracles.rip' }}
 
     steps:
       - uses: actions/checkout@v3
@@ -69,9 +70,9 @@ jobs:
         uses: reggionick/s3-deploy@v3
         with:
           folder: dist
-          bucket: ${{ github.ref_name == 'main' && secrets.S3_BUCKET_NAME_PROD || secrets.S3_BUCKET_NAME_DEV }}
-          bucket-region: ${{ github.ref_name == 'main' && secrets.S3_BUCKET_REGION_PROD || secrets.S3_BUCKET_REGION_DEV }}
-          dist-id: ${{ github.ref_name == 'main' && secrets.CLOUDFRONT_DISTRIBUTION_ID_PROD || secrets.CLOUDFRONT_DISTRIBUTION_ID_DEV }}
+          bucket: ${{ secrets.S3_BUCKET_NAME }}
+          bucket-region: ${{ secrets.S3_BUCKET_REGION }}
+          dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: / *
           delete-removed: true
           private: true
