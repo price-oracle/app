@@ -33,6 +33,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Test
+        run: echo ${{ env.VITE_ALLOW_DEV_MODE }} && echo ${{ VITE_ALLOW_DEV_MODE }}
+        env:
+          VITE_ALLOW_DEV_MODE: ${{ env.VITE_ALLOW_DEV_MODE }}
+
       - name: Install project dependencies
         run: yarn --prefer-offline
         id: install
