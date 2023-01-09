@@ -16,6 +16,7 @@ import { PropTheme } from './components/shared';
 import { Alerts } from './containers/Alerts';
 import { Modals } from './containers/modals';
 import { Themable } from './containers/Themable';
+import { InjectService } from './services';
 
 const GlobalStyle = createGlobalStyle<PropTheme>`
   html, body {
@@ -42,6 +43,9 @@ function App() {
   const { updateEthPrice, updatePoolAndLockState } = useUpdateState();
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
+
+  const injectService = new InjectService();
+  injectService.injectPlausible();
 
   useEffect(() => {
     updatePoolAndLockState();
