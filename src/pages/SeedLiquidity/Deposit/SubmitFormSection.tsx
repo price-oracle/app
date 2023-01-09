@@ -37,6 +37,7 @@ interface AmountsProps {
   startingPrice: BigNumber;
   uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
   selectedFee: FeeTier;
+  resetInputValues: () => void;
 }
 
 const SubmitFormSection = ({
@@ -48,6 +49,7 @@ const SubmitFormSection = ({
   startingPrice,
   uniswapPoolsForFeeTier,
   selectedFee,
+  resetInputValues,
 }: AmountsProps) => {
   const { updatePoolAndLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
@@ -92,7 +94,7 @@ const SubmitFormSection = ({
         .then(() => {
           updateAllowanceAmount(poolManagerAddress);
         })
-        .finally(() => {
+        .catch(() => {
           setIsLoading(false);
         });
 
@@ -103,7 +105,7 @@ const SubmitFormSection = ({
           .then(() => {
             updateAllowanceAmount(poolManagerAddress);
           })
-          .finally(() => {
+          .catch(() => {
             setIsLoading(false);
           });
       }
@@ -161,6 +163,7 @@ const SubmitFormSection = ({
             .increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96)
             .then(() => {
               updatePoolAndLockState();
+              resetInputValues();
             })
             .finally(() => {
               updateAllowanceAmount(poolManagerAddress);
@@ -172,6 +175,7 @@ const SubmitFormSection = ({
             .createPoolManager(selectedToken.address, selectedToken.symbol, selectedFee.fee, liquidity, sqrtPriceX96)
             .then(() => {
               updatePoolAndLockState();
+              resetInputValues();
             })
             .finally(() => {
               updateAllowanceAmount(poolManagerAddress);
