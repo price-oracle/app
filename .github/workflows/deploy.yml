@@ -34,9 +34,9 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Test
-        run: echo ${{ env.VITE_ALLOW_DEV_MODE }}
+        run: echo ${{ secrets.VITE_ALLOW_DEV_MODE }}
         env:
-          VITE_ALLOW_DEV_MODE: ${{ env.VITE_ALLOW_DEV_MODE }}
+          VITE_ALLOW_DEV_MODE: ${{ secrets.VITE_ALLOW_DEV_MODE }}
 
       - name: Install project dependencies
         run: yarn --prefer-offline
