@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Test
-        run: echo ${{ env.VITE_ALLOW_DEV_MODE }} && echo ${{ VITE_ALLOW_DEV_MODE }}
+        run: echo ${{ env.VITE_ALLOW_DEV_MODE }}
         env:
           VITE_ALLOW_DEV_MODE: ${{ env.VITE_ALLOW_DEV_MODE }}
 
