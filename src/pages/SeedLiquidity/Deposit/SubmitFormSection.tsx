@@ -7,9 +7,10 @@ import { isUndefined } from 'lodash';
 import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
 import { BoxButton, Loading, SPACING_12, Typography } from '~/components/shared';
 import { getConfig } from '~/config';
-import { useAppSelector, useContracts, useUpdateState } from '~/hooks';
+import { useAppDispatch, useAppSelector, useContracts, useUpdateState } from '~/hooks';
 import { Address, FeeTier, Token, UniswapPool } from '~/types';
 import { Tooltip } from '~/containers/Tooltips';
+import { ModalsActions } from '~/store';
 
 const Container = styled.section`
   display: grid;
@@ -55,8 +56,9 @@ const SubmitFormSection = ({
 }: AmountsProps) => {
   const { updatePoolAndLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
+  const isModalOpen = useAppSelector((state) => state.modals.activeModal);
   const { poolManagerFactoryService, poolManagerService, erc20Service } = useContracts();
-
+  const dispatch = useAppDispatch();
   const { address } = useAccount();
   const { chain } = useNetwork();
   const [isInvalid, setIsInvalid] = useState(false);
@@ -151,8 +153,8 @@ const SubmitFormSection = ({
         const sqrtPriceX96 = getSqrtPriceX96ForToken(startingPrice, isWethToken0);
         // Calculate liquidity
         // TODO: Improve sqrtPriceX96 calcs
-        // we subtract 10 wei to avoid a possible error when uniswap calls transferFrom()
-        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount.sub(10), tokenAmount.sub(10), isWethToken0);
+        // we subtract 1000 wei to avoid a possible error when uniswap calls transferFrom()
+        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount.sub(1000), tokenAmount.sub(1000), isWethToken0);
         // Check if poolmanager is already created
         if (isPoolManagerCreated()) {
           // If created call the poolmanager on increaseLiquidity
@@ -169,21 +171,33 @@ const SubmitFormSection = ({
             });
         } else {
           // If not created call poolmanagerfactory with params
-          poolManagerFactoryService
-            .createPoolManager(selectedToken.address, selectedToken.symbol, selectedFee.fee, liquidity, sqrtPriceX96)
-            .then(() => {
-              updatePoolAndLockState();
-              resetInputValues();
-            })
-            .finally(() => {
-              updateAllowanceAmount(poolManagerAddress);
-              updateBalances();
-              setIsLoading(false);
-            });
+          const createProps = {
+            cardinality: uniswapPoolsForFeeTier[selectedFee.fee]?.cardinality,
+            tokenAddress: selectedToken.address,
+            tokenSymbol: selectedToken.symbol,
+            fee: selectedFee.fee,
+            liquidity: liquidity.toString(),
+            sqrtPriceX96: sqrtPriceX96.toString(),
+            poolExist: !!uniPool,
+          };
+
+          dispatch(ModalsActions.openModal({ modalName: 'costs', modalProps: createProps }));
         }
       }
     }
   };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+      resetInputValues();
+      updatePoolAndLockState();
+      updateBalances();
+      updateAllowanceAmount(poolManagerAddress);
+    }
+  }, [isModalOpen]);
 
   const createOracleMessage = () => {
     if (!address) return 'Wallet must be connected';

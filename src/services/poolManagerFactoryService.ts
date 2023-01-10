@@ -44,6 +44,19 @@ export class PoolManagerFactoryService {
     }
   }
 
+  async estimateGasCreatePoolManager(
+    erc20Address: Address,
+    fee: number,
+    liquidity: BigNumber,
+    sqrtPriceX96: BigNumber
+  ) {
+    if (this.signer) {
+      const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.signer);
+      const createPoolManagerTx = factory.estimateGas.createPoolManager(erc20Address, fee, liquidity, sqrtPriceX96);
+
+      return createPoolManagerTx;
+    }
+  }
   async fetchPoolAndLockManagers(userAddress: Address | undefined): Promise<PoolAndLockManager[]> {
     const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.provider);
 

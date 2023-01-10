@@ -55,3 +55,11 @@ export const sanitizeDecimals = (value: string | undefined, decimals = 18) => {
     return value ? value : '0';
   }
 };
+
+export const formatCost = (value: string, decimals: number, formatDecimals: number | undefined) => {
+  const { number, suffix } = formatNumber(value, decimals, formatDecimals);
+  if (Number.parseFloat(number.toString()) < 0.01) {
+    return '< 0.01';
+  }
+  return `${number}${suffix}`;
+};

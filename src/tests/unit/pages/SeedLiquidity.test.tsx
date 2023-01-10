@@ -79,9 +79,9 @@ describe('Testing <DepositAmountsSection />', () => {
     );
   });
 
-  it('both inputs start with "0" value', () => {
-    expect(screen.getByLabelText('token amount')).toHaveValue('0');
-    expect(screen.getByLabelText('weth amount')).toHaveValue('0');
+  it('both inputs start with null value', () => {
+    expect(screen.getByLabelText('token amount')).toHaveValue('');
+    expect(screen.getByLabelText('weth amount')).toHaveValue('');
   });
 
   it('shows the selected token symbol and image', () => {

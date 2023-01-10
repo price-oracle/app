@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'price-icons';
-  src: url('fonts/price-icons.eot?jxm1kk');
-  src: url('fonts/price-icons.eot?jxm1kk#iefix') format('embedded-opentype'),
-    url('fonts/price-icons.ttf?jxm1kk') format('truetype'), url('fonts/price-icons.woff?jxm1kk') format('woff'),
-    url('fonts/price-icons.svg?jxm1kk#price-icons') format('svg');
+  src: url('fonts/price-icons.eot?3nf81g');
+  src: url('fonts/price-icons.eot?3nf81g#iefix') format('embedded-opentype'),
+    url('fonts/price-icons.ttf?3nf81g') format('truetype'), url('fonts/price-icons.woff?3nf81g') format('woff'),
+    url('fonts/price-icons.svg?3nf81g#price-icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -24,6 +24,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.picon-gas:before {
+  content: '\e910';
+}
 .picon-help:before {
   content: '\e90f';
 }

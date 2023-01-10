@@ -3,14 +3,14 @@
 exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
 <DocumentFragment>
   <div
-    class="sc-xWrgk eWVbZW"
+    class="sc-dWRHGJ fJoKvL"
   >
     <div
       class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-cUEOzv hhOCqg coitij"
       color="rgba(255,255,255, 0.87)"
     >
       <div
-        class="sc-dWRHGJ kWLBGi"
+        class="sc-jGNhvO cICFc"
       >
         <section
           class="sc-hTBuwn gtBEoM"
@@ -72,7 +72,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         </section>
       </div>
       <div
-        class="sc-dWRHGJ kWLBGi"
+        class="sc-jGNhvO cICFc"
       >
         <section
           class="sc-hlLBRy cupkKQ"
@@ -93,9 +93,9 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               <div
                 class="sc-ZqFbI fOkuVg"
               >
-                <div
-                  class="sc-bjfHbI sc-fXqpFg hpEtXq vSisJ"
-                  src="/src/assets/help.svg"
+                <i
+                  class="sc-hBxehG sc-fXqpFg ccFtCM kqOAXu picon-help"
+                  name="help"
                 />
               </div>
             </div>
@@ -187,9 +187,9 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               <div
                 class="sc-ZqFbI fOkuVg"
               >
-                <div
-                  class="sc-bjfHbI sc-fXqpFg hpEtXq vSisJ"
-                  src="/src/assets/help.svg"
+                <i
+                  class="sc-hBxehG sc-fXqpFg ccFtCM kqOAXu picon-help"
+                  name="help"
                 />
               </div>
             </div>
@@ -197,45 +197,13 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         </section>
       </div>
       <section
-        class="sc-bWOGAC hmfUkA"
+        class="sc-eGugkK kHIjPP"
       >
         <div
-          class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-eGugkK dUXcNJ"
+          class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-csDkEv ikekUB"
           color="rgba(255,255,255, 0.87)"
         >
           Deposit amounts
-        </div>
-        <div>
-          <section
-            class="sc-jTjUTQ fptopO"
-          >
-            <div
-              class="sc-bjfHbI kfgBnd"
-              src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
-            />
-            <input
-              aria-label="weth amount"
-              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-fvEvSO fvoNMM jgGokt eICyMK"
-              value="0"
-            />
-            <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fcCDlF kfnjJj"
-              color="rgba(255,255,255, 0.87)"
-            >
-              WETH
-            </div>
-          </section>
-          <div
-            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-csDkEv csRpWB"
-            color="rgba(255,255,255, 0.87)"
-          >
-            <div
-              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-cZFQFd myFBD hvlzNE"
-              color="rgba(255,255,255, 0.87)"
-            >
-              Balance: - WETH
-            </div>
-          </div>
         </div>
         <div>
           <section
@@ -248,7 +216,8 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             <input
               aria-label="token amount"
               class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-fvEvSO fvoNMM jgGokt eICyMK"
-              value="0"
+              placeholder="0"
+              value=""
             />
             <div
               class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fcCDlF kfnjJj"
@@ -263,7 +232,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             </div>
           </section>
           <div
-            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-csDkEv csRpWB"
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-dEVLtI gIrfUz"
             color="rgba(255,255,255, 0.87)"
           >
             <div
@@ -274,9 +243,42 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             </div>
           </div>
         </div>
+        <div>
+          <section
+            class="sc-jTjUTQ fptopO"
+          >
+            <div
+              class="sc-bjfHbI kfgBnd"
+              src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+            />
+            <input
+              aria-label="weth amount"
+              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-fvEvSO fvoNMM jgGokt eICyMK"
+              placeholder="0"
+              value=""
+            />
+            <div
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fcCDlF kfnjJj"
+              color="rgba(255,255,255, 0.87)"
+            >
+              WETH
+            </div>
+          </section>
+          <div
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-dEVLtI gIrfUz"
+            color="rgba(255,255,255, 0.87)"
+          >
+            <div
+              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-cZFQFd myFBD hvlzNE"
+              color="rgba(255,255,255, 0.87)"
+            >
+              Balance: - WETH
+            </div>
+          </div>
+        </div>
       </section>
       <section
-        class="sc-GKYbw iuZhAL"
+        class="sc-GKYbw jbRKZ"
       >
         <div
           class="sc-jIILKH HlqRn"
@@ -288,7 +290,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
               class="sc-jSUZER dotgdq"
             >
               <button
-                class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-gKPRtg hQQRME sc-gsGlKL hRcfMZ"
+                class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-gKPRtg hQQRME sc-bWOGAC fyoZPy"
                 disabled=""
               >
                 Create Oracle
@@ -297,6 +299,12 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
           </div>
         </div>
       </section>
+      <div
+        class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-gsGlKL bBhrPc"
+        color="rgba(255, 255, 255, 0.5)"
+      >
+        Minimum WETH amount to create a new oracle: 25 WETH
+      </div>
     </div>
   </div>
 </DocumentFragment>

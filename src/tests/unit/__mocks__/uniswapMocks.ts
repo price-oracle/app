@@ -50,6 +50,7 @@ export const uniswapPool = {
   address: tokensData.pools['DAI/ETH'],
   pricing: getUniswapDataFromPool('test').sqrtPriceX96,
   isWethToken0: false,
+  cardinality: undefined,
 };
 
 export const uniswapPoolForFeeTierMock = { [feeTier.fee]: uniswapPool };

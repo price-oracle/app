@@ -57,6 +57,7 @@ export class UniswapService {
       poolsData.push({
         pricing: slot0.sqrtPriceX96,
         isWethToken0: token0 === this.addresses.WETH_ADDRESS,
+        cardinality: slot0.observationCardinalityNext,
       });
     }
 
