@@ -20,9 +20,8 @@ import { getConfig } from '~/config';
 import { FeeTier, Token, UniswapPool } from '~/types';
 import { sqrtPriceX96ToPrice } from '~/utils';
 import FeeCard from './FeeCard';
-import PropertyCard, { LockIcon } from './PropertyCard';
+import PropertyCard, { LockIcon, FeePropertyCard } from './PropertyCard';
 import { useContracts } from '~/hooks';
-import { Tooltip } from '~/containers/Tooltips';
 
 const Container = styled.section`
   display: grid;
@@ -68,7 +67,9 @@ const Suffix = styled(Typography).attrs({
   margin-left: 2px;
 `;
 
-const SInputNumber = styled(InputNumber)`
+const SInputNumber = styled(InputNumber).attrs({
+  placeholder: '0',
+})`
   width: 100%;
   font-family: PlusJakartaSans;
   font-size: ${FONT_SIZE_20};
@@ -103,8 +104,8 @@ const NotCreatedContainer = styled.div`
 
 interface PropertiesSectionProps {
   selectedToken: Token | undefined;
-  startingPrice: BigNumber;
-  setStartingPrice: (newPrice: BigNumber) => void;
+  startingPrice: BigNumber | undefined;
+  setStartingPrice: (newPrice: BigNumber | undefined) => void;
   uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
   setUniswapPoolsForFeeTier: (pools: { [feeTier: string]: UniswapPool } | undefined) => void;
   selectedFee: FeeTier;
@@ -134,11 +135,15 @@ function PropertiesSection({
     setSelectedFee(fee);
   };
 
-  const onPriceChange = (newPrice: string) => {
-    setStartingPrice(utils.parseUnits(newPrice, selectedToken?.decimals));
+  const onPriceChange = (newPrice: string | undefined) => {
+    if (newPrice) {
+      setStartingPrice(utils.parseUnits(newPrice, selectedToken?.decimals));
+    } else {
+      setStartingPrice(undefined);
+    }
   };
 
-  const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice.toString(), onChange: onPriceChange });
+  const startingPriceInput = InputNumber.useProps({ initialValue: startingPrice?.toString(), onChange: onPriceChange });
 
   useEffect(() => {
     if (selectedToken) {
@@ -155,6 +160,9 @@ function PropertiesSection({
     if (newPrice) {
       startingPriceInput.set(newPrice);
       onPriceChange(newPrice);
+    } else {
+      startingPriceInput.set('');
+      onPriceChange(undefined);
     }
   }, [selectedFee, uniswapPoolsForFeeTier]);
 
@@ -175,9 +183,6 @@ function PropertiesSection({
     <Container>
       <PropertyCard data-testid='starting-price'>
         <PropertyCard.Title>Starting price</PropertyCard.Title>
-        <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
-          <PropertyCard.Helper name='help' />
-        </Tooltip>
 
         <PropertyCard.Value>
           {isLoading && <Loading />}
@@ -199,7 +204,7 @@ function PropertiesSection({
         </PropertyCard.Value>
       </PropertyCard>
 
-      <PropertyCard data-testid='feeTier-selected'>
+      <FeePropertyCard data-testid='feeTier-selected'>
         <PropertyCard.Title>Fee Tier</PropertyCard.Title>
 
         <PropertyCard.Value>
@@ -221,11 +226,8 @@ function PropertiesSection({
             </Dropdown>
           )}
         </PropertyCard.Value>
-        <Tooltip content='Todo Gorilla, sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium'>
-          <PropertyCard.Helper name='help' />
-        </Tooltip>
         {!isLoading && <PropertyCard.Chip>{selectedFee.hint}</PropertyCard.Chip>}
-      </PropertyCard>
+      </FeePropertyCard>
     </Container>
   );
 }

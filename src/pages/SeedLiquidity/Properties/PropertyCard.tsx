@@ -21,7 +21,7 @@ const PropertyCard = styled.section`
 
   grid-template-areas:
     'title helper'
-    'value chip';
+    'value value';
 
   grid-row-gap: ${SPACING_32};
   align-self: start;
@@ -31,6 +31,12 @@ const PropertyCard = styled.section`
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     width: 100%;
   }
+`;
+
+export const FeePropertyCard = styled(PropertyCard)`
+  grid-template-areas:
+    'title helper'
+    'value chip';
 `;
 
 const Title = styled(Typography)`
@@ -59,7 +65,7 @@ const Helper = styled(Icon)`
 
 export const LockIcon = styled(Icon)`
   padding: 0;
-  margin-left: 0.8rem;
+  margin-left: auto;
 `;
 
 const SChip = styled(Chip)`

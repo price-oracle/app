@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { SPACING_16, SPACING_32, MOBILE_MAX_WIDTH } from '~/components/shared';
-import { getConfig } from '~/config';
+import { ZINDEX } from '~/config/constants/misc';
 
 export const Nav = styled.nav`
   mix-blend-mode: difference;
@@ -27,7 +27,7 @@ export const List = styled.ul`
     padding: 0;
     right: ${SPACING_16};
     top: ${SPACING_16};
-    z-index: ${getConfig().ZINDEX.action};
+    z-index: ${ZINDEX.action};
   }
 `;
 

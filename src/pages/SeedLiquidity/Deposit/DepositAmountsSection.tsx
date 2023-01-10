@@ -46,7 +46,7 @@ const BalanceContainer = styled(Typography).attrs({
 
 interface DepositAmountsProps {
   selectedToken: Token | undefined;
-  startingPrice: BigNumber;
+  startingPrice: BigNumber | undefined;
   uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
   selectedFee: FeeTier;
 }
@@ -67,24 +67,28 @@ const DepositAmountsSection = ({
   const [wethBalance, setWethBalance] = useState<BigNumber | undefined>(undefined);
 
   const onWethAmountChanged = (amount: string) => {
-    const wethAmount = utils.parseEther(sanitizeDecimals(amount));
-    const tokenAmount = wethAmount.mul(startingPrice).div(constants.WeiPerEther);
-    if (tokenAmount.isZero()) {
-      tokenInput.reset();
-    } else {
-      tokenInput.set(
-        sanitizeDecimals(utils.formatUnits(tokenAmount, selectedToken?.decimals), selectedToken?.decimals)
-      );
+    if (startingPrice) {
+      const wethAmount = utils.parseEther(sanitizeDecimals(amount));
+      const tokenAmount = wethAmount.mul(startingPrice).div(constants.WeiPerEther);
+      if (tokenAmount.isZero()) {
+        tokenInput.reset();
+      } else {
+        tokenInput.set(
+          sanitizeDecimals(utils.formatUnits(tokenAmount, selectedToken?.decimals), selectedToken?.decimals)
+        );
+      }
     }
   };
 
   const onTokenAmountChanged = (amount: string) => {
-    const tokenAmount = utils.parseUnits(sanitizeDecimals(amount, selectedToken?.decimals), selectedToken?.decimals);
-    const wethAmount = constants.WeiPerEther.mul(tokenAmount).div(startingPrice);
-    if (wethAmount.isZero() || startingPrice.isZero()) {
-      wethInput.reset();
-    } else {
-      wethInput.set(utils.formatEther(wethAmount));
+    if (startingPrice) {
+      const tokenAmount = utils.parseUnits(sanitizeDecimals(amount, selectedToken?.decimals), selectedToken?.decimals);
+      const wethAmount = constants.WeiPerEther.mul(tokenAmount).div(startingPrice);
+      if (wethAmount.isZero() || startingPrice.isZero()) {
+        wethInput.reset();
+      } else {
+        wethInput.set(utils.formatEther(wethAmount));
+      }
     }
   };
 

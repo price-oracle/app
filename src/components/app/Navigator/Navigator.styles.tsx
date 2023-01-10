@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { SPACING_12, SPACING_24, SPACING_32, MOBILE_MAX_WIDTH } from '~/components/shared';
-import { getConfig } from '~/config';
+import { ZINDEX } from '~/config/constants/misc';
 
 export interface IStylesProps {
   differenceMixBlend?: boolean;
@@ -36,7 +36,7 @@ export const CollapsableList = styled(List)`
     right: ${SPACING_24};
     top: ${SPACING_24};
     width: fit-content;
-    z-index: ${getConfig().ZINDEX.action};
+    z-index: ${ZINDEX.action};
   }
 `;
 

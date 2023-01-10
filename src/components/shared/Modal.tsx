@@ -5,7 +5,7 @@ import { useAppSelector } from '~/hooks';
 import { Icon } from './Icon';
 import { getTheme } from './theme';
 import { SPACING_16, SPACING_32, SPACING_512, SPACING_8 } from './Variables';
-import { getConfig } from '~/config';
+import { ZINDEX } from '~/config/constants/misc';
 
 const ModalHeader = styled.div`
   font-weight: bold;
@@ -32,7 +32,7 @@ const StyledModal = styled.div`
   color: white;
   position: relative;
   pointer-events: all;
-  z-index: ${getConfig().ZINDEX.action};
+  z-index: ${ZINDEX.action};
   width: ${SPACING_512};
   max-width: 85%;
   max-height: 85%;

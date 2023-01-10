@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { SPACING_12, SPACING_4, Icon, Typography } from '~/components/shared';
 import { getTheme } from '~/components/shared';
 import { AlertTypes } from '~/types';
-import { getConfig } from '~/config';
+import { ZINDEX } from '~/config/constants/misc';
 
 const StyledAlert = styled.div<{ type: AlertTypes }>`
   margin-right: 5rem;
@@ -16,7 +16,7 @@ const StyledAlert = styled.div<{ type: AlertTypes }>`
   padding: 1.5rem 2.8rem;
   position: relative;
   pointer-events: all;
-  z-index: ${getConfig().ZINDEX.alert};
+  z-index: ${ZINDEX.alert};
   width: 32rem;
   max-height: 13rem;
   position: relative;

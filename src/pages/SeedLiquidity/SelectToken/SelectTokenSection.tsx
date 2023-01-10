@@ -63,6 +63,10 @@ const SDropdownModal = styled(Dropdown.Modal)`
   }
 `;
 
+const TokenDropdown = styled(Dropdown.Button)`
+  padding-left: 0.7rem;
+`;
+
 interface SelectTokenProps {
   selectedToken: Token | undefined;
   setSelectedToken: (token: Token) => void;
@@ -90,12 +94,12 @@ const SelectTokenSection = ({ selectedToken, setSelectedToken }: SelectTokenProp
 
       <RightSide>
         <Dropdown {...dropdownProps}>
-          <Dropdown.Button>
+          <TokenDropdown>
             <STokenIcon src={selectedToken?.logoURI || ''} size={FONT_SIZE_24()} />
             <PaddedTypography variant='x-large' weight='semibold'>
               {selectedToken?.symbol}
             </PaddedTypography>
-          </Dropdown.Button>
+          </TokenDropdown>
 
           <SDropdownModal>
             <Dropdown.Modal>

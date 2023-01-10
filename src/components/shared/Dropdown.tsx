@@ -6,7 +6,7 @@ import { Icon } from './Icon';
 import { withComponents } from '~/utils';
 import { FONT_SIZE_12, SPACING_8, SPACING_16 } from './Variables';
 import { useOnClickOutside } from '~/hooks';
-import { getConfig } from '~/config';
+import { ZINDEX } from '~/config/constants/misc';
 
 export interface IDropdownContext {
   show: boolean;
@@ -43,7 +43,7 @@ const Modal = styled.section`
   text-align: center;
   transform: translateX(-50%);
   white-space: nowrap;
-  z-index: ${getConfig().ZINDEX.action};
+  z-index: ${ZINDEX.action};
 `;
 
 const DropdownContext = createContext<IDropdownContext>({

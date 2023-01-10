@@ -49,7 +49,7 @@ function App() {
 
   useEffect(() => {
     updatePoolAndLockState();
-  }, [address, chain, isConnected, updatePoolAndLockState]);
+  }, [address, chain, isConnected]);
 
   useEffect(() => {
     if (address) {
@@ -61,7 +61,7 @@ function App() {
         clearInterval(interval);
       };
     }
-  }, [address, updateEthPrice]);
+  }, [address]);
 
   return (
     <Themable>

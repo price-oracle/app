@@ -35,7 +35,7 @@ interface AmountsProps {
   wethAmount: BigNumber;
   wethBalance: BigNumber;
   selectedToken: Token | undefined;
-  startingPrice: BigNumber;
+  startingPrice: BigNumber | undefined;
   uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
   selectedFee: FeeTier;
   resetInputValues: () => void;
@@ -73,7 +73,8 @@ const SubmitFormSection = ({
   const ethIsApproved = wethAmount.lte(wethAllowance);
   const isApproved = ethIsApproved && tokenAmount.lte(tokenAllowance);
 
-  const isDisabled = isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero();
+  const isDisabled =
+    isLoading || isInvalid || !address || tokenAmount.isZero() || wethAmount.isZero() || !startingPrice;
 
   const updateAllowanceAmount = (poolManagerAddress: Address) => {
     if (address && selectedToken?.address) {
@@ -145,7 +146,7 @@ const SubmitFormSection = ({
 
   const createPool = () => {
     setIsLoading(true);
-    if (uniswapPoolsForFeeTier) {
+    if (uniswapPoolsForFeeTier && startingPrice) {
       const uniPool = uniswapPoolsForFeeTier[selectedFee.fee];
       if (selectedToken) {
         const isWethToken0 = uniPool ? uniPool.isWethToken0 : BigNumber.from(WETH_ADDRESS).lt(selectedToken.address);
@@ -200,6 +201,7 @@ const SubmitFormSection = ({
   }, [isModalOpen]);
 
   const createOracleMessage = () => {
+    if (!startingPrice) return 'Invalid Starting price';
     if (!address) return 'Wallet must be connected';
     if (wethAmount.gt(wethBalance) || tokenAmount.gt(tokenBalance)) return 'Insufficient balance';
     if (wethAmount.isZero()) return 'Insufficient amount';

@@ -33,7 +33,6 @@ export interface Constants {
   CONFIRMATIONS: { [key: number]: number };
 
   DEFAULT_ALERT_TIMEOUT: number;
-  ZINDEX: ZIndex;
   FEE_TIERS: { [key: number]: FeeTier };
 }
 
