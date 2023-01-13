@@ -38,10 +38,7 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
   )) as unknown as IPoolManagerFactory;
 
   const poolManagerCount = await poolManagerFactory.childrenCount();
-  const poolManagerAddresses = await poolManagerFactory.listChildren(
-    0,
-    poolManagerCount
-  );
+  const poolManagerAddresses = await poolManagerFactory.listChildren(0, poolManagerCount);
 
   console.log(`Depositor: ${depositor}`);
 
@@ -51,13 +48,11 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
       poolManagerAddress
     )) as unknown as IPoolManager;
 
-    const tokenAddress = await poolManager.token();
+    const tokenAddress = await poolManager.TOKEN();
     const token = ierc20.attach(tokenAddress);
 
-    console.group(
-      `PoolManager ${await token.symbol()}/WETH ${poolManagerAddress}`
-    );
-    console.log(`Fee ${(await poolManager.fee()) / 1000}%`);
+    console.group(`PoolManager ${await token.symbol()}/WETH ${poolManagerAddress}`);
+    console.log(`Fee ${(await poolManager.FEE()) / 1000}%`);
 
     const lockManagerAddress = await poolManager.lockManager();
     const lockManager = (await hre.ethers.getContractAt(
@@ -74,20 +69,20 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
       await sendUnsignedTx({
         from: approverAddress,
         to: weth.address,
-        data: (await weth.populateTransaction.approve(lockManagerAddress, ethers.constants.MaxUint256)).data
+        data: (await weth.populateTransaction.approve(lockManagerAddress, ethers.constants.MaxUint256)).data,
       });
 
       await sendUnsignedTx({
         from: approverAddress,
         to: token.address,
-        data: (await token.populateTransaction.approve(lockManagerAddress, ethers.constants.MaxUint256)).data
+        data: (await token.populateTransaction.approve(lockManagerAddress, ethers.constants.MaxUint256)).data,
       });
     }
 
     await sendUnsignedTx({
       from: depositor,
       to: lockManager.address,
-      data: (await lockManager.populateTransaction.lock(lockAmount)).data
+      data: (await lockManager.populateTransaction.lock(lockAmount)).data,
     });
     const wethRewards = toWei(Math.random() * 10).toFixed();
     const tokenBalance = await token.balanceOf(richWallet);
@@ -95,19 +90,17 @@ import { getMainnetSdk } from '@dethcrypto/eth-sdk-client';
     await sendUnsignedTx({
       from: richWallet,
       to: lockManager.address,
-      data: (await lockManager.populateTransaction.addRewards(wethRewards, tokenBalance.div(10))).data
+      data: (await lockManager.populateTransaction.addRewards(wethRewards, tokenBalance.div(10))).data,
     });
 
     const claimableRewards = await lockManager.claimable(depositor);
-    console.log(
-      `Locked ${lockAmount} WETH, claimable rewards: ${claimableRewards}`
-    );
+    console.log(`Locked ${lockAmount} WETH, claimable rewards: ${claimableRewards}`);
 
     // Reset approval
     await sendUnsignedTx({
       from: depositor,
       to: weth.address,
-      data: (await weth.populateTransaction.approve(lockManagerAddress, 0)).data
+      data: (await weth.populateTransaction.approve(lockManagerAddress, 0)).data,
     });
 
     advanceTimeAndBlock(864000); // 10 days

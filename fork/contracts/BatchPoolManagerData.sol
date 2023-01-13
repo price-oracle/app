@@ -53,7 +53,7 @@ contract BatchPoolManagerData {
         returnData[i].lockManager = lockManager;
         returnData[i].lockedBalance = lockManager.balanceOf(account);
 
-        IUniswapV3Pool pool = lockManager.pool();
+        IUniswapV3Pool pool = lockManager.POOL();
         (uint160 sqrtPriceX96, , , , , , ) = pool.slot0();
         returnData[i].pool = pool;
         returnData[i].sqrtPriceX96 = sqrtPriceX96;
@@ -69,12 +69,12 @@ contract BatchPoolManagerData {
 
       {
         returnData[i].poolManager = poolManager;
-        returnData[i].fee = poolManager.fee();
-        returnData[i].isWethToken0 = poolManager.isWethToken0();
+        returnData[i].fee = poolManager.FEE();
+        returnData[i].isWethToken0 = poolManager.IS_WETH_TOKEN0();
       }
 
       {
-        IERC20 token = poolManager.token();
+        IERC20 token = poolManager.TOKEN();
         returnData[i].token = token;
         returnData[i].tokenSymbol = token.symbol();
         returnData[i].tokenName = token.name();

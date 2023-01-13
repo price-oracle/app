@@ -1192,10 +1192,10 @@
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
-"@price-oracle/interfaces@0.0.0-d3ba1a9b":
-  version "0.0.0-d3ba1a9b"
-  resolved "https://registry.yarnpkg.com/@price-oracle/interfaces/-/interfaces-0.0.0-d3ba1a9b.tgz#6ab8e6168197f37cfae66a14c3377a468b4897fb"
-  integrity sha512-FxFPzPrRi42B+C5mTpdfM5Hw6xxnTiZjDK4fStViNEBzNPeAIRru6WcwDT9Fs0qDmgxQF0hIQeRjn3d1gGlDFQ==
+"@price-oracle/interfaces@0.0.0-3357abce":
+  version "0.0.0-3357abce"
+  resolved "https://registry.yarnpkg.com/@price-oracle/interfaces/-/interfaces-0.0.0-3357abce.tgz#ee3e785438997e3acdeaedd12609dc6c4061d253"
+  integrity sha512-DBi9d8W9RyAcpXBnDJi3K22f4Si6bpfkEsgU+XAOZqyEU6z1NdQtF3klI8o2lZtMfPhvs+98x/aDZQjZuEMmNQ==
   dependencies:
     "@defi-wonderland/isolmate" "https://github.com/defi-wonderland/isolmate.git#73ce8b9adaf951e3ec702493bd4da010d74eaa74"
     "@ethersproject/abi" "5.7.0"

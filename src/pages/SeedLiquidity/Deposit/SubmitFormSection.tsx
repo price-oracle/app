@@ -95,7 +95,8 @@ const SubmitFormSection = ({
     setIsLoading(true);
     if (!ethIsApproved)
       erc20Service
-        .approveTokenAmount(WETH_ADDRESS, poolManagerAddress, wethAmount)
+        // we add 1000 wei to avoid a possible error when uniswap calls transferFrom()
+        .approveTokenAmount(WETH_ADDRESS, poolManagerAddress, wethAmount.add(1000))
         .then(() => {
           updateAllowanceAmount(poolManagerAddress);
         })
@@ -106,7 +107,8 @@ const SubmitFormSection = ({
     if (ethIsApproved)
       if (selectedToken?.address) {
         erc20Service
-          .approveTokenAmount(selectedToken?.address, poolManagerAddress, tokenAmount)
+          // we add 1000 wei to avoid a possible error when uniswap calls transferFrom()
+          .approveTokenAmount(selectedToken?.address, poolManagerAddress, tokenAmount.add(1000))
           .then(() => {
             updateAllowanceAmount(poolManagerAddress);
           })
@@ -154,8 +156,7 @@ const SubmitFormSection = ({
         const sqrtPriceX96 = getSqrtPriceX96ForToken(startingPrice, isWethToken0);
         // Calculate liquidity
         // TODO: Improve sqrtPriceX96 calcs
-        // we subtract 1000 wei to avoid a possible error when uniswap calls transferFrom()
-        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount.sub(1000), tokenAmount.sub(1000), isWethToken0);
+        const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount, tokenAmount, isWethToken0);
         // Check if poolmanager is already created
         if (isPoolManagerCreated()) {
           // If created call the poolmanager on increaseLiquidity

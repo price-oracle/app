@@ -13,7 +13,7 @@ import { advanceTimeAndBlock, makeSwap, sendUnsignedTx } from './utils';
  *
  *  Requirements:
  *    1. Run after `yarn script:deploy-pools`
- * 
+ *
  *  The script will:
  *    1. Loop through all pool managers and make giant swaps in their pools
  *    2. Increase liquidity in the pool to recalculate fees
@@ -22,7 +22,7 @@ import { advanceTimeAndBlock, makeSwap, sendUnsignedTx } from './utils';
 
 (async () => {
   const [signer] = await hre.ethers.getSigners();
-  const [, richWallet,] = address.ADDRESSES as string[];
+  const [, richWallet] = address.ADDRESSES as string[];
   const { weth, ierc20, uniswapV3Router } = getMainnetSdk(signer);
 
   const poolManagerFactory = (await hre.ethers.getContractAt(
@@ -36,21 +36,21 @@ import { advanceTimeAndBlock, makeSwap, sendUnsignedTx } from './utils';
   for (var poolManagerAddress of poolManagerAddresses) {
     const poolManager = await hre.ethers.getContractAt(IPoolManagerABI, poolManagerAddress);
 
-    const fee = await poolManager.fee();
-    const tokenAddress = await poolManager.token();
+    const fee = await poolManager.FEE();
+    const tokenAddress = await poolManager.TOKEN();
     const token = ierc20.attach(tokenAddress);
     const numberOfSwaps = 2;
 
     await sendUnsignedTx({
       from: richWallet,
       to: weth.address,
-      data: (await weth.populateTransaction.approve(uniswapV3Router.address, ethers.constants.MaxUint256)).data
+      data: (await weth.populateTransaction.approve(uniswapV3Router.address, ethers.constants.MaxUint256)).data,
     });
 
     await sendUnsignedTx({
       from: richWallet,
       to: token.address,
-      data: (await token.populateTransaction.approve(uniswapV3Router.address, ethers.constants.MaxUint256)).data
+      data: (await token.populateTransaction.approve(uniswapV3Router.address, ethers.constants.MaxUint256)).data,
     });
 
     for (let i = 1; i <= numberOfSwaps; i++) {
@@ -74,7 +74,6 @@ import { advanceTimeAndBlock, makeSwap, sendUnsignedTx } from './utils';
         uniswapV3Router
       );
     }
-
 
     // Collect fees
     await poolManager.collectFees();
