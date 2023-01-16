@@ -28,6 +28,6 @@ const ButtonContainer = styled.div`
 
 export const ConnectButton: FC = ({ ...props }) => (
   <ButtonContainer>
-    <RainbowConnectButton accountStatus='address' chainStatus='none' {...props} />
+    <RainbowConnectButton accountStatus='address' {...props} />
   </ButtonContainer>
 );

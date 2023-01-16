@@ -19,7 +19,8 @@ export type IconName =
   | 'user'
   | 'help'
   | 'lock'
-  | 'gas';
+  | 'gas'
+  | 'discord';
 
 export const Icon = styled.i.attrs<{ name: IconName }>((props) => ({
   className: `picon-${props.name}`,

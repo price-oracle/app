@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { FeeTier, Token } from '~/types';
 import { MultiCallService } from '~/services';
 import { getConfig } from '~/config';
+import { getEnv } from '~/config/env';
 
 export const token: Token = {
   address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -14,7 +15,7 @@ export const token: Token = {
 
 export const feeTier: FeeTier = { hint: 'Best for exotic pairs', fee: 10000, label: '1%' };
 
-export const rpcUrl = process.env.VITE_CUSTOM_RPC; //'http://127.0.0.1:8545/';
+export const rpcUrl = getEnv().CUSTOM_LOCAL_RPC;
 export const deployerAddress = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8';
 export const depositorAddress = '0xb95Bd960bFfEe856707bCA12E59b12AFf966477B';
 export const wethToken = {

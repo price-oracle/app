@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SPACING_16, SPACING_32, MOBILE_MAX_WIDTH } from '~/components/shared';
+import { SPACING_16, SPACING_32, MOBILE_MAX_WIDTH, SPACING_12 } from '~/components/shared';
 import { ZINDEX } from '~/config/constants/misc';
 
 export const Nav = styled.nav`
@@ -44,5 +44,14 @@ export const ListItem = styled.li`
         font-size: 35px;
       }
     }
+  }
+`;
+
+export const Item = styled.section`
+  mix-blend-mode: difference;
+  a {
+    display: block;
+    padding: ${SPACING_12};
+    text-decoration: none;
   }
 `;

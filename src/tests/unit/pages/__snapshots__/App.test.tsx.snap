@@ -3,20 +3,20 @@
 exports[`Landing Page > Should render Landing Page 1`] = `
 <DocumentFragment>
   <div
-    class="sc-Dmqmp kLSbKm"
+    class="sc-cuOiQm cqygfH"
   />
   <div
-    class="sc-jZatrU fqxmrO"
+    class="sc-jephDI fXUjAm"
   />
   <div
-    class="sc-bhNKFk fVJBoT"
+    class="sc-dWRHGJ fHqyZ"
     height="768"
   >
     <div
-      class="sc-eGJbfJ"
+      class="sc-jGNhvO"
     >
       <div
-        class="sc-ehvNnt gdyDwK"
+        class="sc-laZRCg iiNgdu"
       >
         <nav
           class="sc-cUEOzv iMOXCL"
@@ -25,7 +25,7 @@ exports[`Landing Page > Should render Landing Page 1`] = `
             class="sc-jOiSOi hqHWtC"
           >
             <section
-              class="sc-bCfvAP bQUSXC"
+              class="sc-xWrgk jfpcCZ"
             >
               <a
                 class="sc-lllmON"
@@ -47,7 +47,51 @@ exports[`Landing Page > Should render Landing Page 1`] = `
               </a>
             </section>
             <section
-              class="sc-bCfvAP bQUSXC"
+              class="sc-xWrgk jfpcCZ"
+            >
+              <a
+                class="sc-lllmON"
+                href="https://discord.gg/6RgRATKMHM"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div
+                  class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+                  color="rgba(255,255,255, 0.87)"
+                >
+                   
+                  <i
+                    class="sc-hBxehG grisYc picon-discord"
+                    color="#fff"
+                    name="discord"
+                  />
+                </div>
+              </a>
+            </section>
+            <section
+              class="sc-xWrgk jfpcCZ"
+            >
+              <a
+                class="sc-lllmON"
+                href="https://github.com/price-oracle"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div
+                  class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+                  color="rgba(255,255,255, 0.87)"
+                >
+                   
+                  <i
+                    class="sc-hBxehG eNrQxx picon-github"
+                    color="#fff"
+                    name="github"
+                  />
+                </div>
+              </a>
+            </section>
+            <section
+              class="sc-xWrgk jfpcCZ"
             >
               <div
                 class="sc-dIfARi fqNnZh"
@@ -63,68 +107,68 @@ exports[`Landing Page > Should render Landing Page 1`] = `
           </section>
         </nav>
         <div
-          class="sc-laZRCg sc-fXqpFg sc-ZqFbI kdseYZ iEvbfh dHrdMs"
+          class="sc-gGvHcT sc-dwnOUR sc-jNJNQp buDhwl dzVvhu klHMiC"
         />
         <div
-          class="sc-laZRCg sc-GhhNo sc-jNJNQp kdseYZ kWLELL bVsNaG"
+          class="sc-gGvHcT sc-fXqpFg sc-hlLBRy buDhwl byrbCX iyvtJC"
         />
         <div
-          class="sc-laZRCg sc-ckEbSK sc-hlLBRy kdseYZ hDDQrK iWReHi"
+          class="sc-gGvHcT sc-fbYMXx sc-eKJbhj buDhwl hBepJt fERjJA"
         />
         <div
-          class="sc-laZRCg sc-gGvHcT sc-eKJbhj kdseYZ bGEcwo ktKtsI"
+          class="sc-gGvHcT sc-ckEbSK sc-bTTELM buDhwl dzNAJC cXQJXw"
         />
         <div
-          class="sc-laZRCg sc-dwnOUR sc-bTTELM kdseYZ cywgfS lhuqKc"
+          class="sc-gGvHcT sc-UpCWa sc-kImNAt buDhwl jdRoSL YhdGI"
         />
         <div
-          class="sc-laZRCg sc-ckEbSK sc-kImNAt kdseYZ hDDQrK iCGgIZ"
+          class="sc-gGvHcT sc-fbYMXx sc-hOzowv buDhwl hBepJt fALua-d"
         />
         <div
-          class="sc-laZRCg sc-fbYMXx sc-hOzowv kdseYZ daqgVt bdiXWZ"
+          class="sc-gGvHcT sc-GhhNo sc-dsHJmm buDhwl kPjpuP gtVvaP"
         />
         <div
-          class="sc-laZRCg sc-UpCWa sc-dsHJmm kdseYZ liuvrX dUjruF"
+          class="sc-gGvHcT sc-jIILKH sc-cZFQFd buDhwl gWMKky eULjxi"
         />
         <div
-          class="sc-laZRCg sc-fXqpFg sc-cZFQFd kdseYZ iEvbfh dOmbik"
+          class="sc-gGvHcT sc-dwnOUR sc-jTjUTQ buDhwl dzVvhu djrMvS"
         />
         <div
-          class="sc-laZRCg sc-GhhNo sc-jTjUTQ kdseYZ kWLELL hooOVn"
+          class="sc-gGvHcT sc-fXqpFg sc-jRwbcX buDhwl byrbCX brdelf"
         />
         <div
-          class="sc-laZRCg sc-ckEbSK sc-jRwbcX kdseYZ hDDQrK isGuhA"
+          class="sc-gGvHcT sc-fbYMXx sc-fvEvSO buDhwl hBepJt ksvwmO"
         />
         <div
-          class="sc-laZRCg sc-dwnOUR sc-fvEvSO kdseYZ cywgfS kqxAzw"
+          class="sc-gGvHcT sc-UpCWa sc-fcCDlF buDhwl jdRoSL cHEZKB"
         />
         <div
-          class="sc-laZRCg sc-UpCWa sc-fcCDlF kdseYZ liuvrX jasSjv"
+          class="sc-gGvHcT sc-jIILKH sc-GKYbw buDhwl gWMKky bHHTxI"
         />
         <div
-          class="sc-laZRCg sc-ckEbSK sc-GKYbw kdseYZ hDDQrK dTcroY"
+          class="sc-gGvHcT sc-fbYMXx sc-gsGlKL buDhwl hBepJt bnJqpt"
         />
         <div
-          class="sc-laZRCg sc-fXqpFg sc-gsGlKL kdseYZ iEvbfh cglzSD"
+          class="sc-gGvHcT sc-dwnOUR sc-bWOGAC buDhwl dzVvhu btzlHI"
         />
         <div
-          class="sc-laZRCg sc-ckEbSK sc-bWOGAC kdseYZ hDDQrK JoHXB"
+          class="sc-gGvHcT sc-fbYMXx sc-eGugkK buDhwl hBepJt jNZTlE"
         />
         <div
-          class="sc-laZRCg sc-gGvHcT sc-eGugkK kdseYZ bGEcwo jPPZye"
+          class="sc-gGvHcT sc-ckEbSK sc-csDkEv buDhwl dzNAJC jPvrpP"
         />
       </div>
     </div>
     <div
-      class="sc-hAQmFe bNiBOZ"
+      class="sc-bQmOxr bmSGLk"
     >
       <img
         alt="Price logo"
-        class="sc-iveFHk sc-bQmOxr hpkodg jFSHgK"
+        class="sc-iveFHk sc-fmZqYP hpkodg jkropY"
         src="/src/assets/logo-big-light.svg"
       />
       <div
-        class="sc-EJAja gkkOMB"
+        class="sc-jmpzUR gutnYK"
       >
         <div
           class="sc-iBYQkv sc-pyfCe fBJkCi hMiFgy"
@@ -141,14 +185,14 @@ exports[`Landing Page > Should render Landing Page 1`] = `
           class="sc-jSUZER dotgdq"
         >
           <button
-            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-fWQKxP sfyBC"
+            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-lknQiW MHWqD"
           >
             Enter App
           </button>
         </div>
       </a>
       <div
-        class="sc-jGNhvO iJqOoL"
+        class="sc-eDZJfc hCezsJ"
       >
         <a
           class="sc-lllmON"
@@ -171,7 +215,7 @@ exports[`Landing Page > Should render Landing Page 1`] = `
       </div>
     </div>
     <div
-      class="sc-dWRHGJ jtgHGd"
+      class="sc-jWgTtR khBPwx"
     >
       <div
         class="sc-iBYQkv sc-kDvujY fBJkCi faMXpT"

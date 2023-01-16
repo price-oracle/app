@@ -28,10 +28,11 @@ const createAnimation = ({
       opacity: 0;
       transform: translate(${initialX || '0'}, ${initialY || '0'}) rotate(0) scale(${scale || '1'});
     }
-
+    
     100% {
       opacity: 1;
       transform: translate(0, 0) rotate(${rotate}) scale(${scale || '1'});
+      z-index: -1;
     }
   `;
 };
@@ -43,6 +44,7 @@ export const Container = styled.div<PropTheme>`
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 0;
 `;
 
 export const Box = styled.div`

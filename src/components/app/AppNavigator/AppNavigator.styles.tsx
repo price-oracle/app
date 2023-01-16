@@ -118,3 +118,7 @@ export const NavContainer = styled.div`
   flex-direction: column;
   width: 100%;
 `;
+
+export const SExternalLink = styled(SHeaderButton)`
+  padding-right: 2rem;
+`;

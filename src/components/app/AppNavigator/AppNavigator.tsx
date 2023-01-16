@@ -7,29 +7,19 @@ import {
   ScamAlert,
   SCustomLink,
   Section,
+  SExternalLink,
   SHeaderButton,
   SNavigator,
   SNavigatorItemRight,
   StyledLogo,
 } from './AppNavigator.styles';
-import {
-  ConnectButton,
-  FONT_SIZE_12,
-  Icon,
-  SPACING_8,
-  getTheme,
-  ThemeButton,
-  ExternalLink,
-  Typography,
-} from '~/components/shared';
+import { ConnectButton, ThemeButton, ExternalLink, Typography } from '~/components/shared';
 import { useWindowDimensions, useAppSelector } from '~/hooks';
 import { Item } from '../Navigator/Navigator.styles';
 import { useNavigatorProps } from '../Navigator/Navigator';
 
 const AppNavigator = () => {
-  const currentTheme = useAppSelector(({ theme }) => theme.current);
-  const theme = getTheme(currentTheme);
-  const { isMobile } = useWindowDimensions();
+  const { isMobile, isTablet } = useWindowDimensions();
   const navProps = useNavigatorProps(true);
 
   return (
@@ -63,12 +53,16 @@ const AppNavigator = () => {
               <SCustomLink to='/app/seed-liquidity' data-testid='to-seedliquidity-page'>
                 <SHeaderButton>Seed Liquidity</SHeaderButton>
               </SCustomLink>
-              <ExternalLink href='https://docs.oracles.rip/'>
-                <SHeaderButton>
-                  Documentation
-                  <Icon name='arrow-up-right' size={FONT_SIZE_12()} padding={SPACING_8()} color={theme.textPrimary} />
-                </SHeaderButton>
-              </ExternalLink>
+              {(!isTablet || isMobile) && (
+                <>
+                  <ExternalLink href='https://docs.oracles.rip/'>
+                    <SExternalLink>Documentation</SExternalLink>
+                  </ExternalLink>
+                  <ExternalLink href='https://discord.gg/6RgRATKMHM'>
+                    <SExternalLink>Discord</SExternalLink>
+                  </ExternalLink>
+                </>
+              )}
             </Section>
           </Item>
 
