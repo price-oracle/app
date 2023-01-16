@@ -7,7 +7,7 @@ import { MOBILE_MAX_WIDTH, SPACING_16, SPACING_32, SPACING_8, Typography } from 
 import InputNumber from '~/components/shared/InputNumber';
 import { getConfig } from '~/config';
 import { useContracts } from '~/hooks';
-import { FeeTier, Token, UniswapPool } from '~/types';
+import { FeeTier, PoolManagerAddresses, Token, UniswapPool } from '~/types';
 import { sanitizeDecimals } from '~/utils';
 import Balance from './Balance';
 import Deposit from './Deposit';
@@ -49,6 +49,7 @@ interface DepositAmountsProps {
   startingPrice: BigNumber | undefined;
   uniswapPoolsForFeeTier: { [feeTier: string]: UniswapPool } | undefined;
   selectedFee: FeeTier;
+  pmAddresses: PoolManagerAddresses | undefined;
 }
 
 const DepositAmountsSection = ({
@@ -56,6 +57,7 @@ const DepositAmountsSection = ({
   startingPrice,
   uniswapPoolsForFeeTier,
   selectedFee,
+  pmAddresses,
 }: DepositAmountsProps) => {
   const { address: userAddress } = useAccount();
   const { erc20Service } = useContracts();
@@ -195,6 +197,7 @@ const DepositAmountsSection = ({
         selectedFee={selectedFee}
         resetInputValues={resetInputValues}
         updateBalances={updateBalance}
+        pmAddresses={pmAddresses}
       />
     </>
   );

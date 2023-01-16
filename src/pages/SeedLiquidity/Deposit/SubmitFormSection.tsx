@@ -8,7 +8,7 @@ import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
 import { BoxButton, Loading, SPACING_12, Typography } from '~/components/shared';
 import { getConfig } from '~/config';
 import { useAppDispatch, useAppSelector, useContracts, useUpdateState } from '~/hooks';
-import { Address, FeeTier, Token, UniswapPool } from '~/types';
+import { Address, FeeTier, PoolManagerAddresses, Token, UniswapPool } from '~/types';
 import { Tooltip } from '~/containers/Tooltips';
 import { ModalsActions } from '~/store';
 
@@ -40,6 +40,7 @@ interface AmountsProps {
   selectedFee: FeeTier;
   resetInputValues: () => void;
   updateBalances: () => void;
+  pmAddresses: PoolManagerAddresses | undefined;
 }
 
 const SubmitFormSection = ({
@@ -53,11 +54,12 @@ const SubmitFormSection = ({
   selectedFee,
   resetInputValues,
   updateBalances,
+  pmAddresses,
 }: AmountsProps) => {
   const { updatePoolAndLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
   const isModalOpen = useAppSelector((state) => state.modals.activeModal);
-  const { poolManagerFactoryService, poolManagerService, erc20Service } = useContracts();
+  const { poolManagerService, erc20Service } = useContracts();
   const dispatch = useAppDispatch();
   const { address } = useAccount();
   const { chain } = useNetwork();
@@ -123,13 +125,8 @@ const SubmitFormSection = ({
   }, [tokenAmount, wethAmount, tokenBalance, wethBalance]);
 
   useEffect(() => {
-    if (selectedToken?.address) {
-      setPoolManagerAddress('');
-      poolManagerFactoryService
-        .getPoolManagerAddress(selectedToken?.address, selectedFee.fee)
-        .then((poolManagerAddress) => {
-          setPoolManagerAddress(poolManagerAddress);
-        });
+    if (selectedToken?.address && pmAddresses) {
+      setPoolManagerAddress(pmAddresses[selectedFee.fee]);
     }
   }, [selectedToken, selectedFee]);
 
@@ -202,10 +199,10 @@ const SubmitFormSection = ({
   }, [isModalOpen]);
 
   const createOracleMessage = () => {
-    if (!startingPrice) return 'Invalid Starting price';
     if (!address) return 'Wallet must be connected';
+    if (!startingPrice) return 'Invalid starting price';
     if (wethAmount.gt(wethBalance) || tokenAmount.gt(tokenBalance)) return 'Insufficient balance';
-    if (wethAmount.isZero()) return 'Insufficient amount';
+    if (wethAmount.isZero()) return 'Insufficient deposit amounts';
     if (!isPoolManagerCreated() && insufficentWeth()) return 'Insufficient WETH amount';
     return '';
   };

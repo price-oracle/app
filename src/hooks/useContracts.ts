@@ -42,6 +42,7 @@ export const useContracts = () => {
     lockManagerService,
     uniswapService,
     erc20Service,
+    multiCallService,
   };
 };
 

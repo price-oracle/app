@@ -10,3 +10,11 @@ export type Network =
   | 'other';
 
 export type Address = string;
+
+export interface OraclesCreated {
+  [key: string]: boolean;
+}
+
+export interface PoolManagerAddresses {
+  [key: string]: Address;
+}

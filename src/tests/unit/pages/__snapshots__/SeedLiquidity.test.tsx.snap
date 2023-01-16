@@ -75,20 +75,20 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
         class="sc-fWQKxP jToRhd"
       >
         <section
-          class="sc-jNJNQp dFQxik"
+          class="sc-ehvNnt eqWQly"
         >
           <section
-            class="sc-fbYMXx iIiDkn"
+            class="sc-ZqFbI dxgRUR"
             data-testid="starting-price"
           >
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fXqpFg nvjrp"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-hlLBRy gGoHHO"
               color="rgba(255,255,255, 0.87)"
             >
               Starting price
             </div>
             <div
-              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-dwnOUR bUQLzX"
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-eKJbhj gJMEzq"
               color="rgba(255,255,255, 0.87)"
             >
               <div
@@ -103,22 +103,22 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             </div>
           </section>
           <section
-            class="sc-fbYMXx iIiDkn"
+            class="sc-ZqFbI dxgRUR"
             data-testid="token-rate"
           >
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fXqpFg nvjrp"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-hlLBRy gGoHHO"
               color="rgba(255,255,255, 0.87)"
             >
               Rate
             </div>
             <div
-              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-dwnOUR bUQLzX"
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-eKJbhj gJMEzq"
               color="rgba(255,255,255, 0.87)"
             >
               1 
               <div
-                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-eKJbhj hNTXxZ"
+                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-gGvHcT jazvgA"
                 color="rgba(255, 255, 255, 0.5)"
               >
                  ETH
@@ -138,7 +138,7 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
                 />
               </div>
               <div
-                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-eKJbhj hNTXxZ"
+                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-gGvHcT jazvgA"
                 color="rgba(255, 255, 255, 0.5)"
               >
                 1INCH
@@ -146,17 +146,17 @@ exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
             </div>
           </section>
           <section
-            class="sc-fbYMXx sc-GhhNo iIiDkn hfzDji"
+            class="sc-ZqFbI sc-jNJNQp dxgRUR gpqJGB"
             data-testid="feeTier-selected"
           >
             <div
-              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fXqpFg nvjrp"
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-hlLBRy gGoHHO"
               color="rgba(255,255,255, 0.87)"
             >
               Fee Tier
             </div>
             <div
-              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-dwnOUR bUQLzX"
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-eKJbhj gJMEzq"
               color="rgba(255,255,255, 0.87)"
             >
               <div

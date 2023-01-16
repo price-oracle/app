@@ -45,6 +45,7 @@ describe('Testing <PropertiesSection />', () => {
         setUniswapPoolsForFeeTier={functionMock}
         selectedFee={feeTier}
         setSelectedFee={functionMock}
+        oraclesCreated={{ [feeTier.fee]: false }}
       />
     );
   });
@@ -75,6 +76,7 @@ describe('Testing <DepositAmountsSection />', () => {
         startingPrice={constants.WeiPerEther}
         uniswapPoolsForFeeTier={uniswapPoolForFeeTierMock}
         selectedFee={feeTier}
+        pmAddresses={undefined}
       />
     );
   });
