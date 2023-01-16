@@ -1,6 +1,6 @@
 import { Address, Network } from './Blockchain';
 import { FeeTier } from './FeeTiers';
-import { Language, ThemeName, ZIndex } from './Settings';
+import { Language, ThemeName } from './Settings';
 
 export interface Env {
   ENV: string;

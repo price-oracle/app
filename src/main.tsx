@@ -22,7 +22,7 @@ import store from '~/store';
 import { getConfig } from './config';
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.localhost],
+  [chain.mainnet, chain.localhost, chain.goerli],
   [
     jsonRpcProvider({
       rpc: (chain) => {
