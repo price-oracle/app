@@ -5,7 +5,6 @@ import { Language, ThemeName } from './Settings';
 export interface Env {
   ENV: string;
   ALLOW_DEV_MODE: boolean;
-  CUSTOM_RPC: string;
   ALCHEMY_KEY: string | undefined;
   CUSTOM_LOCAL_RPC: string;
 }
