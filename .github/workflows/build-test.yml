@@ -30,12 +30,12 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install project dependencies
-        run: yarn --prefer-offline
+        run: yarn --prefer-offline --network-concurrency 1
         id: install
 
       - name: Install solidity dependencies
         working-directory: ./solidity
-        run: yarn --prefer-offline
+        run: yarn --prefer-offline --network-concurrency 1
         id: solidity-install
 
       - name: Compile solidity contracts
@@ -88,7 +88,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install project dependencies
-        run: yarn --prefer-offline
+        run: yarn --prefer-offline --network-concurrency 1
         id: install
 
       - name: Run Prettier
