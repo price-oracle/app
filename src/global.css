@@ -1,6 +1,5 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 
@@ -15,11 +14,16 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -27,33 +31,26 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  min-width: 32rem;
   min-height: 100vh;
+  font-family: 'PlusJakartaSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 3.2rem;
   line-height: 1.1;
 }
 
 button {
-  border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 0.6rem 10.2rem;
+  font-size: 1rem;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
@@ -61,10 +58,89 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
+}
+
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: local('PlusJakartaSans'), url(./assets/fonts/PlusJakartaSans.woff),
+    url(./assets/fonts/PlusJakartaSans.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlusJakartaSansSemiBold';
+  src: local('PlusJakartaSans'), url(./assets/fonts/PlusJakartaSans.ttf) format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlusJakartaSansBold';
+  src: local('PlusJakartaSans'), url(./assets/fonts/PlusJakartaSans.ttf) format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         Rainbowkit customization                           */
+/* -------------------------------------------------------------------------- */
+
+.iekbcc0 {
+  border-radius: 0px !important;
+  transform: none !important;
+}
+
+.iekbcc0.ju367v4i {
+  display: none;
+}
+
+.iekbcc0.ju367v8a {
+  background-color: #121212;
+}
+
+[aria-label='Close'] {
+  border: none !important;
+}
+
+[aria-label='Chain Selector'] svg {
+  display: none;
+}
+
+[aria-label='Chain Selector'] div div div {
+  display: none;
+}
+
+[aria-label='Chain Selector'] div div:nth-child(1) {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 100% !important;
+  background-image: url(./assets/ethereum.svg) !important;
+  background-color: #121212;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.iekbcc0.ju367v2h.ju367v44 div {
+  background-color: inherit !important;
+}
+
+[aria-label='Ethereum'] div {
+  background-image: url(./assets/ethereum.svg) !important;
+}
+
+[aria-label='Goerli'] div {
+  background-image: url(./assets/ethereum.svg) !important;
+}
+
+[aria-label='Localhost'] div {
+  background-image: url(./assets/ethereum.svg) !important;
 }

@@ -1,0 +1,242 @@
+// Vitest Snapshot v1
+
+exports[`Landing Page > Should render Landing Page 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-cuOiQm cqygfH"
+  />
+  <div
+    class="sc-jephDI fXUjAm"
+  />
+  <div
+    class="sc-dWRHGJ fHqyZ"
+    height="768"
+  >
+    <div
+      class="sc-jGNhvO"
+    >
+      <div
+        class="sc-laZRCg iiNgdu"
+      >
+        <nav
+          class="sc-cUEOzv iMOXCL"
+        >
+          <section
+            class="sc-jOiSOi hqHWtC"
+          >
+            <section
+              class="sc-xWrgk jfpcCZ"
+            >
+              <a
+                class="sc-lllmON"
+                href="https://twitter.com/price_oracle"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div
+                  class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+                  color="rgba(255,255,255, 0.87)"
+                >
+                   
+                  <i
+                    class="sc-hBxehG eNrQxx picon-twitter"
+                    color="#fff"
+                    name="twitter"
+                  />
+                </div>
+              </a>
+            </section>
+            <section
+              class="sc-xWrgk jfpcCZ"
+            >
+              <a
+                class="sc-lllmON"
+                href="https://discord.gg/c9KSUgu3vt"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div
+                  class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+                  color="rgba(255,255,255, 0.87)"
+                >
+                   
+                  <i
+                    class="sc-hBxehG grisYc picon-discord"
+                    color="#fff"
+                    name="discord"
+                  />
+                </div>
+              </a>
+            </section>
+            <section
+              class="sc-xWrgk jfpcCZ"
+            >
+              <a
+                class="sc-lllmON"
+                href="https://github.com/price-oracle"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div
+                  class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+                  color="rgba(255,255,255, 0.87)"
+                >
+                   
+                  <i
+                    class="sc-hBxehG eNrQxx picon-github"
+                    color="#fff"
+                    name="github"
+                  />
+                </div>
+              </a>
+            </section>
+            <section
+              class="sc-xWrgk jfpcCZ"
+            >
+              <div
+                class="sc-dIfARi fqNnZh"
+                font-size="1.6rem"
+              >
+                <i
+                  class="sc-hBxehG eNrQxx picon-sun"
+                  color="#fff"
+                  name="sun"
+                />
+              </div>
+            </section>
+          </section>
+        </nav>
+        <div
+          class="sc-gGvHcT sc-dwnOUR sc-jNJNQp buDhwl dzVvhu klHMiC"
+        />
+        <div
+          class="sc-gGvHcT sc-fXqpFg sc-hlLBRy buDhwl byrbCX iyvtJC"
+        />
+        <div
+          class="sc-gGvHcT sc-fbYMXx sc-eKJbhj buDhwl hBepJt fERjJA"
+        />
+        <div
+          class="sc-gGvHcT sc-ckEbSK sc-bTTELM buDhwl dzNAJC cXQJXw"
+        />
+        <div
+          class="sc-gGvHcT sc-UpCWa sc-kImNAt buDhwl jdRoSL YhdGI"
+        />
+        <div
+          class="sc-gGvHcT sc-fbYMXx sc-hOzowv buDhwl hBepJt fALua-d"
+        />
+        <div
+          class="sc-gGvHcT sc-GhhNo sc-dsHJmm buDhwl kPjpuP gtVvaP"
+        />
+        <div
+          class="sc-gGvHcT sc-jIILKH sc-cZFQFd buDhwl gWMKky eULjxi"
+        />
+        <div
+          class="sc-gGvHcT sc-dwnOUR sc-jTjUTQ buDhwl dzVvhu djrMvS"
+        />
+        <div
+          class="sc-gGvHcT sc-fXqpFg sc-jRwbcX buDhwl byrbCX brdelf"
+        />
+        <div
+          class="sc-gGvHcT sc-fbYMXx sc-fvEvSO buDhwl hBepJt ksvwmO"
+        />
+        <div
+          class="sc-gGvHcT sc-UpCWa sc-fcCDlF buDhwl jdRoSL cHEZKB"
+        />
+        <div
+          class="sc-gGvHcT sc-jIILKH sc-GKYbw buDhwl gWMKky bHHTxI"
+        />
+        <div
+          class="sc-gGvHcT sc-fbYMXx sc-gsGlKL buDhwl hBepJt bnJqpt"
+        />
+        <div
+          class="sc-gGvHcT sc-dwnOUR sc-bWOGAC buDhwl dzVvhu btzlHI"
+        />
+        <div
+          class="sc-gGvHcT sc-fbYMXx sc-eGugkK buDhwl hBepJt jNZTlE"
+        />
+        <div
+          class="sc-gGvHcT sc-ckEbSK sc-csDkEv buDhwl dzNAJC jPvrpP"
+        />
+      </div>
+    </div>
+    <div
+      class="sc-bQmOxr bmSGLk"
+    >
+      <img
+        alt="Price logo"
+        class="sc-iveFHk sc-fmZqYP hpkodg jkropY"
+        src="/src/assets/logo-big-light.svg"
+      />
+      <div
+        class="sc-jmpzUR gutnYK"
+      >
+        <div
+          class="sc-iBYQkv sc-pyfCe fBJkCi hMiFgy"
+          color="rgba(255,255,255, 0.87)"
+        >
+          Reliable, secure, and permissionless price oracles for every token.
+        </div>
+      </div>
+      <a
+        data-testid="enter-app"
+        href="/app/pools"
+      >
+        <div
+          class="sc-jSUZER dotgdq"
+        >
+          <button
+            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-lknQiW MHWqD"
+          >
+            Enter App
+          </button>
+        </div>
+      </a>
+      <div
+        class="sc-eDZJfc hCezsJ"
+      >
+        <a
+          class="sc-lllmON"
+          href="https://docs.oracles.rip/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div
+            class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-iJnaPW"
+            color="rgba(255,255,255, 0.87)"
+          >
+            Documentation 
+            <i
+              class="sc-hBxehG eApZoW picon-arrow-up-right"
+              color="rgba(255,255,255, 0.87)"
+              name="arrow-up-right"
+            />
+          </div>
+        </a>
+      </div>
+    </div>
+    <div
+      class="sc-jWgTtR khBPwx"
+    >
+      <div
+        class="sc-iBYQkv sc-kDvujY fBJkCi faMXpT"
+        color="rgba(255,255,255, 0.87)"
+      >
+        Made with 🤍 by 
+        <a
+          class="sc-lllmON"
+          href="https://defi.sucks/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-iJnaPW"
+            color="rgba(255,255,255, 0.87)"
+          >
+            Wonderland 
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

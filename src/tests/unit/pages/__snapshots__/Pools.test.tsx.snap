@@ -1,0 +1,107 @@
+// Vitest Snapshot v1
+
+exports[`Pool Page > Should render Pools Page 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-ehvNnt cKzixw"
+  >
+    <div
+      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-cUEOzv hhOCqg hhKkbK"
+      color="rgba(255,255,255, 0.87)"
+    >
+      <div
+        class="sc-jOiSOi kKqVgi"
+      >
+        <div
+          class="sc-iBYQkv sc-jrcTuL hNdzWR epIsAC"
+          color="rgba(255,255,255, 0.87)"
+        >
+          Dashboard
+        </div>
+      </div>
+      <div
+        class="sc-dPWrhe"
+      >
+        <div
+          class="sc-iBYQkv sc-jrcTuL cWFtuj epIsAC"
+          color="rgba(255,255,255, 0.87)"
+        >
+          Total ETH locked
+        </div>
+      </div>
+      <div
+        class="sc-dPWrhe"
+      >
+        <div
+          class="sc-iBYQkv sc-jrcTuL cWFtuj epIsAC"
+          color="rgba(255,255,255, 0.87)"
+        >
+          Claimable rewards
+        </div>
+      </div>
+      <div
+        class="sc-bCfvAP ShKCg"
+      >
+        <div
+          class="sc-fLcnxK"
+        >
+          <i
+            class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+            data-testid="loader-icon"
+            name="loader"
+          />
+        </div>
+      </div>
+      <div
+        class="sc-bCfvAP ShKCg"
+      >
+        <div
+          class="sc-fLcnxK"
+        >
+          <i
+            class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+            data-testid="loader-icon"
+            name="loader"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-cOxWqc hhOCqg drcGsI"
+      color="rgba(255,255,255, 0.87)"
+    >
+      <div
+        class="sc-iBYQkv sc-jrcTuL hNdzWR epIsAC sc-AHaJN"
+        color="rgba(255,255,255, 0.87)"
+      >
+        Pools
+      </div>
+      <div
+        class="sc-hhOBVt hvTQJO"
+      >
+        <i
+          class="sc-hBxehG sc-gYbzsP ccFtCM fuCfJr picon-search"
+          name="search"
+        />
+        <input
+          aria-label="Search"
+          class="sc-hHTYSt sc-dmctIk sc-cCjUiG fvoNMM jgGokt fhnoNX"
+        />
+      </div>
+      <div
+        class="sc-lbVpMG fBCmoe"
+      >
+        <div
+          class="sc-fLcnxK"
+        >
+          <i
+            class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+            data-testid="loader-icon"
+            name="loader"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

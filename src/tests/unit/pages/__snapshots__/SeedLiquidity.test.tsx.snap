@@ -1,0 +1,287 @@
+// Vitest Snapshot v1
+
+exports[`Seed Liquidity Page > Should render Liquidity Page 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bQmOxr lmoJcE"
+  >
+    <div
+      class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-ipEyDJ sc-cUEOzv hhOCqg coitij"
+      color="rgba(255,255,255, 0.87)"
+    >
+      <div
+        class="sc-fWQKxP jToRhd"
+      >
+        <section
+          class="sc-hTBuwn gtBEoM"
+        >
+          <div
+            class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB"
+            color="rgba(255,255,255, 0.87)"
+          >
+            Select Token 
+            <i
+              class="sc-hBxehG botUXV picon-arrow-down"
+              name="arrow-down"
+              rotate="270"
+            />
+          </div>
+          <div
+            class="sc-gScZFl iKDxRj"
+          >
+            <section
+              class="sc-fnGiBr cQqyKK"
+            >
+              <button
+                class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-hiDMwi dPIZoZ"
+              >
+                <div
+                  class="sc-bjfHbI sc-iOeugr duzxYY huDETY"
+                  src="ipfs://QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg"
+                />
+                <div
+                  class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-eJDSGI jIACl"
+                  color="rgba(255,255,255, 0.87)"
+                >
+                  UNI
+                </div>
+                <i
+                  class="sc-hBxehG dBvyuW picon-chevron-down"
+                  name="chevron-down"
+                  rotate="0"
+                />
+              </button>
+            </section>
+            <div
+              class="sc-iBYQkv sc-ftTHYK blHKRc iZMgjB sc-lbVpMG kegqDg"
+              color="rgba(255,255,255, 0.87)"
+            >
+              /
+            </div>
+            <div
+              class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-jfTVlA eDLA-DW"
+              color="rgba(255,255,255, 0.87)"
+            >
+              <div
+                class="sc-bjfHbI kfgBnd"
+                src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+              />
+               WETH
+            </div>
+          </div>
+        </section>
+      </div>
+      <div
+        class="sc-fWQKxP jToRhd"
+      >
+        <section
+          class="sc-ehvNnt eqWQly"
+        >
+          <section
+            class="sc-ZqFbI dxgRUR"
+            data-testid="starting-price"
+          >
+            <div
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-hlLBRy gGoHHO"
+              color="rgba(255,255,255, 0.87)"
+            >
+              Starting price
+            </div>
+            <div
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-eKJbhj gJMEzq"
+              color="rgba(255,255,255, 0.87)"
+            >
+              <div
+                class="sc-fLcnxK"
+              >
+                <i
+                  class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+                  data-testid="loader-icon"
+                  name="loader"
+                />
+              </div>
+            </div>
+          </section>
+          <section
+            class="sc-ZqFbI dxgRUR"
+            data-testid="token-rate"
+          >
+            <div
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-hlLBRy gGoHHO"
+              color="rgba(255,255,255, 0.87)"
+            >
+              Rate
+            </div>
+            <div
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-eKJbhj gJMEzq"
+              color="rgba(255,255,255, 0.87)"
+            >
+              1 
+              <div
+                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-gGvHcT jazvgA"
+                color="rgba(255, 255, 255, 0.5)"
+              >
+                 ETH
+              </div>
+              <i
+                class="sc-hBxehG botUXV picon-arrow-down"
+                name="arrow-down"
+                rotate="270"
+              />
+              <div
+                class="sc-fLcnxK"
+              >
+                <i
+                  class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+                  data-testid="loader-icon"
+                  name="loader"
+                />
+              </div>
+              <div
+                class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-gGvHcT jazvgA"
+                color="rgba(255, 255, 255, 0.5)"
+              >
+                UNI
+              </div>
+            </div>
+          </section>
+          <section
+            class="sc-ZqFbI sc-jNJNQp dxgRUR gpqJGB"
+            data-testid="feeTier-selected"
+          >
+            <div
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-hlLBRy gGoHHO"
+              color="rgba(255,255,255, 0.87)"
+            >
+              Fee Tier
+            </div>
+            <div
+              class="sc-iBYQkv sc-pyfCe blHKRc hMiFgy sc-eKJbhj gJMEzq"
+              color="rgba(255,255,255, 0.87)"
+            >
+              <div
+                class="sc-fLcnxK"
+              >
+                <i
+                  class="sc-hBxehG sc-bBABsx ccFtCM jFMzlb picon-loader"
+                  data-testid="loader-icon"
+                  name="loader"
+                />
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+      <section
+        class="sc-dEVLtI fUtRQd"
+      >
+        <div
+          class="sc-iBYQkv sc-ftTHYK cWFtuj iZMgjB sc-brePNt enZZLm"
+          color="rgba(255,255,255, 0.87)"
+        >
+          Deposit amounts
+        </div>
+        <div>
+          <section
+            class="sc-cZFQFd gsEASS"
+          >
+            <div
+              class="sc-bjfHbI sc-jTjUTQ duzxYY fsaznq"
+              src="ipfs://QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg"
+            />
+            <input
+              aria-label="token amount"
+              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-jRwbcX fvoNMM jgGokt isyBJj"
+              placeholder="0"
+              value=""
+            />
+            <div
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fvEvSO fVTCGI"
+              color="rgba(255,255,255, 0.87)"
+            >
+              <div
+                class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC"
+                color="rgba(255,255,255, 0.87)"
+              >
+                UNI
+              </div>
+            </div>
+          </section>
+          <div
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-gJqSRm eigerd"
+            color="rgba(255,255,255, 0.87)"
+          >
+            <div
+              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-dsHJmm myFBD fVhOTF"
+              color="rgba(255,255,255, 0.87)"
+            >
+              Balance: - UNI
+            </div>
+          </div>
+        </div>
+        <div>
+          <section
+            class="sc-cZFQFd gsEASS"
+          >
+            <div
+              class="sc-bjfHbI kfgBnd"
+              src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+            />
+            <input
+              aria-label="weth amount"
+              class="sc-hHTYSt sc-dmctIk sc-kgTSHT sc-jRwbcX fvoNMM jgGokt isyBJj"
+              placeholder="0"
+              value=""
+            />
+            <div
+              class="sc-iBYQkv sc-jrcTuL blHKRc epIsAC sc-fvEvSO fVTCGI"
+              color="rgba(255,255,255, 0.87)"
+            >
+              WETH
+            </div>
+          </section>
+          <div
+            class="sc-iBYQkv sc-kDvujY blHKRc faMXpT sc-gJqSRm eigerd"
+            color="rgba(255,255,255, 0.87)"
+          >
+            <div
+              class="sc-iBYQkv sc-kDvujY cWFtuj faMXpT sc-cwSeag sc-dsHJmm myFBD fVhOTF"
+              color="rgba(255,255,255, 0.87)"
+            >
+              Balance: - WETH
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="sc-bWOGAC cOjtLy"
+      >
+        <div
+          class="sc-fcCDlF hLKyMm"
+        >
+          <div
+            class="sc-GKYbw cmskty"
+          >
+            <div
+              class="sc-jSUZER dotgdq"
+            >
+              <button
+                class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM XXtZw iigscx sc-gKPRtg hQQRME sc-csDkEv fQatMh"
+                disabled=""
+              >
+                Create Oracle
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div
+        class="sc-iBYQkv sc-kDvujY gRZfHa faMXpT sc-eGugkK bQcaFc"
+        color="rgba(255, 255, 255, 0.5)"
+      >
+        Minimum WETH amount to create a new oracle: - WETH
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

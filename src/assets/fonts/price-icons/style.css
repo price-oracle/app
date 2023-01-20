@@ -1,0 +1,83 @@
+@font-face {
+  font-family: 'price-icons';
+  src: url('fonts/price-icons.eot?hhqqld');
+  src: url('fonts/price-icons.eot?hhqqld#iefix') format('embedded-opentype'),
+    url('fonts/price-icons.ttf?hhqqld') format('truetype'), url('fonts/price-icons.woff?hhqqld') format('woff'),
+    url('fonts/price-icons.svg?hhqqld#price-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'price-icons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.picon-gas:before {
+  content: '\e910';
+}
+.picon-help:before {
+  content: '\e90f';
+}
+.picon-discord:before {
+  content: '\e911';
+}
+.picon-loader:before {
+  content: '\e90d';
+}
+.picon-search:before {
+  content: '\e90e';
+}
+.picon-ethereum:before {
+  content: '\e90b';
+}
+.picon-optimism:before {
+  content: '\e90c';
+}
+.picon-fantom:before {
+  content: '\e909';
+}
+.picon-close:before {
+  content: '\e90a';
+}
+.picon-user:before {
+  content: '\e900';
+}
+.picon-twitter:before {
+  content: '\e901';
+}
+.picon-sun:before {
+  content: '\e902';
+}
+.picon-send:before {
+  content: '\e903';
+}
+.picon-moon:before {
+  content: '\e904';
+}
+.picon-github:before {
+  content: '\e905';
+}
+.picon-chevron-down:before {
+  content: '\e906';
+}
+.picon-arrow-up-right:before {
+  content: '\e907';
+}
+.picon-arrow-down:before {
+  content: '\e908';
+}
+.picon-lock:before {
+  content: '\e98f';
+}

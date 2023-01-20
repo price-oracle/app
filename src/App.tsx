@@ -1,25 +1,81 @@
-import reactLogo from './assets/react.svg';
-import './App.css';
-import { ConnectButton } from '~/components/shared';
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import { useAccount, useNetwork } from 'wagmi';
+
+import '~/App.css';
+import './assets/fonts/price-icons/style.css';
+
+import AppPage from './pages/AppPage';
+import LandingPage from './pages/Landing/LandingPage';
+import Pools from './pages/Pools';
+import SeedLiquidity from './pages/SeedLiquidity';
+
+import { useUpdateState } from '~/hooks';
+import { PropTheme } from './components/shared';
+import { Alerts } from './containers/Alerts';
+import { Modals } from './containers/modals';
+import { Themable } from './containers/Themable';
+import { InjectService } from './services';
+
+const GlobalStyle = createGlobalStyle<PropTheme>`
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    scroll-behavior: unset;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background-color: ${(props) => props.theme.background};
+  }
+`;
 
 function App() {
-  const TestClick = () => {
-    console.log('test');
-  };
+  const { updateEthPrice, updatePoolAndLockState } = useUpdateState();
+  const { address, isConnected } = useAccount();
+  const { chain } = useNetwork();
+
+  const injectService = new InjectService();
+  injectService.injectPlausible();
+
+  useEffect(() => {
+    updatePoolAndLockState();
+  }, [address, chain, isConnected]);
+
+  useEffect(() => {
+    if (address) {
+      updateEthPrice();
+      const interval = setInterval(() => {
+        updateEthPrice();
+      }, 60000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [address]);
 
   return (
-    <div className='App'>
-      <div>
-        <a href='https://vitejs.dev' target='_blank' rel='noreferrer'>
-          <img src='/vite.svg' className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://reactjs.org' target='_blank' rel='noreferrer'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-
-      <ConnectButton />
-    </div>
+    <Themable>
+      <GlobalStyle />
+      <Alerts />
+      <Modals />
+      <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='*' element={<AppPage />}>
+          <Route path='app/pools' element={<Pools />} />
+          <Route path='app/seed-liquidity' element={<SeedLiquidity />} />
+        </Route>
+      </Routes>
+    </Themable>
   );
 }
 
