@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { BigNumber, utils, constants } from 'ethers';
 import { useProvider } from 'wagmi';
 
-import { AlertsActions, ModalsActions } from '~/store';
-import { useContracts, useAppDispatch } from '~/hooks';
+import { ModalsActions, useAppDispatch } from '~/store';
+import { useContracts } from '~/hooks';
 import { CreateProps } from '~/containers/modals/CostsModal';
 import {
   ColumnContainer,
@@ -73,9 +73,11 @@ export const Cost = ({ createProps }: { createProps: CreateProps }) => {
         BigNumber.from(createProps.liquidity),
         BigNumber.from(createProps.sqrtPriceX96)
       )
-      .finally(() => {
-        setIsLoading(false);
+      .then(() => {
         dispatch(ModalsActions.closeModal());
+      })
+      .catch(() => {
+        setIsLoading(false);
       });
   };
 

@@ -39,17 +39,16 @@ jobs:
         run: yarn --prefer-offline
         id: install
 
-      - name: Install fork dependencies
-        working-directory: ./fork
+      - name: Install solidity dependencies
+        working-directory: ./solidity
         run: yarn --prefer-offline
-        id: fork-install
+        id: solidity-install
 
-      - name: Compile fork contracts
-        working-directory: ./fork
+      - name: Compile solidity contracts
+        working-directory: ./solidity
         run: yarn compile
-        id: fork-compile
+        id: solidity-compile
         env:
-          TENDERLY_FORK_RPC: ${{ secrets.TENDERLY_FORK_RPC }}
           FORK_RPC: ${{ secrets.FORK_RPC }}
 
       - name: Run Prettier

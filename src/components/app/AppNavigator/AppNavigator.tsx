@@ -58,7 +58,7 @@ const AppNavigator = () => {
                   <ExternalLink href='https://docs.oracles.rip/'>
                     <SExternalLink>Documentation</SExternalLink>
                   </ExternalLink>
-                  <ExternalLink href='https://discord.gg/6RgRATKMHM'>
+                  <ExternalLink href='https://discord.gg/c9KSUgu3vt'>
                     <SExternalLink>Discord</SExternalLink>
                   </ExternalLink>
                 </>

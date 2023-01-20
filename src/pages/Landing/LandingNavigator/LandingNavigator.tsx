@@ -14,7 +14,7 @@ const LandingNavigator = () => {
         </ExternalLink>
       </Item>
       <Item>
-        <ExternalLink href='https://discord.gg/6RgRATKMHM'>
+        <ExternalLink href='https://discord.gg/c9KSUgu3vt'>
           <Icon name='discord' color='#fff' size='2.2rem' />
         </ExternalLink>
       </Item>

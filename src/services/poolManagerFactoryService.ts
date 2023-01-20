@@ -6,7 +6,7 @@ import { getConfig } from '~/config';
 import { TxService } from '~/services';
 import { Address, PoolAndLockManager } from '~/types';
 import { getPriceForToken } from '~/utils';
-import { bytecode } from '~fork/artifacts/contracts/BatchPoolManagerData.sol/BatchPoolManagerData.json';
+import { bytecode } from '~solidity/artifacts/contracts/BatchPoolManagerData.sol/BatchPoolManagerData.json';
 
 export class PoolManagerFactoryService {
   provider: Provider;
