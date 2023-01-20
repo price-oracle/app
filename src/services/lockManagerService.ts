@@ -1,4 +1,4 @@
-import { abi as ILockManager } from '@price-oracle/interfaces/abi/ILockManager.json';
+import { abi as ILockManager } from '@price-oracle/v1-core-interfaces/abi/ILockManager.json';
 import { Provider } from '@wagmi/core';
 import { BigNumber, ethers, Signer } from 'ethers';
 

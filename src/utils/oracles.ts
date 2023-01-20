@@ -1,5 +1,5 @@
 import { Contract } from 'ethers-multicall';
-import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
+import { abi as IPoolManagerFactoryABI } from '@price-oracle/v1-core-interfaces/abi/IPoolManagerFactory.json';
 import { isUndefined } from 'lodash';
 
 import { Address, OraclesCreated, PoolManager, PoolManagerAddresses } from '~/types';
