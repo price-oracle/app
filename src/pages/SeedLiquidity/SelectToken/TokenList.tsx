@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ethers } from 'ethers';
 import styled from 'styled-components';
 import { useNetwork } from 'wagmi';
@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector, useContracts } from '~/hooks';
 import { CustomTokenActions } from '~/store';
 import { Token } from '~/types/Token';
 import { getTokenList } from '~/utils/tokenList';
+import { getConstants } from '~/config/constants';
 
 const SCard = styled(Card)`
   width: 20rem;
@@ -74,6 +75,7 @@ interface IProps {
 const TokenList = ({ onSelect, className }: IProps) => {
   const customTokens = useAppSelector((state) => state.customTokens.tokens);
   const dispatch = useAppDispatch();
+  const [tokenList, setTokenList] = useState<Token[] | undefined>();
   const { erc20Service } = useContracts();
   const { chain } = useNetwork();
   const isLoading = false;
@@ -97,11 +99,10 @@ const TokenList = ({ onSelect, className }: IProps) => {
   };
 
   const allTokens = () => {
-    const tokens = getTokenList(chain?.id).concat(customTokens);
+    const tokens = getTokenList(chain?.id || getConstants().DEFAULT_CHAIN_ID).concat(customTokens);
     if (tempCustomToken) tokens.push(tempCustomToken);
     return tokens;
   };
-  const tokenList = filterTokens(allTokens());
 
   const onSelectToken = (token: Token) => {
     if (token.address.toLowerCase() == tempCustomToken?.address.toLowerCase()) {
@@ -114,6 +115,11 @@ const TokenList = ({ onSelect, className }: IProps) => {
     ref.current?.focus();
   });
 
+  useEffect(() => {
+    const list = filterTokens(allTokens());
+    setTokenList(list);
+  }, [chain]);
+
   return (
     <SCard>
       <SearchInput onChange={(e) => setSearchInput(e.target.value)} inputRef={ref} />
@@ -121,7 +127,7 @@ const TokenList = ({ onSelect, className }: IProps) => {
       <TokenListContainer className={className}>
         {isLoading && <Loading />}
         {!isLoading &&
-          tokenList.map((token) => (
+          tokenList?.map((token) => (
             <TokenItem key={token.symbol} onClick={() => onSelectToken(token)}>
               <Icon src={token.logoURI} />
               <Symbol weight='semibold'>{token.symbol}</Symbol>

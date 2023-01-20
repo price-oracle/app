@@ -57,6 +57,12 @@ export class PoolManagerFactoryService {
       return createPoolManagerTx;
     }
   }
+
+  async getMinEthAmount(): Promise<BigNumber> {
+    const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.provider);
+    return await factory.minEthAmount();
+  }
+
   async fetchPoolAndLockManagers(userAddress: Address | undefined): Promise<PoolAndLockManager[]> {
     const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.provider);
 

@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "0.14.0",
-    "@price-oracle/interfaces": "0.0.0-3357abce",
+    "@price-oracle/interfaces": "0.0.0-bcc626da",
     "@rainbow-me/rainbowkit": "0.7.4",
     "@reduxjs/toolkit": "1.8.6",
     "@uniswap/v3-sdk": "3.9.0",

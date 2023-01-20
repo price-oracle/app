@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { useAccount, useNetwork } from 'wagmi';
 import { isUndefined } from 'lodash';
 
-import { calculateLiquidity, getSqrtPriceX96ForToken } from '~/utils';
+import { calculateLiquidity, formatCost, getSqrtPriceX96ForToken } from '~/utils';
 import { BoxButton, Loading, SPACING_12, Typography } from '~/components/shared';
 import { getConfig } from '~/config';
 import { useAppDispatch, useAppSelector, useContracts, useUpdateState } from '~/hooks';
-import { Address, FeeTier, PoolManagerAddresses, Token, UniswapPool } from '~/types';
+import { Address, FeeTier, Token, UniswapPool } from '~/types';
 import { Tooltip } from '~/containers/Tooltips';
-import { ModalsActions } from '~/store';
+import { AlertsActions, ModalsActions } from '~/store';
 
 const Container = styled.section`
   display: grid;
@@ -40,7 +40,7 @@ interface AmountsProps {
   selectedFee: FeeTier;
   resetInputValues: () => void;
   updateBalances: () => void;
-  pmAddresses: PoolManagerAddresses | undefined;
+  poolManagerAddress: Address;
 }
 
 const SubmitFormSection = ({
@@ -54,20 +54,21 @@ const SubmitFormSection = ({
   selectedFee,
   resetInputValues,
   updateBalances,
-  pmAddresses,
+  poolManagerAddress,
 }: AmountsProps) => {
   const { updatePoolAndLockState } = useUpdateState();
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
   const isModalOpen = useAppSelector((state) => state.modals.activeModal);
-  const { poolManagerService, erc20Service } = useContracts();
+  const { poolManagerService, erc20Service, poolManagerFactoryService } = useContracts();
   const dispatch = useAppDispatch();
   const { address } = useAccount();
   const { chain } = useNetwork();
   const [isInvalid, setIsInvalid] = useState(false);
+  const [isOracleCreated, setIsOracleCreated] = useState(false);
   const [wethAllowance, setWethAllowance] = useState<BigNumber>(constants.Zero);
   const [tokenAllowance, setTokenAllowance] = useState<BigNumber>(constants.Zero);
+  const [minWeth, setMinEth] = useState<BigNumber | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [poolManagerAddress, setPoolManagerAddress] = useState<Address>('');
   const {
     ADDRESSES: { WETH_ADDRESS },
   } = getConfig();
@@ -120,29 +121,6 @@ const SubmitFormSection = ({
       }
   };
 
-  useEffect(() => {
-    setIsInvalid(tokenAmount.gt(tokenBalance) || wethAmount.gt(wethBalance));
-  }, [tokenAmount, wethAmount, tokenBalance, wethBalance]);
-
-  useEffect(() => {
-    if (selectedToken?.address && pmAddresses) {
-      setPoolManagerAddress(pmAddresses[selectedFee.fee]);
-    }
-  }, [selectedToken, selectedFee]);
-
-  useEffect(() => {
-    if (poolManagerAddress) {
-      updateAllowanceAmount(poolManagerAddress);
-    }
-  }, [poolManagerAddress, address, chain]);
-
-  const isPoolManagerCreated = (): boolean => {
-    if (poolManagers) {
-      return !isUndefined(poolManagers[poolManagerAddress]);
-    }
-    return false;
-  };
-
   const createPool = () => {
     setIsLoading(true);
     if (uniswapPoolsForFeeTier && startingPrice) {
@@ -155,7 +133,7 @@ const SubmitFormSection = ({
         // TODO: Improve sqrtPriceX96 calcs
         const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount, tokenAmount, isWethToken0);
         // Check if poolmanager is already created
-        if (isPoolManagerCreated()) {
+        if (isOracleCreated) {
           // If created call the poolmanager on increaseLiquidity
           poolManagerService
             .increaseFullRangePosition(poolManagerAddress, liquidity, sqrtPriceX96)
@@ -169,22 +147,56 @@ const SubmitFormSection = ({
               setIsLoading(false);
             });
         } else {
-          // If not created call poolmanagerfactory with params
-          const createProps = {
-            cardinality: uniswapPoolsForFeeTier[selectedFee.fee]?.cardinality,
-            tokenAddress: selectedToken.address,
-            tokenSymbol: selectedToken.symbol,
-            fee: selectedFee.fee,
-            liquidity: liquidity.toString(),
-            sqrtPriceX96: sqrtPriceX96.toString(),
-            poolExist: !!uniPool,
-          };
+          poolManagerFactoryService
+            .estimateGasCreatePoolManager(selectedToken.address, selectedFee.fee, liquidity, sqrtPriceX96)
+            .then((gasCost) => {
+              // If not created call poolmanagerfactory with params
+              const createProps = {
+                cardinality: uniswapPoolsForFeeTier[selectedFee.fee]?.cardinality,
+                tokenAddress: selectedToken.address,
+                tokenSymbol: selectedToken.symbol,
+                fee: selectedFee.fee,
+                liquidity: liquidity.toString(),
+                sqrtPriceX96: sqrtPriceX96.toString(),
+                poolExist: !!uniPool,
+                gasCost: gasCost?.toString(),
+              };
 
-          dispatch(ModalsActions.openModal({ modalName: 'costs', modalProps: createProps }));
+              dispatch(ModalsActions.openModal({ modalName: 'costs', modalProps: createProps }));
+            })
+            .catch(() => {
+              dispatch(
+                AlertsActions.openAlert({
+                  message: `Failed to estimate the oracle creation cost`,
+                  type: 'error',
+                })
+              );
+            });
         }
       }
     }
   };
+
+  useEffect(() => {
+    setIsInvalid(tokenAmount.gt(tokenBalance) || wethAmount.gt(wethBalance));
+  }, [tokenAmount, wethAmount, tokenBalance, wethBalance]);
+
+  useEffect(() => {
+    if (poolManagerAddress) {
+      updateAllowanceAmount(poolManagerAddress);
+    }
+    poolManagerFactoryService.getMinEthAmount().then((newMinEth) => {
+      setMinEth(newMinEth);
+    });
+  }, [poolManagerAddress, address, chain]);
+
+  useEffect(() => {
+    if (poolManagers) {
+      setIsOracleCreated(!isUndefined(poolManagers[poolManagerAddress]));
+    } else {
+      setIsOracleCreated(false);
+    }
+  }, [poolManagers, selectedToken, poolManagerAddress]);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -203,13 +215,12 @@ const SubmitFormSection = ({
     if (!startingPrice) return 'Invalid starting price';
     if (wethAmount.gt(wethBalance) || tokenAmount.gt(tokenBalance)) return 'Insufficient balance';
     if (wethAmount.isZero()) return 'Insufficient deposit amounts';
-    if (!isPoolManagerCreated() && insufficentWeth()) return 'Insufficient WETH amount';
+    if (!isOracleCreated && insufficentWeth()) return 'Insufficient WETH amount';
     return '';
   };
 
   const insufficentWeth = () => {
-    // TODO: fetch min WETH amount from contract
-    return wethAmount.lt(constants.WeiPerEther.mul(25));
+    if (minWeth) return wethAmount.lt(minWeth);
   };
 
   return (
@@ -221,7 +232,7 @@ const SubmitFormSection = ({
               onClick={() => {
                 handleApprove();
               }}
-              disabled={isDisabled || (!isPoolManagerCreated() && insufficentWeth())}
+              disabled={isDisabled || (!isOracleCreated && insufficentWeth())}
             >
               {isLoading && <Loading />}
               {!isLoading && <>{!ethIsApproved ? 'Approve WETH' : `Approve ${selectedToken?.symbol}`}</>}
@@ -230,14 +241,16 @@ const SubmitFormSection = ({
 
           {/* Initialize/Add-Liquidity Pool Logic */}
           {isApproved && (
-            <SBoxButton onClick={createPool} disabled={isDisabled || (!isPoolManagerCreated() && insufficentWeth())}>
+            <SBoxButton onClick={createPool} disabled={isDisabled || (!isOracleCreated && insufficentWeth())}>
               {isLoading && <Loading />}
-              {!isLoading && (isPoolManagerCreated() ? 'Add Liquidity' : 'Create Oracle')}
+              {!isLoading && (isOracleCreated ? 'Add Liquidity' : 'Create Oracle')}
             </SBoxButton>
           )}
         </Tooltip>
       </Container>
-      <MinAmount>Minimum WETH amount to create a new oracle: 25 WETH</MinAmount>
+      <MinAmount>
+        Minimum WETH amount to create a new oracle: {minWeth ? formatCost(minWeth.toString(), 18, 0) : '-'} WETH
+      </MinAmount>
     </>
   );
 };

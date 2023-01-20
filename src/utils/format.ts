@@ -2,7 +2,6 @@ import BigNumber from 'bignumber.js';
 import { BigNumberish, ethers } from 'ethers';
 
 export type DataType = 'amount' | 'percent' | 'usd';
-
 export const USDC_DECIMALS = 6;
 export const WETH_DECIMALS = 18;
 export const GWEI = 9;

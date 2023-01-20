@@ -1,5 +1,5 @@
 import '@nomiclabs/hardhat-ethers';
-import * as tdly from "@tenderly/hardhat-tenderly";
+import * as tdly from '@tenderly/hardhat-tenderly';
 import dotenv from 'dotenv';
 import { HardhatUserConfig } from 'hardhat/config';
 
@@ -8,7 +8,7 @@ dotenv.config({ path: './.env' });
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.13"
+    version: '0.8.13',
   },
   networks: {
     hardhat: {
@@ -31,8 +31,8 @@ const config: HardhatUserConfig = {
   tenderly: {
     project: 'price-oracle',
     username: 'defi-wonderland',
-    privateVerification: false
-  }
+    privateVerification: false,
+  },
 };
 
 export default config;

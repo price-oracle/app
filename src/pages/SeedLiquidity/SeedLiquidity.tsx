@@ -3,7 +3,7 @@ import { useNetwork } from 'wagmi';
 import styled from 'styled-components';
 import { BigNumber } from 'ethers';
 
-import { FeeTier, OraclesCreated, PoolManagerAddresses, Token, UniswapPool } from '~/types';
+import { Address, FeeTier, OraclesCreated, PoolManagerAddresses, Token, UniswapPool } from '~/types';
 import { getOracles, getPoolManagerAddresses, getTokenList } from '~/utils';
 import { SPACING_24, SPACING_32 } from '~/components/shared';
 import { Container } from './SeedLiquidity.styles';
@@ -13,6 +13,7 @@ import DepositAmountsSection from './Deposit/DepositAmountsSection';
 import PoolList from './SeededList/SeededList';
 import { getConfig } from '~/config';
 import { useAppSelector, useContracts } from '~/hooks';
+import { getConstants } from '~/config/constants';
 
 const SeedPage = styled.div`
   background: ${(props) => props.theme.background};
@@ -25,8 +26,8 @@ const SeedPageSection = styled.div`
 
 function SeedLiquidity() {
   const poolManagers = useAppSelector((state) => state.poolManagers.elements);
-  const { chain, chains } = useNetwork();
-  const defaultToken = getTokenList(chain?.id || chains[0]?.id)[0];
+  const { chain } = useNetwork();
+  const defaultToken = getTokenList(chain?.id || getConstants().DEFAULT_CHAIN_ID)[0];
   const [selectedToken, setSelectedToken] = useState<Token | undefined>(defaultToken);
   const [startingPrice, setStartingPrice] = useState<BigNumber | undefined>();
   const [uniswapPoolsForFeeTier, setUniswapPoolsForFeeTier] = useState<
@@ -37,6 +38,7 @@ function SeedLiquidity() {
   const { poolManagerFactoryService, multiCallService } = useContracts();
   const [oraclesCreated, setOraclesCreated] = useState<OraclesCreated>({ defaultFee: false });
   const [pmAddresses, setPMAddresses] = useState<PoolManagerAddresses | undefined>();
+  const [poolManagerAddress, setPoolManagerAddress] = useState<Address>('');
   const [selectedFee, setSelectedFee] = useState<FeeTier>(defaultFee);
 
   useEffect(() => {
@@ -45,10 +47,17 @@ function SeedLiquidity() {
         (pmAddresses) => {
           setPMAddresses(pmAddresses);
           setOraclesCreated(getOracles(pmAddresses, poolManagers));
+          setPoolManagerAddress(pmAddresses[selectedFee.fee]);
         }
       );
     }
   }, [poolManagers, selectedToken]);
+
+  useEffect(() => {
+    if (selectedToken?.address && pmAddresses) {
+      setPoolManagerAddress(pmAddresses[selectedFee.fee]);
+    }
+  }, [selectedFee]);
 
   return (
     <SeedPage>
@@ -73,7 +82,7 @@ function SeedLiquidity() {
           startingPrice={startingPrice}
           uniswapPoolsForFeeTier={uniswapPoolsForFeeTier}
           selectedFee={selectedFee}
-          pmAddresses={pmAddresses}
+          poolManagerAddress={poolManagerAddress}
         />
       </Container>
       <PoolList />

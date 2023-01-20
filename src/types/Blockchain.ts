@@ -7,6 +7,7 @@ export type Network =
   | 'fantom'
   | 'arbitrum'
   | 'optimism'
+  | 'goerli'
   | 'other';
 
 export type Address = string;

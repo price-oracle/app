@@ -21,7 +21,6 @@ import {
 } from './CostModal.styles';
 import { Loading } from '~/components/shared';
 import { formatCost } from '~/utils';
-import { getConfig } from '~/config';
 import { CARDINALITY, TX_COSTS } from '~/config/constants/misc';
 
 export const Cost = ({ createProps }: { createProps: CreateProps }) => {
@@ -81,33 +80,11 @@ export const Cost = ({ createProps }: { createProps: CreateProps }) => {
   };
 
   useEffect(() => {
-    const isDev = getConfig().ALLOW_DEV_MODE;
-    if (!isDev) {
-      provider.getGasPrice().then((gasPrice) => {
-        setGasPrice(gasPrice);
-      });
-    }
-
-    poolManagerFactoryService
-      .estimateGasCreatePoolManager(
-        createProps.tokenAddress,
-        createProps.fee,
-        BigNumber.from(createProps.liquidity),
-        BigNumber.from(createProps.sqrtPriceX96)
-      )
-      .then((txCost) => {
-        setTotalCost(txCost);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        dispatch(
-          AlertsActions.openAlert({
-            message: `Failed to estimate the oracle creation cost`,
-            type: 'error',
-          })
-        );
-        dispatch(ModalsActions.closeModal());
-      });
+    provider.getGasPrice().then((gasPrice) => {
+      setGasPrice(gasPrice);
+      setIsLoading(false);
+    });
+    setTotalCost(BigNumber.from(createProps.gasCost));
   }, []);
 
   return (

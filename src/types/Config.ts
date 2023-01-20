@@ -17,6 +17,8 @@ export interface Constants {
   AVAILABLE_THEMES: ThemeName[];
   DEFAULT_LANG: Language;
   SUPPORTED_LANGS: Language[];
+  DEFAULT_CHAIN_ID: number;
+  DEFAULT_CONFIRMATIONS: number;
 
   WETH_DECIMALS: number;
 

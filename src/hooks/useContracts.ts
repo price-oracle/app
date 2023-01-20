@@ -10,6 +10,7 @@ import {
   TxService,
   UniswapService,
 } from '~/services';
+import { getConstants } from '~/config/constants';
 
 export const useContracts = () => {
   const { address } = useAccount();
@@ -17,7 +18,7 @@ export const useContracts = () => {
   const signer = useSigner();
   const signerData = signer?.data as Signer | undefined;
   const { chain } = useNetwork();
-  const defaultChainId = 1;
+  const defaultChainId = getConstants().DEFAULT_CHAIN_ID;
 
   const multiCallService = new MultiCallService(provider);
   const txService = new TxService(chain?.id || defaultChainId);

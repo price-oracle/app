@@ -6,7 +6,9 @@ import { FEE_TIERS } from './feeTiers';
 export const getConstants = (): Constants => {
   return {
     STATE_VERSION: 1,
-    SUPPORTED_NETWORKS: ['mainnet'],
+    SUPPORTED_NETWORKS: ['goerli'],
+    DEFAULT_CHAIN_ID: 5,
+    DEFAULT_CONFIRMATIONS: 2,
     DEFAULT_THEME: 'dark',
     AVAILABLE_THEMES: ['light', 'dark'],
     DEFAULT_LANG: 'en',

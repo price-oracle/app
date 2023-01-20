@@ -481,9 +481,9 @@
   dependencies:
     fs-extra "10.1.0"
 
-"@defi-wonderland/isolmate@git+https://github.com/defi-wonderland/isolmate.git#73ce8b9adaf951e3ec702493bd4da010d74eaa74":
+"@defi-wonderland/isolmate@git+https://github.com/defi-wonderland/isolmate.git#59e18043c2450fef550f1744b3705ce9ebcaf1c8":
   version "6.2.0-beta2"
-  resolved "git+https://github.com/defi-wonderland/isolmate.git#73ce8b9adaf951e3ec702493bd4da010d74eaa74"
+  resolved "git+https://github.com/defi-wonderland/isolmate.git#59e18043c2450fef550f1744b3705ce9ebcaf1c8"
 
 "@emotion/hash@^0.8.0":
   version "0.8.0"
@@ -1192,12 +1192,12 @@
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
-"@price-oracle/interfaces@0.0.0-3357abce":
-  version "0.0.0-3357abce"
-  resolved "https://registry.yarnpkg.com/@price-oracle/interfaces/-/interfaces-0.0.0-3357abce.tgz#ee3e785438997e3acdeaedd12609dc6c4061d253"
-  integrity sha512-DBi9d8W9RyAcpXBnDJi3K22f4Si6bpfkEsgU+XAOZqyEU6z1NdQtF3klI8o2lZtMfPhvs+98x/aDZQjZuEMmNQ==
+"@price-oracle/interfaces@0.0.0-bcc626da":
+  version "0.0.0-bcc626da"
+  resolved "https://registry.yarnpkg.com/@price-oracle/interfaces/-/interfaces-0.0.0-bcc626da.tgz#25ef11a34632d094809b589686b75489c9526dc0"
+  integrity sha512-R10DHlsmskDYikzkVTzZ5WaBadeGqT7Sms7ftMMCY4zXIEY2+wyjX6/mtMIMqj6Mqo/vgMoZNpk9U1dNkvcs3A==
   dependencies:
-    "@defi-wonderland/isolmate" "https://github.com/defi-wonderland/isolmate.git#73ce8b9adaf951e3ec702493bd4da010d74eaa74"
+    "@defi-wonderland/isolmate" "https://github.com/defi-wonderland/isolmate.git#59e18043c2450fef550f1744b3705ce9ebcaf1c8"
     "@ethersproject/abi" "5.7.0"
     "@ethersproject/providers" "5.7.2"
     "@uniswap/v3-core" "https://github.com/defi-wonderland/uniswap-v3-core.git#00c65edac6862bb0ddfbfd6554d20f259bc9f735"

@@ -3,7 +3,6 @@ import { constants } from 'ethers';
 
 import { render, screen, within } from '~/tests';
 import { feeTier, token, uniswapPoolForFeeTierMock } from '~/tests/unit/__mocks__';
-
 import SeedLiquidity from '~/pages/SeedLiquidity';
 import PropertiesSection from '~/pages/SeedLiquidity/Properties/PropertiesSection';
 import DepositAmountsSection from '~/pages/SeedLiquidity/Deposit/DepositAmountsSection';
@@ -76,7 +75,7 @@ describe('Testing <DepositAmountsSection />', () => {
         startingPrice={constants.WeiPerEther}
         uniswapPoolsForFeeTier={uniswapPoolForFeeTierMock}
         selectedFee={feeTier}
-        pmAddresses={undefined}
+        poolManagerAddress={''}
       />
     );
   });

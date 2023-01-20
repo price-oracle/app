@@ -8,9 +8,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
 // custom rainbowkit theme
@@ -20,21 +19,12 @@ import App from './App';
 
 import store from '~/store';
 import { getConfig } from './config';
+import { getChains } from './utils';
 
-const { chains, provider } = configureChains(
-  [chain.mainnet, chain.localhost, chain.goerli],
-  [
-    jsonRpcProvider({
-      rpc: (chain) => {
-        if (chain.id == 1337) return { http: getConfig().CUSTOM_LOCAL_RPC };
-        if (chain.id == 1) return { http: getConfig().CUSTOM_RPC };
-        return null;
-      },
-    }),
-    alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }),
-    publicProvider(),
-  ]
-);
+const { chains, provider } = configureChains(getChains(), [
+  alchemyProvider({ apiKey: getConfig().ALCHEMY_KEY }),
+  publicProvider(),
+]);
 
 const { connectors } = getDefaultWallets({
   appName: 'Price Oracle',

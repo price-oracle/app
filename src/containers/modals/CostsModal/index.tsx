@@ -12,6 +12,7 @@ export interface CreateProps {
   liquidity: string;
   sqrtPriceX96: string;
   poolExist: boolean;
+  gasCost: string | undefined;
 }
 
 export interface CostModalProps {
