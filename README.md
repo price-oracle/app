@@ -1,6 +1,6 @@
-# Price Oracle
+# Price Oracle App
 
-Official frontend app for Price Oracle.
+Official app for Price Oracle.
 
 - Production website: https://oracles.rip
 - Development website: https://dev.oracles.rip
@@ -72,3 +72,9 @@ yarn test:e2e
 
 Runs all tests in folder `tests/e2e`
 <br/>
+
+---
+
+## Licensing
+
+The license for Price Oracle App is the AGPL 3.0 (`AGPL-3.0`), see [`LICENSE`](./LICENSE).

@@ -1,5 +1,8 @@
 {
   "name": "price-oracle-app-solidity",
+  "description": "Price Oracle App Solidity Smart Contracts",
+  "license": "AGPL-3.0",
+  "private": true,
   "scripts": {
     "compile": "hardhat compile"
   },

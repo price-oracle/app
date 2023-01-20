@@ -1,8 +1,9 @@
 {
-  "name": "price-ui",
+  "name": "price-oracle-app",
+  "description": "Price Oracle App",
   "private": true,
-  "version": "0.0.1",
   "type": "module",
+  "license": "AGPL-3.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
