@@ -111,24 +111,6 @@ button {
   border: none !important;
 }
 
-[aria-label='Chain Selector'] svg {
-  display: none;
-}
-
-[aria-label='Chain Selector'] div div div {
-  display: none;
-}
-
-[aria-label='Chain Selector'] div div:nth-child(1) {
-  width: 2.3rem;
-  height: 2.3rem;
-  border-radius: 100% !important;
-  background-image: url(./assets/ethereum.svg) !important;
-  background-color: #121212;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 .iekbcc0.ju367v2h.ju367v44 div {
   background-color: inherit !important;
 }

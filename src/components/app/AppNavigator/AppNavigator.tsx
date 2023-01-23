@@ -1,6 +1,12 @@
+import { useEffect, useState } from 'react';
+import { useChainModal } from '@rainbow-me/rainbowkit';
+import { useAccount, useNetwork } from 'wagmi';
+
 import {
   AppNavigatorButtonContainer,
   AppNavigatorContainer,
+  ChainButton,
+  ChainIcon,
   Container,
   NavContainer,
   PriceLogoNavItem,
@@ -14,13 +20,26 @@ import {
   StyledLogo,
 } from './AppNavigator.styles';
 import { ConnectButton, ThemeButton, ExternalLink, Typography } from '~/components/shared';
-import { useWindowDimensions, useAppSelector } from '~/hooks';
+import { useWindowDimensions } from '~/hooks';
 import { Item } from '../Navigator/Navigator.styles';
 import { useNavigatorProps } from '../Navigator/Navigator';
+import { getChains } from '~/utils';
 
 const AppNavigator = () => {
-  const { isMobile, isTablet } = useWindowDimensions();
   const navProps = useNavigatorProps(true);
+  const { openChainModal } = useChainModal();
+  const { isMobile, isTablet } = useWindowDimensions();
+  const [chainName, setChainName] = useState(getChains()[0].name);
+  const { chain } = useNetwork();
+  const { address } = useAccount();
+
+  const multichainEnabled = getChains().length > 1 && address;
+
+  useEffect(() => {
+    if (chain) {
+      chain.unsupported ? setChainName('Unsupported Network') : setChainName(chain.name);
+    }
+  }, [chain, address]);
 
   return (
     <NavContainer>
@@ -67,6 +86,12 @@ const AppNavigator = () => {
           </Item>
 
           <SNavigatorItemRight>
+            <AppNavigatorContainer>
+              <ChainButton onClick={openChainModal} disabled={!multichainEnabled}>
+                <ChainIcon name='ethereum' />
+                {chainName}
+              </ChainButton>
+            </AppNavigatorContainer>
             <AppNavigatorContainer>
               <ConnectButton />
             </AppNavigatorContainer>

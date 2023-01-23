@@ -19,6 +19,7 @@ const ButtonContainer = styled.div`
 
   & button {
     color: ${(props) => props.theme.textPrimary} !important;
+    height: 3.75rem;
   }
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
@@ -28,6 +29,6 @@ const ButtonContainer = styled.div`
 
 export const ConnectButton: FC = ({ ...props }) => (
   <ButtonContainer>
-    <RainbowConnectButton accountStatus='address' {...props} />
+    <RainbowConnectButton accountStatus='address' chainStatus='none' {...props} />
   </ButtonContainer>
 );
