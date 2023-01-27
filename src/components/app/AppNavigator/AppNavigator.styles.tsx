@@ -137,7 +137,7 @@ export const ChainButton = styled(Button)`
     color: ${(state) => state.theme.textPrimary};
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     opacity: 87%;
     background-color: inherit !important;
     text-decoration-line: none !important;
