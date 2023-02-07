@@ -33,7 +33,7 @@ const AppNavigator = () => {
   const { chain } = useNetwork();
   const { address } = useAccount();
 
-  const multichainEnabled = getChains().length > 1 && address;
+  const multichainEnabled = (getChains().length > 1 && address) || !!chain?.unsupported;
 
   useEffect(() => {
     if (chain) {

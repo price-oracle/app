@@ -169,11 +169,11 @@ const Lock = ({ pool }: { pool: PoolManager }) => {
         !isUndefined(wethAllowance) &&
         (isApprove ? (
           <SBoxButton onClick={approveWethAmount} disabled={isDisabled}>
-            Approve
+            Approve WETH
           </SBoxButton>
         ) : (
           <SBoxButton onClick={lockWethAmount} disabled={isDisabled}>
-            Lock
+            Lock WETH
           </SBoxButton>
         ))}
     </Container>

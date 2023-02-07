@@ -25,6 +25,8 @@ const DashboardHeader = styled.div``;
 const TokenAmount = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: start;
+  align-items: start;
 `;
 
 export function Dashboard() {
