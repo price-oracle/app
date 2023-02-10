@@ -485,6 +485,23 @@
   version "6.2.0-beta2"
   resolved "git+https://github.com/defi-wonderland/isolmate.git#59e18043c2450fef550f1744b3705ce9ebcaf1c8"
 
+"@defi-wonderland/keep3r-v2@0.0.0-31de77ed":
+  version "0.0.0-31de77ed"
+  resolved "https://registry.yarnpkg.com/@defi-wonderland/keep3r-v2/-/keep3r-v2-0.0.0-31de77ed.tgz#e2bb680838af23bacf5034a89c37d1d56b91970c"
+  integrity sha512-8hYmy2TYCmea30oKfXiDxwh2UtKF85r5P1Y/HW7I9l6UvEeM+WBfmjXTMG2qnxGyRB9eBGCClwo8UmmQN3ZCBg==
+  dependencies:
+    "@defi-wonderland/solidity-utils" "0.0.0-6c86c0fc"
+    "@openzeppelin/contracts" "4.3.0"
+
+"@defi-wonderland/solidity-utils@0.0.0-6c86c0fc":
+  version "0.0.0-6c86c0fc"
+  resolved "https://registry.yarnpkg.com/@defi-wonderland/solidity-utils/-/solidity-utils-0.0.0-6c86c0fc.tgz#36da2deab6e181299c4ec328a0719d044142cab3"
+  integrity sha512-JVRPMw06UiK0LRMi5wuIH9bkx33+3DSIUdN4QHhlqqGQa9rm9r6H/yVBWDOchACiJIfaShfLZZA0gAnL8tkkvA==
+  dependencies:
+    "@openzeppelin/contracts" "4.8.1"
+    ds-test "https://github.com/dapphub/ds-test"
+    forge-std "https://github.com/foundry-rs/forge-std"
+
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
@@ -647,7 +664,7 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@ethersproject/abi@5.7.0", "@ethersproject/abi@^5.0.12", "@ethersproject/abi@^5.6.3", "@ethersproject/abi@^5.7.0":
+"@ethersproject/abi@5.7.0", "@ethersproject/abi@^5.0.12", "@ethersproject/abi@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/abi/-/abi-5.7.0.tgz#b3f3e045bbbeed1af3947335c247ad625a44e449"
   integrity sha512-351ktp42TiRcYB3H1OP8yajPeAQstMW/yCFokj/AthP9bLHzQFPlOrxOcwYEDkUAICmOHljvN4K39OMTMUa9RA==
@@ -1187,26 +1204,35 @@
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.3.0.tgz#345236d4ec73ef381ab4907c6ef66fd55e5dedad"
   integrity sha512-+uBDl/TrmR0Kch6mq3tuxMex/fK7huR6+fQMae+zJk1K5T+dp0pFl12Hbc+1L6oYMXoyDSBJ8zqhRIntrREDFA==
 
+"@openzeppelin/contracts@4.8.1":
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.8.1.tgz#709cfc4bbb3ca9f4460d60101f15dac6b7a2d5e4"
+  integrity sha512-xQ6eUZl+RDyb/FiZe1h+U7qr/f4p/SrTSQcTPH2bjur3C5DbuW/zFgCU/b1P/xcIaEqJep+9ju4xDRi3rmChdQ==
+
 "@pedrouid/environment@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
-"@price-oracle/v1-core-interfaces@0.0.0-d3f10cc0":
-  version "0.0.0-d3f10cc0"
-  resolved "https://registry.yarnpkg.com/@price-oracle/v1-core-interfaces/-/v1-core-interfaces-0.0.0-d3f10cc0.tgz#f9afc719141f4092f63721613f4d4597569e24cb"
-  integrity sha512-YSnEcvCcm4lr9c7a4gGLcZVF0NEaTfNV4ZTmg79ldpIgMa7zU87/Hcc5D0Dfq9S73nzl5FR1zlaPFLPitsKIgQ==
+"@price-oracle/v1-core-interfaces@0.0.0-28431e3d":
+  version "0.0.0-28431e3d"
+  resolved "https://registry.yarnpkg.com/@price-oracle/v1-core-interfaces/-/v1-core-interfaces-0.0.0-28431e3d.tgz#aee6f9f6e1ae349b930875b1bf671fe7a8e04f06"
+  integrity sha512-Nl8K0eWoUREniHP31Zbdk1Rl9SO13Oo+UxhA5PFXRu2U/fvFER8+AX8KNOmbJCKuiu7NcH53TiVyK0WNJnwYYw==
   dependencies:
     "@defi-wonderland/isolmate" "https://github.com/defi-wonderland/isolmate.git#59e18043c2450fef550f1744b3705ce9ebcaf1c8"
+    "@defi-wonderland/keep3r-v2" "0.0.0-31de77ed"
+    "@defi-wonderland/solidity-utils" "0.0.0-6c86c0fc"
     "@ethersproject/abi" "5.7.0"
     "@ethersproject/providers" "5.7.2"
     "@uniswap/v3-core" "https://github.com/defi-wonderland/uniswap-v3-core.git#00c65edac6862bb0ddfbfd6554d20f259bc9f735"
+    "@uniswap/v3-periphery" "https://github.com/defi-wonderland/uniswap-v3-periphery.git#33df3d7265aee0d0eb537df06ce1c884b1ccd7a0"
     bn.js "5.2.1"
+    dotenv-cli "5.1.0"
+    ds-test "https://github.com/dapphub/ds-test.git#9310e879db8ba3ea6d5c6489a579118fd264a3f5"
     ethers "5.7.2"
-    keep3r-v2 "https://github.com/keep3r-network/keep3r-network-v2.git#a3b8e0f53e33297a826c98c80538a9351ed29efb"
+    forge-std "https://github.com/foundry-rs/forge-std.git#2a2ce3692b8c1523b29de3ec9d961ee9fbbc43a6"
     openzeppelin-solidity "https://github.com/openzeppelin/openzeppelin-contracts.git#b159b3fee29f6c4b5468f568856a37f78de03819"
     web3-core "1.8.1"
-    web3-eth-contract "1.8.1"
 
 "@rainbow-me/rainbowkit@0.7.4":
   version "0.7.4"
@@ -1785,6 +1811,11 @@
   version "1.0.1"
   resolved "git+https://github.com/defi-wonderland/uniswap-v3-core.git#00c65edac6862bb0ddfbfd6554d20f259bc9f735"
 
+"@uniswap/v3-core@https://github.com/defi-wonderland/uniswap-v3-core":
+  version "1.0.1"
+  uid "00c65edac6862bb0ddfbfd6554d20f259bc9f735"
+  resolved "https://github.com/defi-wonderland/uniswap-v3-core#00c65edac6862bb0ddfbfd6554d20f259bc9f735"
+
 "@uniswap/v3-periphery@1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@uniswap/v3-periphery/-/v3-periphery-1.4.1.tgz#b90f08b7386163c0abfd7258831caef6339c7862"
@@ -1807,6 +1838,17 @@
     "@uniswap/v2-core" "1.0.1"
     "@uniswap/v3-core" "1.0.0"
     base64-sol "1.0.1"
+
+"@uniswap/v3-periphery@git+https://github.com/defi-wonderland/uniswap-v3-periphery.git#33df3d7265aee0d0eb537df06ce1c884b1ccd7a0":
+  version "1.4.1"
+  resolved "git+https://github.com/defi-wonderland/uniswap-v3-periphery.git#33df3d7265aee0d0eb537df06ce1c884b1ccd7a0"
+  dependencies:
+    "@openzeppelin/contracts" "3.4.2-solc-0.7"
+    "@uniswap/lib" "^4.0.1-alpha"
+    "@uniswap/v2-core" "1.0.1"
+    "@uniswap/v3-core" "https://github.com/defi-wonderland/uniswap-v3-core"
+    base64-sol "1.0.1"
+    hardhat-watcher "^2.1.1"
 
 "@uniswap/v3-sdk@3.9.0":
   version "3.9.0"
@@ -3277,10 +3319,38 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
+dotenv-cli@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/dotenv-cli/-/dotenv-cli-5.1.0.tgz#0d2942b089082da0157f9b26bd6c5c4dd51ef48e"
+  integrity sha512-NoEZAlKo9WVrG0b3i9mBxdD6INdDuGqdgR74t68t8084QcI077/1MnPerRW1odl+9uULhcdnQp2U0pYVppKHOA==
+  dependencies:
+    cross-spawn "^7.0.3"
+    dotenv "^16.0.0"
+    dotenv-expand "^8.0.1"
+    minimist "^1.2.5"
+
+dotenv-expand@^8.0.1:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-8.0.3.tgz#29016757455bcc748469c83a19b36aaf2b83dd6e"
+  integrity sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==
+
 dotenv@^14.2.0:
   version "14.3.2"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-14.3.2.tgz#7c30b3a5f777c79a3429cb2db358eef6751e8369"
   integrity sha512-vwEppIphpFdvaMCaHfCEv9IgwcxMljMw2TnAQBB4VWPvzXQLTb82jwmdOKzlEVUL3gNFT4l4TPKO+Bn+sqcrVQ==
+
+dotenv@^16.0.0:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
+
+"ds-test@git+https://github.com/dapphub/ds-test.git":
+  version "1.0.0"
+  resolved "git+https://github.com/dapphub/ds-test.git#cd98eff28324bfac652e63a239a60632a761790b"
+
+"ds-test@git+https://github.com/dapphub/ds-test.git#9310e879db8ba3ea6d5c6489a579118fd264a3f5":
+  version "0.0.0"
+  resolved "git+https://github.com/dapphub/ds-test.git#9310e879db8ba3ea6d5c6489a579118fd264a3f5"
 
 eastasianwidth@^0.2.0:
   version "0.2.0"
@@ -4266,6 +4336,14 @@ for-each@^0.3.3:
   dependencies:
     is-callable "^1.1.3"
 
+"forge-std@git+https://github.com/foundry-rs/forge-std.git":
+  version "1.2.0"
+  resolved "git+https://github.com/foundry-rs/forge-std.git#662ae0d6936654c5d1fb79fc15f521de28edb60e"
+
+"forge-std@git+https://github.com/foundry-rs/forge-std.git#2a2ce3692b8c1523b29de3ec9d961ee9fbbc43a6":
+  version "0.1.0"
+  resolved "git+https://github.com/foundry-rs/forge-std.git#2a2ce3692b8c1523b29de3ec9d961ee9fbbc43a6"
+
 form-data@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
@@ -5175,12 +5253,6 @@ keccak@^3.0.0, keccak@^3.0.1:
     node-gyp-build "^4.2.0"
     readable-stream "^3.6.0"
 
-"keep3r-v2@git+https://github.com/keep3r-network/keep3r-network-v2.git#a3b8e0f53e33297a826c98c80538a9351ed29efb":
-  version "1.0.0"
-  resolved "git+https://github.com/keep3r-network/keep3r-network-v2.git#a3b8e0f53e33297a826c98c80538a9351ed29efb"
-  dependencies:
-    "@openzeppelin/contracts" "4.3.0"
-
 keyvaluestorage-interface@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/keyvaluestorage-interface/-/keyvaluestorage-interface-1.0.0.tgz#13ebdf71f5284ad54be94bd1ad9ed79adad515ff"
@@ -5471,7 +5543,7 @@ minimist-options@4.1.0:
     is-plain-obj "^1.1.0"
     kind-of "^6.0.3"
 
-minimist@^1.2.0, minimist@^1.2.6:
+minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
@@ -7421,28 +7493,6 @@ web3-core@1.8.1:
     web3-core-helpers "1.8.1"
     web3-core-method "1.8.1"
     web3-core-requestmanager "1.8.1"
-    web3-utils "1.8.1"
-
-web3-eth-abi@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/web3-eth-abi/-/web3-eth-abi-1.8.1.tgz#47455d6513217c4b0866fea6f97b1c4afa0b6535"
-  integrity sha512-0mZvCRTIG0UhDhJwNQJgJxu4b4DyIpuMA0GTfqxqeuqzX4Q/ZvmoNurw0ExTfXaGPP82UUmmdkRi6FdZOx+C6w==
-  dependencies:
-    "@ethersproject/abi" "^5.6.3"
-    web3-utils "1.8.1"
-
-web3-eth-contract@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/web3-eth-contract/-/web3-eth-contract-1.8.1.tgz#bdf3e33bbcb79a1b6144dffd6a0deefd2e459272"
-  integrity sha512-1wphnl+/xwCE2io44JKnN+ti3oa47BKRiVzvWd42icwRbcpFfRxH9QH+aQX3u8VZIISNH7dAkTWpGIIJgGFTmg==
-  dependencies:
-    "@types/bn.js" "^5.1.0"
-    web3-core "1.8.1"
-    web3-core-helpers "1.8.1"
-    web3-core-method "1.8.1"
-    web3-core-promievent "1.8.1"
-    web3-core-subscriptions "1.8.1"
-    web3-eth-abi "1.8.1"
     web3-utils "1.8.1"
 
 web3-eth-iban@1.8.1:
