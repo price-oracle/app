@@ -13,6 +13,8 @@ import {
   CustomLink,
   HeaderButton,
   Typography,
+  Icon,
+  Button,
 } from '~/components/shared';
 import { Item } from '../Navigator/Navigator.styles';
 import { ZINDEX } from '~/config/constants/misc';
@@ -122,3 +124,31 @@ export const NavContainer = styled.div`
 export const SExternalLink = styled(SHeaderButton)`
   padding-right: 2rem;
 `;
+
+export const ChainButton = styled(Button)`
+  padding: 0;
+  padding-right: 1.2rem;
+  height: 4.25rem;
+  margin: 0 auto;
+  border: ${(state) => state.theme.borderPrimary};
+
+  & button {
+    background-color: ${(state) => state.theme.background};
+    color: ${(state) => state.theme.textPrimary};
+  }
+
+  &:not(:disabled):hover {
+    opacity: 87%;
+    background-color: inherit !important;
+    text-decoration-line: none !important;
+  }
+
+  &:disabled {
+    color: ${(state) => state.theme.textPrimary};
+    background-color: ${(state) => state.theme.background};
+  }
+`;
+
+export const ChainIcon = styled(Icon).attrs({
+  size: '2.4rem',
+})``;

@@ -5,9 +5,6 @@ import styled from 'styled-components';
 import { MOBILE_MAX_WIDTH } from './Variables';
 
 const ButtonContainer = styled.div`
-  border: ${(props) => props.theme.borderPrimary};
-  color: ${(props) => props.theme.textPrimary};
-
   &:hover {
     opacity: 80% !important;
   }
@@ -19,6 +16,8 @@ const ButtonContainer = styled.div`
 
   & button {
     color: ${(props) => props.theme.textPrimary} !important;
+    border: ${(props) => props.theme.borderPrimary} !important;
+    height: 4.25rem !important;
   }
 
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
@@ -28,6 +27,6 @@ const ButtonContainer = styled.div`
 
 export const ConnectButton: FC = ({ ...props }) => (
   <ButtonContainer>
-    <RainbowConnectButton accountStatus='address' {...props} />
+    <RainbowConnectButton accountStatus='address' chainStatus='none' {...props} />
   </ButtonContainer>
 );

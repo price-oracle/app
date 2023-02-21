@@ -3,20 +3,20 @@
 exports[`Landing Page > Should render Landing Page 1`] = `
 <DocumentFragment>
   <div
-    class="sc-cuOiQm cqygfH"
+    class="sc-bTtZEv beLHlw"
   />
   <div
-    class="sc-jephDI fXUjAm"
+    class="sc-jccYHG eLcPKc"
   />
   <div
-    class="sc-dWRHGJ fHqyZ"
+    class="sc-bQmOxr cCEANG"
     height="768"
   >
     <div
-      class="sc-jGNhvO"
+      class="sc-fWQKxP"
     >
       <div
-        class="sc-laZRCg iiNgdu"
+        class="sc-ckEbSK gcevUE"
       >
         <nav
           class="sc-cUEOzv iMOXCL"
@@ -25,7 +25,7 @@ exports[`Landing Page > Should render Landing Page 1`] = `
             class="sc-jOiSOi hqHWtC"
           >
             <section
-              class="sc-xWrgk jfpcCZ"
+              class="sc-jGNhvO eKVKJe"
             >
               <a
                 class="sc-lllmON"
@@ -47,7 +47,7 @@ exports[`Landing Page > Should render Landing Page 1`] = `
               </a>
             </section>
             <section
-              class="sc-xWrgk jfpcCZ"
+              class="sc-jGNhvO eKVKJe"
             >
               <a
                 class="sc-lllmON"
@@ -69,7 +69,7 @@ exports[`Landing Page > Should render Landing Page 1`] = `
               </a>
             </section>
             <section
-              class="sc-xWrgk jfpcCZ"
+              class="sc-jGNhvO eKVKJe"
             >
               <a
                 class="sc-lllmON"
@@ -91,7 +91,7 @@ exports[`Landing Page > Should render Landing Page 1`] = `
               </a>
             </section>
             <section
-              class="sc-xWrgk jfpcCZ"
+              class="sc-jGNhvO eKVKJe"
             >
               <div
                 class="sc-dIfARi fqNnZh"
@@ -107,68 +107,68 @@ exports[`Landing Page > Should render Landing Page 1`] = `
           </section>
         </nav>
         <div
-          class="sc-gGvHcT sc-dwnOUR sc-jNJNQp buDhwl dzVvhu klHMiC"
+          class="sc-fbYMXx sc-jIILKH sc-eKJbhj ccJMhE fFQjcO doRnLf"
         />
         <div
-          class="sc-gGvHcT sc-fXqpFg sc-hlLBRy buDhwl byrbCX iyvtJC"
+          class="sc-fbYMXx sc-UpCWa sc-bTTELM ccJMhE jSGnap haogcN"
         />
         <div
-          class="sc-gGvHcT sc-fbYMXx sc-eKJbhj buDhwl hBepJt fERjJA"
+          class="sc-fbYMXx sc-fXqpFg sc-kImNAt ccJMhE dHtSKH jZNAIU"
         />
         <div
-          class="sc-gGvHcT sc-ckEbSK sc-bTTELM buDhwl dzNAJC cXQJXw"
+          class="sc-fbYMXx sc-GhhNo sc-hOzowv ccJMhE ffXSPv hcEDgN"
         />
         <div
-          class="sc-gGvHcT sc-UpCWa sc-kImNAt buDhwl jdRoSL YhdGI"
+          class="sc-fbYMXx sc-ZqFbI sc-dsHJmm ccJMhE bvBVGZ eTZfHp"
         />
         <div
-          class="sc-gGvHcT sc-fbYMXx sc-hOzowv buDhwl hBepJt fALua-d"
+          class="sc-fbYMXx sc-fXqpFg sc-cZFQFd ccJMhE dHtSKH juNUem"
         />
         <div
-          class="sc-gGvHcT sc-GhhNo sc-dsHJmm buDhwl kPjpuP gtVvaP"
+          class="sc-fbYMXx sc-dwnOUR sc-jTjUTQ ccJMhE gwBmIY hnMblC"
         />
         <div
-          class="sc-gGvHcT sc-jIILKH sc-cZFQFd buDhwl gWMKky eULjxi"
+          class="sc-fbYMXx sc-jNJNQp sc-jRwbcX ccJMhE jvyIyK jFIrVI"
         />
         <div
-          class="sc-gGvHcT sc-dwnOUR sc-jTjUTQ buDhwl dzVvhu djrMvS"
+          class="sc-fbYMXx sc-jIILKH sc-fvEvSO ccJMhE fFQjcO ktBXSR"
         />
         <div
-          class="sc-gGvHcT sc-fXqpFg sc-jRwbcX buDhwl byrbCX brdelf"
+          class="sc-fbYMXx sc-UpCWa sc-fcCDlF ccJMhE jSGnap eSAXmF"
         />
         <div
-          class="sc-gGvHcT sc-fbYMXx sc-fvEvSO buDhwl hBepJt ksvwmO"
+          class="sc-fbYMXx sc-fXqpFg sc-GKYbw ccJMhE dHtSKH icFHDt"
         />
         <div
-          class="sc-gGvHcT sc-UpCWa sc-fcCDlF buDhwl jdRoSL cHEZKB"
+          class="sc-fbYMXx sc-ZqFbI sc-gsGlKL ccJMhE bvBVGZ iUiYOl"
         />
         <div
-          class="sc-gGvHcT sc-jIILKH sc-GKYbw buDhwl gWMKky bHHTxI"
+          class="sc-fbYMXx sc-jNJNQp sc-bWOGAC ccJMhE jvyIyK cafwNv"
         />
         <div
-          class="sc-gGvHcT sc-fbYMXx sc-gsGlKL buDhwl hBepJt bnJqpt"
+          class="sc-fbYMXx sc-fXqpFg sc-eGugkK ccJMhE dHtSKH kObZnJ"
         />
         <div
-          class="sc-gGvHcT sc-dwnOUR sc-bWOGAC buDhwl dzVvhu btzlHI"
+          class="sc-fbYMXx sc-jIILKH sc-csDkEv ccJMhE fFQjcO ZCapP"
         />
         <div
-          class="sc-gGvHcT sc-fbYMXx sc-eGugkK buDhwl hBepJt jNZTlE"
+          class="sc-fbYMXx sc-fXqpFg sc-dEVLtI ccJMhE dHtSKH coXbRq"
         />
         <div
-          class="sc-gGvHcT sc-ckEbSK sc-csDkEv buDhwl dzNAJC jPvrpP"
+          class="sc-fbYMXx sc-GhhNo sc-brePNt ccJMhE ffXSPv lfocXI"
         />
       </div>
     </div>
     <div
-      class="sc-bQmOxr bmSGLk"
+      class="sc-EJAja dxomPC"
     >
       <img
         alt="Price logo"
-        class="sc-iveFHk sc-fmZqYP hpkodg jkropY"
+        class="sc-iveFHk sc-jmpzUR hpkodg gIzLUv"
         src="/src/assets/logo-big-light.svg"
       />
       <div
-        class="sc-jmpzUR gutnYK"
+        class="sc-hsWlPz kfbRxa"
       >
         <div
           class="sc-iBYQkv sc-pyfCe fBJkCi hMiFgy"
@@ -185,14 +185,14 @@ exports[`Landing Page > Should render Landing Page 1`] = `
           class="sc-jSUZER dotgdq"
         >
           <button
-            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-lknQiW MHWqD"
+            class="sc-bcXHqe sc-gswNZR sc-dkrFOg ehpQtM dtMsKQ knBdfs sc-gKPRtg iZzqwI sc-dUipGc iqTMNR"
           >
             Enter App
           </button>
         </div>
       </a>
       <div
-        class="sc-eDZJfc hCezsJ"
+        class="sc-lknQiW fifujv"
       >
         <a
           class="sc-lllmON"
@@ -215,7 +215,7 @@ exports[`Landing Page > Should render Landing Page 1`] = `
       </div>
     </div>
     <div
-      class="sc-jWgTtR khBPwx"
+      class="sc-fmZqYP bIRdds"
     >
       <div
         class="sc-iBYQkv sc-kDvujY fBJkCi faMXpT"

@@ -1,4 +1,4 @@
-import { abi as IPoolManagerFactoryABI } from '@price-oracle/interfaces/abi/IPoolManagerFactory.json';
+import { abi as IPoolManagerFactoryABI } from '@price-oracle/v1-core-interfaces/abi/IPoolManagerFactory.json';
 import { Provider } from '@wagmi/core';
 import { BigNumber, ethers, Signer, utils } from 'ethers';
 

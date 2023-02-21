@@ -1,4 +1,4 @@
-import { abi as IPoolManagerABI } from '@price-oracle/interfaces/abi/IPoolManager.json';
+import { abi as IPoolManagerABI } from '@price-oracle/v1-core-interfaces/abi/IPoolManager.json';
 import { BigNumber, ethers, Signer } from 'ethers';
 
 import { ERC20Service, MultiCallService, TxService } from '~/services';

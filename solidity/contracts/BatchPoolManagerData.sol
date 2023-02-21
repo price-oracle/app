@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import '@price-oracle/interfaces/contracts/IPoolManagerFactory.sol';
-import '@price-oracle/interfaces/contracts/IPoolManager.sol';
-import '@price-oracle/interfaces/contracts/ILockManager.sol';
+import '@price-oracle/v1-core-interfaces/contracts/IPoolManagerFactory.sol';
+import '@price-oracle/v1-core-interfaces/contracts/IPoolManager.sol';
+import '@price-oracle/v1-core-interfaces/contracts/ILockManager.sol';
 
 contract BatchPoolManagerData {
   // define data struct that will be returned
