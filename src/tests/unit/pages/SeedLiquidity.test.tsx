@@ -1,12 +1,13 @@
 import { vi } from 'vitest';
 import { constants } from 'ethers';
 
-import { render, screen, within } from '~/tests';
+import { fireEvent, render, screen, waitFor, within } from '~/tests';
 import { feeTier, token, uniswapPoolForFeeTierMock } from '~/tests/unit/__mocks__';
 import SeedLiquidity from '~/pages/SeedLiquidity';
 import PropertiesSection from '~/pages/SeedLiquidity/Properties/PropertiesSection';
 import DepositAmountsSection from '~/pages/SeedLiquidity/Deposit/DepositAmountsSection';
 import SelectTokenSection from '~/pages/SeedLiquidity/SelectToken/SelectTokenSection';
+import TokenList from '~/pages/SeedLiquidity/SelectToken/TokenList';
 
 describe('Seed Liquidity Page', () => {
   it('Should render Liquidity Page', () => {
@@ -98,5 +99,33 @@ describe('Testing <SelectTokenSection />', () => {
     render(<SelectTokenSection selectedToken={token} setSelectedToken={functionMock} />);
     expect(screen.getByText(token.symbol)).toBeInTheDocument();
     expect(screen.getByText(token.symbol).previousSibling).toHaveAttribute('src', token.logoURI);
+  });
+
+  it('should search and filter any value', () => {
+    const testValue = 'ThisIsNotAToken';
+
+    render(<TokenList onSelect={functionMock} />);
+    const searchTokenInput = screen.getByLabelText('Search');
+    fireEvent.change(searchTokenInput, { target: { value: testValue } });
+    expect(screen.getByDisplayValue(testValue)).toBeInTheDocument();
+  });
+
+  it('should search a custom token (VSP)', async () => {
+    const customToken = { address: '0x1b40183EFB4Dd766f11bDa7A7c3AD8982e998421', name: 'VSP' };
+
+    render(<TokenList onSelect={functionMock} />);
+
+    const searchTokenInput = screen.getByLabelText('Search');
+    fireEvent.change(searchTokenInput, {
+      target: { value: customToken.name },
+    });
+
+    expect(screen.queryByText(customToken.name)).toBeNull();
+
+    fireEvent.change(searchTokenInput, {
+      target: { value: customToken.address },
+    });
+
+    await waitFor(() => expect(screen.getByText(customToken.name)).toBeInTheDocument(), { timeout: 5000 });
   });
 });

@@ -28,13 +28,14 @@ const SInput = styled(Input)`
 interface IProps {
   inputRef?: RefObject<HTMLInputElement>;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  value?: string;
 }
 
-export const SearchInput = ({ onChange, inputRef }: IProps) => {
+export const SearchInput = ({ onChange, inputRef, value }: IProps) => {
   return (
     <Container>
       <SearchIcon name='search' />
-      <SInput onChange={onChange} aria-label='Search' ref={inputRef} />
+      <SInput onChange={onChange} aria-label='Search' ref={inputRef} value={value} />
     </Container>
   );
 };
