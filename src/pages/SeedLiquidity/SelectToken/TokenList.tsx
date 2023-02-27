@@ -118,11 +118,17 @@ const TokenList = ({ onSelect, className }: IProps) => {
   useEffect(() => {
     const list = filterTokens(allTokens());
     setTokenList(list);
-  }, [chain]);
+  }, [chain, customTokens, searchInput, tempCustomToken]);
 
   return (
     <SCard>
-      <SearchInput onChange={(e) => setSearchInput(e.target.value)} inputRef={ref} />
+      <SearchInput
+        onChange={(e) => {
+          setSearchInput(e.target.value);
+        }}
+        value={searchInput}
+        inputRef={ref}
+      />
 
       <TokenListContainer className={className}>
         {isLoading && <Loading />}

@@ -86,6 +86,7 @@ exports[`Pool Page > Should render Pools Page 1`] = `
         <input
           aria-label="Search"
           class="sc-hHTYSt sc-dmctIk sc-cCjUiG fvoNMM jgGokt fhnoNX"
+          value=""
         />
       </div>
       <div
