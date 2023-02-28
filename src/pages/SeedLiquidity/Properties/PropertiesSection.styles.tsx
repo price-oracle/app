@@ -68,6 +68,7 @@ export const SInputNumber = styled(InputNumber).attrs({
 
   &:disabled {
     color: ${(props) => props.theme.textDisabled};
+    opacity: unset;
   }
 `;
 
