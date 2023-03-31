@@ -16,7 +16,6 @@ const modalsReducer = createReducer(modalsInitialState, (builder) => {
     state.activeModal = modalName;
     state.modalProps = modalProps || {};
 
-    // // TODO Move scroll lock into the actions or an effect watcher in react component
     document.body.style.top = `-${window.scrollY}px`;
     document.body.style.position = 'fixed';
   });
@@ -24,7 +23,6 @@ const modalsReducer = createReducer(modalsInitialState, (builder) => {
     state.activeModal = undefined;
     state.modalProps = {};
 
-    // TODO Move scroll lock into the actions or an effect watcher in react component
     const scrollY = document.body.style.top;
     document.body.style.position = '';
     document.body.style.top = '';

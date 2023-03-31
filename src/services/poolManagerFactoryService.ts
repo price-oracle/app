@@ -66,7 +66,6 @@ export class PoolManagerFactoryService {
   async fetchPoolAndLockManagers(userAddress: Address | undefined): Promise<PoolAndLockManager[]> {
     const factory = new ethers.Contract(this.factoryAddress, IPoolManagerFactoryABI, this.provider);
 
-    //TODO: This supports up to 34 pools. Should be paginated if more.
     const pmCount = await factory.callStatic.childrenCount();
 
     // Encoded input data to be sent to the batch contract constructor

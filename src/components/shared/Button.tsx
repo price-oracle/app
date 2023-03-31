@@ -62,7 +62,6 @@ export const PrimaryButton = styled(Button)`
   color: ${(props) => props.theme.background};
   padding: ${SPACING_4} ${SPACING_12};
 
-  // TODO: improve design system to have hover & selected values for complementary color
   &:enabled {
     &:hover {
       background-color: ${(props) => props.theme.textSecondary};

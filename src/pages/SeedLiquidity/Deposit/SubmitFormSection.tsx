@@ -130,7 +130,6 @@ const SubmitFormSection = ({
         // Calculate sqrtPriceX96
         const sqrtPriceX96 = getSqrtPriceX96ForToken(startingPrice, isWethToken0);
         // Calculate liquidity
-        // TODO: Improve sqrtPriceX96 calcs
         const liquidity = calculateLiquidity(sqrtPriceX96, wethAmount, tokenAmount, isWethToken0);
         // Check if poolmanager is already created
         if (isOracleCreated) {

@@ -66,16 +66,6 @@ const StyledBackdrop = styled.div`
   }
 `;
 
-// TODO dynamic modals list
-// This will fix the development warning for strict mode if we apply nodeRef like
-// in alerts
-// const MODALS = [
-//   {
-//     name: 'test',
-//     component: TestModal,
-//   },
-// ];
-
 interface BackdropProps {
   onClick?: () => void;
 }

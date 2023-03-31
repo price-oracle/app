@@ -13,7 +13,6 @@ const { changeTheme } = ThemeActions;
 
 const themeReducer = createReducer(themeInitialState, (builder) => {
   builder.addCase(changeTheme, (state, { payload: { theme } }) => {
-    // TODO Check that the theme exists on AVAILABLE_THEMES or AVAILABLE_CUSTOM_THEMES
     state.current = theme;
   });
 });
